@@ -1,0 +1,8 @@
+# Copy these keys into your settings.json
+{
+  "i18n-ally.localesPaths": [
+      "foundry/lang",
+      "lang"
+  ],
+  "i18n-ally.keystyle": "nested",
+}

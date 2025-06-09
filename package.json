@@ -1,0 +1,30 @@
+{
+  "name": "mythcraft",
+  "version": "0.1.0",
+  "description": "A template repository for FoundryVTT system development.",
+  "main": "index.mjs",
+  "scripts": {
+    "generate": "node ./tools/rename-system.mjs",
+    "createSymlinks": "node ./tools/create-symlinks.mjs",
+    "pullJSONtoLDB": "node ./tools/pullJSONtoLDB.mjs",
+    "pushLDBtoJSON": "node ./tools/pushLDBtoJSON.mjs",
+    "unpack": "npm run pushLDBtoJSON",
+    "build:packs": "npm run pullJSONtoLDB",
+    "lint": "eslint index.mjs module/**/* templates/**/*",
+    "lint:fix": "eslint --fix index.mjs module/**/* templates/**/*",
+    "postinstall": "npm run createSymlinks"
+  },
+  "keywords": [
+    "fvtt",
+    "FoundryVTT"
+  ],
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^4.4.0",
+    "@foundryvtt/foundryvtt-cli": "^1.1.0",
+    "@html-eslint/eslint-plugin": "^0.35.2",
+    "@html-eslint/parser": "^0.35.2",
+    "eslint": "^9.22.0"
+  }
+}

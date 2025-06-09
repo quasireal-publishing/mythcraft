@@ -1,0 +1,100 @@
+{
+  "MYTHCRAFT": {
+    "Sheets": {
+      "Tabs": {
+        "biography": "Biography",
+        "description": "Description",
+        "details": "Details",
+        "items": "Items",
+        "effects": "Effects",
+        "stats": "Stats"
+      }
+    },
+    "Actor": {
+      "Base": {
+        "FIELDS": {
+          "biography": {
+            "value": {
+              "label": "Biography"
+            },
+            "gm": {
+              "label": "GM Notes"
+            }
+          },
+          "hp": {
+            "label": "Hit Points",
+            "value": {
+              "label": "HP Value"
+            },
+            "max": {
+              "label": "HP Max"
+            }
+          }
+        }
+      },
+      "Character": {
+        "FIELDS": {}
+      },
+      "NPC": {
+        "FIELDS": {}
+      }
+    },
+    "Item": {
+      "Base": {
+        "FIELDS": {
+          "description": {
+            "description": {
+              "label": "Biography"
+            },
+            "gm": {
+              "label": "GM Notes"
+            }
+          },
+          "properties": {
+            "label": "Properties"
+          }
+        }
+      },
+      "Feature": {
+        "FIELDS": {
+          "level": {
+            "label": "Level"
+          }
+        }
+      },
+      "Equipment": {
+        "FIELDS": {
+          "category": {
+            "label": "Category"
+          }
+        },
+        "Categories": {
+          "weapon": "Weapon",
+          "armor": "Armor"
+        }
+      },
+      "Properties": {
+        "epic": "Epic",
+        "metal": "Metal",
+        "supernatural": "Supernatural"
+      }
+    },
+    "Effect": {
+      "Label": "Effect",
+      "Inactive": "Inactive",
+      "Passive": "Passive",
+      "Temporary": "Temporary",
+      "Toggle": "Toggle Effect"
+    }
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC"
+    },
+    "Item": {
+      "equipment": "Equipment",
+      "feature": "Feature"
+    }
+  }
+}

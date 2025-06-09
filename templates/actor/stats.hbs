@@ -1,0 +1,8 @@
+<section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
+  <fieldset>
+    <legend>{{systemFields.hp.label}}</legend>
+    {{formGroup systemFields.hp.fields.value value=system.hp.value}}
+    {{formGroup systemFields.hp.fields.max value=system.hp.max}}
+  </fieldset>
+  {{log this}}
+</section>

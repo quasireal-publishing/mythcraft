@@ -1,0 +1,97 @@
+.mythcraft.actor {
+  min-width: 600px;
+
+  .window-content {
+    padding-top: 0;
+  }
+
+  header {
+    padding: 0.5rem 0;
+    img {
+      border: none;
+      max-width: 100px;
+      flex: 0 0 100px;
+    }
+    input[name="name"] {
+      height: var(--font-h1-size);
+      line-height: var(--font-h1-size);
+      font-size: var(--font-h2-size);
+    }
+  }
+  [data-application-part="stats"] {
+    padding-top: 0.5rem;
+  }
+  [data-application-part="items"] {
+    ul {
+      list-style: none;
+      padding-left: 5px;
+    }
+    .itemHeader {
+      margin: 0.4em 0;
+
+      .type-label {
+        font-size: var(--font-size-20);
+      }
+      .document-controls {
+        flex: 0 0 125px;
+      }
+    }
+    .item {
+      margin: 0.25em 0;
+
+      img {
+        border: none;
+        flex: 0 0 30px;
+        padding-right: 5px;
+      }
+      .document-controls {
+        flex: 0 0 50px;
+      }
+    }
+  }
+  [data-application-part="effects"] {
+    ul {
+      list-style: none;
+      padding-left: 5px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .effects-header {
+      font-size: var(--font-size-16);
+      margin: 0.4em 0;
+
+      .effect-duration {
+        flex: 0 0 80px;
+      }
+      .document-controls {
+        flex: 0 0 100px;
+      }
+    }
+    .effect {
+      margin: 0.25em 0;
+
+      .effect-label {
+        img {
+          border: none;
+          flex: 0 0 30px;
+          padding-right: 5px;
+        }
+        .effect-name {
+          line-height: var(--font-size-24);
+        }
+      }
+      .effect-duration {
+        flex: 0 0 100px;
+      }
+      .document-controls {
+        flex: 0 0 80px;
+      }
+    }
+    .effect-label {
+      flex: 2;
+    }
+  }
+  [data-application-part="biography"] {
+    padding-top: 0.5rem;
+  }
+}

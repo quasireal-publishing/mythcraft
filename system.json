@@ -1,0 +1,111 @@
+{
+  "id": "mythcraft",
+  "title": "MythCraft",
+  "description": "",
+  "authors": [],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "biography.value",
+          "biography.gm"
+        ],
+        "gmOnlyFields": [
+          "biography.gm"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "biography.value",
+          "biography.gm"
+        ],
+        "gmOnlyFields": [
+          "biography.gm"
+        ]
+      }
+    },
+    "Item": {
+      "equipment": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "feature": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      }
+    }
+  },
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "html",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "styles",
+        "lang",
+        "templates"
+      ]
+    }
+  },
+  "url": "TODO",
+  "license": "LICENSE.md",
+  "readme": "README.md",
+  "bugs": "TODO",
+  "changelog": "CHANGELOG.md",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/mythcraft/assets/anvil-impact.png",
+      "thumbnail": "systems/mythcraft/assets/anvil-impact.png"
+    }
+  ],
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "13.342",
+    "verified": "13"
+  },
+  "esmodules": [
+    "index.mjs"
+  ],
+  "styles": [
+    {
+      "src": "styles/system.css",
+      "layer": "system"
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [],
+  "packFolders": [],
+  "socket": false,
+  "manifest": "TODO",
+  "download": "TODO",
+  "background": "systems/mythcraft/assets/anvil-impact.png",
+  "grid": {
+    "type": 1,
+    "distance": 1,
+    "units": "sq",
+    "diagonals": 0
+  },
+  "primaryTokenAttribute": "stamina",
+  "secondaryTokenAttribute": "hero.resources",
+  "initiative": "1d6"
+}

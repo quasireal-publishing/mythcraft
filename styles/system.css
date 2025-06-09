@@ -1,0 +1,7 @@
+/* This is the file that foundry actually imports via the registration in system.json */
+/* For hot reload purposes, updating an imported file does *not* count as updating this file */
+/* So if you wish to use that feature you need to implement a hot reload hook that also triggers an update on *this* file */
+
+/** Sheet Imports */
+@import url("./apps/sheets/actor-sheet.css");
+@import url("./apps/sheets/item-sheet.css");
