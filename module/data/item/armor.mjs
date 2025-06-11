@@ -6,7 +6,7 @@ import * as constants from "../../constants.mjs";
  */
 export default class ArmorModel extends EquipmentModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.Armor");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.armor");
 
   /** @inheritdoc */
   static defineSchema() {

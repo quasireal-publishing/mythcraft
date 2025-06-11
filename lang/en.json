@@ -11,7 +11,7 @@
       }
     },
     "Actor": {
-      "Base": {
+      "base": {
         "FIELDS": {
           "biography": {
             "value": {
@@ -32,15 +32,15 @@
           }
         }
       },
-      "Character": {
+      "character": {
         "FIELDS": {}
       },
-      "NPC": {
+      "npc": {
         "FIELDS": {}
       }
     },
     "Item": {
-      "Base": {
+      "base": {
         "FIELDS": {
           "description": {
             "description": {
@@ -50,19 +50,18 @@
               "label": "GM Notes"
             }
           },
-          "properties": {
-            "label": "Properties"
+          "tags": {
+            "label": "Tags"
           }
         }
       },
-      "Feature": {
-        "FIELDS": {
-          "level": {
-            "label": "Level"
-          }
-        }
+      "armor": {
+        "FIELDS": {}
       },
-      "Equipment": {
+      "background": {
+        "FIELDS": {}
+      },
+      "equipment": {
         "FIELDS": {
           "category": {
             "label": "Category"
@@ -72,6 +71,28 @@
           "weapon": "Weapon",
           "armor": "Armor"
         }
+      },
+      "feature": {
+        "FIELDS": {
+          "level": {
+            "label": "Level"
+          }
+        }
+      },
+      "gear": {
+        "FIELDS": {}
+      },
+      "lineage": {
+        "FIELDS": {}
+      },
+      "occupation": {
+        "FIELDS": {}
+      },
+      "talent": {
+        "FIELDS": {}
+      },
+      "weapon": {
+        "FIELDS": {}
       },
       "Properties": {
         "epic": "Epic",

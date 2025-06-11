@@ -1,11 +1,11 @@
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "feature" type items
+ * The system model for "occupation" items
  */
-export default class FeatureModel extends BaseItemModel {
+export default class OccupationModel extends BaseItemModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.Feature");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.occupation");
 
   /** @inheritdoc */
   static defineSchema() {
