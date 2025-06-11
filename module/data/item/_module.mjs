@@ -1,13 +1,17 @@
-// We need to use EquipmentModel & FeatureModel in this file, so import at the top
-import EquipmentModel from "./equipment.mjs";
+import ArmorModel from "./armor.mjs";
 import FeatureModel from "./feature.mjs";
+import GearModel from "./gear.mjs";
+import WeaponModel from "./weapon.mjs";
 
 // Transform the default export into a normal export
 export { default as BaseItemModel } from "./base-item.mjs";
-export { EquipmentModel, FeatureModel };
+export { default as EquipmentModel } from "./equipment.mjs";
+export { ArmorModel, FeatureModel, GearModel, WeaponModel };
 
 // This object gets used in the index.mjs file to register the data models
 export const config = {
-  equipment: EquipmentModel,
+  armor: ArmorModel,
+  gear: GearModel,
   feature: FeatureModel,
+  weapon: WeaponModel,
 };

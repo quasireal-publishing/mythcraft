@@ -15,3 +15,18 @@ export const equipmentCategories = {
     label: "MYTHCRAFT.Item.Equipment.Categories.armor",
   },
 };
+
+export const weaponRanges = {
+  melee: {
+    label: "",
+  },
+  ranged: {
+    label: "",
+  },
+  reach: {
+    label: "",
+  },
+  thrown: {
+    label: "",
+  },
+};
