@@ -1,8 +1,14 @@
 {
   "id": "mythcraft",
   "title": "MythCraft",
-  "description": "",
-  "authors": [],
+  "description": "The official MythCraft system for FoundryVTT.",
+  "authors": [
+    {
+    "name": "Joseph M.",
+    "url": "https://joseph-meehan.carrd.co/",
+    "discord": "chaosos"
+  }
+  ],
   "documentTypes": {
     "Actor": {
       "character": {
@@ -25,7 +31,7 @@
       }
     },
     "Item": {
-      "equipment": {
+      "feature": {
         "htmlFields": [
           "description.value",
           "description.gm"
@@ -34,7 +40,70 @@
           "description.gm"
         ]
       },
-      "feature": {
+      "lineage": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "background": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "occupation": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "profession": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "weapon": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
+      "gear": {
         "htmlFields": [
           "description.value",
           "description.gm"
@@ -101,11 +170,11 @@
   "background": "systems/mythcraft/assets/MythCraftHeader.jpg",
   "grid": {
     "type": 1,
-    "distance": 1,
-    "units": "sq",
+    "distance": 5,
+    "units": "ft",
     "diagonals": 0
   },
-  "primaryTokenAttribute": "stamina",
-  "secondaryTokenAttribute": "hero.resources",
-  "initiative": "1d6"
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "ap",
+  "initiative": "1d20 + @awr"
 }
