@@ -13,6 +13,12 @@ export default class FeatureModel extends BaseItemModel {
 
     const fields = foundry.data.fields;
 
+    schema.prerequisites = new fields.StringField({ required: true });
+
+    // TODO: prerequisites
+    // TODO: Features that give skill points?
+    // starting features vs. advanceables
+
     return schema;
   }
 }

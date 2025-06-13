@@ -13,6 +13,10 @@ export default class LineageModel extends BaseItemModel {
 
     const fields = foundry.data.fields;
 
+    schema.baseSpeed = new fields.SchemaField({ });
+
+    // TODO: feature advancement
+
     return schema;
   }
 }

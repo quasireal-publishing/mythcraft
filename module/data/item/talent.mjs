@@ -13,6 +13,10 @@ export default class TalentModel extends BaseItemModel {
 
     const fields = foundry.data.fields;
 
+    schema.prerequisites = new fields.StringField({ required: true });
+
+    schema.incompatibilities = new fields.StringField({ required: true });
+
     return schema;
   }
 }

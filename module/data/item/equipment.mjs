@@ -5,7 +5,7 @@ import BaseItemModel from "./base-item.mjs";
  */
 export default class EquipmentModel extends BaseItemModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.Equipment");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.equipment");
 
   /** @inheritdoc */
   static defineSchema() {

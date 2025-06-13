@@ -24,8 +24,8 @@ export default class WeaponModel extends EquipmentModel {
 
     schema.range = new fields.SchemaField({
       value: new fields.NumberField(),
-      type: new fields.StringField(),
-      unit: new fields.StringField({ choices: constants.weaponRanges, initial: "ft" }),
+      type: new fields.StringField({ choices: constants.weaponRanges }),
+      unit: new fields.StringField({ initial: "ft" }),
     });
 
     schema.apc = new FormulaField();

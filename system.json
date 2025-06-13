@@ -76,6 +76,15 @@
           "description.gm"
         ]
       },
+      "spell": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
+      },
       "talent": {
         "htmlFields": [
           "description.value",
