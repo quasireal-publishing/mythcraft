@@ -1,3 +1,7 @@
+import { requiredInteger } from "../fields/helpers.mjs";
+
+const fields = foundry.data.fields;
+
 /**
  * A shared implementation for the system data model for actors
  */
@@ -7,26 +11,53 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   static defineSchema() {
-    // Schemas are made up of fields, which foundry provides in foundry.data.fields
-    // This allows easier access to the fields within our schema definition
-    const fields = foundry.data.fields;
 
-    // defineSchema returns an object which gets turned into the `schema` property of the data model.
     return {
-      // Whenever we want to create a nested object, use SchemaField
       biography: new fields.SchemaField({
-        // HTMLField must be paired with registering as an htmlField in system.json
-        // The field definition *here* only applies in the client, the system.json registration enables server-side cleaning
         value: new fields.HTMLField(),
-        // biography.gm here is going to be an example of using a "gmOnly" field, which is another thing that must be registered in system.json
         gm: new fields.HTMLField({ gmOnly: true }),
       }),
-      // Foundry's token resource bars look for objects with a "value" and "max" key to represent as "Bar Attributes"
       hp: new fields.SchemaField({
-        // Number fields are one of the most basic fields in Foundry. They provide
-        value: new fields.NumberField({ integer: true, min: 0 }),
-        max: new fields.NumberField({ integer: true, min: 0 }),
+        value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+        max: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
       }),
+      death: new fields.SchemaField({
+        value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+        max: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      }),
+      attributes: new fields.SchemaField(this.defineAttributes()),
+      defenses: new fields.SchemaField({
+        ar: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        ref: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        fort: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        ant: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        log: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        will: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+      }),
+      movement: new fields.SchemaField(),
+      ap: new fields.SchemaField({
+        value: new fields.NumberField({ integer: true, min: 0, nullable: false, required: true }),
+      }),
+      // resists
+      // immunities
+      // vulnerabilities
+      // damage reduction
+      // skills
+      // senses
+      // traits
+    };
+  }
+
+  static defineAttributes() {
+    const attributeOptions = () => requiredInteger({ min: -3, max: 12, initial: 0 });
+
+    return {
+      str: new fields.NumberField(attributeOptions()),
+      dex: new fields.NumberField(attributeOptions()),
+      end: new fields.NumberField(attributeOptions()),
+      awr: new fields.NumberField(attributeOptions()),
+      int: new fields.NumberField(attributeOptions()),
+      cha: new fields.NumberField(attributeOptions()),
     };
   }
 

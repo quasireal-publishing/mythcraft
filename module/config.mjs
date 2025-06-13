@@ -19,7 +19,7 @@ export const conditions = {};
  * Modules can adjust this
  * @type {Record<string, ItemProperty>}
  */
-export const itemProperties = {
+export const tags = {
   supernatural: {
     label: "MYTHCRAFT.Item.Properties.supernatural",
     itemTypes: new Set(["equipment", "feature"]),

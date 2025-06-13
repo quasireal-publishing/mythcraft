@@ -1,5 +1,7 @@
 import BaseActorModel from "./base-actor.mjs";
 
+const fields = foundry.data.fields;
+
 /**
  * The system model for "character" type actors
  */
@@ -9,13 +11,24 @@ export default class CharacterModel extends BaseActorModel {
 
   /** @inheritdoc */
   static defineSchema() {
-    // Calling super allows us to build on top of the schema definition in BaseActorModel
     const schema = super.defineSchema();
 
-    // Schemas are made up of fields, which foundry provides in foundry.data.fields
-    // This allows easier access to the fields within our schema definition
-    const fields = foundry.data.fields;
+    schema.sp = new fields.SchemaField({
+      value: new fields.NumberField({ integer: true, min: 0 }),
+      max: new fields.NumberField({ integer: true, min: 0 }),
+    });
 
     return schema;
+  }
+
+  static defineAttributes() {
+    const attributes = super.defineAttributes();
+
+    const attributeOptions = () => requiredInteger({ min: -3, max: 12, initial: 0 });
+
+    return Object.assign(attributes, {
+      luck: new fields.NumberField(attributeOptions()),
+      cor: new fields.NumberField(attributeOptions()),
+    });
   }
 }

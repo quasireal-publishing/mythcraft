@@ -1,3 +1,4 @@
+import FormulaField from "../fields/formula-field.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
@@ -13,11 +14,16 @@ export default class FeatureModel extends BaseItemModel {
 
     const fields = foundry.data.fields;
 
-    schema.prerequisites = new fields.StringField({ required: true });
-
-    // TODO: prerequisites
     // TODO: Features that give skill points?
     // starting features vs. advanceables
+
+    schema.prerequisites = new fields.StringField({ required: true });
+
+    schema.uses = new fields.SchemaField({
+      spent: new fields.NumberField({ integer: true }),
+      max: new FormulaField({ deterministic: true }),
+      recharge: new fields.StringField({ blank: false }),
+    });
 
     return schema;
   }
