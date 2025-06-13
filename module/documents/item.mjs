@@ -20,4 +20,15 @@ export default class SystemItem extends foundry.documents.Item {
 
     return rollData;
   }
+  /* -------------------------------------------------- */
+
+  /**
+   * Return an item's MythCraft ID
+   * @type {string}
+   */
+  get mcid() {
+    if (this.system._mcid) return this.system._mcid;
+    const mcid = this.name.replaceAll(/(\w+)([\\|/])(\w+)/g, "$1-$3");
+    return mcid.slugify({ strict: true });
+  }
 }

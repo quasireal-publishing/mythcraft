@@ -14,7 +14,10 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
         value: new fields.HTMLField(),
         gm: new fields.HTMLField({ gmOnly: true }),
       }),
+
       tags: new fields.SetField(new fields.StringField({ required: true, blank: false })),
+
+      _mcid: new fields.StringField({ blank: false, readonly: true }),
     };
   }
 
