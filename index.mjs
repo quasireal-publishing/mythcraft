@@ -38,7 +38,7 @@ Hooks.once("i18nInit", () => {
   CONFIG.statusEffects = CONFIG.statusEffects.filter(effect => !toRemove.includes(effect.id));
   // Status Effect Transfer
   for (const [id, value] of Object.entries(SystemCONFIG.conditions)) {
-    CONFIG.statusEffects.push({ id, ...value });
+    CONFIG.statusEffects.push({ id, _id: id.padEnd(16, "0"), ...value });
   }
 });
 

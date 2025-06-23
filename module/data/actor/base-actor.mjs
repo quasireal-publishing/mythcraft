@@ -63,6 +63,14 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   prepareDerivedData() {
+    /** @type {Set<string>} */
+    const statuses = this.parent.statuses;
+
+    if (statuses.has("rallied")) {
+      statuses.delete("demoralized");
+      statuses.delete("frightened");
+      statuses.delete("shaken");
+    }
     this.hp.bloodied = Math.floor(this.hp.max / 2);
   }
 
