@@ -1,4 +1,5 @@
-import { requiredInteger } from "../fields/helpers.mjs";
+import FormulaField from "../fields/formula-field.mjs";
+import { requiredInteger, setOptions } from "../fields/helpers.mjs";
 
 const fields = foundry.data.fields;
 
@@ -37,6 +38,12 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       movement: new fields.SchemaField(),
       ap: new fields.SchemaField({
         value: new fields.NumberField({ integer: true, min: 0, nullable: false, required: true }),
+      }),
+      conditions: new fields.SchemaField({
+        absorb: new fields.NumberField({ integer: true, min: 0 }),
+        affinity: new fields.SetField(setOptions({ choices: mythcraft.CONFIG.damageTypes })),
+        bleeding: new FormulaField(),
+        burning: new FormulaField(),
       }),
       // resists
       // immunities

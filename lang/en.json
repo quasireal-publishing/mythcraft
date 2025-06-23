@@ -107,6 +107,9 @@
       "Temporary": "Temporary",
       "Toggle": "Toggle Effect",
       "Conditions": {
+        "bleeding": "Bleeding",
+        "bloodied": "Bloodied",
+        "burning": "Burning",
         "broken": "Broken",
         "charmed": "Charmed",
         "chilled": "Chilled",
