@@ -21,6 +21,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       hp: new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
         max: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+        shield: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
       }),
       death: new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
@@ -45,12 +46,19 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         bleeding: new FormulaField(),
         burning: new FormulaField(),
       }),
-      // resists
-      // immunities
-      // vulnerabilities
-      // damage reduction
-      // skills
-      // senses
+      damage: new fields.TypedObjectField(new fields.SchemaField({
+        resist: new fields.NumberField(requiredInteger({ initial: 0 })),
+        vulnerable: new fields.NumberField(requiredInteger({ initial: 0 })),
+        immune: new fields.BooleanField(),
+        reduction: new fields.NumberField(requiredInteger({ initial: 0 })),
+        threshold: new fields.NumberField(requiredInteger({ initial: 0 })),
+      })),
+      skills: new fields.TypedObjectField(new fields.SchemaField({
+        value: new fields.NumberField(requiredInteger({ initial: 0 })),
+      })),
+      senses: new fields.TypedObjectField(new fields.SchemaField({
+        value: new fields.NumberField(requiredInteger({ initial: 0 })),
+      })),
       // traits
     };
   }
