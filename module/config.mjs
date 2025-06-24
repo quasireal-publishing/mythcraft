@@ -188,6 +188,44 @@ export const tags = {
   capstone: {
     label: "MYTHCRAFT.Tags.capstone",
   },
+  // Occupation Tags
+};
+
+/**
+ * @typedef OccupationTag
+ * @property {string} label The i18n string for the occupation tag
+ */
+
+/**
+ * An object of occupation tags
+ * @type {Record<string, OccupationTag>}
+ */
+const occupationTags = {
+  academic: {
+    label: "MYTHCRAFT.Tags.Occupation.academic",
+  },
+  aristocratic: {
+    label: "MYTHCRAFT.Tags.Occupation.aristocratic",
+  },
+  mercantile: {
+    label: "MYTHCRAFT.Tags.Occupation.mercantile",
+  },
+  religious: {
+    label: "MYTHCRAFT.Tags.Occupation.religious",
+  },
+  militant: {
+    label: "MYTHCRAFT.Tags.Occupation.militant",
+  },
+  underworld: {
+    label: "MYTHCRAFT.Tags.Occupation.underworld",
+  },
+  wanderer: {
+    label: "MYTHCRAFT.Tags.Occupation.wanderer",
+  },
+};
+
+export const occupation = {
+  tags: occupationTags,
 };
 
 /** @typedef {"str" | "dex" | "end" | "awr" | "int" | "cha" | "luck" | "cor"} Attribute */

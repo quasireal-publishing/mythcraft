@@ -275,6 +275,15 @@
       "truesight": "Truesight"
     },
     "Tags": {
+      "Occupation": {
+        "academic": "Academic",
+        "aristocratic": "Aristocratic",
+        "mercantile": "Mercantile",
+        "militant": "Militant",
+        "religious": "Religious",
+        "underworld": "Underworld",
+        "wanderer": "Wanderer"
+      },
       "capstone": "Capstone",
       "entry": "Entry",
       "repeatable": "Repeatable"

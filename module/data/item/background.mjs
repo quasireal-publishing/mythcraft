@@ -1,4 +1,5 @@
 import FormulaField from "../fields/formula-field.mjs";
+import { requiredInteger } from "../fields/helpers.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
@@ -21,8 +22,13 @@ export default class BackgroundModel extends BaseItemModel {
       options: new fields.SetField(new fields.StringField({ required: true, blank: false })),
     }));
 
-    // TODO: Occupational Bonus
-    // TODO: Knave has multiple professions
+    schema.occupation = new fields.SchemaField({
+      tag: new fields.StringField(),
+      skill: new fields.StringField({ blank: false }),
+      bonus: new fields.NumberField({ required: true, min: 0, integer: true, initial: 2 }),
+    });
+
+    schema.professions = new fields.NumberField(requiredInteger({ min: 0, initial: 1 }));
 
     schema.wealth = new FormulaField();
 

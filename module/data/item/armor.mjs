@@ -1,5 +1,6 @@
 import EquipmentModel from "./equipment.mjs";
 import * as constants from "../../constants.mjs";
+import { requiredInteger } from "../fields/helpers.mjs";
 
 /**
  * The system model for "armor" type items
@@ -30,7 +31,7 @@ export default class ArmorModel extends EquipmentModel {
 
     schema.speedPenalty = new fields.NumberField();
 
-    // schema.resist; TODO
+    schema.resist = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 1 })));
 
     return schema;
   }
