@@ -31,4 +31,21 @@ export default class CharacterModel extends BaseActorModel {
       cor: new fields.NumberField(attributeOptions()),
     });
   }
+
+  /** @inheritdoc */
+  async _preCreate(data, options, user) {
+    const allowed = await super._preCreate(data, options, user);
+    if (allowed === false) return false;
+
+    const updates = {
+      prototypeToken: {
+        actorLink: true,
+        disposition: CONST.TOKEN_DISPOSITIONS.FRIENDLY,
+        sight: {
+          enabled: true,
+        },
+      },
+    };
+    this.parent.updateSource(updates);
+  }
 }
