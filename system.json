@@ -138,10 +138,10 @@
       ]
     }
   },
-  "url": "TODO",
+  "url": "https://github.com/quasireal-publishing/mythcraft/",
   "license": "LICENSE.md",
   "readme": "README.md",
-  "bugs": "TODO",
+  "bugs": "https://github.com/quasireal-publishing/mythcraft/issues",
   "changelog": "CHANGELOG.md",
   "media": [
     {
@@ -150,7 +150,7 @@
       "thumbnail": "systems/mythcraft/assets/MythCraftHeader.jpg"
     }
   ],
-  "version": "0.1.0",
+  "version": "DEVELOPMENT",
   "compatibility": {
     "minimum": "13.342",
     "verified": "13"
@@ -174,8 +174,8 @@
   "packs": [],
   "packFolders": [],
   "socket": false,
-  "manifest": "TODO",
-  "download": "TODO",
+  "manifest": "https://github.com/quasireal-publishing/mythcraft/releases/latest/download/system.json",
+  "download": "AUTOMATIC",
   "background": "systems/mythcraft/assets/MythCraftHeader.jpg",
   "grid": {
     "type": 1,
