@@ -170,23 +170,23 @@ export const conditions = {
 
 /**
  * @typedef ItemTag
- * @property {string} label           The i18n string for the Tag
+ * @property {string} label         The i18n string for the Tag
+ * @property {string} reference     The uuid reference to the journal page for the tag
  */
 
 /**
- * A simple example of a configurable list of item properties
- * Modules can adjust this
+ * A list of item tags in MythCraft
  * @type {Record<string, ItemTag>}
  */
 export const tags = {
-  supernatural: {
-    label: "MYTHCRAFT.Item.Properties.supernatural",
+  repeatable: {
+    label: "MYTHCRAFT.Tags.repeatable",
   },
-  metal: {
-    label: "MYTHCRAFT.Item.Properties.metal",
+  entry: {
+    label: "MYTHCRAFT.Tags.entry",
   },
-  epic: {
-    label: "MYTHCRAFT.Item.Properties.epic",
+  capstone: {
+    label: "MYTHCRAFT.Tags.capstone",
   },
 };
 
@@ -194,7 +194,7 @@ export const tags = {
 
 /**
  * @typedef Skill
- * @property {string} label         The i18n string for the Tag
+ * @property {string} label         The i18n string for the skill
  * @property {Attribute} attribute  The attribute tied to the skill
  * @property {string} tag           The skill tag
  * @property {boolean} [tool]       Is the skill tool dependent
@@ -202,10 +202,10 @@ export const tags = {
  */
 
 /**
- * Info about skills in MythCraft
+ * An object of skills.
  * @type {Record<string, Skill>}
  */
-export const skills = {
+const skillList = {
   appliedForce: {
     label: "MYTHCRAFT.Skills.appliedForce",
     attribute: "str",
@@ -663,6 +663,56 @@ export const skills = {
 };
 
 /**
+ * @typedef SkillTag
+ * @property {string} label   The i18n string for the skill tag
+ */
+
+/**
+ * An object of skill tags
+ * @type {Record<string, SkillTag>}
+ */
+const skillTags = {
+  acrobatics: {
+    label: "MYTHCRAFT.Skills.Tags.acrobatics",
+  },
+  athleticism: {
+    label: "MYTHCRAFT.Skills.Tags.athleticism",
+  },
+  crafting: {
+    label: "MYTHCRAFT.Skills.Tags.crafting",
+  },
+  influence: {
+    label: "MYTHCRAFT.Skills.Tags.influence",
+  },
+  knowledge: {
+    label: "MYTHCRAFT.Skills.Tags.knowledge",
+  },
+  luck: {
+    label: "MYTHCRAFT.Skills.Tags.luck",
+  },
+  observation: {
+    label: "MYTHCRAFT.Skills.Tags.observation",
+  },
+  stamina: {
+    label: "MYTHCRAFT.Skills.Tags.stamina",
+  },
+  subterfuge: {
+    label: "MYTHCRAFT.Skills.Tags.subterfuge",
+  },
+  survival: {
+    label: "MYTHCRAFT.Skills.Tags.survival",
+  },
+};
+
+/**
+ * Info about skills in MythCraft
+ */
+export const skills = {
+  list: skillList,
+  tags: skillTags,
+};
+
+/**
  * Representation of the AP modification based on a character's coordination
  * @type {Record<string, number>} A record of numerical strings & numbers
  */
@@ -673,27 +723,336 @@ export const bonusAP = {
   0: 0,
 };
 
-const rests = {
-  breath: {},
-  recoup: {},
-  rest: {},
+/**
+ * @typedef Rest
+ * @property {string} label   The i18n string for the rest
+ * @property {number} time    Time in seconds for the rest
+ */
+
+export const rests = {
+  breath: {
+    label: "MYTHCRAFT.Rests.breath",
+    time: 5 * 60, // five minutes
+  },
+  recoup: {
+    label: "MYTHCRAFT.Rests.recoup",
+    time: 60 * 60, // one hour
+  },
+  rest: {
+    label: "MYTHCRAFT.Rests.rest",
+    time: 8 * 60 * 60, // 8 hours
+  },
 };
 
-export const sizes = {};
+/**
+ * @typedef MythCraftSize
+ * @property {string} label     Name for the size
+ * @property {number} strMod    Attribute check adjustment
+ * @property {number} dexMod    Attribute check adjustment
+ * @property {number} width     Width in spaces (short distance for Long)
+ * @property {number} length    Length in spaces (long distance for Long)
+ */
 
-export const vision = {
+/**
+ * Info about Sizes in MythCraft
+ * @type {Record<string, MythCraftSize>}
+ */
+export const sizes = {
+  fine: {
+    label: "MYTHCRAFT.Sizes.fine",
+    strMod: -8,
+    dexMod: 8,
+    width: 1,
+    length: 1,
+  },
+  diminutive: {
+    label: "MYTHCRAFT.Sizes.dimunitive",
+    strMod: -4,
+    dexMod: 4,
+    width: 1,
+    length: 1,
+  },
+  tiny: {
+    label: "MYTHCRAFT.Sizes.tiny",
+    strMod: -4,
+    dexMod: 4,
+    width: 1,
+    length: 1,
+  },
+  small: {
+    label: "MYTHCRAFT.Sizes.small",
+    strMod: 0,
+    dexMod: 0,
+    width: 1,
+    length: 1,
+  },
+  medium: {
+    label: "MYTHCRAFT.Sizes.medium",
+    strMod: 0,
+    dexMod: 0,
+    width: 1,
+    length: 1,
+  },
+  large: {
+    label: "MYTHCRAFT.Sizes.large",
+    strMod: 0,
+    dexMod: 0,
+    width: 2,
+    length: 2,
+  },
+  largeLong: {
+    label: "MYTHCRAFT.Sizes.largeLong",
+    strMod: 0,
+    dexMod: 0,
+    width: 1,
+    length: 2,
+  },
+  largeTall: {
+    label: "MYTHCRAFT.Sizes.largeTall",
+    strMod: 0,
+    dexMod: 0,
+    width: 1,
+    length: 1,
+  },
+  huge: {
+    label: "MYTHCRAFT.Sizes.huge",
+    strMod: 2,
+    dexMod: -2,
+    width: 3,
+    length: 3,
+  },
+  hugeLong: {
+    label: "MYTHCRAFT.Sizes.hugeLong",
+    strMod: 2,
+    dexMod: -2,
+    width: 1,
+    length: 3,
+  },
+  hugeTall: {
+    label: "MYTHCRAFT.Sizes.hugeTall",
+    strMod: 2,
+    dexMod: -2,
+    width: 2,
+    length: 2,
+  },
+  gargantuan: {
+    label: "MYTHCRAFT.Sizes.gargantuan",
+    strMod: 4,
+    dexMod: -4,
+    width: 4,
+    length: 4,
+  },
+  gargantuanLong: {
+    label: "MYTHCRAFT.Sizes.gargantuanLong",
+    strMod: 4,
+    dexMod: -4,
+    width: 2,
+    length: 4,
+  },
+  gargantuanTall: {
+    label: "MYTHCRAFT.Sizes.gargantuanTall",
+    strMod: 4,
+    dexMod: -4,
+    width: 3,
+    length: 3,
+  },
+  colossal: {
+    label: "MYTHCRAFT.Sizes.colossal",
+    strMod: 8,
+    dexMod: -8,
+    width: 6,
+    length: 6,
+  },
+  colossalLong: {
+    label: "MYTHCRAFT.Sizes.colossalLong",
+    strMod: 8,
+    dexMod: -8,
+    width: 2,
+    length: 6,
+  },
+  colossalTall: {
+    label: "MYTHCRAFT.Sizes.colossalTall",
+    strMod: 8,
+    dexMod: -8,
+    width: 4,
+    length: 4,
+  },
+  titan: {
+    label: "MYTHCRAFT.Sizes.titan",
+    strMod: 16,
+    dexMod: -16,
+    width: 8,
+    length: 8,
+  },
+};
+
+/**
+ * @typedef MythCraftSense
+ * @property {string} label   The i18n string for the sense
+ */
+
+/**
+ * Info about senses in MythCraft
+ * @type {Record<string, MythCraftSense>}
+ */
+export const senses = {
+  blindsight: {
+    label: "MYTHCRAFT.Senses.blindsight",
+  },
   lowlight: {
-    label: "",
+    label: "MYTHCRAFT.Senses.lowlight",
   },
   darkvision: {
-    label: "",
+    label: "MYTHCRAFT.Senses.darkvision",
   },
   magicDarkvision: {
-    label: "",
+    label: "MYTHCRAFT.Senses.magicDarkvision",
+  },
+  tremorsense: {
+    label: "MYTHCRAFT.Senses.tremorsense",
   },
   truesight: {
-    label: "",
+    label: "MYTHCRAFT.Senses.truesight",
   },
 };
 
-export const damageTypes = {};
+/**
+ * @typedef DamageType
+ * @property {string} label     The i18n string for the damage type
+ * @property {string} category  The category of damage
+ */
+
+/**
+ * An object of damage types in MythCraft
+ * @type {Record<string, DamageType>}
+ */
+const damageTypes = {
+  blunt: {
+    label: "MYTHCRAFT.DamageTypes.blunt",
+    category: "physical",
+  },
+  sharp: {
+    label: "MYTHCRAFT.DamageTypes.sharp",
+    category: "physical",
+  },
+  cold: {
+    label: "MYTHCRAFT.DamageTypes.cold",
+    category: "elemental",
+  },
+  corrosive: {
+    label: "MYTHCRAFT.DamageTypes.corrosive",
+    category: "elemental",
+  },
+  fire: {
+    label: "MYTHCRAFT.DamageTypes.fire",
+    category: "elemental",
+  },
+  lightning: {
+    label: "MYTHCRAFT.DamageTypes.lightning",
+    category: "elemental",
+  },
+  toxic: {
+    label: "MYTHCRAFT.DamageTypes.toxic",
+    category: "elemental",
+  },
+  necrotic: {
+    label: "MYTHCRAFT.DamageTypes.necrotic",
+    category: "energy",
+  },
+  psychic: {
+    label: "MYTHCRAFT.DamageTypes.psychic",
+    category: "energy",
+  },
+  radiant: {
+    label: "MYTHCRAFT.DamageTypes.radiant",
+    category: "energy",
+  },
+  sonic: {
+    label: "MYTHCRAFT.DamageTypes.sonic",
+    category: "energy",
+  },
+};
+
+/**
+ * @typedef DamageCategory
+ * @property {string} label The i18n string for the damage category
+ */
+
+/**
+ * An object of damage type categories in MythCraft
+ * @type {Record<string, DamageCategory>}
+ */
+const damageCategories = {
+  physical: {
+    label: "MYTHCRAFT.DamageTypes.physical",
+  },
+  elemental: {
+    label: "MYTHCRAFT.DamageTypes.elemental",
+  },
+  energy: {
+    label: "MYTHCRAFT.DamageTypes.energy",
+  },
+};
+
+/**
+ * Info about damage types in MythCraft
+ */
+export const damage = {
+  types: damageTypes,
+  categories: damageCategories,
+};
+
+/**
+ * @typedef MonsterTrait
+ * @property {string} label         The i18n string for the trait
+ * @property {boolean} [variable]   Does this take a numerical value
+ * @property {string} reference     The uuid for the trait
+ */
+
+/**
+ *
+ * @type {Record<string, MonsterTrait>}
+ */
+export const monsterTraits = {
+  ethereal: {
+    label: "MYTHCRAFT.MonsterTraits.ethereal",
+    reference: "",
+  },
+  immovable: {
+    label: "MYTHCRAFT.MonsterTraits.immovable",
+    reference: "",
+  },
+  immutable: {
+    label: "MYTHCRAFT.MonsterTraits.immutable",
+    reference: "",
+  },
+  invisible: {
+    label: "MYTHCRAFT.MonsterTraits.invisible",
+    reference: "",
+  },
+  ironWill: {
+    label: "MYTHCRAFT.MonsterTraits.ironWill",
+    reference: "",
+  },
+  mythic: {
+    label: "MYTHCRAFT.MonsterTraits.mythic",
+    reference: "",
+  },
+  regen: {
+    label: "MYTHCRAFT.MonsterTraits.regen",
+    variable: true,
+    reference: "",
+  },
+  steelMind: {
+    label: "MYTHCRAFT.MonsterTraits.steelMind",
+    reference: "",
+  },
+  unerringMind: {
+    label: "MYTHCRAFT.MonsterTraits.unerringMind",
+    reference: "",
+  },
+  vigilant: {
+    label: "MYTHCRAFT.MonsterTraits.vigilant",
+    reference: "",
+  },
+};

@@ -93,11 +93,6 @@
       },
       "weapon": {
         "FIELDS": {}
-      },
-      "Properties": {
-        "epic": "Epic",
-        "metal": "Metal",
-        "supernatural": "Supernatural"
       }
     },
     "Effect": {
@@ -147,7 +142,61 @@
         "unseen": "Unseen"
       }
     },
+    "DamageTypes": {
+      "physical": "Physical",
+      "elemental": "Elemental",
+      "energy": "Energy",
+      "blunt": "Blunt",
+      "sharp": "Sharp",
+      "cold": "Cold",
+      "corrosive": "Corrosive",
+      "fire": "Fire",
+      "lightning": "Lightning",
+      "toxic": "Toxic",
+      "necrotic": "Necrotic",
+      "psychic": "Psychic",
+      "radiant": "Radiant",
+      "sonic": "Sonic"
+    },
+    "Rests": {
+      "breath": "Catch Your Breath",
+      "recoup": "Recoup",
+      "rest": "Take a Rest"
+    },
+    "Sizes": {
+      "fine": "Fine",
+      "diminutive": "Diminutive",
+      "tiny": "Tiny",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "largeLong": "Large (long)",
+      "largeTall": "Large (tall)",
+      "huge": "Huge",
+      "hugeLong": "Huge (long)",
+      "hugeTall": "Huge (tall)",
+      "gargantuan": "Gargantuan",
+      "gargantuanLong": "Gargantuan (long)",
+      "gargantuanTall": "Gargantuan (tall)",
+      "colossal": "Colossal",
+      "colossalLong": "Colossal (long)",
+      "colossalTall": "Colossal (tall)",
+      "titan": "Titan"
+    },
     "Skills": {
+      "Tags": {
+        "acrobatics": "Acrobatics",
+        "athleticism": "Athleticism",
+        "crafting": "Crafting",
+        "influence": "Influence",
+        "knowledge": "Knowledge",
+        "luck": "Luck",
+        "observation": "Observation",
+        "performance": "Performance",
+        "stamina": "Stamina",
+        "subterfuge": "Subterfuge",
+        "survival": "Survival"
+      },
       "appliedForce": "Applied Force",
       "athletics": "Athletics",
       "menacing": "Menacing",
@@ -216,6 +265,32 @@
       "savoir faire": "Savoir Faire",
       "fortuity": "Fortuity",
       "scavenging": "Scavenging"
+    },
+    "Senses": {
+      "blindsight": "Blindsight",
+      "lowlight": "Low-Light Vision",
+      "darkvision": "Darkvision",
+      "magicDarkvision": "Magical Darkvision",
+      "tremorsense": "Tremorsense",
+      "truesight": "Truesight"
+    },
+    "Tags": {
+      "capstone": "Capstone",
+      "entry": "Entry",
+      "repeatable": "Repeatable"
+    },
+    "MonsterTraits": {
+      "ethereal": "Ethereal",
+      "immovable": "Immovable",
+      "immutable": "Immutable",
+      "invisible": "Invisible",
+      "ironWill": "Iron Will",
+      "mythic": "Mythic",
+      "regen": "Regen",
+      "regenX": "Regen {x}",
+      "steelMind": "Steel Mind",
+      "unerringMind": "Unerring Mind",
+      "vigilant": "Vigilant"
     }
   },
   "TYPES": {
