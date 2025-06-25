@@ -58,15 +58,6 @@
           "description.gm"
         ]
       },
-      "occupation": {
-        "htmlFields": [
-          "description.value",
-          "description.gm"
-        ],
-        "gmOnlyFields": [
-          "description.gm"
-        ]
-      },
       "profession": {
         "htmlFields": [
           "description.value",

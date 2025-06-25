@@ -197,11 +197,7 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
    * @param {ApplicationRenderOptions} options
    */
   async _prepareDetailsTab(context, options) {
-    // This is a good place to prepare the options for selects
-    context.propertyOptions = Object.entries(foundrySystemTemplate.CONFIG.itemProperties).reduce((obj, [value, property]) => {
-      if (property.itemTypes.has(this.item.type)) obj.push({ value, ...property });
-      return obj;
-    }, []);
+
   }
 
   /* -------------------------------------------------- */

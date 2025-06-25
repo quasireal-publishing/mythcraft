@@ -61,17 +61,6 @@
       "background": {
         "FIELDS": {}
       },
-      "equipment": {
-        "FIELDS": {
-          "category": {
-            "label": "Category"
-          }
-        },
-        "Categories": {
-          "weapon": "Weapon",
-          "armor": "Armor"
-        }
-      },
       "feature": {
         "FIELDS": {
           "level": {
@@ -308,8 +297,15 @@
       "npc": "NPC"
     },
     "Item": {
-      "equipment": "Equipment",
-      "feature": "Feature"
+      "armor": "Armor",
+      "background": "Background",
+      "feature": "Feature",
+      "gear": "Gear",
+      "lineage": "Lineage",
+      "profession": "Profession",
+      "spell": "Spell",
+      "talent": "Talent",
+      "weapon": "Weapon"
     }
   }
 }

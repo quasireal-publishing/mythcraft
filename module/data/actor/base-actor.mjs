@@ -43,9 +43,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         fly: new fields.NumberField({ required: true }),
         burrow: new fields.NumberField({ required: true }),
       }),
-      ap: new fields.SchemaField({
-        value: new fields.NumberField({ integer: true, min: 0, nullable: false, required: true }),
-      }),
       conditions: new fields.SchemaField({
         absorb: new fields.NumberField({ integer: true, min: 0 }),
         affinity: new fields.SetField(setOptions({ choices: mythcraft.CONFIG.damageTypes })),
