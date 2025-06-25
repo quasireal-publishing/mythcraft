@@ -1,3 +1,4 @@
+import { requiredInteger } from "../fields/helpers.mjs";
 import BaseActorModel from "./base-actor.mjs";
 
 const fields = foundry.data.fields;

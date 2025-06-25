@@ -188,7 +188,6 @@ export const tags = {
   capstone: {
     label: "MYTHCRAFT.Tags.capstone",
   },
-  // Occupation Tags
 };
 
 /**

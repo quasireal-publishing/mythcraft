@@ -1,5 +1,6 @@
 import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger } from "../fields/helpers.mjs";
+import StartingEquipmentModel from "./models/starting-equipment.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**

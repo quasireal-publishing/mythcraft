@@ -36,7 +36,13 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         log: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
         will: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
       }),
-      movement: new fields.SchemaField(),
+      movement: new fields.SchemaField({
+        walk: new fields.NumberField(requiredInteger({ initial: 20 })),
+        climb: new fields.NumberField({ required: true }),
+        swim: new fields.NumberField({ required: true }),
+        fly: new fields.NumberField({ required: true }),
+        burrow: new fields.NumberField({ required: true }),
+      }),
       ap: new fields.SchemaField({
         value: new fields.NumberField({ integer: true, min: 0, nullable: false, required: true }),
       }),

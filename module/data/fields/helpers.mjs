@@ -1,5 +1,7 @@
 /** @import { NumberFieldOptions } from "@common/data/_types.mjs" */
 
+const { StringField } = foundry.data.fields;
+
 /**
  * Helper function to generate the right options
  * @param {NumberFieldOptions} options
