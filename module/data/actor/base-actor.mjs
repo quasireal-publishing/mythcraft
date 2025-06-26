@@ -28,9 +28,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         max: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
       }),
       attributes: new fields.SchemaField(this.defineAttributes()),
-      skills: new fields.TypedObjectField(new fields.SchemaField({
-        value: new fields.NumberField(requiredInteger({ initial: 0 })),
-      })),
       defenses: new fields.SchemaField({
         ar: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
         ref: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
@@ -49,9 +46,12 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       senses: new fields.TypedObjectField(new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ initial: 0 })),
       })),
+      skills: new fields.TypedObjectField(new fields.SchemaField({
+        value: new fields.NumberField(requiredInteger({ initial: 0 })),
+      })),
       conditions: new fields.SchemaField({
         absorb: new fields.NumberField({ integer: true, min: 0 }),
-        affinity: new fields.SetField(setOptions({ choices: mythcraft.CONFIG.damageTypes })),
+        affinity: new fields.SetField(setOptions()),
         bleeding: new FormulaField(),
         burning: new FormulaField(),
       }),

@@ -105,13 +105,40 @@
             }
           },
           "movement": {
-            "label": "Movement"
+            "label": "Movement",
+            "walk": {
+              "label": "Walk"
+            },
+            "climb": {
+              "label": "Climb"
+            },
+            "swim": {
+              "label": "Swim"
+            },
+            "fly": {
+              "label": "Fly"
+            },
+            "burrow": {
+              "label": "Burrow"
+            }
           },
           "senses": {
             "label": "Senses"
           },
           "conditions": {
-            "label": "Conditions"
+            "label": "Conditions",
+            "absorb": {
+              "label": "Absorb"
+            },
+            "affinity": {
+              "label": "Affinity"
+            },
+            "bleeding": {
+              "label": "Bleeding"
+            },
+            "burning": {
+              "label": "Burning"
+            }
           },
           "damage": {
             "label": "Damage Modification"

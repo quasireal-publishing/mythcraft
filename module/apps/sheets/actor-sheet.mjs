@@ -209,6 +209,17 @@ export default class SystemActorSheet extends api.HandlebarsApplicationMixin(she
       obj[group].list.push({ value, field });
       return obj;
     }, {});
+
+    const damageConfig = mythcraft.CONFIG.damage;
+
+    context.damageOptions = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
+      types.push({
+        value,
+        label: game.i18n.localize(label),
+        group: game.i18n.localize(damageConfig.categories[category].label),
+      });
+      return types;
+    }, []);
   }
 
   /* -------------------------------------------------- */

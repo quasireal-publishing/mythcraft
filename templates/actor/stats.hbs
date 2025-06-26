@@ -33,15 +33,24 @@
   </fieldset>
   <fieldset>
     <legend>{{systemFields.movement.label}}</legend>
-  </fieldset>
-  <fieldset>
-    <legend>{{systemFields.skills.label}}</legend>
+    {{formGroup systemFields.movement.fields.walk value=system.movement.walk}}
+    {{formGroup systemFields.movement.fields.climb value=system.movement.climb}}
+    {{formGroup systemFields.movement.fields.swim value=system.movement.swim}}
+    {{formGroup systemFields.movement.fields.fly value=system.movement.fly}}
+    {{formGroup systemFields.movement.fields.burrow value=system.movement.burrow}}
   </fieldset>
   <fieldset>
     <legend>{{systemFields.senses.label}}</legend>
   </fieldset>
   <fieldset>
+    <legend>{{systemFields.skills.label}}</legend>
+  </fieldset>
+  <fieldset>
     <legend>{{systemFields.conditions.label}}</legend>
+    {{formGroup systemFields.conditions.fields.absorb value=system.conditions.absorb}}
+    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageOptions}}
+    {{formGroup systemFields.conditions.fields.bleeding value=system.conditions.bleeding}}
+    {{formGroup systemFields.conditions.fields.burning value=system.conditions.burning}}
   </fieldset>
   <fieldset>
     <legend>{{systemFields.damage.label}}</legend>
