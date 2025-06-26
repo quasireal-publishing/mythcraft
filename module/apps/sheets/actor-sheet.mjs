@@ -188,7 +188,27 @@ export default class SystemActorSheet extends api.HandlebarsApplicationMixin(she
    * @param {ApplicationRenderOptions} options
    */
   async _prepareStatsTab(context, options) {
-    // This is a good spot to prepare the options for any selects
+
+    const systemSchema = this.actor.system.schema;
+    const systemData = this.actor.system._source;
+
+    const attributeConfig = mythcraft.CONFIG.attributes;
+    context.attributeInfo = Object.entries(systemData.attributes).reduce((obj, [key, value]) => {
+      const field = systemSchema.getField(["attributes", key]);
+      const group = attributeConfig.list[key].group;
+      obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
+      obj[group].list.push({ value, field });
+      return obj;
+    }, {});
+
+    const defenseConfig = mythcraft.CONFIG.defenses;
+    context.defenseInfo = Object.entries(systemData.defenses).reduce((obj, [key, value]) => {
+      const field = systemSchema.getField(["defenses", key]);
+      const group = defenseConfig.list[key].group;
+      obj[group] ??= { label: defenseConfig.groups[group].label, list: [] };
+      obj[group].list.push({ value, field });
+      return obj;
+    }, {});
   }
 
   /* -------------------------------------------------- */

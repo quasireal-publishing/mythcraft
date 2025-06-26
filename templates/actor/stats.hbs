@@ -1,8 +1,49 @@
 <section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
-  <fieldset>
+  <fieldset class="hit-points">
     <legend>{{systemFields.hp.label}}</legend>
     {{formGroup systemFields.hp.fields.value value=system.hp.value}}
     {{formGroup systemFields.hp.fields.max value=system.hp.max}}
   </fieldset>
-  {{log this}}
+  <fieldset class="death-points">
+    <legend>{{systemFields.death.label}}</legend>
+    {{formGroup systemFields.death.fields.value value=system.death.value}}
+    {{formGroup systemFields.death.fields.max value=system.death.value}}
+  </fieldset>
+  <fieldset class="attributes">
+    <legend>{{systemFields.attributes.label}}</legend>
+    {{#each attributeInfo as |group|}}
+    <div class="attribute-group">
+      <div>{{localize group.label}}</div>
+      {{#each group.list}}
+      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint)}}
+      {{/each}}
+    </div>
+    {{/each}}
+  </fieldset>
+  <fieldset class="defenses">
+    <legend>{{systemFields.defenses.label}}</legend>
+    {{#each defenseInfo as |group|}}
+    <div class="defense-group">
+      <div>{{localize group.label}}</div>
+      {{#each group.list}}
+      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint)}}
+      {{/each}}
+    </div>
+    {{/each}}
+  </fieldset>
+  <fieldset>
+    <legend>{{systemFields.movement.label}}</legend>
+  </fieldset>
+  <fieldset>
+    <legend>{{systemFields.skills.label}}</legend>
+  </fieldset>
+  <fieldset>
+    <legend>{{systemFields.senses.label}}</legend>
+  </fieldset>
+  <fieldset>
+    <legend>{{systemFields.conditions.label}}</legend>
+  </fieldset>
+  <fieldset>
+    <legend>{{systemFields.damage.label}}</legend>
+  </fieldset>
 </section>

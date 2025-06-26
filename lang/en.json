@@ -24,12 +24,108 @@
           "hp": {
             "label": "Hit Points",
             "value": {
-              "label": "HP Value"
+              "label": "Current"
             },
             "max": {
-              "label": "HP Max"
+              "label": "Max"
             }
+          },
+          "death": {
+            "label": "Death Points",
+            "value": {
+              "label": "Current"
+            },
+            "max": {
+              "label": "Max"
+            }
+          },
+          "attributes": {
+            "label": "Attributes",
+            "str": {
+              "hint": "Strength",
+              "label": "STR"
+            },
+            "dex": {
+              "hint": "Dexterity",
+              "label": "DEX"
+            },
+            "end": {
+              "hint": "Endurance",
+              "label": "END"
+            },
+            "awr": {
+              "hint": "Awareness",
+              "label": "AWR"
+            },
+            "int": {
+              "hint": "Intellect",
+              "label": "INT"
+            },
+            "cha": {
+              "hint": "Charisma",
+              "label": "CHA"
+            },
+            "luck": {
+              "hint": "Luck",
+              "label": "LUCK"
+            },
+            "cor": {
+              "hint": "Coordination",
+              "label": "COR"
+            }
+          },
+          "skills": {
+            "label": "Skills"
+          },
+          "defenses": {
+            "label": "Defenses",
+            "ar": {
+              "label": "AR",
+              "hint": "Armor Rating"
+            },
+            "ref": {
+              "label": "REF",
+              "hint": "Reflexes"
+            },
+            "fort": {
+              "label": "FORT",
+              "hint": "Fortitude"
+            },
+            "ant": {
+              "label": "ANT",
+              "hint": "Anticipation"
+            },
+            "log": {
+              "label": "LOG",
+              "hint": "Logic"
+            },
+            "will": {
+              "label": "WILL",
+              "hint": "Willpower"
+            }
+          },
+          "movement": {
+            "label": "Movement"
+          },
+          "senses": {
+            "label": "Senses"
+          },
+          "conditions": {
+            "label": "Conditions"
+          },
+          "damage": {
+            "label": "Damage Modification"
           }
+        },
+        "attributeGroups": {
+          "physical": "Physical",
+          "mental": "Mental",
+          "meta": "Metaphysical"
+        },
+        "defenseGroups": {
+          "physical": "Physical Defenses",
+          "mental": "Mental Defenses",
+          "defense": "Defense"
         }
       },
       "character": {

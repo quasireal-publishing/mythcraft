@@ -169,6 +169,120 @@ export const conditions = {
 };
 
 /**
+ * @typedef Attribute
+ * @property {string} group
+ */
+
+/**
+ * Additional, non-label info about attributes in MythCraft
+ * @type {Record<string, Attribute>}
+ */
+const attributeList = {
+  str: {
+    group: "physical",
+  },
+  dex: {
+    group: "physical",
+  },
+  end: {
+    group: "physical",
+  },
+  awr: {
+    group: "mental",
+  },
+  int: {
+    group: "mental",
+  },
+  cha: {
+    group: "mental",
+  },
+  luck: {
+    group: "meta",
+  },
+  cor: {
+    group: "meta",
+  },
+};
+
+/**
+ * Information about attribute groups
+ * @type {Record<string, { label: string }>}
+ */
+const attributeGroups = {
+  physical: {
+    label: "MYTHCRAFT.Actor.base.attributeGroups.physical",
+  },
+  mental: {
+    label: "MYTHCRAFT.Actor.base.attributeGroups.mental",
+  },
+  meta: {
+    label: "MYTHCRAFT.Actor.base.attributeGroups.meta",
+  },
+};
+
+/**
+ * Info about Attributes in MythCraft
+ */
+export const attributes = {
+  list: attributeList,
+  groups: attributeGroups,
+};
+
+/**
+ * @typedef Defense
+ * @property {string} group
+ */
+
+/**
+ * Additional, non-label info about attributes in MythCraft
+ * @type {Record<string, Defense>}
+ */
+const defenseList = {
+  ar: {
+    group: "defense",
+  },
+  ref: {
+    group: "physical",
+  },
+  fort: {
+    group: "physical",
+  },
+  ant: {
+    group: "mental",
+  },
+  log: {
+    group: "mental",
+  },
+  will: {
+    group: "mental",
+  },
+};
+
+/**
+ * Information about defense groups
+ * @type {Record<string, { label: string}>}
+ */
+const defenseGroups = {
+  defense: {
+    label: "MYTHCRAFT.Actor.base.defenseGroups.defense",
+  },
+  physical: {
+    label: "MYTHCRAFT.Actor.base.defenseGroups.physical",
+  },
+  mental: {
+    label: "MYTHCRAFT.Actor.base.defenseGroups.mental",
+  },
+};
+
+/**
+ * Info about Defenses in MythCraft
+ */
+export const defenses = {
+  list: defenseList,
+  groups: defenseGroups,
+};
+
+/**
  * @typedef ItemTag
  * @property {string} label         The i18n string for the Tag
  * @property {string} reference     The uuid reference to the journal page for the tag
