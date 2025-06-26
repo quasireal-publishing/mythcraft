@@ -1,0 +1,13 @@
+{{formGroup systemFields.skillPoints value=system.skillPoints}}
+
+<fieldset>
+  <legend>{{systemFields.occupation.label}}</legend>
+  {{formGroup systemFields.occupation.fields.tag value=system.occupation.tag}}
+  {{formGroup systemFields.occupation.fields.skill value=system.occupation.skill}}
+  {{formGroup systemFields.occupation.fields.bonus value=system.occupation.bonus}}
+</fieldset>
+
+{{formGroup systemFields.professions value=system.professions}}
+{{formGroup systemFields.wealth value=system.wealth}}
+
+{{!-- starting equipment --}}

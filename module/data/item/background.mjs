@@ -24,7 +24,7 @@ export default class BackgroundModel extends BaseItemModel {
     }));
 
     schema.occupation = new fields.SchemaField({
-      tag: new fields.StringField(),
+      tag: new fields.StringField({ blank: false }),
       skill: new fields.StringField({ blank: false }),
       bonus: new fields.NumberField({ required: true, min: 0, integer: true, initial: 2 }),
     });

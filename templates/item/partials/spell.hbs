@@ -1,0 +1,12 @@
+{{formGroup systemFields.apc value=system.apc}}
+<fieldset>
+  <legend>{{systemFields.range.label}}</legend>
+  {{formGroup systemFields.range.fields.value value=system.range.value}}
+  {{formGroup systemFields.range.fields.unit value=system.range.unit}}
+</fieldset>
+{{formGroup systemFields.requirements value=system.requirements}}
+<fieldset>
+  <legend>{{systemFields.duration.label}}</legend>
+  {{formGroup systemFields.duration.fields.value value=system.duration.value}}
+  {{formGroup systemFields.duration.fields.unit value=system.duration.unit}}
+</fieldset>

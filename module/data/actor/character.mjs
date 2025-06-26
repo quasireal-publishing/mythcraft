@@ -14,6 +14,9 @@ export default class CharacterModel extends BaseActorModel {
   static defineSchema() {
     const schema = super.defineSchema();
 
+    schema.lp = new fields.SchemaField({
+      value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+    });
     schema.ap = new fields.SchemaField({
       value: new fields.NumberField(requiredInteger({ min: 0, initial: 3 })),
     }),

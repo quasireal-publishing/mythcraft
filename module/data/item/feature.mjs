@@ -6,7 +6,7 @@ import BaseItemModel from "./base-item.mjs";
  */
 export default class FeatureModel extends BaseItemModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.Feature");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.feature");
 
   /** @inheritdoc */
   static defineSchema() {
@@ -21,10 +21,15 @@ export default class FeatureModel extends BaseItemModel {
 
     schema.uses = new fields.SchemaField({
       spent: new fields.NumberField({ integer: true }),
-      max: new FormulaField({ deterministic: true }),
+      maxFormula: new FormulaField({ deterministic: true }),
       recharge: new fields.StringField({ blank: false }),
     });
 
     return schema;
+  }
+
+  prepareDerivedData() {
+    this.uses.max = Roll.create(this.uses.maxFormula || "0", this.parent.getRollData()).evaluateSync().total;
+    this.uses.value = this.uses.max - this.uses.spent;
   }
 }

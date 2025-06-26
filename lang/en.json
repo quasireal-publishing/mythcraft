@@ -179,15 +179,84 @@
         }
       },
       "armor": {
-        "FIELDS": {}
+        "FIELDS": {
+          "ar": {
+            "label": "Armor Rating"
+          },
+          "defenses": {
+            "label": "Defenses"
+          },
+          "strMin": {
+            "label": "Strength Minimum"
+          },
+          "dexMax": {
+            "label": "Dexterity Maximum"
+          },
+          "speedPenalty": {
+            "label": "Speed Penalty"
+          },
+          "resist": {
+            "label": "Resistances"
+          }
+        }
       },
       "background": {
-        "FIELDS": {}
+        "FIELDS": {
+          "skillPoints": {
+            "label": "Skill Points"
+          },
+          "skills": {
+            "label": "Skills"
+          },
+          "occupation": {
+            "label": "Occupation",
+            "tag": {
+              "label": "Occupation Tag"
+            },
+            "skill": {
+              "label": "Occupation Skill"
+            },
+            "bonus": {
+              "label": "Occupation Bonus"
+            }
+          },
+          "professions": {
+            "label": "Professions"
+          },
+          "wealth": {
+            "label": "Starting Wealth"
+          },
+          "startingEquipment": {
+            "label": "Starting Equipment"
+          }
+        }
+      },
+      "equipment": {
+        "FIELDS": {
+          "cost": {
+            "label": "Cost"
+          },
+          "category": {
+            "label": "Category"
+          }
+        }
       },
       "feature": {
         "FIELDS": {
-          "level": {
-            "label": "Level"
+          "prerequisites": {
+            "label": "Prerequisites"
+          },
+          "uses": {
+            "label": "Uses",
+            "spent": {
+              "label": "Spent"
+            },
+            "maxFormula": {
+              "label": "Max Formula"
+            },
+            "recharge": {
+              "label": "Recharge"
+            }
           }
         }
       },
@@ -195,16 +264,99 @@
         "FIELDS": {}
       },
       "lineage": {
-        "FIELDS": {}
+        "FIELDS": {
+          "baseSpeed": {
+            "label": "Base Speed",
+            "walk": {
+              "label": "Walk"
+            },
+            "climb": {
+              "label": "Climb"
+            },
+            "swim": {
+              "label": "Swim"
+            },
+            "fly": {
+              "label": "Fly"
+            },
+            "burrow": {
+              "label": "Burrow"
+            }
+          }
+        }
       },
       "profession": {
-        "FIELDS": {}
+        "FIELDS": {
+          "rank": {
+            "label": "Rank"
+          }
+        }
+      },
+      "spell": {
+        "FIELDS": {
+          "apc": {
+            "label": "Action Point Cost"
+          },
+          "range": {
+            "label": "Range",
+            "value": {
+              "label": "Value"
+            },
+            "unit": {
+              "label": "Unit"
+            }
+          },
+          "requirements": {
+            "label": "Requirements"
+          },
+          "duration": {
+            "label": "Duration",
+            "value": {
+              "label": "Value"
+            },
+            "unit": {
+              "label": "Unit"
+            }
+          }
+        }
       },
       "talent": {
-        "FIELDS": {}
+        "FIELDS": {
+          "prerequisites": {
+            "label": "Prerequisites"
+          },
+          "incompatibilities": {
+            "label": "Incompatibilities"
+          }
+        }
       },
       "weapon": {
-        "FIELDS": {}
+        "FIELDS": {
+          "damage": {
+            "label": "Damage",
+            "formula": {
+              "label": "Formula"
+            },
+            "type": {
+              "label": "Type"
+            }
+          },
+          "attr": {
+            "label": "Attribute"
+          },
+          "range": {
+            "label": "Range",
+            "value": {
+              "label": "Value"
+            },
+            "type": {
+              "label": "Type"
+            },
+            "unit": {
+              "label": "Unit"
+            }
+          }
+        }
       }
     },
     "Effect": {

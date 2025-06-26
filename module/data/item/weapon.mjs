@@ -7,7 +7,7 @@ import FormulaField from "../fields/formula-field.mjs";
  */
 export default class WeaponModel extends EquipmentModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.Gear");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.weapon");
 
   /** @inheritdoc */
   static defineSchema() {

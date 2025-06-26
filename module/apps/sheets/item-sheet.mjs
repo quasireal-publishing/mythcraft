@@ -60,12 +60,27 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
     },
     details: {
       template: systemPath("templates/item/details.hbs"),
+      templates: ["armor", "background", "feature", "gear", "lineage", "profession", "spell", "talent", "weapon"].map(type => systemPath(`templates/item/partials/${type}.hbs`)),
       scrollable: [""],
     },
     effects: {
       template: systemPath("templates/item/effects.hbs"),
       scrollable: [""],
     },
+  };
+
+  /* -------------------------------------------------- */
+
+  static DETAILS_PARTIAL = {
+    armor: systemPath("templates/item/partials/armor.hbs"),
+    background: systemPath("templates/item/partials/background.hbs"),
+    feature: systemPath("templates/item/partials/feature.hbs"),
+    gear: systemPath("templates/item/partials/gear.hbs"),
+    lineage: systemPath("templates/item/partials/lineage.hbs"),
+    profession: systemPath("templates/item/partials/profession.hbs"),
+    spell: systemPath("templates/item/partials/spell.hbs"),
+    talent: systemPath("templates/item/partials/talent.hbs"),
+    weapon: systemPath("templates/item/partials/weapon.hbs"),
   };
 
   /* -------------------------------------------------- */
@@ -197,7 +212,7 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
    * @param {ApplicationRenderOptions} options
    */
   async _prepareDetailsTab(context, options) {
-
+    context.partialPath = this.constructor.DETAILS_PARTIAL[this.item.type];
   }
 
   /* -------------------------------------------------- */
