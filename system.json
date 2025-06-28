@@ -143,7 +143,7 @@
   ],
   "version": "DEVELOPMENT",
   "compatibility": {
-    "minimum": "13.342",
+    "minimum": "13.346",
     "verified": "13"
   },
   "esmodules": [

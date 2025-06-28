@@ -1,20 +1,15 @@
+import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
 
-const { api, sheets } = foundry.applications;
+const { ItemSheet } = foundry.applications.sheets;
 
 /**
  * A general implementation of ItemSheetV2 for system usage
  */
-export default class SystemItemSheet extends api.HandlebarsApplicationMixin(sheets.ItemSheetV2) {
+export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    classes: ["item", systemId],
-    form: {
-      submitOnChange: true,
-    },
-    window: {
-      resizable: true,
-    },
+    classes: ["item"],
     actions: {
       viewDoc: this.#viewEffect,
       createDoc: this.#createEffect,
@@ -83,18 +78,6 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
     weapon: systemPath("templates/item/partials/weapon.hbs"),
   };
 
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _initializeApplicationOptions(options) {
-    const initialized = super._initializeApplicationOptions(options);
-
-    // Add the document type (e.g. "npc") to the classes of the sheet
-    initialized.classes.push(initialized.document.type);
-
-    return initialized;
-  }
-
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
@@ -128,21 +111,6 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
   _restrictLimited(record) {
     delete record.details;
     delete record.effects;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = await super._prepareContext(options);
-
-    Object.assign(context, {
-      system: this.item.system,
-      systemFields: this.item.system.schema.fields,
-      config: CONFIG,
-    });
-
-    return context;
   }
 
   /* -------------------------------------------------- */
@@ -186,13 +154,8 @@ export default class SystemItemSheet extends api.HandlebarsApplicationMixin(shee
    * @param {ApplicationRenderOptions} options
    */
   async _prepareDescriptionTab(context, options) {
-
-    // Text Enrichment is a foundry-specific implementation of RegEx that transforms text like [[/r 1d20]] into a clickable link
-    // It's needed for the nice "display" version of the prosemirror editors
     const TextEditor = foundry.applications.ux.TextEditor.implementation;
 
-    // One common pitfall with reusing enrichment options is that they are passed by reference to descendent functions
-    // This can cause problems with foundry's Embed Depth handling, so always destructure with { ...options } when passing to a new enrichHTML call
     const enrichmentOptions = {
       secrets: this.item.isOwner,
       rollData: this.item.getRollData(),

@@ -1,22 +1,17 @@
+import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
 
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
-const { api, sheets } = foundry.applications;
+const { ActorSheet } = foundry.applications.sheets;
 
 /**
  * A general implementation of ActorSheetV2 for system usage
  */
-export default class SystemActorSheet extends api.HandlebarsApplicationMixin(sheets.ActorSheetV2) {
+export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    classes: ["actor", systemId],
-    form: {
-      submitOnChange: true,
-    },
-    window: {
-      resizable: true,
-    },
+    classes: ["actor"],
     actions: {
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
@@ -77,18 +72,6 @@ export default class SystemActorSheet extends api.HandlebarsApplicationMixin(she
     },
   };
 
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  _initializeApplicationOptions(options) {
-    const initialized = super._initializeApplicationOptions(options);
-
-    // Add the document type (e.g. "npc") to the classes of the sheet
-    initialized.classes.push(initialized.document.type);
-
-    return initialized;
-  }
-
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
@@ -126,21 +109,6 @@ export default class SystemActorSheet extends api.HandlebarsApplicationMixin(she
     delete record.stats;
     delete record.items;
     delete record.effects;
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = await super._prepareContext(options);
-
-    Object.assign(context, {
-      system: this.actor.system,
-      systemFields: this.actor.system.schema.fields,
-      config: CONFIG,
-    });
-
-    return context;
   }
 
   /* -------------------------------------------------- */
