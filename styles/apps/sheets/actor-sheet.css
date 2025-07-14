@@ -28,7 +28,8 @@
       text-align: center;
     }
     .item-controls {
-      flex: 0 0 100px;
+      text-align: right;
+      flex: 0 0 120px;
       .item-control {
         text-align: center;
       }
@@ -37,6 +38,7 @@
   }
   .item-header {
     gap: 5px;
+    font-size: var(--font-size-16);
   }
   .item-list {
     list-style: none;
@@ -45,6 +47,10 @@
     margin-bottom: 0;
     .item {
       gap: 5px;
+      img {
+        flex: 0 0 40px;
+        max-height: 32px;
+      }
     }
   }
 

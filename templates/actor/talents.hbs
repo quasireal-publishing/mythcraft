@@ -11,6 +11,7 @@
   <ul class="item-list">
     {{#each talents as |talent|}}
     <li class="item flexrow" data-item-id="{{talent.id}}" data-document-class="Item">
+      <img src="{{talent.img}}" alt="{{talent.name}}">
       <div class="item-name">{{talent.name}}</div>
       <div class="item-controls flexrow">
         <a class="item-control" data-action="viewDoc" title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.talent')}}">

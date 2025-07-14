@@ -13,6 +13,7 @@
   <ul class="item-list">
     {{#each spells as |spell|}}
     <li class="item flexrow" data-item-id="{{spell.id}}" data-document-class="Item">
+      <img src="{{spell.img}}" alt="{{talent.name}}">
       <div class="item-name">{{spell.name}}</div>
       <div class="item-apc">{{spell.system.apc}}</div>
       <div class="item-spc">{{spell.system.spc}}</div>
