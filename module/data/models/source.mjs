@@ -4,7 +4,7 @@
 const fields = foundry.data.fields;
 
 /**
- * Data model
+ * Data model for NPC & Item source info
  */
 export default class SourceModel extends foundry.abstract.DataModel {
   /** @inheritdoc */

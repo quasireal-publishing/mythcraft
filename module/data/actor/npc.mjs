@@ -1,4 +1,5 @@
 import { requiredInteger } from "../fields/helpers.mjs";
+import SourceModel from "../models/source.mjs";
 import BaseActorModel from "./base-actor.mjs";
 
 const fields = foundry.data.fields;
@@ -20,6 +21,14 @@ export default class NpcModel extends BaseActorModel {
       value: new fields.NumberField(requiredInteger({ initial: 1 })),
     }));
 
+    schema.source = new fields.EmbeddedDataField(SourceModel);
+
     return schema;
   }
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    this.source.prepareData(this.parent._stats?.compendiumSource ?? this.parent.uuid);
+  }
+
 }
