@@ -21,34 +21,33 @@
   [data-application-part="stats"] {
     padding-top: 0.5rem;
   }
-  [data-application-part="items"] {
-    ul {
-      list-style: none;
-      padding-left: 5px;
-    }
-    .itemHeader {
-      margin: 0.4em 0;
 
-      .type-label {
-        font-size: var(--font-size-20);
-      }
-      .document-controls {
-        flex: 0 0 125px;
+  .item-header, .item-list {
+    .item-apc, .item-spc {
+      flex: 0 0 50px;
+      text-align: center;
+    }
+    .item-controls {
+      flex: 0 0 100px;
+      .item-control {
+        text-align: center;
       }
     }
+
+  }
+  .item-header {
+    gap: 5px;
+  }
+  .item-list {
+    list-style: none;
+    padding-left: 5px;
+    margin-top: 0;
+    margin-bottom: 0;
     .item {
-      margin: 0.25em 0;
-
-      img {
-        border: none;
-        flex: 0 0 30px;
-        padding-right: 5px;
-      }
-      .document-controls {
-        flex: 0 0 50px;
-      }
+      gap: 5px;
     }
   }
+
   [data-application-part="effects"] {
     ul {
       list-style: none;

@@ -6,6 +6,9 @@
         "description": "Description",
         "details": "Details",
         "items": "Items",
+        "spells": "Spells",
+        "equipment": "Equipment",
+        "talents": "Talents",
         "effects": "Effects",
         "stats": "Stats"
       },
@@ -301,7 +304,12 @@
       "spell": {
         "FIELDS": {
           "apc": {
-            "label": "Action Point Cost"
+            "label": "APC",
+            "hint": "Action Point Cost"
+          },
+          "spc": {
+            "label": "SPC",
+            "hint": "Spell Point Cost"
           },
           "range": {
             "label": "Range",

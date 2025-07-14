@@ -15,6 +15,8 @@ export default class SpellModel extends BaseItemModel {
 
     schema.apc = new fields.NumberField({ integer: true, min: 0 });
 
+    schema.spc = new fields.NumberField({ integer: true, min: 0 });
+
     schema.range = new fields.SchemaField({
       value: new fields.NumberField(),
       unit: new fields.StringField({ initial: "ft" }),

@@ -30,7 +30,13 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
           id: "stats",
         },
         {
-          id: "items",
+          id: "spells",
+        },
+        {
+          id: "equipment",
+        },
+        {
+          id: "talents",
         },
         {
           id: "effects",
@@ -58,8 +64,16 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
       template: systemPath("templates/actor/stats.hbs"),
       scrollable: [""],
     },
-    items: {
-      template: systemPath("templates/actor/items.hbs"),
+    spells: {
+      template: systemPath("templates/actor/spells.hbs"),
+      scrollable: [""],
+    },
+    equipment: {
+      template: systemPath("templates/actor/equipment.hbs"),
+      scrollable: [""],
+    },
+    talents: {
+      template: systemPath("templates/actor/talents.hbs"),
       scrollable: [""],
     },
     effects: {
@@ -107,7 +121,9 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    */
   _restrictLimited(record) {
     delete record.stats;
-    delete record.items;
+    delete record.spells;
+    delete record.equipment;
+    delete record.talents;
     delete record.effects;
   }
 
@@ -124,8 +140,16 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
         await this._prepareStatsTab(context);
         context.tab = context.tabs[partId];
         break;
-      case "items":
-        await this._prepareItemsTab(context);
+      case "spells":
+        await this._prepareSpellsTab(context);
+        context.tab = context.tabs[partId];
+        break;
+      case "equipment":
+        await this._prepareEquipmentTab(context);
+        context.tab = context.tabs[partId];
+        break;
+      case "talents":
+        await this._prepareTalentsTab(context);
         context.tab = context.tabs[partId];
         break;
       case "effects":
@@ -137,10 +161,6 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
         context.tab = context.tabs[partId];
         break;
       default:
-        // Systems can not only use hooks, but call them
-        // This means that if the part is unrecognized (AKA added by a module)
-        // That module can use `Hooks.on` to provide a callback here.
-        // Unlike our functions however, they will be limited to sync-speed context prep only
         context.tab = context.tabs[partId];
         Hooks.callAll(`${systemId}.prepareActorTab`, partId, context, options);
     }
@@ -193,26 +213,36 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the items tab
+   * Mutate the context for the spells tab
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
-  async _prepareItemsTab(context, options) {
-    const groups = Object.fromEntries(game.documentTypes.Item.map((t) => {
-      return [t, { label: game.i18n.localize(CONFIG.Item.typeLabels[t]), items: [] }];
-    }));
+  async _prepareSpellsTab(context, options) {
+    context.spells = this.actor.itemTypes.spell.toSorted((a, b) => a.sort - b.sort);
+  }
 
-    // Actor's have a getter, `itemTypes`, that groups items by their type
-    // The actor's items collection is not automatically sorted, but must be sorted after access
-    // All items have a `sort` property that is meant to be used for this purpose
-    for (const [type, items] of Object.entries(this.actor.itemTypes)) {
-      groups[type].items = items.toSorted((a, b) => a.sort - b.sort);
-    }
+  /* -------------------------------------------------- */
 
-    // The "base" type is a foundry default that systems should not actually use
-    delete groups.base;
+  /**
+   * Mutate the context for the equipment tab
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareEquipmentTab(context, options) {
+    context.armor = this.actor.itemTypes.armor.toSorted((a, b) => a.sort - b.sort);
+    context.gear = this.actor.itemTypes.gear.toSorted((a, b) => a.sort - b.sort);
+    context.weapons = this.actor.itemTypes.weapon.toSorted((a, b) => a.sort - b.sort);
+  }
 
-    context.itemTypes = groups;
+  /* -------------------------------------------------- */
+
+  /**
+   * Mutate the context for the talents tab
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareTalentsTab(context, options) {
+    context.talents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
   }
 
   /* -------------------------------------------------- */
