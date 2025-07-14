@@ -5,7 +5,7 @@ import SourceModel from "../models/source.mjs";
  */
 export default class BaseItemModel extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = ["MYTHCRAFT.Item.Base"];
+  static LOCALIZATION_PREFIXES = ["MYTHCRAFT.Source", "MYTHCRAFT.Item.base"];
 
   /** @inheritdoc */
   static defineSchema() {

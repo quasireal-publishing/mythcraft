@@ -9,7 +9,7 @@ const fields = foundry.data.fields;
  */
 export default class NpcModel extends BaseActorModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Actor.NPC");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Source", "MYTHCRAFT.Actor.NPC");
 
   /** @inheritdoc */
   static defineSchema() {

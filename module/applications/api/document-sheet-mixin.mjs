@@ -1,5 +1,6 @@
 import constructHTMLButton from "../../utils/construct-html-button.mjs";
 import { systemId } from "../../constants.mjs";
+import DocumentSourceInput from "../apps/document-source-input.mjs";
 
 /** @import { Constructor } from "@common/_types.mjs" */
 
@@ -21,6 +22,9 @@ export default base => {
       },
       window: {
         resizable: true,
+      },
+      actions: {
+        updateSource: this.#updateSource,
       },
     };
 
@@ -115,6 +119,19 @@ export default base => {
         config: mythcraft.CONFIG,
       });
       return context;
+    }
+
+    /* -------------------------------------------------- */
+
+    /**
+     * Open the update source dialog
+     *
+     * @this DrawSteelItemSheet
+     * @param {PointerEvent} event   The originating click event
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     */
+    static async #updateSource(event, target) {
+      new DocumentSourceInput({ document: this.document }).render({ force: true });
     }
   };
 };

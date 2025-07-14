@@ -177,6 +177,10 @@
           },
           "tags": {
             "label": "Tags"
+          },
+          "_mcid": {
+            "label": "MythCraft ID",
+            "hint": "The MythCraft ID identifies this game rule element without concern for localization or source tracking."
           }
         }
       },
@@ -376,9 +380,6 @@
           },
           "revision": {
             "label": "Revision"
-          },
-          "uuid": {
-            "label": "Original Source"
           }
         }
       },
