@@ -12,6 +12,8 @@ export default class EquipmentModel extends BaseItemModel {
     const schema = super.defineSchema();
     const fields = foundry.data.fields;
 
+    schema.quantity = new fields.NumberField({ min: 0, integer: true, nullable: false, required: true, initial: 1 });
+
     schema.cost = new fields.NumberField({ min: 0, integer: true, nullable: false });
 
     schema.category = new fields.StringField({ blank: false });

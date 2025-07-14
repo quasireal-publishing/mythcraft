@@ -242,6 +242,9 @@
       },
       "equipment": {
         "FIELDS": {
+          "quantity": {
+            "label": "Quantity"
+          },
           "cost": {
             "label": "Cost"
           },

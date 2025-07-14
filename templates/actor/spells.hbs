@@ -1,7 +1,7 @@
 {{! Spells Tab }}
 <section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="spells">
   <div class="item-header flexrow">
-    <div class="item-name">Name</div>
+    <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
     <div class="item-apc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.apc.hint">{{localize "MYTHCRAFT.Item.spell.FIELDS.apc.label"}}</div>
     <div class="item-spc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.spc.hint">{{localize "MYTHCRAFT.Item.spell.FIELDS.spc.label"}}</div>
     <div class="item-controls">
@@ -11,12 +11,12 @@
     </div>
   </div>
   <ul class="item-list">
-    {{#each spells as |spell|}}
-    <li class="item flexrow" data-item-id="{{spell.id}}" data-document-class="Item">
-      <img src="{{spell.img}}" alt="{{talent.name}}">
-      <div class="item-name">{{spell.name}}</div>
-      <div class="item-apc">{{spell.system.apc}}</div>
-      <div class="item-spc">{{spell.system.spc}}</div>
+    {{#each spells}}
+    <li class="item flexrow draggable" data-item-id="{{id}}" data-document-class="Item">
+      <img src="{{img}}" alt="{{name}}">
+      <div class="item-name">{{name}}</div>
+      <div class="item-apc">{{system.apc}}</div>
+      <div class="item-spc">{{system.spc}}</div>
       <div class="item-controls flexrow">
         <a class="item-control" data-action="viewDoc" title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.spell')}}">
           <i class="fas fa-edit"></i>

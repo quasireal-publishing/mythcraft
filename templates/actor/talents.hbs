@@ -1,7 +1,7 @@
 {{! Talents Tab }}
 <section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="talents">
   <div class="item-header flexrow">
-    <div class="item-name">Name</div>
+    <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
     <div class="item-controls">
       {{#if @root.editable}}
       <a class="item-create" data-action="createDoc" data-document-class="Item" data-type="talent">+ {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.talent")}}</a>
@@ -9,10 +9,10 @@
     </div>
   </div>
   <ul class="item-list">
-    {{#each talents as |talent|}}
-    <li class="item flexrow" data-item-id="{{talent.id}}" data-document-class="Item">
-      <img src="{{talent.img}}" alt="{{talent.name}}">
-      <div class="item-name">{{talent.name}}</div>
+    {{#each talents}}
+    <li class="item flexrow draggable" data-item-id="{{id}}" data-document-class="Item">
+      <img src="{{img}}" alt="{{name}}">
+      <div class="item-name">{{name}}</div>
       <div class="item-controls flexrow">
         <a class="item-control" data-action="viewDoc" title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.talent')}}">
           <i class="fas fa-edit"></i>
