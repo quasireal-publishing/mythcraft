@@ -258,9 +258,42 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareEquipmentTab(context, options) {
-    context.armor = this.actor.itemTypes.armor.toSorted((a, b) => a.sort - b.sort);
-    context.gear = this.actor.itemTypes.gear.toSorted((a, b) => a.sort - b.sort);
-    context.weapons = this.actor.itemTypes.weapon.toSorted((a, b) => a.sort - b.sort);
+    context.armor = [];
+
+    const sortedArmor = this.actor.itemTypes.armor.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedArmor) {
+      const expanded = this.#expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.armor.push(itemContext);
+    }
+
+    context.gear = [];
+
+    const sortedGear = this.actor.itemTypes.gear.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedGear) {
+      const expanded = this.#expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.gear.push(itemContext);
+    }
+
+    context.weapons = [];
+
+    const sortedWeapons = this.actor.itemTypes.weapon.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedWeapons) {
+      const expanded = this.#expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.weapons.push(itemContext);
+    }
+
   }
 
   /* -------------------------------------------------- */
@@ -278,7 +311,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
     for (const item of sortedTalents) {
       const expanded = this.#expanded.items.has(item.id);
       const itemContext = { item, expanded };
-      if (expanded) itemContext.embed = await item.toEmbed();
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
 
       context.talents.push(itemContext);
     }
