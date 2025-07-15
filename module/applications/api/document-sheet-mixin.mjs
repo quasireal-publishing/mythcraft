@@ -24,6 +24,7 @@ export default base => {
         resizable: true,
       },
       actions: {
+        toggleMode: this.#toggleMode,
         updateSource: this.#updateSource,
       },
     };
@@ -119,6 +120,24 @@ export default base => {
         config: mythcraft.CONFIG,
       });
       return context;
+    }
+
+    /* -------------------------------------------------- */
+
+    /**
+   * Toggle Edit vs. Play mode
+   *
+   * @this MCDocumentSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   */
+    static async #toggleMode(event, target) {
+      if (!this.isEditable) {
+        console.error("You can't switch to Edit mode if the sheet is uneditable");
+        return;
+      }
+      this._mode = this.isPlayMode ? MCDocumentSheet.MODES.EDIT : MCDocumentSheet.MODES.PLAY;
+      this.render();
     }
 
     /* -------------------------------------------------- */

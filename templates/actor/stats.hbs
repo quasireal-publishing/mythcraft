@@ -1,13 +1,13 @@
 <section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
   <fieldset class="hit-points">
     <legend>{{systemFields.hp.label}}</legend>
-    {{formGroup systemFields.hp.fields.value value=system.hp.value}}
-    {{formGroup systemFields.hp.fields.max value=system.hp.max}}
+    {{formGroup systemFields.hp.fields.value value=systemSource.hp.value}}
+    {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay}}
   </fieldset>
   <fieldset class="death-points">
     <legend>{{systemFields.death.label}}</legend>
-    {{formGroup systemFields.death.fields.value value=system.death.value}}
-    {{formGroup systemFields.death.fields.max value=system.death.value}}
+    {{formGroup systemFields.death.fields.value value=systemSource.death.value}}
+    {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay}}
   </fieldset>
   <fieldset class="attributes">
     <legend>{{systemFields.attributes.label}}</legend>
@@ -15,7 +15,7 @@
     <div class="attribute-group">
       <div>{{localize group.label}}</div>
       {{#each group.list}}
-      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint)}}
+      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint) disabled=@root.isPlay}}
       {{/each}}
     </div>
     {{/each}}
@@ -26,18 +26,18 @@
     <div class="defense-group">
       <div>{{localize group.label}}</div>
       {{#each group.list}}
-      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint)}}
+      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint) disabled=@root.isPlay}}
       {{/each}}
     </div>
     {{/each}}
   </fieldset>
   <fieldset>
     <legend>{{systemFields.movement.label}}</legend>
-    {{formGroup systemFields.movement.fields.walk value=system.movement.walk}}
-    {{formGroup systemFields.movement.fields.climb value=system.movement.climb}}
-    {{formGroup systemFields.movement.fields.swim value=system.movement.swim}}
-    {{formGroup systemFields.movement.fields.fly value=system.movement.fly}}
-    {{formGroup systemFields.movement.fields.burrow value=system.movement.burrow}}
+    {{formGroup systemFields.movement.fields.walk value=(ifThen isPlay system.movement.walk systemSource.movement.walk) disabled=isPlay}}
+    {{formGroup systemFields.movement.fields.climb value=(ifThen isPlay system.movement.climb systemSource.movement.climb) disabled=isPlay}}
+    {{formGroup systemFields.movement.fields.swim value=(ifThen isPlay system.movement.swim systemSource.movement.swim) disabled=isPlay}}
+    {{formGroup systemFields.movement.fields.fly value=(ifThen isPlay system.movement.fly systemSource.movement.fly) disabled=isPlay}}
+    {{formGroup systemFields.movement.fields.burrow value=(ifThen isPlay system.movement.burrow systemSource.movement.burrow) disabled=isPlay}}
   </fieldset>
   <fieldset>
     <legend>{{systemFields.senses.label}}</legend>
@@ -47,10 +47,10 @@
   </fieldset>
   <fieldset>
     <legend>{{systemFields.conditions.label}}</legend>
-    {{formGroup systemFields.conditions.fields.absorb value=system.conditions.absorb}}
-    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageOptions}}
-    {{formGroup systemFields.conditions.fields.bleeding value=system.conditions.bleeding}}
-    {{formGroup systemFields.conditions.fields.burning value=system.conditions.burning}}
+    {{formGroup systemFields.conditions.fields.absorb value=(ifThen isPlay system.conditions.absorb systemSource.conditions.absorb) disabled=isPlay}}
+    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageOptions disabled=isPlay}}
+    {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
+    {{formGroup systemFields.conditions.fields.burning value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning) disabled=isPlay}}
   </fieldset>
   <fieldset>
     <legend>{{systemFields.damage.label}}</legend>

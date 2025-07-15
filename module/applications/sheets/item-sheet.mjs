@@ -135,10 +135,6 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
         await this._prepareEffectsTab(context, options);
         break;
       default:
-        // Systems can not only use hooks, but call them
-        // This means that if the part is unrecognized (AKA added by a module)
-        // That module can use `Hooks.on` to provide a callback here.
-        // Unlike our functions however, they will be limited to sync-speed context prep only
         context.tab = context.tabs[partId];
         Hooks.callAll(`${systemId}.prepareItemTab`, partId, context, options);
     }

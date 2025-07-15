@@ -198,7 +198,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   async _prepareStatsTab(context, options) {
 
     const systemSchema = this.actor.system.schema;
-    const systemData = this.actor.system._source;
+    const systemData = this.isPlayMode ? this.actor.system : this.actor.system._source;
 
     const attributeConfig = mythcraft.CONFIG.attributes;
     context.attributeInfo = Object.entries(systemData.attributes).reduce((obj, [key, value]) => {
@@ -469,7 +469,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   async _onRender(context, options) {
     await super._onRender(context, options);
-    this.#disableOverrides();
   }
   /* -------------------------------------------- */
   /*  Public API                                  */
@@ -592,19 +591,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       return parent.effects.get(docRow.dataset.effectId);
     } else {
       console.warn("Could not find document class");
-    }
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Disables inputs subject to active effects
-   */
-  #disableOverrides() {
-    const flatOverrides = foundry.utils.flattenObject(this.actor.overrides);
-    for (const override of Object.keys(flatOverrides)) {
-      const input = this.element.querySelector(`[name="${override}"]`);
-      if (input) input.disabled = true;
     }
   }
 }
