@@ -91,10 +91,10 @@ export default base => {
     /** @inheritdoc */
     async _renderFrame(options) {
       const frame = await super._renderFrame(options);
-      const buttons = [constructHTMLButton({ label: "", classes: ["header-control", "icon", "fa-solid", "fa-user-lock"], dataset: { action: "toggleMode", tooltip: "MYTHCRAFT.Sheets.ToggleMode" } })];
+      const buttons = [constructHTMLButton({ label: "", classes: ["header-control", "icon", "fa-solid", "fa-user-lock"], dataset: { action: "toggleMode", tooltip: "MYTHCRAFT.SHEET.ToggleMode" } })];
 
       if (this.document.system.source) {
-        buttons.push(constructHTMLButton({ label: "", classes: ["header-control", "icon", "fa-solid", "fa-book"], dataset: { action: "updateSource", tooltip: "MYTHCRAFT.Sheets.UpdateSource" } }));
+        buttons.push(constructHTMLButton({ label: "", classes: ["header-control", "icon", "fa-solid", "fa-book"], dataset: { action: "updateSource", tooltip: "MYTHCRAFT.SHEET.UpdateSource" } }));
       }
       this.window.controls.after(...buttons);
 

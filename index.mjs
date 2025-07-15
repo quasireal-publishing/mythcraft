@@ -15,10 +15,10 @@ Hooks.once("init", () => {
   // Register system sheets
   const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
 
-  DocumentSheetConfig.registerSheet(foundry.documents.Actor, SystemCONST.systemId, applications.sheets.SystemActorSheet, {
+  DocumentSheetConfig.registerSheet(foundry.documents.Actor, SystemCONST.systemId, applications.sheets.MythCraftActorSheet, {
     makeDefault: true,
   });
-  DocumentSheetConfig.registerSheet(foundry.documents.Item, SystemCONST.systemId, applications.sheets.SystemItemSheet, {
+  DocumentSheetConfig.registerSheet(foundry.documents.Item, SystemCONST.systemId, applications.sheets.MythCraftItemSheet, {
     makeDefault: true,
   });
 

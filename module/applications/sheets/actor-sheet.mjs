@@ -1,5 +1,6 @@
 import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
+import MythCraftItemSheet from "./item-sheet.mjs";
 
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
@@ -8,7 +9,7 @@ const { ActorSheet } = foundry.applications.sheets;
 /**
  * A general implementation of ActorSheetV2 for system usage
  */
-export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
+export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["actor"],
@@ -47,7 +48,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
         },
       ],
       initial: "stats",
-      labelPrefix: "MYTHCRAFT.Sheets.Tabs",
+      labelPrefix: "MYTHCRAFT.SHEET.Tabs",
     },
   };
 
@@ -385,6 +386,80 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /* -------------------------------------------------- */
 
   /**
+   * Actions performed after a first render of the Application.
+   * @param {ApplicationRenderContext} context      Prepared context data
+   * @param {RenderOptions} options                 Provided render options
+   * @protected
+   */
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
+    this._createContextMenu(this._getItemButtonContextOptions, "[data-document-class][data-item-id], [data-document-class][data-effect-id]", {
+      hookName: "getItemButtonContextOptions",
+      parentClassHooks: false,
+      fixed: true,
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Get context menu entries for item buttons.
+   * @returns {ContextMenuEntry[]}
+   * @protected
+   */
+  _getItemButtonContextOptions() {
+    // name is auto-localized
+    return [
+      // All applicable options
+      {
+        name: "MYTHCRAFT.SHEET.View",
+        icon: "<i class=\"fa-solid fa-fw fa-eye\"></i>",
+        condition: () => this.isPlayMode,
+        callback: async (target) => {
+          const item = this._getEmbeddedDocument(target);
+          if (!item) return console.error("Could not find item");
+          await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
+        },
+      },
+      {
+        name: "MYTHCRAFT.SHEET.Edit",
+        icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
+        condition: () => this.isEditMode,
+        callback: async (target) => {
+          const item = this._getEmbeddedDocument(target);
+          if (!item) return console.error("Could not find item");
+          await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
+        },
+      },
+      {
+        name: "MYTHCRAFT.SHEET.Share",
+        icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
+        callback: async (target) => {
+          const item = this._getEmbeddedDocument(target);
+          if (!item) return console.error("Could not find item");
+          await ChatMessage.create({
+            content: `@Embed[${item.uuid} caption=false]`,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+          });
+        },
+      },
+      {
+        name: "MYTHCRAFT.SHEET.Delete",
+        icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
+        condition: () => this.actor.isOwner,
+        callback: async (target) => {
+          const item = this._getEmbeddedDocument(target);
+          if (!item) return console.error("Could not find item");
+          await item.deleteDialog();
+        },
+      },
+    ];
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Actions performed after any render of the Application.
    * Post-render steps are not awaited by the render process.
    * @param {ApplicationRenderContext} context      Prepared context data
@@ -407,7 +482,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /**
    * Renders an embedded document's sheet
    *
-   * @this SystemActorSheet
+   * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @protected
@@ -422,7 +497,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /**
    * Handles item deletion
    *
-   * @this SystemActorSheet
+   * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @protected
@@ -437,7 +512,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /**
    * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
    *
-   * @this SystemActorSheet
+   * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @private
@@ -462,7 +537,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /**
    * Toggle the item embed between visible and hidden. Only visible embeds are generated in the HTML
    * TODO: Refactor re-rendering to instead use CSS transitions
-   * @this SystemActorSheet
+   * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @protected
@@ -482,7 +557,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /**
    * Determines effect parent to pass to helper
    *
-   * @this SystemActorSheet
+   * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @private

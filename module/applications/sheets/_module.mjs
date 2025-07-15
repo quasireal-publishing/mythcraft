@@ -1,2 +1,2 @@
-export { default as SystemActorSheet } from "./actor-sheet.mjs";
-export { default as SystemItemSheet } from "./item-sheet.mjs";
+export { default as MythCraftActorSheet } from "./actor-sheet.mjs";
+export { default as MythCraftItemSheet } from "./item-sheet.mjs";

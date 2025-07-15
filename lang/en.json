@@ -1,6 +1,6 @@
 {
   "MYTHCRAFT": {
-    "Sheets": {
+    "SHEET": {
       "Tabs": {
         "biography": "Biography",
         "description": "Description",
@@ -13,7 +13,11 @@
         "stats": "Stats"
       },
       "ToggleMode": "Toggle Sheet Mode",
-      "UpdateSource": "Update Source Info"
+      "UpdateSource": "Update Source Info",
+      "View": "View",
+      "Edit": "Edit",
+      "Share": "Share",
+      "Delete": "Delete"
     },
     "Actor": {
       "base": {

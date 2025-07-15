@@ -6,7 +6,7 @@ const { ItemSheet } = foundry.applications.sheets;
 /**
  * A general implementation of ItemSheetV2 for system usage
  */
-export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
+export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["item"],
@@ -35,7 +35,7 @@ export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
         },
       ],
       initial: "description",
-      labelPrefix: "MYTHCRAFT.Sheets.Tabs",
+      labelPrefix: "MYTHCRAFT.SHEET.Tabs",
     },
   };
 
@@ -229,7 +229,7 @@ export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /**
    * Renders an embedded document's sheet
    *
-   * @this SystemItemSheet
+   * @this MythCraftItemSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @protected
@@ -244,7 +244,7 @@ export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /**
    * Handles item deletion
    *
-   * @this SystemItemSheet
+   * @this MythCraftItemSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @protected
@@ -259,7 +259,7 @@ export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /**
    * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
    *
-   * @this SystemItemSheet
+   * @this MythCraftItemSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @private
@@ -285,7 +285,7 @@ export default class SystemItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /**
    * Determines effect parent to pass to helper
    *
-   * @this SystemItemSheet
+   * @this MythCraftItemSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    * @private
