@@ -1,4 +1,5 @@
 import SourceModel from "../models/source.mjs";
+import enrichHTML from "../../utils/enrich-html.mjs";
 
 /**
  * A shared implementation for the system data model for items
@@ -41,4 +42,14 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
     if (!this._mcid) this.updateSource({ _mcid: data.name.slugify({ strict: true }) });
   }
 
+  /** @inheritdoc */
+  async toEmbed(config, options = {}) {
+    const enriched = await enrichHTML(this.description.value, { ...options, relativeTo: this.parent });
+
+    const embed = document.createElement("div");
+    embed.classList.add("draw-steel", this.parent.type);
+    embed.innerHTML = enriched;
+
+    return embed;
+  }
 }

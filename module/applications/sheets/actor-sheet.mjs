@@ -237,7 +237,17 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareSpellsTab(context, options) {
-    context.spells = this.actor.itemTypes.spell.toSorted((a, b) => a.sort - b.sort).map(item => ({ item, expanded: this.#expanded.items.has(item.id) }));
+    context.spells = [];
+
+    const sortedSpells = this.actor.itemTypes.spell.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedSpells) {
+      const expanded = this.#expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.spells.push(itemContext);
+    }
   }
 
   /* -------------------------------------------------- */
@@ -261,7 +271,17 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareTalentsTab(context, options) {
-    context.talents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort).map(item => ({ item, expanded: this.#expanded.items.has(item.id) }));
+    context.talents = [];
+
+    const sortedTalents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedTalents) {
+      const expanded = this.#expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.toEmbed();
+
+      context.talents.push(itemContext);
+    }
   }
 
   /* -------------------------------------------------- */
@@ -419,8 +439,6 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
 
     if (this.#expanded.items.has(itemId)) this.#expanded.items.delete(itemId);
     else this.#expanded.items.add(itemId);
-
-    console.log(itemId);
 
     const part = target.closest("[data-application-part]").dataset.applicationPart;
     this.render({ parts: [part] });
