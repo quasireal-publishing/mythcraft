@@ -17,6 +17,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
       createDoc: this.#createDoc,
       deleteDoc: this.#deleteDoc,
       toggleEffect: this.#toggleEffect,
+      toggleItemEmbed: this.#toggleItemEmbed,
     },
   };
 
@@ -89,6 +90,24 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
+
+  /**
+   * Information about expanded descriptions used during rendering.
+   */
+  #expanded = {
+    /**
+     * A set of item IDs that have expanded descriptions on this sheet
+     * @type {Set<string>}
+     */
+    items: new Set(),
+    /**
+     * A set of relative effect UUIDs that have expanded descriptions on this sheet
+     * @type {Set<string>}
+     */
+    effects: new Set(),
+  };
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   _configureRenderParts(options) {
@@ -218,7 +237,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareSpellsTab(context, options) {
-    context.spells = this.actor.itemTypes.spell.toSorted((a, b) => a.sort - b.sort);
+    context.spells = this.actor.itemTypes.spell.toSorted((a, b) => a.sort - b.sort).map(item => ({ item, expanded: this.#expanded.items.has(item.id) }));
   }
 
   /* -------------------------------------------------- */
@@ -242,7 +261,7 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareTalentsTab(context, options) {
-    context.talents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+    context.talents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort).map(item => ({ item, expanded: this.#expanded.items.has(item.id) }));
   }
 
   /* -------------------------------------------------- */
@@ -383,6 +402,28 @@ export default class SystemActorSheet extends MCDocumentSheetMixin(ActorSheet) {
       foundry.utils.setProperty(docData, dataKey, value);
     }
     docCls.create(docData, { parent: this.actor });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle the item embed between visible and hidden. Only visible embeds are generated in the HTML
+   * TODO: Refactor re-rendering to instead use CSS transitions
+   * @this SystemActorSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @protected
+   */
+  static async #toggleItemEmbed(event, target) {
+    const { itemId } = target.closest(".item").dataset;
+
+    if (this.#expanded.items.has(itemId)) this.#expanded.items.delete(itemId);
+    else this.#expanded.items.add(itemId);
+
+    console.log(itemId);
+
+    const part = target.closest("[data-application-part]").dataset.applicationPart;
+    this.render({ parts: [part] });
   }
 
   /* -------------------------------------------------- */

@@ -10,18 +10,18 @@
   </div>
   <ul class="item-list">
     {{#each talents}}
-    <li class="item flexrow draggable" data-item-id="{{id}}" data-document-class="Item">
-      <img src="{{img}}" alt="{{name}}">
-      <div class="item-name">{{name}}</div>
-      <div class="item-controls flexrow">
-        <a class="item-control" data-action="viewDoc" title="{{localize 'DOCUMENT.Update' type=(localize 'TYPES.Item.talent')}}">
-          <i class="fas fa-edit"></i>
-        </a>
-        {{#if @root.editable}}
-        <a class="item-control" data-action="deleteDoc" title="{{localize 'DOCUMENT.Delete' type=(localize 'TYPES.Item.talent')}}">
-          <i class="fas fa-trash"></i>
-        </a>
-        {{/if}}
+    <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
+      <div class="item-row flexrow">
+        <img src="{{item.img}}" alt="{{item.name}}">
+        <div class="item-name">{{item.name}}</div>
+        <div class="item-controls flexrow">
+          <a data-action="toggleItemEmbed">
+            <i class="fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></i>
+          </a>
+        </div>
+      </div>
+      <div class="item-embed">
+        {{#if expanded}}EmbeddedText{{/if}}
       </div>
     </li>
     {{/each}}
