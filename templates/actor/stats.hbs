@@ -1,14 +1,18 @@
 <section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
-  <fieldset class="hit-points">
-    <legend>{{systemFields.hp.label}}</legend>
-    {{formGroup systemFields.hp.fields.value value=systemSource.hp.value}}
-    {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay}}
-  </fieldset>
-  <fieldset class="death-points">
-    <legend>{{systemFields.death.label}}</legend>
-    {{formGroup systemFields.death.fields.value value=systemSource.death.value}}
-    {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay}}
-  </fieldset>
+  <div class="flexrow">
+    <fieldset class="hit-points">
+      <legend>{{systemFields.hp.label}}</legend>
+      {{formGroup systemFields.hp.fields.value value=systemSource.hp.value classes="stacked slim"}}
+      {{formGroup systemFields.hp.fields.shield value=systemSource.hp.shield classes="stacked slim"}}
+      {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay classes="stacked slim"}}
+    </fieldset>
+    <fieldset class="death-points">
+      <legend>{{systemFields.death.label}}</legend>
+      {{formGroup systemFields.death.fields.value value=systemSource.death.value classes="stacked slim"}}
+      {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay classes="stacked slim"}}
+    </fieldset>
+
+  </div>
   <fieldset class="attributes">
     <legend>{{systemFields.attributes.label}}</legend>
     {{#each attributeInfo as |group|}}

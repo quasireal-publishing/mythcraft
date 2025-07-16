@@ -20,6 +20,22 @@
   }
   [data-application-part="stats"] {
     padding-top: 0.5rem;
+    .hit-points, .death-points {
+      flex-direction: row;
+      justify-content: space-around;
+      .form-group.stacked {
+        text-align: center;
+        .form-fields {
+          justify-content: center;
+        }
+      }
+    }
+    .hit-points {
+      flex-grow: 3;
+    }
+    .death-points {
+      flex-grow: 2;
+    }
   }
 
   .item-header, .item-list {

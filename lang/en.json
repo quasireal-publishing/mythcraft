@@ -37,6 +37,9 @@
             },
             "max": {
               "label": "Max"
+            },
+            "shield": {
+              "label": "Shield"
             }
           },
           "death": {
