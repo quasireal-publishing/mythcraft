@@ -27,7 +27,7 @@
         </legend>
         <a class="attribute-label" data-action="rollAttribute">{{numberFormat value sign=true}}</a>
         {{#each skills}}
-        <a class="skill-label" data-action="rollSkill">{{localize label}} {{numberFormat bonus sign=true}}</a>
+        <a class="skill-label" data-skill="{{skillId}}" data-action="rollSkill">{{localize label}} {{numberFormat bonus sign=true}}</a>
         {{/each}}
       </fieldset>
       {{/each}}

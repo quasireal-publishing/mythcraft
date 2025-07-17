@@ -1,6 +1,7 @@
 import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
 import MythCraftItemSheet from "./item-sheet.mjs";
+import AttributeSkillInput from "../apps/attribute-skill-input.mjs";
 
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
@@ -14,6 +15,9 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static DEFAULT_OPTIONS = {
     classes: ["actor"],
     actions: {
+      editAttribute: this.#editAttribute,
+      rollAttribute: this.#rollAttribute,
+      rollSkill: this.#rollSkill,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
       deleteDoc: this.#deleteDoc,
@@ -210,6 +214,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillBonus = this.actor.system.skills[id].bonus;
           arr.push({
+            skillId: id,
             label: skillInfo.label,
             bonus: skillBonus,
           });
@@ -488,6 +493,50 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------- */
   /*  Action Event Handlers                       */
   /* -------------------------------------------- */
+
+  /**
+   * Edit an attribute and its associated skills
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @protected
+   */
+  static async #editAttribute(event, target) {
+    const attribute = target.closest("[data-attribute]").dataset.attribute;
+    const input = new AttributeSkillInput({ document: this.document, attribute });
+    await input.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Make an attribute roll
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @protected
+   */
+  static async #rollAttribute(event, target) {
+    console.log(event, target);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Make a skill roll
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @protected
+   */
+  static async #rollSkill(event, target) {
+    console.log(event, target);
+  }
+
+  /* -------------------------------------------------- */
 
   /**
    * Renders an embedded document's sheet
