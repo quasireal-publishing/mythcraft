@@ -1,3 +1,23 @@
 <section class="standard-form">
-  {{formGroup attribute.field value=attribute.value }}
+  {{formGroup attribute.field value=attribute.value hint="" }}
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Actor.base.AttributeSkillInput.AddSkill"}}</label>
+    <div class="form-fields">
+      <select data-name="addSkill">
+        {{selectOptions attrSkills localize="true"}}
+      </select>
+      <button type="button" class="icon fa-solid fa-plus" data-action="addSkill" data-tooltip="MYTHCRAFT.Actor.base.AttributeSkillInput.AddSkill"></button>
+    </div>
+  </div>
+  {{#each attrSkills}}
+  {{#if disabled}}
+  <div class="form-group slim">
+    <label>{{localize label}}</label>
+    <div class="form-fields">
+      {{formInput @root.systemFields.skills.element.fields.value value=skillPoints name=fieldPath}}
+      <button type="button" class="icon fa-solid fa-minus" data-action="removeSkill" data-skill="{{value}}" data-tooltip="MYTHCRAFT.Actor.base.AttributeSkillInput.RemoveSkill"></button>
+    </div>
+  </div>
+  {{/if}}
+  {{/each}}
 </section>

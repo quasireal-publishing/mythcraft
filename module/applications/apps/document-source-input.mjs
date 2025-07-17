@@ -14,12 +14,16 @@ export default class DocumentSourceInput extends DocumentInput {
     },
   };
 
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static PARTS = {
     body: {
       template: systemPath("templates/apps/document-source-input.hbs"),
     },
   };
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   async _prepareContext(options) {

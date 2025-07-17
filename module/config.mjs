@@ -350,15 +350,15 @@ export const occupation = {
   tags: occupationTags,
 };
 
-/** @typedef {"str" | "dex" | "end" | "awr" | "int" | "cha" | "luck" | "cor"} Attribute */
+/** @typedef {"str" | "dex" | "end" | "awr" | "int" | "cha" | "luck" | "cor"} AttributeKey */
 
 /**
  * @typedef Skill
- * @property {string} label         The i18n string for the skill
- * @property {Attribute} attribute  The attribute tied to the skill
- * @property {string} tag           The skill tag
- * @property {boolean} [tool]       Is the skill tool dependent
- * @property {string} reference     The uuid reference to the journal page for the skill
+ * @property {string} label             The i18n string for the skill
+ * @property {AttributeKey} attribute   The attribute tied to the skill
+ * @property {string} tag               The skill tag
+ * @property {boolean} [tool]           Is the skill tool dependent
+ * @property {string} reference         The uuid reference to the journal page for the skill
  */
 
 /**

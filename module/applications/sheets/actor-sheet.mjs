@@ -500,7 +500,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #editAttribute(event, target) {
     const attribute = target.closest("[data-attribute]").dataset.attribute;
@@ -516,7 +515,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #rollAttribute(event, target) {
     console.log(event, target);
@@ -530,7 +528,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #rollSkill(event, target) {
     console.log(event, target);
@@ -544,7 +541,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #viewDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
@@ -559,7 +555,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #deleteDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
@@ -574,7 +569,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @private
    */
   static async #createDoc(event, target) {
     const docCls = getDocumentClass(target.dataset.documentClass);
@@ -599,7 +593,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @protected
    */
   static async #toggleItemEmbed(event, target) {
     const { itemId } = target.closest(".item").dataset;
@@ -619,7 +612,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @this MythCraftActorSheet
    * @param {PointerEvent} event   The originating click event
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
-   * @private
    */
   static async #toggleEffect(event, target) {
     const effect = this._getEmbeddedDocument(target);
