@@ -170,7 +170,8 @@ export const conditions = {
 
 /**
  * @typedef Attribute
- * @property {string} group
+ * @property {string} group     What group is this attribute in?
+ * @property {boolean} check    Does this attribute make checks?
  */
 
 /**
@@ -180,27 +181,35 @@ export const conditions = {
 const attributeList = {
   str: {
     group: "physical",
+    check: true,
   },
   dex: {
     group: "physical",
+    check: true,
   },
   end: {
     group: "physical",
+    check: true,
   },
   awr: {
     group: "mental",
+    check: true,
   },
   int: {
     group: "mental",
+    check: true,
   },
   cha: {
     group: "mental",
+    check: true,
   },
   luck: {
     group: "meta",
+    check: true,
   },
   cor: {
     group: "meta",
+    check: false,
   },
 };
 

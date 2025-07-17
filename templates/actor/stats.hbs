@@ -13,17 +13,27 @@
     </fieldset>
 
   </div>
-  <fieldset class="attributes">
-    <legend>{{systemFields.attributes.label}}</legend>
+  <div class="attributes">
     {{#each attributeInfo as |group|}}
-    <div class="attribute-group">
-      <div>{{localize group.label}}</div>
+    <div class="attribute-group flexrow">
+      <span class="attribute-group-label">{{localize group.label}}</span>
       {{#each group.list}}
-      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint) disabled=@root.isPlay}}
+      <fieldset class="attribute" data-attribute="{{field.name}}">
+        <legend>
+          {{field.label}}
+          {{#unless @root.isPlay}}
+          <a class="icon fa-solid fa-gear" type="button" data-action="editAttribute"></a>
+          {{/unless}}
+        </legend>
+        <a class="attribute-label" data-action="rollAttribute">{{numberFormat value sign=true}}</a>
+        {{#each skills}}
+        <a class="skill-label" data-action="rollSkill">{{localize label}} {{numberFormat bonus sign=true}}</a>
+        {{/each}}
+      </fieldset>
       {{/each}}
     </div>
     {{/each}}
-  </fieldset>
+  </div>
   <fieldset class="defenses">
     <legend>{{systemFields.defenses.label}}</legend>
     {{#each defenseInfo as |group|}}

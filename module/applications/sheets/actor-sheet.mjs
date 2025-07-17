@@ -205,7 +205,18 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       const field = systemSchema.getField(["attributes", key]);
       const group = attributeConfig.list[key].group;
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
-      obj[group].list.push({ value, field });
+      const attrInfo = { value, field };
+      attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
+        if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
+          const skillBonus = this.actor.system.skills[id].bonus;
+          arr.push({
+            label: skillInfo.label,
+            bonus: skillBonus,
+          });
+        }
+        return arr;
+      }, []);
+      obj[group].list.push(attrInfo);
       return obj;
     }, {});
 

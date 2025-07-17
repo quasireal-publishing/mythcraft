@@ -89,6 +89,11 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       statuses.delete("shaken");
     }
     this.hp.bloodied = Math.floor(this.hp.max / 2);
+
+    for (const [key, data] of Object.entries(this.skills)) {
+      const skillInfo = mythcraft.CONFIG.skills.list[key];
+      if (skillInfo) data.bonus = this.attributes[skillInfo.attribute] + data.value;
+    }
   }
 
   /**

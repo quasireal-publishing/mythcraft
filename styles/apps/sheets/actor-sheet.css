@@ -36,6 +36,13 @@
     .death-points {
       flex-grow: 2;
     }
+    .attribute-group {
+      flex-direction: row;
+      .attribute-group-label {
+        flex: 0 0 20px;
+        writing-mode: sideways-lr;
+      }
+    }
   }
 
   .item-header, .item-list {
