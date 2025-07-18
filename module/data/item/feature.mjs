@@ -2,7 +2,7 @@ import FormulaField from "../fields/formula-field.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "feature" type items
+ * The system model for "feature" type items.
  */
 export default class FeatureModel extends BaseItemModel {
   /** @inheritdoc */
@@ -28,6 +28,7 @@ export default class FeatureModel extends BaseItemModel {
     return schema;
   }
 
+  /** @inheritdoc */
   prepareDerivedData() {
     this.uses.max = Roll.create(this.uses.maxFormula || "0", this.parent.getRollData()).evaluateSync().total;
     this.uses.value = this.uses.max - this.uses.spent;

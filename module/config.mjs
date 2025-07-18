@@ -175,7 +175,7 @@ export const conditions = {
  */
 
 /**
- * Additional, non-label info about attributes in MythCraft
+ * Additional, non-label info about attributes in MythCraft.
  * @type {Record<string, Attribute>}
  */
 const attributeList = {
@@ -214,7 +214,7 @@ const attributeList = {
 };
 
 /**
- * Information about attribute groups
+ * Information about attribute groups.
  * @type {Record<string, { label: string }>}
  */
 const attributeGroups = {
@@ -230,7 +230,7 @@ const attributeGroups = {
 };
 
 /**
- * Info about Attributes in MythCraft
+ * Info about Attributes in MythCraft.
  */
 export const attributes = {
   list: attributeList,
@@ -243,7 +243,7 @@ export const attributes = {
  */
 
 /**
- * Additional, non-label info about attributes in MythCraft
+ * Additional, non-label info about attributes in MythCraft.
  * @type {Record<string, Defense>}
  */
 const defenseList = {
@@ -268,7 +268,7 @@ const defenseList = {
 };
 
 /**
- * Information about defense groups
+ * Information about defense groups.
  * @type {Record<string, { label: string}>}
  */
 const defenseGroups = {
@@ -284,7 +284,7 @@ const defenseGroups = {
 };
 
 /**
- * Info about Defenses in MythCraft
+ * Info about Defenses in MythCraft.
  */
 export const defenses = {
   list: defenseList,
@@ -293,12 +293,12 @@ export const defenses = {
 
 /**
  * @typedef ItemTag
- * @property {string} label         The i18n string for the Tag
- * @property {string} reference     The uuid reference to the journal page for the tag
+ * @property {string} label         The i18n string for the Tag.
+ * @property {string} reference     The uuid reference to the journal page for the tag.
  */
 
 /**
- * A list of item tags in MythCraft
+ * A list of item tags in MythCraft.
  * @type {Record<string, ItemTag>}
  */
 export const tags = {
@@ -315,11 +315,11 @@ export const tags = {
 
 /**
  * @typedef OccupationTag
- * @property {string} label The i18n string for the occupation tag
+ * @property {string} label The i18n string for the occupation tag.
  */
 
 /**
- * An object of occupation tags
+ * An object of occupation tags.
  * @type {Record<string, OccupationTag>}
  */
 const occupationTags = {
@@ -354,11 +354,11 @@ export const occupation = {
 
 /**
  * @typedef Skill
- * @property {string} label             The i18n string for the skill
- * @property {AttributeKey} attribute   The attribute tied to the skill
- * @property {string} tag               The skill tag
- * @property {boolean} [tool]           Is the skill tool dependent
- * @property {string} reference         The uuid reference to the journal page for the skill
+ * @property {string} label             The i18n string for the skill.
+ * @property {AttributeKey} attribute   The attribute tied to the skill.
+ * @property {string} tag               The skill tag.
+ * @property {boolean} [tool]           Is the skill tool dependent.
+ * @property {string} reference         The uuid reference to the journal page for the skill.
  */
 
 /**
@@ -824,11 +824,11 @@ const skillList = {
 
 /**
  * @typedef SkillTag
- * @property {string} label   The i18n string for the skill tag
+ * @property {string} label   The i18n string for the skill tag.
  */
 
 /**
- * An object of skill tags
+ * An object of skill tags.
  * @type {Record<string, SkillTag>}
  */
 const skillTags = {
@@ -865,7 +865,7 @@ const skillTags = {
 };
 
 /**
- * Info about skills in MythCraft
+ * Info about skills in MythCraft.
  */
 export const skills = {
   list: skillList,
@@ -873,7 +873,7 @@ export const skills = {
 };
 
 /**
- * Representation of the AP modification based on a character's coordination
+ * Representation of the AP modification based on a character's coordination.
  * @type {Record<string, number>} A record of numerical strings & numbers
  */
 export const bonusAP = {
@@ -885,8 +885,8 @@ export const bonusAP = {
 
 /**
  * @typedef Rest
- * @property {string} label   The i18n string for the rest
- * @property {number} time    Time in seconds for the rest
+ * @property {string} label   The i18n string for the rest.
+ * @property {number} time    Time in seconds for the rest.
  */
 
 export const rests = {
@@ -906,15 +906,15 @@ export const rests = {
 
 /**
  * @typedef MythCraftSize
- * @property {string} label     Name for the size
- * @property {number} strMod    Attribute check adjustment
- * @property {number} dexMod    Attribute check adjustment
- * @property {number} width     Width in spaces (short distance for Long)
- * @property {number} length    Length in spaces (long distance for Long)
+ * @property {string} label     Name for the size.
+ * @property {number} strMod    Attribute check adjustment.
+ * @property {number} dexMod    Attribute check adjustment.
+ * @property {number} width     Width in spaces (short distance for Long).
+ * @property {number} length    Length in spaces (long distance for Long).
  */
 
 /**
- * Info about Sizes in MythCraft
+ * Info about Sizes in MythCraft.
  * @type {Record<string, MythCraftSize>}
  */
 export const sizes = {
@@ -1048,11 +1048,11 @@ export const sizes = {
 
 /**
  * @typedef MythCraftSense
- * @property {string} label   The i18n string for the sense
+ * @property {string} label   The i18n string for the sense.
  */
 
 /**
- * Info about senses in MythCraft
+ * Info about senses in MythCraft.
  * @type {Record<string, MythCraftSense>}
  */
 export const senses = {
@@ -1078,12 +1078,12 @@ export const senses = {
 
 /**
  * @typedef DamageType
- * @property {string} label     The i18n string for the damage type
- * @property {string} category  The category of damage
+ * @property {string} label     The i18n string for the damage type.
+ * @property {string} category  The category of damage.
  */
 
 /**
- * An object of damage types in MythCraft
+ * An object of damage types in MythCraft.
  * @type {Record<string, DamageType>}
  */
 const damageTypes = {
@@ -1135,11 +1135,11 @@ const damageTypes = {
 
 /**
  * @typedef DamageCategory
- * @property {string} label The i18n string for the damage category
+ * @property {string} label The i18n string for the damage category.
  */
 
 /**
- * An object of damage type categories in MythCraft
+ * An object of damage type categories in MythCraft.
  * @type {Record<string, DamageCategory>}
  */
 const damageCategories = {
@@ -1155,7 +1155,7 @@ const damageCategories = {
 };
 
 /**
- * Info about damage types in MythCraft
+ * Info about damage types in MythCraft.
  */
 export const damage = {
   types: damageTypes,
@@ -1164,9 +1164,9 @@ export const damage = {
 
 /**
  * @typedef MonsterTrait
- * @property {string} label         The i18n string for the trait
- * @property {boolean} [variable]   Does this take a numerical value
- * @property {string} reference     The uuid for the trait
+ * @property {string} label         The i18n string for the trait.
+ * @property {boolean} [variable]   Does this take a numerical value.
+ * @property {string} reference     The uuid for the trait.
  */
 
 /**

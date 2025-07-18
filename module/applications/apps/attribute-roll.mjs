@@ -28,6 +28,7 @@ export default class AttributeRollDialog extends RollDialog {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc*/
   get title() {
     return game.i18n.format("MYTHCRAFT.Roll.AttributeRoll.Title", {
       attr: BaseActorModel.schema.getField(["attributes", this.options.context.attribute]).label,
@@ -39,7 +40,7 @@ export default class AttributeRollDialog extends RollDialog {
   /* -------------------------------------------------- */
 
   /**
-   * Amend the global modifiers and target specific modifiers based on changed values
+   * Amend the global modifiers and target specific modifiers based on changed values.
    * @inheritdoc
    */
   _onChangeForm(formConfig, event) {

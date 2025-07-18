@@ -2,7 +2,7 @@ import SourceModel from "../models/source.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 
 /**
- * A shared implementation for the system data model for items
+ * A shared implementation for the system data model for items.
  */
 export default class BaseItemModel extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
@@ -32,8 +32,8 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
   }
 
   /**
-   * Perform item subtype specific modifications to the actor roll data
-   * @param {object} rollData   Pointer to the roll data object
+   * Perform item subtype specific modifications to the actor roll data.
+   * @param {object} rollData   Pointer to the roll data object.
    */
   modifyRollData(rollData) {}
 

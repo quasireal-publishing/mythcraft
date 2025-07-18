@@ -4,7 +4,7 @@ import { systemId, systemPath } from "../../constants.mjs";
 const { ItemSheet } = foundry.applications.sheets;
 
 /**
- * A general implementation of ItemSheetV2 for system usage
+ * A general implementation of ItemSheetV2 for system usage.
  */
 export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) {
   /** @inheritdoc */
@@ -106,7 +106,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
 
   /**
    * Helper function to mutate the parts or tab object to remove sections that aren't visible to Limited-only users.
-   * @param {Record<string, any>} record The parts or tabs object
+   * @param {Record<string, any>} record The parts or tabs object.
    */
   _restrictLimited(record) {
     delete record.details;
@@ -145,7 +145,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the description tab
+   * Mutate the context for the description tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -166,7 +166,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the details tab
+   * Mutate the context for the details tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -177,7 +177,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the effects tab
+   * Mutate the context for the effects tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -223,11 +223,11 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------- */
 
   /**
-   * Renders an embedded document's sheet
+   * Renders an embedded document's sheet.
    *
    * @this MythCraftItemSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @protected
    */
   static async #viewEffect(event, target) {
@@ -238,11 +238,11 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Handles item deletion
+   * Handles item deletion.
    *
    * @this MythCraftItemSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @protected
    */
   static async #deleteEffect(event, target) {
@@ -253,11 +253,11 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset.
    *
    * @this MythCraftItemSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @private
    */
   static async #createEffect(event, target) {
@@ -279,11 +279,11 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Determines effect parent to pass to helper
+   * Determines effect parent to pass to helper.
    *
    * @this MythCraftItemSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @private
    */
   static async #toggleEffect(event, target) {
@@ -300,10 +300,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
-   * Fetches the row with the data for the rendered embedded document
+   * Fetches the row with the data for the rendered embedded document.
    *
-   * @param {HTMLElement} target  The element with the action
-   * @returns {HTMLLIElement} The document's row
+   * @param {HTMLElement} target  The element with the action.
+   * @returns {HTMLLIElement} The document's row.
    */
   _getEffect(target) {
     const li = target.closest(".effect");

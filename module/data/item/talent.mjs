@@ -1,7 +1,7 @@
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "talent" items
+ * The system model for "talent" items.
  */
 export default class TalentModel extends BaseItemModel {
   /** @inheritdoc */

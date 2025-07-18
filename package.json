@@ -21,10 +21,13 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^4.4.0",
     "@foundryvtt/foundryvtt-cli": "^1.1.0",
     "@html-eslint/eslint-plugin": "^0.35.2",
     "@html-eslint/parser": "^0.35.2",
+    "@stylistic/eslint-plugin": "^4.4.0",
     "eslint": "^9.22.0"
+  },
+  "dependencies": {
+    "eslint-plugin-jsdoc": "^51.4.1"
   }
 }

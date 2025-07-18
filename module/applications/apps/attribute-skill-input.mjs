@@ -2,7 +2,7 @@ import { systemPath } from "../../constants.mjs";
 import DocumentInput from "../api/document-input.mjs";
 
 /**
- * Live-updating form for an attribute and its related skills
+ * Live-updating form for an attribute and its related skills.
  */
 export default class AttributeSkillInput extends DocumentInput {
 
@@ -30,6 +30,7 @@ export default class AttributeSkillInput extends DocumentInput {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
   get title() {
     return game.i18n.format("MYTHCRAFT.Actor.base.AttributeSkillInput.Title", {
       attr: this.document.system.schema.getField(["attributes", this.attribute])?.hint,
@@ -40,7 +41,7 @@ export default class AttributeSkillInput extends DocumentInput {
   /* -------------------------------------------------- */
 
   /**
-   * The attribute being configured for this actor
+   * The attribute being configured for this actor.
    * @type {string}
    */
   get attribute() {
@@ -77,11 +78,11 @@ export default class AttributeSkillInput extends DocumentInput {
   /* -------------------------------------------------- */
 
   /**
-   * Add a skill entry for this actor
+   * Add a skill entry for this actor.
    *
    * @this AttributeSkillInput
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #addSkill(event, target) {
     const skill = target.previousElementSibling.value;
@@ -91,11 +92,11 @@ export default class AttributeSkillInput extends DocumentInput {
   /* -------------------------------------------------- */
 
   /**
-   * Remove a skill entry for this actor
+   * Remove a skill entry for this actor.
    *
    * @this AttributeSkillInput
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #removeSkill(event, target) {
     const skill = target.dataset.skill;

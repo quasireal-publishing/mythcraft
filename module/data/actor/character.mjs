@@ -4,7 +4,7 @@ import BaseActorModel from "./base-actor.mjs";
 const fields = foundry.data.fields;
 
 /**
- * The system model for "character" type actors
+ * The system model for "character" type actors.
  */
 export default class CharacterModel extends BaseActorModel {
   /** @inheritdoc */
@@ -28,6 +28,7 @@ export default class CharacterModel extends BaseActorModel {
     return schema;
   }
 
+  /** @inheritdoc */
   static defineAttributes() {
     const attributes = super.defineAttributes();
 

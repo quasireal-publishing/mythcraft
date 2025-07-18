@@ -5,7 +5,7 @@ import AttributeRollDialog from "../../applications/apps/attribute-roll.mjs";
 const fields = foundry.data.fields;
 
 /**
- * A shared implementation for the system data model for actors
+ * A shared implementation for the system data model for actors.
  */
 export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
@@ -71,7 +71,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Dataschema of attributes for this actor subtype
+   * Dataschema of attributes for this actor subtype.
    * @returns {import("@common/abstract/_types.mjs").DataSchema}
    */
   static defineAttributes() {
@@ -110,15 +110,15 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Perform item subtype specific modifications to the actor roll data
-   * @param {object} rollData   Pointer to the roll data object
+   * Perform item subtype specific modifications to the actor roll data.
+   * @param {object} rollData   Pointer to the roll data object.
    */
   modifyRollData(rollData) {}
 
   /* -------------------------------------------------- */
 
   /**
-   * Perform an attribute roll
+   * Perform an attribute roll.
    * @param {string} attribute
    */
   async rollAttribute(attribute) {
@@ -129,7 +129,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
-   * Perform a skill roll
+   * Perform a skill roll.
    * @param {string} skill
    */
   async rollSkill(skill) {

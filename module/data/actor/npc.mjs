@@ -5,7 +5,7 @@ import BaseActorModel from "./base-actor.mjs";
 const fields = foundry.data.fields;
 
 /**
- * The system model for "npc" type actors
+ * The system model for "npc" type actors.
  */
 export default class NpcModel extends BaseActorModel {
   /** @inheritdoc */

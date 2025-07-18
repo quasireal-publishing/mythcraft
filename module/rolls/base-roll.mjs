@@ -1,6 +1,6 @@
 
 /**
- * Base roll class
+ * Base roll class.
  */
 export default class SystemRoll extends foundry.dice.Roll {
   /** @inheritdoc */
@@ -11,11 +11,11 @@ export default class SystemRoll extends foundry.dice.Roll {
   }
 
   /**
-   * Helper function to generate render context in use with `static CHAT_TEMPLATE`
+   * Helper function to generate render context in use with `static CHAT_TEMPLATE`.
    * @param {object} options
-   * @param {string} [options.flavor]     Flavor text to include
+   * @param {string} [options.flavor]     Flavor text to include.
    * @param {boolean} [options.isPrivate] Is the Roll displayed privately?
-   * @returns An object to be used in `renderTemplate`
+   * @returns An object to be used in `renderTemplate`.
    */
   async _prepareContext({ flavor, isPrivate }) {
     return {

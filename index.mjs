@@ -49,11 +49,11 @@ Hooks.once("ready", () => {
 });
 
 /**
- * Render Hooks
+ * Render Hooks.
  */
 
 /**
- * Other Hooks
+ * Other Hooks.
  */
 
 Hooks.on("hotReload", utils.hotReload);

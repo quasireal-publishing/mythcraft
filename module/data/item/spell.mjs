@@ -1,7 +1,7 @@
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "spell" items
+ * The system model for "spell" items.
  */
 export default class SpellModel extends BaseItemModel {
   /** @inheritdoc */

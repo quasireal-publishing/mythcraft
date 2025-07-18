@@ -3,7 +3,7 @@ import * as constants from "../../constants.mjs";
 import FormulaField from "../fields/formula-field.mjs";
 
 /**
- * The system model for "weapon" type items
+ * The system model for "weapon" type items.
  */
 export default class WeaponModel extends EquipmentModel {
   /** @inheritdoc */

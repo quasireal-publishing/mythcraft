@@ -1,5 +1,5 @@
 /**
- * A custom implementation of the Actor class
+ * A custom implementation of the Actor class.
  */
 export default class SystemActor extends Actor {
   /**

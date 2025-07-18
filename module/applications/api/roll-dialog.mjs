@@ -1,7 +1,7 @@
 import MythCraftApplication from "./application.mjs";
 
 /**
- * Provides basic framework for roll dialogs
+ * Provides basic framework for roll dialogs.
  * @abstract
  */
 export default class RollDialog extends MythCraftApplication {

@@ -2,7 +2,7 @@ import BaseItemModel from "./base-item.mjs";
 import StartingEquipmentModel from "./models/starting-equipment.mjs";
 
 /**
- * The system model for "profession" items
+ * The system model for "profession" items.
  */
 export default class ProfessionModel extends BaseItemModel {
   /** @inheritdoc */

@@ -1,5 +1,5 @@
 /**
- * A custom implementation of the Actor class
+ * A custom implementation of the Actor class.
  */
 export default class SystemItem extends foundry.documents.Item {
   /**
@@ -23,7 +23,7 @@ export default class SystemItem extends foundry.documents.Item {
   /* -------------------------------------------------- */
 
   /**
-   * Return an item's MythCraft ID
+   * Return an item's MythCraft ID.
    * @type {string}
    */
   get mcid() {

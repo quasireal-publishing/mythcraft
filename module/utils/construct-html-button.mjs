@@ -1,6 +1,6 @@
 /**
  * A helper method for constructing an HTML button based on given parameters.
- * @param {object} config Options forwarded to the button
+ * @param {object} config Options forwarded to the button.
  * @param {string} config.label
  * @param {Record<string, string>} [config.dataset={}]
  * @param {string[]} [config.classes=[]]

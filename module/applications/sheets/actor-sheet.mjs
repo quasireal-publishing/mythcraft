@@ -8,7 +8,7 @@ import AttributeSkillInput from "../apps/attribute-skill-input.mjs";
 const { ActorSheet } = foundry.applications.sheets;
 
 /**
- * A general implementation of ActorSheetV2 for system usage
+ * A general implementation of ActorSheetV2 for system usage.
  */
 export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet) {
   /** @inheritdoc */
@@ -101,12 +101,12 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   #expanded = {
     /**
-     * A set of item IDs that have expanded descriptions on this sheet
+     * A set of item IDs that have expanded descriptions on this sheet.
      * @type {Set<string>}
      */
     items: new Set(),
     /**
-     * A set of relative effect UUIDs that have expanded descriptions on this sheet
+     * A set of relative effect UUIDs that have expanded descriptions on this sheet.
      * @type {Set<string>}
      */
     effects: new Set(),
@@ -141,7 +141,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
   /**
    * Helper function to mutate the parts or tab object to remove sections that aren't visible to Limited-only users.
-   * @param {Record<string, any>} record The parts or tabs object
+   * @param {Record<string, any>} record The parts or tabs object.
    */
   _restrictLimited(record) {
     delete record.stats;
@@ -195,7 +195,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the stats tab
+   * Mutate the context for the stats tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -249,7 +249,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the spells tab
+   * Mutate the context for the spells tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -270,7 +270,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the equipment tab
+   * Mutate the context for the equipment tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -316,7 +316,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the talents tab
+   * Mutate the context for the talents tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -337,7 +337,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the effects tab
+   * Mutate the context for the effects tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -377,7 +377,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Mutate the context for the biography tab
+   * Mutate the context for the biography tab.
    * @param {object} context
    * @param {ApplicationRenderOptions} options
    */
@@ -403,8 +403,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
   /**
    * Actions performed after a first render of the Application.
-   * @param {ApplicationRenderContext} context      Prepared context data
-   * @param {RenderOptions} options                 Provided render options
+   * @param {ApplicationRenderContext} context      Prepared context data.
+   * @param {RenderOptions} options                 Provided render options.
    * @protected
    */
   async _onFirstRender(context, options) {
@@ -478,8 +478,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /**
    * Actions performed after any render of the Application.
    * Post-render steps are not awaited by the render process.
-   * @param {ApplicationRenderContext} context      Prepared context data
-   * @param {RenderOptions} options                 Provided render options
+   * @param {ApplicationRenderContext} context      Prepared context data.
+   * @param {RenderOptions} options                 Provided render options.
    * @protected
    * @inheritdoc
    */
@@ -495,11 +495,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------- */
 
   /**
-   * Edit an attribute and its associated skills
+   * Edit an attribute and its associated skills.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #editAttribute(event, target) {
     const attribute = target.closest("[data-attribute]").dataset.attribute;
@@ -510,11 +510,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Make an attribute roll
+   * Make an attribute roll.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #rollAttribute(event, target) {
     const attribute = target.closest("[data-attribute]").dataset.attribute;
@@ -524,11 +524,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Make a skill roll
+   * Make a skill roll.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #rollSkill(event, target) {
     const skill = target.dataset.skill;
@@ -538,11 +538,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Renders an embedded document's sheet
+   * Renders an embedded document's sheet.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #viewDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
@@ -552,11 +552,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Handles item deletion
+   * Handles item deletion.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #deleteDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
@@ -566,11 +566,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset
+   * Handle creating a new Owned Item or ActiveEffect for the actor using initial data defined in the HTML dataset.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #createDoc(event, target) {
     const docCls = getDocumentClass(target.dataset.documentClass);
@@ -591,10 +591,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
   /**
    * Toggle the item embed between visible and hidden. Only visible embeds are generated in the HTML
-   * TODO: Refactor re-rendering to instead use CSS transitions
+   * TODO: Refactor re-rendering to instead use CSS transitions.
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #toggleItemEmbed(event, target) {
     const { itemId } = target.closest(".item").dataset;
@@ -609,11 +609,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Determines effect parent to pass to helper
+   * Determines effect parent to pass to helper.
    *
    * @this MythCraftActorSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
   static async #toggleEffect(event, target) {
     const effect = this._getEmbeddedDocument(target);
@@ -629,10 +629,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Fetches the embedded document representing the containing HTML element
+   * Fetches the embedded document representing the containing HTML element.
    *
-   * @param {HTMLElement} target      The element subject to search
-   * @returns {Item|ActiveEffect}     The embedded Item or ActiveEffect
+   * @param {HTMLElement} target      The element subject to search.
+   * @returns {Item|ActiveEffect}     The embedded Item or ActiveEffect.
    */
   _getEmbeddedDocument(target) {
     const docRow = target.closest("li[data-document-class]");

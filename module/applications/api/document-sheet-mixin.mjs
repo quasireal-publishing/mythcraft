@@ -7,11 +7,12 @@ import DocumentSourceInput from "../apps/document-source-input.mjs";
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
- * Augments a Document Sheet with Draw-Steel specific behavior
+ * Augments a Document Sheet with Draw-Steel specific behavior.
  * @template {Constructor<foundry.applications.api.DocumentSheet>} BaseDocumentSheet
  * @param {BaseDocumentSheet} base
  */
 export default base => {
+  // eslint-disable-next-line @jsdoc/require-jsdoc
   return class MCDocumentSheet extends HandlebarsApplicationMixin(base) {
     /** @inheritdoc */
     static DEFAULT_OPTIONS = {
@@ -125,11 +126,11 @@ export default base => {
     /* -------------------------------------------------- */
 
     /**
-   * Toggle Edit vs. Play mode
+   * Toggle Edit vs. Play mode.
    *
    * @this MCDocumentSheet
-   * @param {PointerEvent} event   The originating click event
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
     static async #toggleMode(event, target) {
       if (!this.isEditable) {
@@ -143,11 +144,11 @@ export default base => {
     /* -------------------------------------------------- */
 
     /**
-     * Open the update source dialog
+     * Open the update source dialog.
      *
      * @this DrawSteelItemSheet
-     * @param {PointerEvent} event   The originating click event
-     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
+     * @param {PointerEvent} event   The originating click event.
+     * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
      */
     static async #updateSource(event, target) {
       new DocumentSourceInput({ document: this.document }).render({ force: true });

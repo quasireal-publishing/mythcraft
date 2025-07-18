@@ -2,7 +2,7 @@ import { requiredInteger } from "../fields/helpers.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "lineage" items
+ * The system model for "lineage" items.
  */
 export default class LineageModel extends BaseItemModel {
   /** @inheritdoc */

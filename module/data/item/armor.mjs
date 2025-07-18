@@ -3,7 +3,7 @@ import * as constants from "../../constants.mjs";
 import { requiredInteger } from "../fields/helpers.mjs";
 
 /**
- * The system model for "armor" type items
+ * The system model for "armor" type items.
  */
 export default class ArmorModel extends EquipmentModel {
   /** @inheritdoc */

@@ -3,7 +3,7 @@ import { systemId } from "../constants.mjs";
 /** @import {SettingConfig} from "@client/_types.mjs" */
 
 /**
- * A helper class that collects all of your settings and registers them
+ * A helper class that collects all of your settings and registers them.
  */
 export default class SystemSettingsHandler {
   /**

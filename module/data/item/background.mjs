@@ -4,7 +4,7 @@ import StartingEquipmentModel from "./models/starting-equipment.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "background" items
+ * The system model for "background" items.
  */
 export default class BackgroundModel extends BaseItemModel {
   /** @inheritdoc */
