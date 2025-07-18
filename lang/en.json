@@ -626,6 +626,10 @@
           "Label": "Situational Bonus",
           "Placeholder": "e.g. 3",
           "Hint": "Formula: {formula}"
+        },
+        "Flavor": {
+          "Attribute": "{abbr} Check",
+          "Skill": "{abbr} Check ({skill})"
         }
       }
     }
