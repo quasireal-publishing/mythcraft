@@ -1,6 +1,11 @@
 import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger, setOptions } from "../fields/helpers.mjs";
 import AttributeRollDialog from "../../applications/apps/attribute-roll.mjs";
+import AttributeRoll from "../../rolls/attribute-roll.mjs";
+
+/**
+ * @import ChatMessage from "@client/documents/chat-message.mjs";
+ */
 
 const fields = foundry.data.fields;
 
@@ -120,10 +125,17 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /**
    * Perform an attribute roll.
    * @param {string} attribute
+   * @returns {ChatMessage}
    */
   async rollAttribute(attribute) {
-    const fd = await AttributeRollDialog.create({ context: { attribute } });
-    console.log(fd);
+    const formula = `1d20 + @attributes.${attribute} + @situationalBonus`;
+    const fd = await AttributeRollDialog.create({ context: { attribute, formula } });
+    if (!fd) throw new Error("Roll Dialog Cancelled");
+    const { situationalBonus, rollMode } = fd;
+    const rollData = this.parent.getRollData();
+    rollData.situationalBonus = situationalBonus || 0;
+    const roll = new AttributeRoll(formula, rollData, { attribute });
+    return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
 
   /* -------------------------------------------------- */
@@ -131,10 +143,17 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /**
    * Perform a skill roll.
    * @param {string} skill
+   * @returns {ChatMessage}
    */
   async rollSkill(skill) {
+    const formula = `1d20 + @skills.${skill}.bonus + @situationalBonus`;
     const attribute = mythcraft.CONFIG.skills.list[skill].attribute;
-    const fd = await AttributeRollDialog.create({ context: { attribute, skill } });
-    console.log(fd);
+    const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula } });
+    if (!fd) throw new Error("Roll Dialog Cancelled");
+    const { situationalBonus, rollMode } = fd;
+    const rollData = this.parent.getRollData();
+    rollData.situationalBonus = situationalBonus || 0;
+    const roll = new AttributeRoll(formula, rollData, { attribute, skill });
+    return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
 }

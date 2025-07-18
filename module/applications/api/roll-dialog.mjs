@@ -1,4 +1,5 @@
 import MythCraftApplication from "./application.mjs";
+import { systemPath } from "../../constants.mjs";
 
 /**
  * Provides basic framework for roll dialogs.
@@ -65,5 +66,14 @@ export default class RollDialog extends MythCraftApplication {
   static #setRollMode(event, target) {
     this.options.context.rollMode = target.dataset.rollMode;
     this.render({ parts: ["footer"] });
+  }
+
+  /** @inheritdoc */
+  _processFormData(event, form, formData) {
+    formData = super._processFormData(event, form, formData);
+
+    formData.rollMode = this.options.context.rollMode;
+
+    return formData;
   }
 }

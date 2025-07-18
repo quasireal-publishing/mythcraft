@@ -13,6 +13,7 @@ export default class AttributeRollDialog extends RollDialog {
     context: {
       attribute: null,
       skill: null,
+      formula: "1d20 + @situationalBonus",
     },
   };
 
@@ -34,9 +35,6 @@ export default class AttributeRollDialog extends RollDialog {
       attr: BaseActorModel.schema.getField(["attributes", this.options.context.attribute]).label,
     });
   }
-
-  /* -------------------------------------------------- */
-
   /* -------------------------------------------------- */
 
   /**

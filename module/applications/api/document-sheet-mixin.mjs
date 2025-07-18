@@ -7,7 +7,7 @@ import DocumentSourceInput from "../apps/document-source-input.mjs";
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 
 /**
- * Augments a Document Sheet with Draw-Steel specific behavior.
+ * Augments a Document Sheet with MythCraft specific behavior.
  * @template {Constructor<foundry.applications.api.DocumentSheet>} BaseDocumentSheet
  * @param {BaseDocumentSheet} base
  */

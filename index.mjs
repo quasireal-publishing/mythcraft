@@ -23,7 +23,7 @@ Hooks.once("init", () => {
   });
 
   // Register system rolls
-  CONFIG.Dice.rolls = [rolls.SystemRoll];
+  CONFIG.Dice.rolls = [rolls.MythCraftRoll, rolls.AttributeRoll];
 
   // Register system settings
   utils.SystemSettingsHandler.registerSettings();

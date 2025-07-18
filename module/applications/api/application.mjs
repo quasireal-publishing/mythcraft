@@ -7,7 +7,7 @@ const { HandlebarsApplicationMixin, Application } = foundry.applications.api;
 export default class MythCraftApplication extends HandlebarsApplicationMixin(Application) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    classes: ["draw-steel"],
+    classes: ["mythcraft"],
     form: {
       handler: MythCraftApplication.#submitHandler,
       closeOnSubmit: true,
