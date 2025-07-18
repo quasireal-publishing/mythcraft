@@ -31,10 +31,34 @@ export default class AttributeRollDialog extends RollDialog {
 
   /** @inheritdoc*/
   get title() {
-    return game.i18n.format("MYTHCRAFT.Roll.AttributeRoll.Title", {
-      attr: BaseActorModel.schema.getField(["attributes", this.options.context.attribute]).label,
+    if (this.options.context.skill) return game.i18n.format("MYTHCRAFT.Roll.AttributeRoll.Title.Skill", {
+      attr: this.attributeLabel,
+      skill: this.skillLabel,
+
+    });
+    else return game.i18n.format("MYTHCRAFT.Roll.AttributeRoll.Title.Attribute", {
+      attr: this.attributeLabel,
     });
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Localized attribute string.
+   */
+  get attributeLabel() {
+    return game.i18n.localize(`MYTHCRAFT.Actor.base.FIELDS.attributes.${this.options.context.attribute}.label`);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Localized skill, falls back to the empty string.
+   */
+  get skillLabel() {
+    return game.i18n.localize(mythcraft.CONFIG.skills.list[this.options.context.skill]?.label) ?? "";
+  }
+
   /* -------------------------------------------------- */
 
   /**

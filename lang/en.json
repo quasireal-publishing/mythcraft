@@ -621,7 +621,10 @@
     "Roll": {
       "Button": "Roll",
       "AttributeRoll": {
-        "Title": "{attr} Attribute Roll",
+        "Title": {
+          "Attribute": "{attr} Attribute Roll",
+          "Skill": "{attr} ({skill}) Roll"
+        },
         "SituationalBonus": {
           "Label": "Situational Bonus",
           "Placeholder": "e.g. 3",
