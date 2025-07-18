@@ -1,5 +1,6 @@
 import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger, setOptions } from "../fields/helpers.mjs";
+import AttributeRollDialog from "../../applications/apps/attribute-roll.mjs";
 
 const fields = foundry.data.fields;
 
@@ -9,6 +10,8 @@ const fields = foundry.data.fields;
 export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = ["MYTHCRAFT.Actor.base"];
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   static defineSchema() {
@@ -65,6 +68,12 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     };
   }
 
+  /* -------------------------------------------------- */
+
+  /**
+   * Dataschema of attributes for this actor subtype
+   * @returns {import("@common/abstract/_types.mjs").DataSchema}
+   */
   static defineAttributes() {
     const attributeOptions = () => requiredInteger({ min: -3, max: 12, initial: 0 });
 
@@ -77,6 +86,8 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       cha: new fields.NumberField(attributeOptions()),
     };
   }
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   prepareDerivedData() {
@@ -96,9 +107,34 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     }
   }
 
+  /* -------------------------------------------------- */
+
   /**
    * Perform item subtype specific modifications to the actor roll data
    * @param {object} rollData   Pointer to the roll data object
    */
   modifyRollData(rollData) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Perform an attribute roll
+   * @param {string} attribute
+   */
+  async rollAttribute(attribute) {
+    const fd = await AttributeRollDialog.create({ context: { attribute } });
+    console.log(fd);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Perform a skill roll
+   * @param {string} skill
+   */
+  async rollSkill(skill) {
+    const attribute = mythcraft.CONFIG.skills.list[skill].attribute;
+    const fd = await AttributeRollDialog.create({ context: { attribute, skill } });
+    console.log(fd);
+  }
 }

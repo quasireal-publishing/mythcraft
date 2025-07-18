@@ -517,7 +517,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    */
   static async #rollAttribute(event, target) {
-    console.log(event, target);
+    const attribute = target.closest("[data-attribute]").dataset.attribute;
+    this.actor.system.rollAttribute(attribute);
   }
 
   /* -------------------------------------------------- */
@@ -530,7 +531,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action]
    */
   static async #rollSkill(event, target) {
-    console.log(event, target);
+    const skill = target.dataset.skill;
+    this.actor.system.rollSkill(skill);
   }
 
   /* -------------------------------------------------- */

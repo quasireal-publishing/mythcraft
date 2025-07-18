@@ -1,6 +1,6 @@
 import { systemPath } from "../constants.mjs";
 
-/** @import { HotReloadData } from "@client/types.mjs" */
+/** @import { HotReloadData } from "@client/_types.mjs" */
 
 /**
  * A hook event that fires when a package that is being watched by the hot reload system has a file changed.
@@ -10,7 +10,6 @@ import { systemPath } from "../constants.mjs";
  * @param {HotReloadData} data          The hot reload data
  */
 export function hotReload(data) {
-  console.log(data.path);
   if (data.packageType !== "system") return;
   if (data.path.includes(systemPath("lang"))) {
     // Hook is called *before* i18n is updated so need to wait for that to resolve

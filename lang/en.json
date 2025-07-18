@@ -617,6 +617,17 @@
       "steelMind": "Steel Mind",
       "unerringMind": "Unerring Mind",
       "vigilant": "Vigilant"
+    },
+    "Roll": {
+      "Button": "Roll",
+      "AttributeRoll": {
+        "Title": "{attr} Attribute Roll",
+        "SituationalBonus": {
+          "Label": "Situational Bonus",
+          "Placeholder": "e.g. 3",
+          "Hint": "Formula: {formula}"
+        }
+      }
     }
   },
   "TYPES": {
