@@ -170,7 +170,8 @@
           "Title": "Configure {attr} for {name}",
           "AddSkill": "Add Skill",
           "RemoveSkill": "Remove Skill"
-        }
+        },
+        "MovementListFormat": "{type} {number} ft"
       },
       "character": {
         "FIELDS": {}

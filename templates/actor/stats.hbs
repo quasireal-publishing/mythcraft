@@ -1,17 +1,37 @@
 <section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
-  <div class="flexrow">
+  <div class="core-stats flexrow">
     <fieldset class="hit-points">
       <legend>{{systemFields.hp.label}}</legend>
       {{formGroup systemFields.hp.fields.value value=systemSource.hp.value classes="stacked slim"}}
       {{formGroup systemFields.hp.fields.shield value=systemSource.hp.shield classes="stacked slim"}}
       {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay classes="stacked slim"}}
     </fieldset>
+    {{formGroup systemFields.defenses.fields.ar value=system.defenses.ar hint="" classes="stacked slim" disabled=isPlay}}
     <fieldset class="death-points">
       <legend>{{systemFields.death.label}}</legend>
       {{formGroup systemFields.death.fields.value value=systemSource.death.value classes="stacked slim"}}
       {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay classes="stacked slim"}}
     </fieldset>
-
+  </div>
+  <div class="flexrow">
+    <fieldset class="movement">
+      <legend>{{systemFields.movement.label}}</legend>
+      {{#if isPlay}}
+      {{movementInfo}}
+      {{else}}
+      {{formGroup systemFields.movement.fields.walk value=systemSource.movement.walk}}
+      {{formGroup systemFields.movement.fields.climb value=systemSource.movement.climb}}
+      {{formGroup systemFields.movement.fields.swim value=systemSource.movement.swimy}}
+      {{formGroup systemFields.movement.fields.fly value=systemSource.movement.fly}}
+      {{formGroup systemFields.movement.fields.burrow value=systemSource.movement.burrow}}
+      {{/if}}
+    </fieldset>
+    <fieldset class="senses">
+      <legend>{{systemFields.senses.label}}</legend>
+      {{#if isPlay}}
+      {{else}}
+      {{/if}}
+    </fieldset>
   </div>
   <div class="attributes">
     {{#each attributeInfo as |group|}}
@@ -25,7 +45,22 @@
           <a class="icon fa-solid fa-gear" type="button" data-action="editAttribute"></a>
           {{/unless}}
         </legend>
-        <a class="attribute-label" data-action="rollAttribute">{{numberFormat value sign=true}}</a>
+        <div class="attribute-primary flexrow">
+          {{#if check}}
+          <button type="button" class="attribute-label" data-action="rollAttribute">
+            <i class="fa-solid fa-dice-d20"></i>
+            {{numberFormat value sign=true}}
+          </button>
+          {{else}}
+          <div class="attribute-label">{{value}}</div>
+          {{/if}}
+          {{#if defense}}
+          <div class="attribute-defense form-group stacked">
+            <label>{{defense.label}}</label>
+            <div class="form-fields">{{defense.value}}</div>
+          </div>
+          {{/if}}
+        </div>
         {{#each skills}}
         <a class="skill-label" data-skill="{{skillId}}" data-action="rollSkill">{{localize label}} {{numberFormat bonus sign=true}}</a>
         {{/each}}
@@ -34,28 +69,6 @@
     </div>
     {{/each}}
   </div>
-  <fieldset class="defenses">
-    <legend>{{systemFields.defenses.label}}</legend>
-    {{#each defenseInfo as |group|}}
-    <div class="defense-group">
-      <div>{{localize group.label}}</div>
-      {{#each group.list}}
-      {{formGroup field value=value type="number" hint="" dataset=(object tooltip=field.hint) disabled=@root.isPlay}}
-      {{/each}}
-    </div>
-    {{/each}}
-  </fieldset>
-  <fieldset>
-    <legend>{{systemFields.movement.label}}</legend>
-    {{formGroup systemFields.movement.fields.walk value=(ifThen isPlay system.movement.walk systemSource.movement.walk) disabled=isPlay}}
-    {{formGroup systemFields.movement.fields.climb value=(ifThen isPlay system.movement.climb systemSource.movement.climb) disabled=isPlay}}
-    {{formGroup systemFields.movement.fields.swim value=(ifThen isPlay system.movement.swim systemSource.movement.swim) disabled=isPlay}}
-    {{formGroup systemFields.movement.fields.fly value=(ifThen isPlay system.movement.fly systemSource.movement.fly) disabled=isPlay}}
-    {{formGroup systemFields.movement.fields.burrow value=(ifThen isPlay system.movement.burrow systemSource.movement.burrow) disabled=isPlay}}
-  </fieldset>
-  <fieldset>
-    <legend>{{systemFields.senses.label}}</legend>
-  </fieldset>
   <fieldset>
     <legend>{{systemFields.skills.label}}</legend>
   </fieldset>

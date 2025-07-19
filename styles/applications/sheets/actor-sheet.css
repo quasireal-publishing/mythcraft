@@ -20,27 +20,52 @@
   }
   [data-application-part="stats"] {
     padding-top: 0.5rem;
-    .hit-points, .death-points {
-      flex-direction: row;
-      justify-content: space-around;
+    .core-stats {
+      gap: 0.5rem;
+      .hit-points, .death-points {
+        flex-direction: row;
+        justify-content: space-around;
+      }
       .form-group.stacked {
         text-align: center;
         .form-fields {
           justify-content: center;
         }
       }
+      .hit-points {
+        flex-grow: 3;
+      }
+      .death-points {
+        flex-grow: 2;
+      }
     }
-    .hit-points {
-      flex-grow: 3;
-    }
-    .death-points {
-      flex-grow: 2;
-    }
-    .attribute-group {
-      flex-direction: row;
-      .attribute-group-label {
-        flex: 0 0 20px;
-        writing-mode: sideways-lr;
+    .attributes {
+      .attribute-group {
+        &:first-child {
+          margin-bottom: 1rem;
+        }
+        &:last-child {
+          margin-top: 1rem;
+        }
+        flex-direction: row;
+          align-items: stretch;
+        .attribute-group-label {
+          flex: 0 0 20px;
+          writing-mode: sideways-lr;
+          text-align: center;
+        }
+        .attribute-primary {
+          .attribute-label {
+            border: none;
+            flex: 0 0 50%;
+          }
+          .attribute-defense {
+            text-align: center;
+            .form-fields {
+              justify-content: center;
+            }
+          }
+        }
       }
     }
   }

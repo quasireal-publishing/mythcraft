@@ -205,11 +205,13 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     const systemData = this.isPlayMode ? this.actor.system : this.actor.system._source;
 
     const attributeConfig = mythcraft.CONFIG.attributes;
+    const defenseConfig = mythcraft.CONFIG.defenses;
     context.attributeInfo = Object.entries(systemData.attributes).reduce((obj, [key, value]) => {
       const field = systemSchema.getField(["attributes", key]);
-      const group = attributeConfig.list[key].group;
+      const { group, defense, check } = attributeConfig.list[key];
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
-      const attrInfo = { value, field };
+      const attrInfo = { value, field, check };
+      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: systemData.defenses[defense] };
       attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillBonus = this.actor.system.skills[id].bonus;
@@ -225,14 +227,14 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       return obj;
     }, {});
 
-    const defenseConfig = mythcraft.CONFIG.defenses;
-    context.defenseInfo = Object.entries(systemData.defenses).reduce((obj, [key, value]) => {
-      const field = systemSchema.getField(["defenses", key]);
-      const group = defenseConfig.list[key].group;
-      obj[group] ??= { label: defenseConfig.groups[group].label, list: [] };
-      obj[group].list.push({ value, field });
-      return obj;
-    }, {});
+    const formatter = game.i18n.getListFormatter({ type: "unit" });
+
+    const movementInfo = Object.entries(this.actor.system.movement).map(([key, value]) => {
+      if (value === null) return null;
+      const label = key === "walk" ? "" : this.actor.system.schema.getField(["movement", key]).label;
+      return game.i18n.format("MYTHCRAFT.Actor.base.MovementListFormat", { type: label, number: value });
+    });
+    context.movementInfo = formatter.format(movementInfo.filter(_ => _));
 
     const damageConfig = mythcraft.CONFIG.damage;
 

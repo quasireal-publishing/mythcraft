@@ -170,8 +170,9 @@ export const conditions = {
 
 /**
  * @typedef Attribute
- * @property {string} group     What group is this attribute in?
- * @property {boolean} check    Does this attribute make checks?
+ * @property {string} group       What group is this attribute in?
+ * @property {boolean} check      Does this attribute make checks?
+ * @property {string} [defense]   A defense associated with this attribute.
  */
 
 /**
@@ -186,22 +187,27 @@ const attributeList = {
   dex: {
     group: "physical",
     check: true,
+    defense: "ref",
   },
   end: {
     group: "physical",
     check: true,
+    defense: "fort",
   },
   awr: {
     group: "mental",
     check: true,
+    defense: "ant",
   },
   int: {
     group: "mental",
     check: true,
+    defense: "log",
   },
   cha: {
     group: "mental",
     check: true,
+    defense: "will",
   },
   luck: {
     group: "meta",
