@@ -15,6 +15,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static DEFAULT_OPTIONS = {
     classes: ["actor"],
     actions: {
+      addSense: this.#addSense,
+      removeSense: this.#removeSense,
       editAttribute: this.#editAttribute,
       rollAttribute: this.#rollAttribute,
       rollSkill: this.#rollSkill,
@@ -231,10 +233,23 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     const movementInfo = Object.entries(this.actor.system.movement).map(([key, value]) => {
       if (value === null) return null;
-      const label = key === "walk" ? "" : this.actor.system.schema.getField(["movement", key]).label;
+      const label = key === "walk" ? "" : systemSchema.getField(["movement", key]).label;
       return game.i18n.format("MYTHCRAFT.Actor.base.MovementListFormat", { type: label, number: value });
     });
     context.movementInfo = formatter.format(movementInfo.filter(_ => _));
+
+    const senseOptions = Object.entries(mythcraft.CONFIG.senses).map(([value, { label }]) => ({ value, label }));
+
+    const senseList = Object.entries(this.actor.system.senses).map(([key, { value }]) => {
+      return {
+        value,
+        field: systemSchema.getField("senses.element.value"),
+        name: `system.senses.${key}.value`,
+        label: mythcraft.CONFIG.senses[key]?.label,
+      };
+    });
+
+    context.senseInfo = { options: senseOptions };
 
     const damageConfig = mythcraft.CONFIG.damage;
 
@@ -388,17 +403,15 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     // It's needed for the nice "display" version of the prosemirror editors
     const TextEditor = foundry.applications.ux.TextEditor.implementation;
 
-    // One common pitfall with reusing enrichment options is that they are passed by reference to descendent functions
-    // This can cause problems with foundry's Embed Depth handling, so always destructure with { ...options } when passing to a new enrichHTML call
     const enrichmentOptions = {
       secrets: this.actor.isOwner,
       rollData: this.actor.getRollData(),
       relativeTo: this.actor,
     };
 
-    context.enrichedBiography = await TextEditor.enrichHTML(this.actor.system.biography.value, { ...enrichmentOptions });
+    context.enrichedBiography = await TextEditor.enrichHTML(this.actor.system.biography.value, enrichmentOptions);
 
-    context.enrichedGMNotes = await TextEditor.enrichHTML(this.actor.system.biography.gm, { ...enrichmentOptions });
+    context.enrichedGMNotes = await TextEditor.enrichHTML(this.actor.system.biography.gm, enrichmentOptions);
   }
 
   /* -------------------------------------------------- */
@@ -495,6 +508,34 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------- */
   /*  Action Event Handlers                       */
   /* -------------------------------------------- */
+
+  /**
+   * Add a new sense to the actor's data.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #addSense(event, target) {
+    const sense = target.previousElementSibling.value;
+    this.document.update({ [`system.senses.${sense}.value`]: 10 });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Remove a sense from the actor's data.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #removeSense(event, target) {
+    const sense = target.dataset.sense;
+    this.document.update({ [`system.senses.-=${sense}`]: null });
+  }
+
+  /* -------------------------------------------------- */
 
   /**
    * Edit an attribute and its associated skills.

@@ -1,5 +1,6 @@
 <section class="standard-form">
   {{formGroup attribute.field value=attribute.value hint="" }}
+  {{#if attrSkills.length}}
   <div class="form-group">
     <label>{{localize "MYTHCRAFT.Actor.base.AttributeSkillInput.AddSkill"}}</label>
     <div class="form-fields">
@@ -20,4 +21,5 @@
   </div>
   {{/if}}
   {{/each}}
+  {{/if}}
 </section>

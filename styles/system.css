@@ -1,3 +1,6 @@
+/** General Structure */
+@import url("./applications/forms.css");
+
 /** Applications */
 @import url("./applications/api/roll-dialog.css");
 

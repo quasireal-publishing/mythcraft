@@ -30,6 +30,24 @@
       <legend>{{systemFields.senses.label}}</legend>
       {{#if isPlay}}
       {{else}}
+      <div class="form-group">
+        <label>Add Sense</label>
+        <div class="form-fields">
+          <select data-name="add">
+            {{selectOptions senseInfo.options localize="true"}}
+          </select>
+          <button type="button" class="icon fa-solid fa-plus" data-action="addSense"></button>
+        </div>
+      </div>
+      {{#each senseInfo.list}}
+      <div class="form-group">
+        <label>{{localize label}}</label>
+        <div class="form-fields">
+          {{formInput field value=value name=name}}
+          <button type="button" class="icon fa-solid fa-minus" data-action="removeSense"></button>
+        </div>
+      </div>
+      {{/each}}
       {{/if}}
     </fieldset>
   </div>
@@ -41,37 +59,39 @@
       <fieldset class="attribute" data-attribute="{{field.name}}">
         <legend>
           {{field.label}}
-          {{#unless @root.isPlay}}
-          <a class="icon fa-solid fa-gear" type="button" data-action="editAttribute"></a>
-          {{/unless}}
-        </legend>
-        <div class="attribute-primary flexrow">
+          {{#if @root.isPlay}}
           {{#if check}}
-          <button type="button" class="attribute-label" data-action="rollAttribute">
+          <a data-action="rollAttribute">
             <i class="fa-solid fa-dice-d20"></i>
             {{numberFormat value sign=true}}
-          </button>
+          </a>
           {{else}}
-          <div class="attribute-label">{{value}}</div>
+          {{value}}
           {{/if}}
+          {{else}}
+          <a class="icon fa-solid fa-gear" data-action="editAttribute"></a>
+          {{/if}}
+        </legend>
+        <dl>
           {{#if defense}}
-          <div class="attribute-defense form-group stacked">
-            <label>{{defense.label}}</label>
-            <div class="form-fields">{{defense.value}}</div>
-          </div>
+          <dt>{{defense.label}}</dt>
+          <dd>{{defense.value}}</dd>
           {{/if}}
-        </div>
-        {{#each skills}}
-        <a class="skill-label" data-skill="{{skillId}}" data-action="rollSkill">{{localize label}} {{numberFormat bonus sign=true}}</a>
-        {{/each}}
+          {{#each skills}}
+          <dt>{{localize label}}</dt>
+          <dd>
+            <a data-skill="{{skillId}}" data-action="rollSkill">
+              <i class="fa-solid fa-dice-d20"></i>
+              {{numberFormat bonus sign=true}}
+            </a>
+          </dd>
+          {{/each}}
+        </dl>
       </fieldset>
       {{/each}}
     </div>
     {{/each}}
   </div>
-  <fieldset>
-    <legend>{{systemFields.skills.label}}</legend>
-  </fieldset>
   <fieldset>
     <legend>{{systemFields.conditions.label}}</legend>
     {{formGroup systemFields.conditions.fields.absorb value=(ifThen isPlay system.conditions.absorb systemSource.conditions.absorb) disabled=isPlay}}
