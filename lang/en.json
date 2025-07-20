@@ -171,7 +171,8 @@
           "AddSkill": "Add Skill",
           "RemoveSkill": "Remove Skill"
         },
-        "MovementListFormat": "{type} {number} ft"
+        "MovementListFormat": "{type} {number} ft",
+        "SenseListFormat": "{type} {number} ft"
       },
       "character": {
         "FIELDS": {}

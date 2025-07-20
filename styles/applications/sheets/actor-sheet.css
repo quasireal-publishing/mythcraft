@@ -41,14 +41,14 @@
     }
     .attributes {
       .attribute-group {
+        flex-direction: row;
+        align-items: stretch;
         &:first-child {
           margin-bottom: 1rem;
         }
         &:last-child {
           margin-top: 1rem;
         }
-        flex-direction: row;
-          align-items: stretch;
         .attribute-group-label {
           flex: 0 0 20px;
           writing-mode: sideways-lr;
@@ -67,6 +67,9 @@
           }
         }
       }
+    }
+    .exploration {
+      align-items: stretch;
     }
   }
 

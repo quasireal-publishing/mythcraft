@@ -13,7 +13,7 @@
       {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay classes="stacked slim"}}
     </fieldset>
   </div>
-  <div class="flexrow">
+  <div class="flexrow exploration">
     <fieldset class="movement">
       <legend>{{systemFields.movement.label}}</legend>
       {{#if isPlay}}
@@ -29,6 +29,7 @@
     <fieldset class="senses">
       <legend>{{systemFields.senses.label}}</legend>
       {{#if isPlay}}
+      {{senseInfo.description}}
       {{else}}
       <div class="form-group">
         <label>Add Sense</label>
@@ -40,11 +41,11 @@
         </div>
       </div>
       {{#each senseInfo.list}}
-      <div class="form-group">
-        <label>{{localize label}}</label>
+      <div class="form-group inline slim">
+        <label>{{label}}</label>
         <div class="form-fields">
           {{formInput field value=value name=name}}
-          <button type="button" class="icon fa-solid fa-minus" data-action="removeSense"></button>
+          <button type="button" class="icon fa-solid fa-minus" data-action="removeSense" data-sense="{{key}}"></button>
         </div>
       </div>
       {{/each}}

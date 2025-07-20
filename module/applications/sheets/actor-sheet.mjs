@@ -205,6 +205,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     const systemSchema = this.actor.system.schema;
     const systemData = this.isPlayMode ? this.actor.system : this.actor.system._source;
+    const unitFormatter = game.i18n.getListFormatter({ type: "unit" });
 
     const attributeConfig = mythcraft.CONFIG.attributes;
     const defenseConfig = mythcraft.CONFIG.defenses;
@@ -229,27 +230,28 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       return obj;
     }, {});
 
-    const formatter = game.i18n.getListFormatter({ type: "unit" });
-
     const movementInfo = Object.entries(this.actor.system.movement).map(([key, value]) => {
       if (value === null) return null;
       const label = key === "walk" ? "" : systemSchema.getField(["movement", key]).label;
       return game.i18n.format("MYTHCRAFT.Actor.base.MovementListFormat", { type: label, number: value });
     });
-    context.movementInfo = formatter.format(movementInfo.filter(_ => _));
+    context.movementInfo = unitFormatter.format(movementInfo.filter(_ => _));
 
-    const senseOptions = Object.entries(mythcraft.CONFIG.senses).map(([value, { label }]) => ({ value, label }));
+    const senseOptions = Object.entries(mythcraft.CONFIG.senses).map(([value, { label }]) => ({ value, label, disabled: value in systemData.senses }));
 
     const senseList = Object.entries(this.actor.system.senses).map(([key, { value }]) => {
       return {
+        key,
         value,
         field: systemSchema.getField("senses.element.value"),
         name: `system.senses.${key}.value`,
-        label: mythcraft.CONFIG.senses[key]?.label,
+        label: game.i18n.localize(mythcraft.CONFIG.senses[key]?.label),
       };
     });
 
-    context.senseInfo = { options: senseOptions };
+    const senseDescription = unitFormatter.format(senseList.map(s => game.i18n.format("MYTHCRAFT.Actor.base.SenseListFormat", { type: s.label, number: s.value })));
+
+    context.senseInfo = { options: senseOptions, list: senseList, description: senseDescription };
 
     const damageConfig = mythcraft.CONFIG.damage;
 
