@@ -1,11 +1,11 @@
-{{formGroup systemFields.apc value=system.apc disabled=@root.isPlay}}
-{{formGroup systemFields.spc value=system.spc disabled=@root.isPlay}}
+{{formGroup systemFields.apc value=system.apc disabled=isPlay}}
+{{formGroup systemFields.spc value=system.spc disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.range.label}}</legend>
   {{formGroup systemFields.range.fields.value value=system.range.value}}
   {{formGroup systemFields.range.fields.unit value=system.range.unit}}
 </fieldset>
-{{formGroup systemFields.requirements value=system.requirements disabled=@root.isPlay}}
+{{formGroup systemFields.requirements value=system.requirements disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.duration.label}}</legend>
   {{formGroup systemFields.duration.fields.value value=system.duration.value}}
