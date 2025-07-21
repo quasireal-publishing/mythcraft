@@ -1,11 +1,11 @@
-{{formGroup systemFields.quantity value=system.quantity}}
-{{formGroup systemFields.cost value=system.cost}}
-{{formGroup systemFields.category value=system.category}}
-{{formGroup systemFields.ar value=system.ar}}
-<fieldset>
+{{formGroup systemFields.quantity value=system.quantity disabled=@root.isPlay}}
+{{formGroup systemFields.cost value=system.cost disabled=@root.isPlay}}
+{{formGroup systemFields.category value=system.category disabled=@root.isPlay}}
+{{formGroup systemFields.ar value=system.ar disabled=@root.isPlay}}
+<fieldset disabled="@root.isPlay">
   <legend>{{systemFields.defenses.label}}</legend>
 </fieldset>
-{{formGroup systemFields.strMin value=system.strMin}}
-{{formGroup systemFields.dexMax value=system.dexMax}}
-{{formGroup systemFields.speedPenalty value=system.speedPenalty}}
+{{formGroup systemFields.strMin value=system.strMin disabled=@root.isPlay}}
+{{formGroup systemFields.dexMax value=system.dexMax disabled=@root.isPlay}}
+{{formGroup systemFields.speedPenalty value=system.speedPenalty disabled=@root.isPlay}}
 {{!-- resist --}}

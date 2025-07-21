@@ -1,13 +1,13 @@
-{{formGroup systemFields.skillPoints value=system.skillPoints}}
+{{formGroup systemFields.skillPoints value=system.skillPoints disabled=@root.isPlay}}
 
-<fieldset>
+<fieldset {{disabled isPlay}}>
   <legend>{{systemFields.occupation.label}}</legend>
   {{formGroup systemFields.occupation.fields.tag value=system.occupation.tag}}
   {{formGroup systemFields.occupation.fields.skill value=system.occupation.skill}}
   {{formGroup systemFields.occupation.fields.bonus value=system.occupation.bonus}}
 </fieldset>
 
-{{formGroup systemFields.professions value=system.professions}}
-{{formGroup systemFields.wealth value=system.wealth}}
+{{formGroup systemFields.professions value=system.professions disabled=@root.isPlay}}
+{{formGroup systemFields.wealth value=system.wealth disabled=@root.isPlay}}
 
 {{!-- starting equipment --}}

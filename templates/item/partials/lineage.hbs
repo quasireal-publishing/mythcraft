@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset {{disabled isPlay}}>
   <legend>{{systemFields.baseSpeed.label}}</legend>
   {{formGroup systemFields.baseSpeed.fields.walk value=system.baseSpeed.walk}}
   {{formGroup systemFields.baseSpeed.fields.climb value=system.baseSpeed.climb}}
