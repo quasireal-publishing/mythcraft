@@ -1,5 +1,5 @@
 /** @import BasePackage from "@common/packages/base-package.mjs"; */
-/** @import {  SystemActor, SystemItem } from "../../documents/_module.mjs" */
+/** @import { MythCraftActor, MythCraftItem } from "../../documents/_module.mjs" */
 
 const fields = foundry.data.fields;
 
@@ -52,7 +52,7 @@ export default class SourceModel extends foundry.abstract.DataModel {
 
   /**
    * Fetches the document containing this model.
-   * @returns {SystemActor | SystemItem}
+   * @returns {MythCraftActor | MythCraftItem}
    */
   get document() {
     return this.parent?.parent ?? null;

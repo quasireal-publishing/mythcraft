@@ -1,7 +1,7 @@
 /**
  * A custom implementation of the Actor class.
  */
-export default class SystemItem extends foundry.documents.Item {
+export default class MythCraftItem extends foundry.documents.Item {
   /**
    * Return a data object which defines the data schema against which dice rolls can be evaluated.
    * @returns {Record<string, any>}

@@ -29,7 +29,6 @@ export function hotReload(data) {
   else if (data.path.includes(systemPath("styles"))) {
     // This must be adjusted if you register additional CSS files (e.g. to add a variables layer) in system.json
     const path = systemPath("styles/system.css");
-    console.log(data.path, path);
     // Don't need to refresh if it's the root file
     if (data.path === path) return;
     // Taken from core's `Game##hotReloadCSS`

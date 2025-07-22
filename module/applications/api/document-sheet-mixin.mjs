@@ -146,7 +146,7 @@ export default base => {
     /**
      * Open the update source dialog.
      *
-     * @this DrawSteelItemSheet
+     * @this MCDocumentSheet
      * @param {PointerEvent} event   The originating click event.
      * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
      */

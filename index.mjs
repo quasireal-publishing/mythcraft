@@ -1,12 +1,13 @@
-import { applications, data, documents, rolls, utils, SystemCONFIG, SystemCONST } from "./module/_module.mjs";
+import { applications, canvas, data, documents, rolls, utils, SystemCONFIG, SystemCONST } from "./module/_module.mjs";
 
 globalThis.mythcraft = { CONFIG: SystemCONFIG, CONST: SystemCONST, applications, data, documents, rolls, utils };
 
 Hooks.once("init", () => {
 
   // Register all Document classes
-  CONFIG.Actor.documentClass = documents.SystemActor;
-  CONFIG.Item.documentClass = documents.SystemItem;
+  CONFIG.Actor.documentClass = documents.MythCraftActor;
+  CONFIG.Item.documentClass = documents.MythCraftItem;
+  CONFIG.Token.documentClass = documents.MythCraftTokenDocument;
 
   // Register system data models
   Object.assign(CONFIG.Actor.dataModels, data.Actor.config);
@@ -21,6 +22,10 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(foundry.documents.Item, SystemCONST.systemId, applications.sheets.MythCraftItemSheet, {
     makeDefault: true,
   });
+
+  // Movement
+  CONFIG.Token.rulerClass = canvas.MythCraftTokenRuler;
+  canvas.MythCraftTokenRuler.applyMCMovementConfig();
 
   // Register system rolls
   CONFIG.Dice.rolls = [rolls.MythCraftRoll, rolls.AttributeRoll];

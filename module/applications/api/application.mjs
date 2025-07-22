@@ -64,7 +64,7 @@ export default class MythCraftApplication extends HandlebarsApplicationMixin(App
     const timeout = this.options.timeout;
 
     if (timeout) setTimeout(() => {
-      ui.notifications.error("DRAW_STEEL.SOCKET.WARNING.Timeout", {
+      ui.notifications.error("MYTHCRAFT.SOCKET.WARNING.Timeout", {
         format: {
           label: this.constructor.name,
           seconds: timeout / 1000,

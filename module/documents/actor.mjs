@@ -1,7 +1,7 @@
 /**
  * A custom implementation of the Actor class.
  */
-export default class SystemActor extends Actor {
+export default class MythCraftActor extends Actor {
   /**
    * Return a data object which defines the data schema against which dice rolls can be evaluated.
    * @returns {Record<string, any>}
