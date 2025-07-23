@@ -175,7 +175,23 @@
         "SenseListFormat": "{type} {number} ft"
       },
       "character": {
-        "FIELDS": {}
+        "FIELDS": {
+          "lp": {
+            "value": {
+              "label": "Luck Points"
+            }
+          },
+          "ap": {
+            "value": {
+              "label": "Action Points"
+            }
+          },
+          "sp": {
+            "value": {
+              "label": "Spell Points"
+            }
+          }
+        }
       },
       "npc": {
         "FIELDS": {}

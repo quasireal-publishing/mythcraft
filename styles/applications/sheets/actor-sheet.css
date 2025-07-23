@@ -5,7 +5,7 @@
     padding-top: 0;
   }
 
-  header {
+  [data-application-part="header"] {
     padding: 0.5rem 0;
     img {
       border: none;
@@ -16,6 +16,17 @@
       height: var(--font-h1-size);
       line-height: var(--font-h1-size);
       font-size: var(--font-h2-size);
+    }
+    .action-points {
+      flex: 0 0 100px;
+      text-align: center;
+      .form-fields {
+        padding: 0 1rem;
+      input {
+        flex: 0 0 50px;
+        text-align: center;
+      }
+      }
     }
   }
   [data-application-part="stats"] {

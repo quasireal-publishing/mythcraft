@@ -8,7 +8,7 @@ const fields = foundry.data.fields;
  */
 export default class CharacterModel extends BaseActorModel {
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Actor.Character");
+  static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Actor.character");
 
   /** @inheritdoc */
   static defineSchema() {
