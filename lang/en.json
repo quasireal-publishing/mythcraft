@@ -51,6 +51,9 @@
               "label": "Max"
             }
           },
+          "sp": {
+            "label": "Spell Points"
+          },
           "attributes": {
             "label": "Attributes",
             "str": {
@@ -184,11 +187,6 @@
           "ap": {
             "value": {
               "label": "Action Points"
-            }
-          },
-          "sp": {
-            "value": {
-              "label": "Spell Points"
             }
           }
         }

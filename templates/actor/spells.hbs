@@ -1,5 +1,14 @@
 {{! Spells Tab }}
 <section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="spells">
+  <div class="standard-form attributes">
+    <div class="form-group slim">
+      <label>{{systemFields.sp.label}}</label>
+      <div class="form-fields">
+        {{formInput systemFields.sp.fields.value value=system.sp.value disabled=(not editable)}}
+        {{formInput systemFields.sp.fields.max value=system.sp.max disabled=isPlay}}
+      </div>
+    </div>
+  </div>
   <div class="item-header flexrow">
     <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
     <div class="item-apc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.apc.hint">{{localize "MYTHCRAFT.Item.spell.FIELDS.apc.label"}}</div>

@@ -19,10 +19,6 @@ export default class CharacterModel extends BaseActorModel {
     });
     schema.ap = new fields.SchemaField({
       value: new fields.NumberField(requiredInteger({ min: 0, initial: 3 })),
-    }),
-    schema.sp = new fields.SchemaField({
-      value: new fields.NumberField({ integer: true, min: 0 }),
-      max: new fields.NumberField({ integer: true, min: 0 }),
     });
 
     return schema;
