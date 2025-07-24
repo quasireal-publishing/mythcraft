@@ -8,6 +8,8 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = ["MYTHCRAFT.Source", "MYTHCRAFT.Item.base"];
 
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static defineSchema() {
     const fields = foundry.data.fields;
@@ -26,16 +28,22 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
     };
   }
 
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     this.source.prepareData(this.parent._stats?.compendiumSource ?? this.parent.uuid);
   }
+
+  /* -------------------------------------------------- */
 
   /**
    * Perform item subtype specific modifications to the actor roll data.
    * @param {object} rollData   Pointer to the roll data object.
    */
   modifyRollData(rollData) {}
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   async _preCreate(data, options, user) {

@@ -1222,3 +1222,45 @@ export const monsterTraits = {
     reference: "",
   },
 };
+
+/**
+ * @typedef SpellComponent
+ * @property {string} label
+ */
+
+/**
+ * @type {Record<string, SpellComponent>}
+ */
+const spellComponents = {
+  gesture: {
+    label: "MYTHCRAFT.Item.spell.components.gesture",
+  },
+  verbal: {
+    label: "MYTHCRAFT.Item.spell.components.verbal",
+  },
+  visual: {
+    label: "MYTHCRAFT.Item.spell.components.visual",
+  },
+};
+
+/**
+ * @typedef SpellRequirement
+ * @property {string} label
+ */
+
+/**
+ * @type {Record<string, SpellRequirement>}
+ */
+const spellRequirements = {
+  loe: {
+    label: "MYTHCRAFT.Item.spell.requirements.loe",
+  },
+  los: {
+    label: "MYTHCRAFT.Item.spell.requirements.los",
+  },
+};
+
+export const spells = {
+  components: spellComponents,
+  requirements: spellRequirements,
+};

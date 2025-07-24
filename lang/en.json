@@ -344,6 +344,7 @@
           },
           "range": {
             "label": "Range",
+            "formatter": "{value} {unit}",
             "value": {
               "label": "Value"
             },
@@ -356,6 +357,7 @@
           },
           "duration": {
             "label": "Duration",
+            "formatter": "{value} {unit}",
             "value": {
               "label": "Value"
             },
@@ -363,6 +365,15 @@
               "label": "Unit"
             }
           }
+        },
+        "components": {
+          "gesture": "Gesture",
+          "verbal": "Verbal",
+          "visual": "Visual"
+        },
+        "requirements": {
+          "los": "Line of Sight",
+          "loe": "Line of Effect"
         }
       },
       "talent": {
