@@ -280,7 +280,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     for (const item of sortedSpells) {
       const expanded = this.#expanded.items.has(item.id);
       const itemContext = { item, expanded };
-      if (expanded) itemContext.embed = await item.system.toEmbed({});
+      if (expanded) itemContext.embed = await item.system.toEmbed({ actorSheet: true });
 
       context.spells.push(itemContext);
     }
@@ -418,17 +418,12 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
   /* -------------------------------------------------- */
 
-  /**
-   * Actions performed after a first render of the Application.
-   * @param {ApplicationRenderContext} context      Prepared context data.
-   * @param {RenderOptions} options                 Provided render options.
-   * @protected
-   */
+  /** @inheritdoc*/
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
-    this._createContextMenu(this._getItemButtonContextOptions, "[data-document-class][data-item-id], [data-document-class][data-effect-id]", {
-      hookName: "getItemButtonContextOptions",
+    this._createContextMenu(this._getDocumentListContextOptions, "[data-document-class][data-item-id], [data-document-class][data-effect-id]", {
+      hookName: "getDocumentListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });
@@ -437,11 +432,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /* -------------------------------------------------- */
 
   /**
-   * Get context menu entries for item buttons.
+   * Get context menu entries for item lists.
    * @returns {ContextMenuEntry[]}
    * @protected
    */
-  _getItemButtonContextOptions() {
+  _getDocumentListContextOptions() {
     // name is auto-localized
     return [
       // All applicable options
@@ -451,7 +446,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         condition: () => this.isPlayMode,
         callback: async (target) => {
           const item = this._getEmbeddedDocument(target);
-          if (!item) return console.error("Could not find item");
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
         },
       },
@@ -461,7 +455,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         condition: () => this.isEditMode,
         callback: async (target) => {
           const item = this._getEmbeddedDocument(target);
-          if (!item) return console.error("Could not find item");
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
         },
       },
@@ -470,10 +463,13 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
         callback: async (target) => {
           const item = this._getEmbeddedDocument(target);
-          if (!item) return console.error("Could not find item");
           await ChatMessage.create({
-            content: `@Embed[${item.uuid} caption=false]`,
+            content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} caption=false]</div>`,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            title: item.name,
+            flags: {
+              core: { canPopout: true },
+            },
           });
         },
       },
@@ -483,7 +479,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         condition: () => this.actor.isOwner,
         callback: async (target) => {
           const item = this._getEmbeddedDocument(target);
-          if (!item) return console.error("Could not find item");
           await item.deleteDialog();
         },
       },

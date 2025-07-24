@@ -1,4 +1,12 @@
 <dl>
+  {{#unless config.actorSheet}}
+  <dt>{{systemFields.apc.label}}</dt>
+  <dd>{{system.apc}}</dd>
+  {{#if system.spc}}
+  <dt>{{systemFields.spc.label}}</dt>
+  <dd>{{system.spc}}</dd>
+  {{/if}}
+  {{/unless}}
   <dt>{{systemFields.range.label}}</dt>
   <dd>{{system.rangeLabel}}</dd>
   <dt>{{systemFields.requirements.label}}</dt>

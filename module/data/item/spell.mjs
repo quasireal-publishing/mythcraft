@@ -95,6 +95,7 @@ export default class SpellModel extends BaseItemModel {
     embed.classList.add("mythcraft", this.parent.type);
 
     const content = await foundry.applications.handlebars.renderTemplate(systemPath("templates/item/embeds/spell.hbs"), {
+      config,
       enriched,
       system: this,
       systemFields: this.schema.fields,
