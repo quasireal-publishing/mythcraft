@@ -33,7 +33,7 @@
       .effect-duration {
         flex: 0 0 80px;
       }
-      .document-controls {
+      .effect-controls {
         flex: 0 0 100px;
       }
     }
@@ -53,7 +53,7 @@
       .effect-duration {
         flex: 0 0 130px;
       }
-      .document-controls {
+      .effect-controls {
         flex: 0 0 80px;
       }
     }

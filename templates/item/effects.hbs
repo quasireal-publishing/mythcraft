@@ -10,7 +10,7 @@
         {{localize "EFFECT.FIELDS.origin.label"}}
       </div>
       <div class="effect-duration">{{localize "EFFECT.TABS.duration"}}</div>
-      <div class="document-controls flexrow">
+      <div class="effect-controls flexrow">
         <a class="effect-controls"
           data-action="createDoc" data-document-class="ActiveEffect"
           {{!-- eslint-ignore-next-line html-eslint/no-duplicate-attrs --}}
@@ -36,7 +36,7 @@
         </div>
         <div class="effect-source">{{effect.sourceName}}</div>
         <div class="effect-duration">{{effect.duration.label}}</div>
-        <div class="document-controls flexrow">
+        <div class="effect-controls flexrow">
           {{#if @root.editable}}
           <a class="effect-control" data-action="toggleEffect" title="{{localize 'MYTHCRAFT.Effect.Toggle'}}">
             <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
