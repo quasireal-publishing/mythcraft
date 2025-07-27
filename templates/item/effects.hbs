@@ -11,7 +11,9 @@
       </div>
       <div class="effect-duration">{{localize "EFFECT.TABS.duration"}}</div>
       <div class="effect-controls flexrow">
-        <a class="effect-controls"
+        <button
+          type="button"
+          class="effect-controls"
           data-action="createDoc" data-document-class="ActiveEffect"
           {{!-- eslint-ignore-next-line html-eslint/no-duplicate-attrs --}}
           {{#if (eq section.type "inactive" )}} data-disabled="true"
@@ -22,34 +24,28 @@
         >
           <i class="fas fa-plus"></i>
           {{localize "DOCUMENT.New" type=(localize "MYTHCRAFT.Effect.Label")}}
-        </a>
+        </button>
       </div>
     </li>
 
     <ul class="effect-list">
-      {{#each section.effects as |effect|}}
-      <li class="effect flexrow draggable" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}"
+      {{#each section.effects}}
+      <li class="effect draggable" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}"
         data-document-class="ActiveEffect">
-        <div class="effect-label flexrow">
-          <img class="effect-image" src="{{effect.img}}" alt="{{localize "EFFECT.FIELDS.img.label"}}" height="24" width="24">
-          <div class="effect-name">{{effect.name}}</div>
+        <div class="effect-row flexrow">
+          <div class="effect-label flexrow">
+            <img class="effect-image" src="{{effect.img}}" alt="{{localize "EFFECT.FIELDS.img.label"}}" height="24" width="24">
+            <div class="effect-name">{{effect.name}}</div>
+          </div>
+          <div class="effect-source">{{effect.sourceName}}</div>
+          <div class="effect-duration">{{effect.duration.label}}</div>
+          <div class="effect-controls flexrow">
+            <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+            <button type="button" data-action="toggleEffectEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          </div>
         </div>
-        <div class="effect-source">{{effect.sourceName}}</div>
-        <div class="effect-duration">{{effect.duration.label}}</div>
-        <div class="effect-controls flexrow">
-          {{#if @root.editable}}
-          <a class="effect-control" data-action="toggleEffect" title="{{localize 'MYTHCRAFT.Effect.Toggle'}}">
-            <i class="fas {{#if effect.disabled}}fa-check{{else}}fa-times{{/if}}"></i>
-          </a>
-          {{/if}}
-          <a class="effect-control" data-action="viewDoc" title="{{localize 'DOCUMENT.Update' type=(localize 'DOCUMENT.ActiveEffect')}}">
-            <i class="fas fa-edit"></i>
-          </a>
-          {{#if @root.editable}}
-          <a class="effect-control" data-action="deleteDoc" title="{{localize 'DOCUMENT.Delete' type=(localize 'DOCUMENT.ActiveEffect')}}">
-            <i class="fas fa-trash"></i>
-          </a>
-          {{/if}}
+        <div class="effect-embed">
+          {{#if expanded}}{{{enrichedDescription}}}{{/if}}
         </div>
       </li>
       {{/each}}

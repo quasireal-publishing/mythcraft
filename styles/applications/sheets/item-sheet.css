@@ -55,6 +55,13 @@
       }
       .effect-controls {
         flex: 0 0 80px;
+        justify-content: flex-end;
+        button.icon {
+          border: none;
+          &:not(:hover) {
+            background: none;
+          }
+        }
       }
     }
     .effect-label {

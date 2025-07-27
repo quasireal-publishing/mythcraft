@@ -1,5 +1,6 @@
 import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
+import enrichHTML from "../../utils/enrich-html.mjs";
 
 const { ItemSheet } = foundry.applications.sheets;
 
@@ -15,6 +16,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       createDoc: this.#createEffect,
       deleteDoc: this.#deleteEffect,
       toggleEffect: this.#toggleEffect,
+      toggleEffectEmbed: this.#toggleEffectEmbed,
     },
   };
 
@@ -81,6 +83,13 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------- */
   /*  Rendering                                   */
   /* -------------------------------------------- */
+
+  /**
+   * A set of relative effect UUIDs that have expanded descriptions on this sheet.
+   */
+  #expanded = new Set();
+
+  /* -------------------------------------------------- */
 
   /** @inheritdoc */
   _configureRenderParts(options) {
@@ -150,17 +159,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
    * @param {ApplicationRenderOptions} options
    */
   async _prepareDescriptionTab(context, options) {
-    const TextEditor = foundry.applications.ux.TextEditor.implementation;
-
-    const enrichmentOptions = {
-      secrets: this.item.isOwner,
-      rollData: this.item.getRollData(),
-      relativeTo: this.item,
-    };
-
-    context.enrichedDescription = await TextEditor.enrichHTML(this.item.system.description.value, { ...enrichmentOptions });
-
-    context.enrichedGMNotes = await TextEditor.enrichHTML(this.item.system.description.gm, { ...enrichmentOptions });
+    context.enrichedDescription = await enrichHTML(this.item.system.description.value, { relativeTo: this.item });
+    context.enrichedGMNotes = await enrichHTML(this.item.system.description.gm, { relativeTo: this.item });
   }
 
   /* -------------------------------------------------- */
@@ -201,10 +201,13 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     };
 
     // Iterate over active effects, classifying them into categories
-    for (const e of this.item.effects) {
-      if (e.disabled) categories.inactive.effects.push(e);
-      else if (e.isTemporary) categories.temporary.effects.push(e);
-      else categories.passive.effects.push(e);
+    for (const effect of this.item.effects) {
+      const expanded = this.#expanded.has(effect.id);
+      const context = { effect, expanded };
+      if (expanded) context.enrichedDescription = await enrichHTML(effect.description, { relativeTo: effect });
+      if (effect.disabled) categories.inactive.effects.push(context);
+      else if (effect.isTemporary) categories.temporary.effects.push(context);
+      else categories.passive.effects.push(context);
     }
 
     // Sort each category
@@ -289,6 +292,25 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   static async #toggleEffect(event, target) {
     const effect = this._getEffect(target);
     effect.update({ disabled: !effect.disabled });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle the effect embed between visible and hidden. Only visible embeds are generated in the HTML
+   * TODO: Refactor re-rendering to instead use CSS transitions.
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #toggleEffectEmbed(event, target) {
+    const { effectId } = target.closest(".effect").dataset;
+
+    if (this.#expanded.has(effectId)) this.#expanded.delete(effectId);
+    else this.#expanded.add(effectId);
+
+    const part = target.closest("[data-application-part]").dataset.applicationPart;
+    this.render({ parts: [part] });
   }
 
   /* -------------------------------------------- */

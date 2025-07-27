@@ -2,6 +2,7 @@ import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
 import MythCraftItemSheet from "./item-sheet.mjs";
 import AttributeSkillInput from "../apps/attribute-skill-input.mjs";
+import enrichHTML from "../../utils/enrich-html.mjs";
 
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
@@ -25,6 +26,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       deleteDoc: this.#deleteDoc,
       toggleEffect: this.#toggleEffect,
       toggleItemEmbed: this.#toggleItemEmbed,
+      toggleEffectEmbed: this.#toggleEffectEmbed,
     },
   };
 
@@ -380,10 +382,13 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     };
 
     // Iterate over active effects, classifying them into categories
-    for (const e of this.actor.allApplicableEffects()) {
-      if (e.disabled) categories.inactive.effects.push(e);
-      else if (e.isTemporary) categories.temporary.effects.push(e);
-      else categories.passive.effects.push(e);
+    for (const effect of this.actor.allApplicableEffects()) {
+      const expanded = this.#expanded.effects.has(effect.uuid);
+      const context = { effect, expanded };
+      if (expanded) context.enrichedDescription = await enrichHTML(effect.description, { relativeTo: effect });
+      if (effect.disabled) categories.inactive.effects.push(context);
+      else if (effect.isTemporary) categories.temporary.effects.push(context);
+      else categories.passive.effects.push(context);
     }
 
     // Sort each category
@@ -401,19 +406,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {ApplicationRenderOptions} options
    */
   async _prepareBiographyTab(context, options) {
-    // Text Enrichment is a foundry-specific implementation of RegEx that transforms text like [[/r 1d20]] into a clickable link
-    // It's needed for the nice "display" version of the prosemirror editors
-    const TextEditor = foundry.applications.ux.TextEditor.implementation;
-
-    const enrichmentOptions = {
-      secrets: this.actor.isOwner,
-      rollData: this.actor.getRollData(),
-      relativeTo: this.actor,
-    };
-
-    context.enrichedBiography = await TextEditor.enrichHTML(this.actor.system.biography.value, enrichmentOptions);
-
-    context.enrichedGMNotes = await TextEditor.enrichHTML(this.actor.system.biography.gm, enrichmentOptions);
+    context.enrichedBiography = await enrichHTML(this.actor.system.biography.value, { relativeTo: this.actor });
+    context.enrichedGMNotes = await enrichHTML(this.actor.system.biography.gm, { relativeTo: this.actor });
   }
 
   /* -------------------------------------------------- */
@@ -694,6 +688,25 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     if (this.#expanded.items.has(itemId)) this.#expanded.items.delete(itemId);
     else this.#expanded.items.add(itemId);
+
+    const part = target.closest("[data-application-part]").dataset.applicationPart;
+    this.render({ parts: [part] });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle the effect embed between visible and hidden. Only visible embeds are generated in the HTML
+   * TODO: Refactor re-rendering to instead use CSS transitions.
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #toggleEffectEmbed(event, target) {
+    const effect = this._getEmbeddedDocument(target);
+
+    if (this.#expanded.effects.has(effect.uuid)) this.#expanded.effects.delete(effect.uuid);
+    else this.#expanded.effects.add(effect.uuid);
 
     const part = target.closest("[data-application-part]").dataset.applicationPart;
     this.render({ parts: [part] });
