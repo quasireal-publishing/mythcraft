@@ -92,8 +92,13 @@
     .item-controls {
       text-align: right;
       flex: 0 0 120px;
-      .item-control {
-        text-align: center;
+      display: flex;
+      justify-content: flex-end;
+      button.icon {
+        border: none;
+        &:not(:hover) {
+          background: none;
+        }
       }
     }
   }
@@ -123,7 +128,16 @@
     }
   }
 
+  [data-application-part="equipment"] {
+    padding-top: 0.5rem;
+  }
+
+  [data-application-part="talents"] {
+    padding-top: 0.5rem;
+  }
+
   [data-application-part="effects"] {
+    padding-top: 0.5rem;
     ul {
       list-style: none;
       padding-left: 5px;

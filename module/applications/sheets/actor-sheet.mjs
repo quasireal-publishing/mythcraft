@@ -422,8 +422,9 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
-    this._createContextMenu(this._getDocumentListContextOptions, "[data-document-class][data-item-id], [data-document-class][data-effect-id]", {
-      hookName: "getDocumentListContextOptions",
+    this._createContextMenu(this._getItemListContextOptions, "[data-document-class][data-item-id] .item-controls .fa-ellipsis-vertical", {
+      eventName: "click",
+      hookName: "getItemListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });
@@ -436,7 +437,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @returns {ContextMenuEntry[]}
    * @protected
    */
-  _getDocumentListContextOptions() {
+  _getItemListContextOptions() {
     // name is auto-localized
     return [
       // All applicable options
