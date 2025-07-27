@@ -217,6 +217,65 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     context.effects = categories;
   }
 
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc*/
+  async _onFirstRender(context, options) {
+    await super._onFirstRender(context, options);
+
+    this._createContextMenu(this._getEffectListContextOptions, "[data-document-class][data-effect-id] .effect-controls .fa-ellipsis-vertical", {
+      eventName: "click",
+      hookName: "getActiveEffectListContextOptions",
+      parentClassHooks: false,
+      fixed: true,
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Get context menu entries for effect lists.
+   * @returns {ContextMenuEntry[]}
+   * @protected
+   */
+  _getEffectListContextOptions() {
+    // name is auto-localized
+    return [
+      {
+        name: "MYTHCRAFT.SHEET.Edit",
+        icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
+        callback: async (target) => {
+          const effect = this._getEffect(target);
+          await effect.sheet.render({ force: true });
+        },
+      },
+      {
+        name: "MYTHCRAFT.SHEET.Share",
+        icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
+        callback: async (target) => {
+          const effect = this._getEffect(target);
+          await ChatMessage.create({
+            content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} caption=false]</div>`,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            title: effect.name,
+            flags: {
+              core: { canPopout: true },
+            },
+          });
+        },
+      },
+      {
+        name: "MYTHCRAFT.SHEET.Delete",
+        icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
+        condition: () => this.isEditable,
+        callback: async (target) => {
+          const effect = this._getEffect(target);
+          await effect.deleteDialog();
+        },
+      },
+    ];
+  }
+
   /* -------------------------------------------- */
   /*  Public API                                  */
   /* -------------------------------------------- */
