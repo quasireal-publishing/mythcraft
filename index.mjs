@@ -10,6 +10,7 @@ Hooks.once("init", () => {
   CONFIG.Token.documentClass = documents.MythCraftTokenDocument;
 
   // Register system data models
+  Object.assign(CONFIG.ActiveEffect.dataModels, data.ActiveEffect.config);
   Object.assign(CONFIG.Actor.dataModels, data.Actor.config);
   Object.assign(CONFIG.Item.dataModels, data.Item.config);
 
@@ -48,9 +49,15 @@ Hooks.once("i18nInit", () => {
 });
 
 Hooks.once("ready", () => {
-  // This is a good place to print ASCII art with `console.log`
+  console.log(` __  __       _   _      ____            __ _
+|  \\/  |_   _| |_| |__  / ___|_ __ __ _ / _| |_
+| |\\/| | | | | __| '_ \\| |   | '__/ _\` | |_| __|
+| |  | | |_| | |_| | | | |___| | | (_| |  _| |_
+|_|  |_|\\__, |\\__|_| |_|\\____|_|  \\__,_|_|  \\__|
+        |___/
+`);
 
-  Hooks.callAll("system.ready");
+  Hooks.callAll("mc.ready");
 });
 
 /**

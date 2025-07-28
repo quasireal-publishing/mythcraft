@@ -13,7 +13,6 @@ export { default as BaseItemModel } from "./base-item.mjs";
 export { default as EquipmentModel } from "./equipment.mjs";
 export { ArmorModel, BackgroundModel, FeatureModel, GearModel, LineageModel, ProfessionModel, SpellModel, TalentModel, WeaponModel };
 
-// This object gets used in the index.mjs file to register the data models
 export const config = {
   armor: ArmorModel,
   background: BackgroundModel,

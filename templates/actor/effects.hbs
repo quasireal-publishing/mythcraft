@@ -30,7 +30,6 @@
 
     <ul class="effect-list">
       {{#each section.effects}}
-      {{log this}}
       <li class="effect draggable" data-effect-id="{{effect.id}}" data-parent-id="{{effect.parent.id}}"
         data-document-class="ActiveEffect">
         <div class="effect-row flexrow">
@@ -46,7 +45,7 @@
           </div>
         </div>
         <div class="effect-embed">
-          {{#if expanded}}{{{enrichedDescription}}}{{/if}}
+          {{#if expanded}}{{{embed.outerHTML}}}{{/if}}
         </div>
       </li>
       {{/each}}

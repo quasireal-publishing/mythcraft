@@ -385,7 +385,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     for (const effect of this.actor.allApplicableEffects()) {
       const expanded = this.#expanded.effects.has(effect.uuid);
       const context = { effect, expanded };
-      if (expanded) context.enrichedDescription = await enrichHTML(effect.description, { relativeTo: effect });
+      if (expanded) context.embed = await effect.toEmbed({ inline: true });
       if (effect.disabled) categories.inactive.effects.push(context);
       else if (effect.isTemporary) categories.temporary.effects.push(context);
       else categories.passive.effects.push(context);
@@ -466,7 +466,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         callback: async (target) => {
           const item = this._getEmbeddedDocument(target);
           await ChatMessage.create({
-            content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} caption=false]</div>`,
+            content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} inline]</div>`,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             title: item.name,
             flags: {
@@ -511,7 +511,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         callback: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await ChatMessage.create({
-            content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} caption=false]</div>`,
+            content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} inline]</div>`,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             title: effect.name,
             flags: {
