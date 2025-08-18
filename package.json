@@ -10,6 +10,7 @@
     "pushLDBtoJSON": "node ./tools/pushLDBtoJSON.mjs",
     "unpack": "npm run pushLDBtoJSON",
     "build:packs": "npm run pullJSONtoLDB",
+    "build": "npm run build:packs",
     "lint": "eslint index.mjs module/**/* templates/**/*",
     "lint:fix": "eslint --fix index.mjs module/**/* templates/**/*",
     "postinstall": "npm run createSymlinks"
