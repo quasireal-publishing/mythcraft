@@ -162,8 +162,20 @@
       "path": "lang/en.json"
     }
   ],
-  "packs": [],
-  "packFolders": [],
+  "packs": [
+    {
+      "name": "bestiary",
+      "label": "MYTHCRAFT.COMPENDIUM.bestiary",
+      "type": "Actor"
+    }
+  ],
+  "packFolders": [
+    {
+      "name": "MythCraft System",
+      "color": "#483D8B",
+      "packs": ["bestiary"]
+    }
+  ],
   "socket": false,
   "manifest": "https://github.com/quasireal-publishing/mythcraft/releases/latest/download/system.json",
   "download": "AUTOMATIC",

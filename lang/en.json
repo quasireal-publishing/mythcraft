@@ -1,5 +1,8 @@
 {
   "MYTHCRAFT": {
+    "COMPENDIUM": {
+      "bestiary": "Bestiary"
+    },
     "SHEET": {
       "Tabs": {
         "biography": "Biography",
@@ -17,7 +20,8 @@
       "View": "View",
       "Edit": "Edit",
       "Share": "Share",
-      "Delete": "Delete"
+      "Delete": "Delete",
+      "AddSense": "Add Sense"
     },
     "Actor": {
       "base": {
