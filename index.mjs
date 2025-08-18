@@ -17,8 +17,13 @@ Hooks.once("init", () => {
   // Register system sheets
   const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
 
-  DocumentSheetConfig.registerSheet(foundry.documents.Actor, SystemCONST.systemId, applications.sheets.MythCraftActorSheet, {
+  DocumentSheetConfig.registerSheet(foundry.documents.Actor, SystemCONST.systemId, applications.sheets.CharacterSheet, {
     makeDefault: true,
+    types: ["character"],
+  });
+  DocumentSheetConfig.registerSheet(foundry.documents.Actor, SystemCONST.systemId, applications.sheets.NPCSheet, {
+    makeDefault: true,
+    types: ["npc"],
   });
   DocumentSheetConfig.registerSheet(foundry.documents.Item, SystemCONST.systemId, applications.sheets.MythCraftItemSheet, {
     makeDefault: true,

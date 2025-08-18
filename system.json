@@ -172,7 +172,7 @@
   "packFolders": [
     {
       "name": "MythCraft System",
-      "color": "#483D8B",
+      "color": "#174345",
       "packs": ["bestiary"]
     }
   ],
