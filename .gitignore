@@ -1,6 +1,6 @@
 # Foundry
 node_modules
-packs
+/packs
 foundry
 foundry-config.yaml
 
