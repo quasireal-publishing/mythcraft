@@ -14,6 +14,9 @@ export default class NPCSheet extends MythCraftActorSheet {
           id: "stats",
         },
         {
+          id: "features",
+        },
+        {
           id: "spells",
         },
         {
@@ -42,6 +45,10 @@ export default class NPCSheet extends MythCraftActorSheet {
       template: systemPath("templates/actor/stats.hbs"),
       scrollable: [""],
     },
+    features: {
+      template: systemPath("templates/actor/features.hbs"),
+      scrollable: [""],
+    },
     spells: {
       template: systemPath("templates/actor/spells.hbs"),
       scrollable: [""],
@@ -56,4 +63,49 @@ export default class NPCSheet extends MythCraftActorSheet {
     },
   };
 
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _restrictLimited(record) {
+    super._restrictLimited(record);
+    delete record.features;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+
+    switch (partId) {
+      case "features":
+        await this._prepareFeaturesTab(context, options);
+        context.tab = context.tabs[partId];
+        break;
+    }
+
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Mutate the context for the features tab.
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareFeaturesTab(context, options) {
+
+    context.features = [];
+
+    const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedFeatures) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.features.push(itemContext);
+    }
+  }
 }

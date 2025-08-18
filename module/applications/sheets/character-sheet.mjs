@@ -69,4 +69,100 @@ export default class CharacterSheet extends MythCraftActorSheet {
     },
   };
 
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _restrictLimited(record) {
+    super._restrictLimited(record);
+    delete record.equipment;
+    delete record.talents;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+
+    switch (partId) {
+      case "equipment":
+        await this._prepareEquipmentTab(context, options);
+        context.tab = context.tabs[partId];
+        break;
+      case "talents":
+        await this._prepareTalentsTab(context, options);
+        context.tab = context.tabs[partId];
+        break;
+    }
+
+    return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Mutate the context for the equipment tab.
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareEquipmentTab(context, options) {
+    context.armor = [];
+
+    const sortedArmor = this.actor.itemTypes.armor.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedArmor) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.armor.push(itemContext);
+    }
+
+    context.gear = [];
+
+    const sortedGear = this.actor.itemTypes.gear.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedGear) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.gear.push(itemContext);
+    }
+
+    context.weapons = [];
+
+    const sortedWeapons = this.actor.itemTypes.weapon.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedWeapons) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.weapons.push(itemContext);
+    }
+
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Mutate the context for the talents tab.
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareTalentsTab(context, options) {
+    context.talents = [];
+
+    const sortedTalents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedTalents) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.talents.push(itemContext);
+    }
+  }
+
 }
