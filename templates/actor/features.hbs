@@ -3,6 +3,7 @@
   {{#each features}}
   <div class="item-header flexrow">
     <div class="item-name">{{localize label}}</div>
+    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
       <button
@@ -25,6 +26,11 @@
       <div class="item-row flexrow">
         <img src="{{item.img}}" alt="{{item.name}}">
         <div class="item-name">{{item.name}}</div>
+        <div class="item-uses">
+          {{#if item.system.uses.max}}
+          {{item.system.uses.value}} / {{item.system.uses.max}}
+          {{/if}}
+        </div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
           <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>

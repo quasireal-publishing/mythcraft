@@ -28,6 +28,14 @@
       }
       }
     }
+    .actor-source {
+      margin-top: 5px;
+      font-family: var(--font-h4);
+      font-size: var(--font-size-20);
+      flex-grow: 0.8;
+      align-items: start;
+      text-align: center;
+    }
   }
   [data-application-part="stats"] {
     padding-top: 0.5rem;
@@ -104,6 +112,9 @@
   .item-header {
     gap: 5px;
     font-size: var(--font-size-16);
+    .item-name {
+      flex-basis: 40px;
+    }
   }
   .item-list {
     list-style: none;
@@ -133,6 +144,12 @@
 
   [data-application-part="equipment"] {
     padding-top: 0.5rem;
+    .item-row {
+      .item-quantity {
+        /* Centers under "Quantity" */
+        padding-left: 40px;
+      }
+    }
   }
 
   [data-application-part="talents"] {

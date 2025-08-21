@@ -5,11 +5,8 @@
   {{#if (eq document.type "character")}}
   {{formGroup systemFields.ap.fields.value value=system.ap.value classes="action-points"}}
   {{else if (eq document.type "npc")}}
-  <div>
-
-    <div class="actor-source">
-      {{document.system.source.label}}
-    </div>
+  <div class="actor-source">
+    {{document.system.source.label}}
   </div>
   {{/if}}
 </header>
