@@ -12,6 +12,7 @@ Hooks.once("init", () => {
   // Register system data models
   Object.assign(CONFIG.ActiveEffect.dataModels, data.ActiveEffect.config);
   Object.assign(CONFIG.Actor.dataModels, data.Actor.config);
+  Object.assign(CONFIG.ChatMessage.dataModels, data.ChatMessage.config);
   Object.assign(CONFIG.Item.dataModels, data.Item.config);
 
   // Register system sheets
@@ -71,6 +72,8 @@ Hooks.once("ready", () => {
 /**
  * Render Hooks.
  */
+
+Hooks.on("renderChatMessageHTML", applications.hooks.renderChatMessageHTML);
 
 /**
  * Other Hooks.

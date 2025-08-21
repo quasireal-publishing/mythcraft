@@ -160,4 +160,15 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     const roll = new AttributeRoll(formula, rollData, { attribute, skill });
     return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * A method that applies damage to the actor, accounting for the rules of MythCraft.
+   * @param {number} amount
+   * @param {object} [options]
+   */
+  async takeDamage(amount, options = {}) {
+    console.log(amount, options);
+  }
 }

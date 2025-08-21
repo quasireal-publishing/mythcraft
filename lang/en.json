@@ -199,6 +199,21 @@
         "FIELDS": {}
       }
     },
+    "ChatMessage": {
+      "base": {
+        "Buttons": {
+          "ApplyHeal": {
+            "Label": "Regain {amount} {type}",
+            "Tooltip": "Shift+Click: Halve Heal",
+            "TempCapped": "{name} already has more temporary Stamina"
+          },
+          "ApplyDamage": {
+            "Label": "Apply {amount}{type} Damage",
+            "Tooltip": "Shift+Click: Halve Damage"
+          }
+        }
+      }
+    },
     "Item": {
       "base": {
         "FIELDS": {
@@ -676,6 +691,11 @@
         "Flavor": {
           "Attribute": "{abbr} Check",
           "Skill": "{abbr} Check ({skill})"
+        }
+      },
+      "DamageRoll": {
+        "Apply": {
+          "NoToken": "You must have at least one token selected."
         }
       }
     },
