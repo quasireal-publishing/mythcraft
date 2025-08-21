@@ -514,6 +514,10 @@
       "radiant": "Radiant",
       "sonic": "Sonic"
     },
+    "HealTypes": {
+      "value": "Healing",
+      "shield": "Shield"
+    },
     "Rests": {
       "breath": "Catch Your Breath",
       "recoup": "Recoup",
@@ -672,6 +676,21 @@
         "Flavor": {
           "Attribute": "{abbr} Check",
           "Skill": "{abbr} Check ({skill})"
+        }
+      }
+    },
+    "EDITOR": {
+      "Enrichers": {
+        "DamageHeal": {
+          "FormatString": "{formula} {type}",
+          "ChooseType": {
+            "InputLabel": "Type {index}",
+            "DialogTitle": "Choose Damage Types"
+          },
+          "MessageTitle": {
+            "damage": "Damage Roll",
+            "healing": "Healing Roll"
+          }
         }
       }
     }

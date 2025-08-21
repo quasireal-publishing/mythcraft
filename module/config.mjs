@@ -1168,6 +1168,19 @@ export const damage = {
   categories: damageCategories,
 };
 
+const healTypes = {
+  value: {
+    label: "MYTHCRAFT.HealTypes.value",
+  },
+  shield: {
+    label: "MYTHCRAFT.HealTypes.shield",
+  },
+};
+
+export const healing = {
+  types: healTypes,
+};
+
 /**
  * @typedef MonsterTrait
  * @property {string} label         The i18n string for the trait.

@@ -34,7 +34,10 @@ Hooks.once("init", () => {
   canvas.MythCraftTokenRuler.applyMCMovementConfig();
 
   // Register system rolls
-  CONFIG.Dice.rolls = [rolls.MythCraftRoll, rolls.AttributeRoll];
+  CONFIG.Dice.rolls = [rolls.MythCraftRoll, rolls.AttributeRoll, rolls.DamageRoll];
+
+  // Register enrichers
+  CONFIG.TextEditor.enrichers = [applications.ux.enrichers.roll];
 
   // Register system settings
   utils.SystemSettingsHandler.registerSettings();
