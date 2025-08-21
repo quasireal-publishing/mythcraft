@@ -531,7 +531,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       if (["action", "documentClass"].includes(dataKey)) continue;
       foundry.utils.setProperty(docData, dataKey, value);
     }
-    docCls.create(docData, { parent: this.actor });
+    docCls.create(docData, { parent: this.actor, renderSheet: true });
   }
 
   /* -------------------------------------------------- */

@@ -24,9 +24,8 @@
         <img src="{{item.img}}" alt="{{item.name}}">
         <div class="item-name">{{item.name}}</div>
         <div class="item-controls flexrow">
-          <a data-action="toggleItemEmbed">
-            <i class="fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></i>
-          </a>
+          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
         </div>
       </div>
       <div class="item-embed">

@@ -1,7 +1,8 @@
 {{! Features Tab }}
 <section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="features">
+  {{#each features}}
   <div class="item-header flexrow">
-    <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
+    <div class="item-name">{{localize label}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
       <button
@@ -9,7 +10,8 @@
         class="item-create"
         data-action="createDoc"
         data-document-class="Item"
-        data-type="talent"
+        data-type="feature"
+        data-system.category="{{@key}}"
       >
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
@@ -18,15 +20,14 @@
     </div>
   </div>
   <ul class="item-list">
-    {{#each features}}
+    {{#each list}}
     <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
       <div class="item-row flexrow">
         <img src="{{item.img}}" alt="{{item.name}}">
         <div class="item-name">{{item.name}}</div>
         <div class="item-controls flexrow">
-          <a data-action="toggleItemEmbed">
-            <i class="fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></i>
-          </a>
+          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
         </div>
       </div>
       <div class="item-embed">
@@ -35,4 +36,5 @@
     </li>
     {{/each}}
   </ul>
+  {{/each}}
 </section>

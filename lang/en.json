@@ -287,6 +287,9 @@
       },
       "feature": {
         "FIELDS": {
+          "category": {
+            "label": "Category"
+          },
           "prerequisites": {
             "label": "Prerequisites"
           },
@@ -302,6 +305,11 @@
               "label": "Recharge"
             }
           }
+        },
+        "category": {
+          "passive": "Passive",
+          "action": "Action",
+          "reaction": "Reaction"
         }
       },
       "gear": {

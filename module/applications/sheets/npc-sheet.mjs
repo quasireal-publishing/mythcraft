@@ -1,5 +1,6 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import { systemPath } from "../../constants.mjs";
+import FeatureModel from "../../data/item/feature.mjs";
 
 /**
  * An actor sheet for npc type actors.
@@ -96,7 +97,10 @@ export default class NPCSheet extends MythCraftActorSheet {
    */
   async _prepareFeaturesTab(context, options) {
 
-    context.features = [];
+    context.features = Object.entries(FeatureModel.schema.getField("category").choices).reduce((record, [key, label]) => {
+      record[key] = { label, list: [] };
+      return record;
+    }, {});
 
     const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
 
@@ -105,7 +109,7 @@ export default class NPCSheet extends MythCraftActorSheet {
       const itemContext = { item, expanded };
       if (expanded) itemContext.embed = await item.system.toEmbed({});
 
-      context.features.push(itemContext);
+      context.features[item.system.category].list.push(itemContext);
     }
   }
 }

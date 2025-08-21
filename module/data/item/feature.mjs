@@ -2,7 +2,7 @@ import FormulaField from "../fields/formula-field.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * The system model for "feature" type items.
+ * The system model for "feature" type items, which are used by ancestries and monsters.
  */
 export default class FeatureModel extends BaseItemModel {
   /** @inheritdoc */
@@ -16,6 +16,12 @@ export default class FeatureModel extends BaseItemModel {
 
     // TODO: Features that give skill points?
     // starting features vs. advanceables
+
+    schema.category = new fields.StringField({ initial: "passive", choices: {
+      passive: "MYTHCRAFT.Item.feature.category.passive",
+      action: "MYTHCRAFT.Item.feature.category.action",
+      reaction: "MYTHCRAFT.Item.feature.category.reaction",
+    } });
 
     schema.prerequisites = new fields.StringField({ required: true });
 
