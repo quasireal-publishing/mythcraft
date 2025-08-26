@@ -106,6 +106,7 @@ function enrichDamageHeal(parsedConfig, label, options) {
   for (const c of parsedConfig) {
     const formulaParts = [];
     if (c.formula) formulaParts.push(c.formula);
+    if (c.average) linkConfig.average = c.average;
     c.type = c.type?.replaceAll("/", "|").split("|") ?? [];
     for (const value of c.values) {
       const normalizedValue = value.toLowerCase();
@@ -113,6 +114,7 @@ function enrichDamageHeal(parsedConfig, label, options) {
       else if (normalizedValue in mythcraft.CONFIG.healing.types) c.type.push(normalizedValue);
       else if (["heal", "healing"].includes(normalizedValue)) c.type.push("value");
       else if (["shield"].includes(normalizedValue)) c.type.push("shield");
+      else if (["average", "avg"].includes(normalizedValue)) linkConfig.average = true;
       else formulaParts.push(value);
     }
     c.formula = MythCraftRoll.replaceFormulaData(
@@ -148,8 +150,19 @@ function enrichDamageHeal(parsedConfig, label, options) {
       formula: createRollLink(formula, {}, { tag: "span" }).outerHTML,
       type: game.i18n.getListFormatter({ type: "disjunction" }).format(types),
     };
+    let localizationType = "FormatShort";
+    if (linkConfig.average) {
+      localizationType = "FormatLong";
+      if (linkConfig.average === true) {
+        const minRoll = foundry.dice.Roll.create(formula).evaluateSync({ minimize: true });
+        const maxRoll = Roll.create(formula).evaluateSync({ maximize: true });
+        localizationData.average = Math.floor((minRoll.total + maxRoll.total) / 2);
 
-    parts.push(game.i18n.format("MYTHCRAFT.EDITOR.Enrichers.DamageHeal.FormatString", localizationData));
+      } else if (Number.isNumeric(linkConfig.average)) localizationData.average = linkConfig.average;
+      else localizationType = "FormatShort";
+    }
+
+    parts.push(game.i18n.format("MYTHCRAFT.EDITOR.Enrichers.DamageHeal." + localizationType, localizationData));
   }
 
   const link = document.createElement("a");

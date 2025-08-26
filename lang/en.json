@@ -706,7 +706,8 @@
     "EDITOR": {
       "Enrichers": {
         "DamageHeal": {
-          "FormatString": "{formula} {type}",
+          "FormatShort": "{formula} {type}",
+          "FormatLong": "{average} ({formula}) {type}",
           "ChooseType": {
             "InputLabel": "Type {index}",
             "DialogTitle": "Choose Damage Types"
