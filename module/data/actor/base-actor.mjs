@@ -119,6 +119,77 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   /* -------------------------------------------------- */
 
   /**
+   * @inheritdoc
+   * @param {Record<string, unknown>} changes
+   * @param {import("@common/abstract/_types.mjs").DatabaseUpdateOperation} operation
+   * @param {User} user
+   */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if (allowed === false) return false;
+
+    if (changes.system?.hp) {
+      options.mythcraft ??= {};
+      options.mythcraft.previousHp = { ...this.hp };
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+
+    if (options.mythcraft?.previousHp && changed.system?.hp) {
+      const hpDiff = options.mythcraft.previousHp.value - (changed.system.hp.value || options.mythcraft.previousHp.value);
+      const shieldDiff = options.mythcraft.previousHp.shield - (changed.system.hp.temporary || options.mythcraft.previousHp.shield);
+      const diff = hpDiff + shieldDiff;
+      this.displayStaminaChange(diff, options.mythcraft.damageType);
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Display actor stamina changes on active tokens.
+   *
+   * @param {number} diff The amount the actor's stamina has changed.
+   * @param {string} [damageType=""] The type of damage being dealt.
+   */
+  async displayStaminaChange(diff, damageType = "") {
+    if (!diff || !canvas.scene) {
+      return;
+    }
+
+    const damageColor = mythcraft.CONFIG.damage.types[damageType]?.color ?? null;
+    const tokens = this.parent.getActiveTokens();
+    const displayedDiff = (-1 * diff).signedString();
+    const defaultFill = (diff < 0 ? "lightgreen" : "white");
+    const displayArgs = {
+      fill: damageColor ?? defaultFill,
+      fontSize: 32,
+      stroke: 0x000000,
+      strokeThickness: 4,
+    };
+
+    tokens.forEach((token) => {
+      if (!token.visible || token.document.isSecret) {
+        return;
+      }
+
+      const scrollingTextArgs = [
+        token.center,
+        displayedDiff,
+        displayArgs,
+      ];
+
+      canvas.interface.createScrollingText(...scrollingTextArgs);
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Perform item subtype specific modifications to the actor roll data.
    * @param {object} rollData   Pointer to the roll data object.
    */
@@ -167,10 +238,10 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
    * A method that applies damage to the actor, accounting for the rules of MythCraft.
    * @param {number} damage                 The damage amount.
    * @param {object} [options]
-   * @param {string} [options.damageType]   A key in {@link mythcraft.CONFIG.damage.types}.
+   * @param {string} [options.type]   A key in {@link mythcraft.CONFIG.damage.types}.
    */
   async takeDamage(damage, options = {}) {
-    const damageInfo = this.damage[options.damageType];
+    const damageInfo = this.damage[options.type];
     let zeroMessage = "MythCraft.Actor.DamageNotification.AbsorbReducedToZero";
     if (damageInfo) {
       damage = Math.max(damage - damageInfo.absorb, 0);
@@ -185,7 +256,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       return this.parent;
     }
 
-    const damageTypeOption = { mythcraft: { damageType: options.damageType } };
+    const damageTypeOption = { mythcraft: { damageType: options.type } };
     // If there's damage left after weakness/immunities, apply damage to temporary stamina then stamina value
     const hpUpdates = {};
     const damageToShield = Math.min(damage, this.hp.shield);

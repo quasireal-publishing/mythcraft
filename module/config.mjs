@@ -1084,8 +1084,9 @@ export const senses = {
 
 /**
  * @typedef DamageType
- * @property {string} label     The i18n string for the damage type.
- * @property {string} category  The category of damage.
+ * @property {string} label               The i18n string for the damage type.
+ * @property {string} category            The category of damage.
+ * @property {foundry.utils.Color} color  A Color instance.
  */
 
 /**
@@ -1104,38 +1105,47 @@ const damageTypes = {
   cold: {
     label: "MYTHCRAFT.DamageTypes.cold",
     category: "elemental",
+    color: foundry.utils.Color.fromString("#14ffd0"),
   },
   corrosive: {
     label: "MYTHCRAFT.DamageTypes.corrosive",
     category: "elemental",
+    color: foundry.utils.Color.fromString("#14ff14"),
   },
   fire: {
     label: "MYTHCRAFT.DamageTypes.fire",
     category: "elemental",
+    color: foundry.utils.Color.fromString("#ff870f"),
   },
   lightning: {
     label: "MYTHCRAFT.DamageTypes.lightning",
     category: "elemental",
+    color: foundry.utils.Color.fromString("#ffff00"),
   },
   toxic: {
     label: "MYTHCRAFT.DamageTypes.toxic",
     category: "elemental",
+    color: foundry.utils.Color.fromString("#008500"),
   },
   necrotic: {
     label: "MYTHCRAFT.DamageTypes.necrotic",
     category: "energy",
+    color: foundry.utils.Color.fromString("#7b00a8"),
   },
   psychic: {
     label: "MYTHCRAFT.DamageTypes.psychic",
     category: "energy",
+    color: foundry.utils.Color.fromString("#d40cc3"),
   },
   radiant: {
     label: "MYTHCRAFT.DamageTypes.radiant",
     category: "energy",
+    color: foundry.utils.Color.fromString("#ffed61"),
   },
   sonic: {
     label: "MYTHCRAFT.DamageTypes.sonic",
     category: "energy",
+    color: foundry.utils.Color.fromString("#999999"),
   },
 };
 

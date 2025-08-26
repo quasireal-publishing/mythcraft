@@ -27,7 +27,7 @@ export default class DamageRoll extends MythCraftRoll {
         });
         else await actor.modifyTokenAttribute(isTemp ? "hp.shield" : "hp", amount, !isTemp, !isTemp);
       }
-      else await actor.system.takeDamage(amount, { type: roll.type, ignoredImmunities: roll.ignoredImmunities });
+      else await actor.system.takeDamage(amount, { type: roll.type });
     }
   }
 
