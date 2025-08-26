@@ -197,6 +197,10 @@
       },
       "npc": {
         "FIELDS": {}
+      },
+      "DamageNotification": {
+        "AbsorbReducedToZero": "{name}'s absorb reduced the damage to zero.",
+        "ImmuneReducedToZero": "{name}'s immunity reduced the damage to zero."
       }
     },
     "ChatMessage": {

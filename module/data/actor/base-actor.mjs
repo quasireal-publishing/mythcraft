@@ -165,10 +165,35 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
 
   /**
    * A method that applies damage to the actor, accounting for the rules of MythCraft.
-   * @param {number} amount
+   * @param {number} damage                 The damage amount.
    * @param {object} [options]
+   * @param {string} [options.damageType]   A key in {@link mythcraft.CONFIG.damage.types}.
    */
-  async takeDamage(amount, options = {}) {
-    console.log(amount, options);
+  async takeDamage(damage, options = {}) {
+    const damageInfo = this.damage[options.damageType];
+    let zeroMessage = "MythCraft.Actor.DamageNotification.AbsorbReducedToZero";
+    if (damageInfo) {
+      damage = Math.max(damage - damageInfo.absorb, 0);
+      if (damageInfo.immune) {
+        damage = 0;
+        zeroMessage = "MythCraft.Actor.DamageNotification.ImmuneReducedToZero";
+      }
+    }
+
+    if (damage === 0) {
+      ui.notifications.info(zeroMessage, { format: { name: this.parent.name } });
+      return this.parent;
+    }
+
+    const damageTypeOption = { mythcraft: { damageType: options.damageType } };
+    // If there's damage left after weakness/immunities, apply damage to temporary stamina then stamina value
+    const hpUpdates = {};
+    const damageToShield = Math.min(damage, this.hp.shield);
+    hpUpdates.shield = Math.max(0, this.hp.shield - damageToShield);
+
+    const remainingDamage = Math.max(0, damage - damageToShield);
+    if (remainingDamage > 0) hpUpdates.value = this.hp.value - remainingDamage;
+
+    return this.parent.update({ "system.hp": hpUpdates }, damageTypeOption);
   }
 }
