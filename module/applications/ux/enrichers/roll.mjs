@@ -144,7 +144,7 @@ function enrichDamageHeal(parsedConfig, label, options) {
   for (const [idx, formula] of linkConfig.formulas.entries()) {
     const type = linkConfig.damageTypes[idx];
     const types = type?.split("|")
-      .map(t => game.i18n.localize(mythcraft.CONFIG.damage.types[t]?.label ?? mythcraft.CONFIG.healing.types[t]?.label))
+      .map(t => game.i18n.localize(mythcraft.CONFIG.damage.types[t]?.label ?? mythcraft.CONFIG.healing.types[t]?.label)?.toLowerCase())
       .filter(_ => _);
     const localizationData = {
       formula: createRollLink(formula, {}, { tag: "span" }).outerHTML,
@@ -209,7 +209,7 @@ async function rollDamageHeal(link, event) {
     const content = typeOptions.reduce((htmlString, choices) => {
       const options = choices.types.map((type) => ({
         value: type,
-        label: mythcraft.CONFIG[rollType].types[type].label,
+        label: game.i18n.localize(mythcraft.CONFIG[rollType].types[type].label),
       }));
 
       const input = foundry.applications.fields.createSelectInput({
