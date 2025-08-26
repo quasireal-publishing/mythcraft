@@ -115,6 +115,9 @@
     .item-name {
       flex-basis: 40px;
     }
+    .item-uses {
+      padding-left: 60px;
+    }
   }
   .item-list {
     list-style: none;
@@ -126,6 +129,10 @@
       img {
         flex: 0 0 40px;
         max-height: 32px;
+      }
+      .item-input.inline {
+        width: 40px;
+        text-align: right;
       }
     }
   }

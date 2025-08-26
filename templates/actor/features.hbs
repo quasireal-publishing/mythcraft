@@ -28,7 +28,14 @@
         <div class="item-name">{{item.name}}</div>
         <div class="item-uses">
           {{#if item.system.uses.max}}
-          {{item.system.uses.value}} / {{item.system.uses.max}}
+          <input
+            type="number"
+            class="item-input inline"
+            data-name="system.uses.value"
+            {{disabled (not @root.editable)}}
+            value="{{item.system.uses.value}}"
+          >
+          <span>/ {{item.system.uses.max}}</span>
           {{/if}}
         </div>
         <div class="item-controls flexrow">

@@ -394,16 +394,17 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
   /* -------------------------------------------------- */
 
-  /**
-   * Actions performed after any render of the Application.
-   * Post-render steps are not awaited by the render process.
-   * @param {ApplicationRenderContext} context      Prepared context data.
-   * @param {RenderOptions} options                 Provided render options.
-   * @protected
-   * @inheritdoc
-   */
+  /** @inheritdoc*/
   async _onRender(context, options) {
     await super._onRender(context, options);
+
+    for (const input of this.element.querySelectorAll("input.item-input")) {
+      input.addEventListener("change", ev => {
+        const { itemId } = input.closest("[data-item-id]").dataset;
+        const item = this.document.items.get(itemId);
+        item.update({ [input.dataset.name]: input.value });
+      });
+    }
   }
   /* -------------------------------------------- */
   /*  Public API                                  */

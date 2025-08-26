@@ -34,9 +34,24 @@ export default class FeatureModel extends BaseItemModel {
     return schema;
   }
 
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareDerivedData() {
     this.uses.max = Roll.create(this.uses.maxFormula || "0", this.parent.getRollData()).evaluateSync().total;
     this.uses.value = this.uses.max - this.uses.spent;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if (allowed === false) return false;
+
+    const hasValue = foundry.utils.hasProperty(changes, "system.uses.value");
+    if (hasValue) {
+      foundry.utils.setProperty(changes, "system.uses.spent", this.uses.max - changes.system.uses.value);
+    }
   }
 }
