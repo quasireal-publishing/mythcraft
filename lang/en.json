@@ -196,7 +196,12 @@
         }
       },
       "npc": {
-        "FIELDS": {}
+        "FIELDS": {
+          "actions": {
+            "label": "Action Text",
+            "placeholder": "The {name} can take..."
+          }
+        }
       },
       "DamageNotification": {
         "AbsorbReducedToZero": "{name}'s absorb reduced the damage to zero.",

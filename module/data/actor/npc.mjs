@@ -23,6 +23,8 @@ export default class NpcModel extends BaseActorModel {
 
     schema.source = new fields.EmbeddedDataField(SourceModel);
 
+    schema.actions = new fields.StringField({ required: true, nullable: false });
+
     return schema;
   }
 

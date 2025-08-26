@@ -143,6 +143,9 @@
 
   [data-application-part="features"] {
     padding-top: 0.5rem;
+    .action-text {
+      margin: 0.5rem 0 1rem;
+    }
   }
 
   [data-application-part="spells"] {
