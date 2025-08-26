@@ -112,6 +112,9 @@
   .item-header {
     gap: 5px;
     font-size: var(--font-size-16);
+    .item-list + & {
+      margin-top: 5px;
+    }
     .item-name {
       flex-basis: 40px;
     }
@@ -121,7 +124,7 @@
   }
   .item-list {
     list-style: none;
-    padding-left: 5px;
+    padding-left: 0px;
     margin-top: 0;
     margin-bottom: 0;
     .item-row {
@@ -129,6 +132,7 @@
       img {
         flex: 0 0 40px;
         max-height: 32px;
+        object-fit: contain;
       }
       .item-input.inline {
         width: 40px;

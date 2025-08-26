@@ -12,6 +12,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   static DEFAULT_OPTIONS = {
     classes: ["item"],
     actions: {
+      showImage: this.#showImage,
       viewDoc: this.#viewEffect,
       createDoc: this.#createEffect,
       deleteDoc: this.#deleteEffect,
@@ -283,6 +284,20 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------- */
   /*  Action Event Handlers                       */
   /* -------------------------------------------- */
+
+  /**
+   * Display the item image.
+   *
+   * @this DrawSteelItemSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #showImage(event, target) {
+    const { img, name, uuid } = this.item;
+    new foundry.applications.apps.ImagePopout({ src: img, uuid, window: { title: name } }).render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
 
   /**
    * Renders an embedded document's sheet.
