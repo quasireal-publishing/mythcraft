@@ -21,7 +21,8 @@
       "Edit": "Edit",
       "Share": "Share",
       "Delete": "Delete",
-      "AddSense": "Add Sense"
+      "AddSense": "Add Sense",
+      "AddDamage": "Add Modification"
     },
     "Actor": {
       "base": {
@@ -160,7 +161,24 @@
             }
           },
           "damage": {
-            "label": "Damage Modification"
+            "label": "Damage Modification",
+            "element": {
+              "resist": {
+                "label": "Resist"
+              },
+              "vulnerable": {
+                "label": "Vulnerable"
+              },
+              "immune": {
+                "label": "Immune"
+              },
+              "reduction": {
+                "label": "DR"
+              },
+              "threshold": {
+                "label": "DT"
+              }
+            }
           }
         },
         "attributeGroups": {
@@ -179,7 +197,12 @@
           "RemoveSkill": "Remove Skill"
         },
         "MovementListFormat": "{type} {number} ft",
-        "SenseListFormat": "{type} {number} ft"
+        "SenseListFormat": "{type} {number} ft",
+        "DamageResistListFormat": "{type} resist {number}",
+        "DamageVulnerableListFormat": "{type} vulnerable {number}",
+        "DamageImmuneListFormat": "{type} immunity",
+        "DamageReductionListFormat": "DR {number}/{type}",
+        "DamageThresholdListFormat": "DT {number}/{type}"
       },
       "character": {
         "FIELDS": {

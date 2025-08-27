@@ -94,14 +94,36 @@
     </div>
     {{/each}}
   </div>
-  <fieldset>
+  <fieldset class="conditions">
     <legend>{{systemFields.conditions.label}}</legend>
     {{formGroup systemFields.conditions.fields.absorb value=(ifThen isPlay system.conditions.absorb systemSource.conditions.absorb) disabled=isPlay}}
-    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageOptions disabled=isPlay}}
+    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageInfo.options disabled=isPlay}}
     {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
     {{formGroup systemFields.conditions.fields.burning value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning) disabled=isPlay}}
   </fieldset>
-  <fieldset>
+  <fieldset class="damage-modification">
     <legend>{{systemFields.damage.label}}</legend>
+    {{#if isPlay}}
+    {{else}}
+    <div class="form-group slim">
+      <label>{{localize "MYTHCRAFT.SHEET.AddDamage"}}</label>
+      <div class="form-fields">
+        <select data-name="add">
+          {{selectOptions damageInfo.options localize="true"}}
+        </select>
+        <button type="button" class="icon fa-solid fa-plus" data-action="addDamage"></button>
+      </div>
+    </div>
+    {{#each damageInfo.list}}
+    <div class="form-group">
+      <label>{{label}}</label>
+      {{formGroup fields.resist value=entry.resist name=(concat name "resist") classes="stacked"}}
+      {{formGroup fields.vulnerable value=entry.vulnerable name=(concat name "vulnerable") classes="stacked"}}
+      {{formGroup fields.immune value=entry.immune name=(concat name "immune") classes="stacked"}}
+      {{formGroup fields.reduction value=entry.reduction name=(concat name "reduction") classes="stacked"}}
+      {{formGroup fields.threshold value=entry.threshold name=(concat name "threshold") classes="stacked"}}
+    </div>
+    {{/each}}
+    {{/if}}
   </fieldset>
 </section>

@@ -21,6 +21,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       editAttribute: this.#editAttribute,
       rollAttribute: this.#rollAttribute,
       rollSkill: this.#rollSkill,
+      addDamage: this.#addDamage,
+      removeDamage: this.#removeDamage,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
       deleteDoc: this.#deleteDoc,
@@ -176,7 +178,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         name: `system.senses.${key}.value`,
         label: game.i18n.localize(mythcraft.CONFIG.senses[key]?.label),
       };
-    });
+    }).sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
 
     const senseDescription = unitFormatter.format(senseList.map(s => game.i18n.format("MYTHCRAFT.Actor.base.SenseListFormat", { type: s.label, number: s.value })));
 
@@ -184,7 +186,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     const damageConfig = mythcraft.CONFIG.damage;
 
-    context.damageOptions = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
+    const damageOptions = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
       types.push({
         value,
         label: game.i18n.localize(label),
@@ -192,6 +194,18 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       });
       return types;
     }, []);
+
+    const damageList = Object.entries(this.actor.system.damage).map(([key, entry]) => {
+      return {
+        key,
+        entry,
+        fields: systemSchema.getField("damage.element").fields,
+        name: `system.damage.${key}.`,
+        label: game.i18n.localize(mythcraft.CONFIG.damage.types[key]?.label),
+      };
+    }).sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
+
+    context.damageInfo = { options: damageOptions, list: damageList };
   }
 
   /* -------------------------------------------------- */
@@ -481,6 +495,34 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static async #rollSkill(event, target) {
     const skill = target.dataset.skill;
     this.actor.system.rollSkill(skill);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Add a new damage type modification to the actor's data.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #addDamage(event, target) {
+    const sense = target.previousElementSibling.value;
+    this.document.update({ [`system.damage.${sense}.immune`]: false });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Remove a damage type modification from the actor's data.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #removeDamage(event, target) {
+    const sense = target.dataset.sense;
+    this.document.update({ [`system.damage.-=${sense}`]: null });
   }
 
   /* -------------------------------------------------- */
