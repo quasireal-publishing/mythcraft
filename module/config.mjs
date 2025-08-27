@@ -1287,3 +1287,22 @@ export const spells = {
   components: spellComponents,
   requirements: spellRequirements,
 };
+
+/**
+ * @typedef AdvancementType
+ * @property {string} label                                                 Human-readable label.
+ * @property {string} defaultImage                                          Default image used by documents of this type.
+ * @property {Set<string>} itemTypes                                        Item types that can hold this advancement type.
+ * @property {pseudoDocuments.advancements.BaseAdvancement} documentClass   The pseudo-document class.
+ */
+
+/** @type {Record<string, AdvancementType>} */
+export const Advancement = {
+  itemGrant: {
+    label: "TYPES.Advancement.itemGrant",
+    defaultImage: "icons/svg/item-bag.svg",
+    itemTypes: new Set(["feature"]),
+    documentClass: pseudoDocuments.advancements.ItemGrantAdvancement,
+  },
+};
+preLocalize("Advancement", { key: "label" });

@@ -24,6 +24,19 @@
       "AddSense": "Add Sense",
       "AddAbsorb": "Add Absorption"
     },
+    "PSEUDO": {
+      "FIELDS": {
+        "name": {
+          "label": "Name"
+        },
+        "img": {
+          "label": "Image"
+        },
+        "type": {
+          "label": "Type"
+        }
+      }
+    },
     "Actor": {
       "base": {
         "FIELDS": {
@@ -235,6 +248,94 @@
       "DamageNotification": {
         "AbsorbReducedToZero": "{name}'s absorb reduced the damage to zero.",
         "ImmuneReducedToZero": "{name}'s immunity reduced the damage to zero."
+      }
+    },
+    "Advancement": {
+      "FIELDS": {
+        "description": {
+          "label": "Description"
+        },
+        "requirements": {
+          "label": "Requirements",
+          "level": {
+            "label": "Level",
+            "hint": "The level at which this advancement can be granted."
+          }
+        }
+      },
+      "ITEM_GRANT": {
+        "FIELDS": {
+          "chooseN": {
+            "label": "Choice",
+            "hint": "How many of the items can be picked when this advancement is configured. If left blank or if the number is greater than the number of items available, all the items are granted."
+          }
+        }
+      },
+      "TRAIT": {
+        "FIELDS": {
+          "chooseN": {
+            "label": "Choice",
+            "hint": "How many of the traits can be picked when this advancement is configured. If left blank or if the number is greater than the number of traits available, all the traits are granted."
+          },
+          "any": {
+            "label": "Pick Any",
+            "hint": "Ignore the specific list of choices or groups and allow the character to pick any trait."
+          },
+          "languages": {
+            "label": "Language Choices",
+            "hint": "Specific languages that can be chosen in this advancement. If this is empty, any language can be chosen."
+          },
+          "skills": {
+            "choices": {
+              "label": "Skill Choices",
+              "hint": "Specific skills that can be chosen in this advancement. If this and skill groups are empty, any skill can be chosen."
+            },
+            "groups": {
+              "label": "Skill Groups",
+              "hint": "Groups of skills that can be chosen in this advancement."
+            }
+          }
+        }
+      },
+      "HEADERS": {
+        "level": "Level {level}",
+        "null": "Initial Advancements"
+      },
+      "SHEET": {
+        "requirements": "Requirements",
+        "chooseAll": "Choose All",
+        "unknownItem": "Unknown Item",
+        "reconfigure": "Reconfigure Advancement"
+      },
+      "WARNING": {
+        "cannotAddNewType": "You cannot add a new {type} to a character that already has one.",
+        "restrictedType": "{type} items cannot be added as advancements.",
+        "requirePack": "Granted items must come from a compendium pack.",
+        "forbidParent": "Granted items cannot be embedded in an actor."
+      },
+      "FillTrait": {
+        "button": "Pick Unchosen {type}",
+        "title": "Select Missing Trait Advancements",
+        "languageTitle": "I Speak Their Language"
+      },
+      "ChainConfiguration": {
+        "levelUpTitle": "Level Up: {name}",
+        "createWithAdvancementsTitle": "Create {name} with Advancements",
+        "reconfigureTitle": "Reconfigure Advancement"
+      },
+      "ConfigureAdvancement": {
+        "Title": "Configure {name}",
+        "ChooseN": "Choose {n}"
+      },
+      "DeleteDialog": {
+        "ReplaceTitle": "Replace {type}",
+        "Content": "The following items will be deleted:"
+      },
+      "Reconfigure": {
+        "ConfirmItemGrant": {
+          "Title": "Reconfigure Item Grant",
+          "Content": "This will delete and recreate the granted items."
+        }
       }
     },
     "ChatMessage": {
@@ -758,6 +859,9 @@
     "Actor": {
       "character": "Character",
       "npc": "NPC"
+    },
+    "Advancement": {
+      "itemGrant": "Item Grant"
     },
     "Item": {
       "armor": "Armor",

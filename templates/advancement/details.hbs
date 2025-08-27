@@ -1,0 +1,22 @@
+<section class="{{tabs.details.cssClass}}" data-tab="{{tabs.details.id}}" data-group="{{tabs.details.group}}">
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Advancement.SHEET.requirements"}}</legend>
+    {{formGroup fields.requirements.fields.level value=source.requirements.level name="requirements.level" type="number" classes="slim"}}
+    {{formGroup fields.chooseN value=source.chooseN name="chooseN" placeholder=(localize "MYTHCRAFT.Advancement.SHEET.chooseAll")}}
+  </fieldset>
+
+  {{!-- ITEM GRANT POOL --}}
+  {{#if (eq document.type "itemGrant")}}
+  <section class="drop-target-area">
+    {{#each ctx.itemPool}}
+    <div class="form-group" data-pool-index="{{@index}}">
+      <label>{{{link.outerHTML}}}</label>
+      <div class="form-fields">
+        <button type="button" data-action="deletePoolItem" class="icon fa-solid fa-trash"></button>
+      </div>
+    </div>
+    {{/each}}
+  </section>
+  {{/if}}
+
+</section>
