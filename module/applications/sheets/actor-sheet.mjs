@@ -21,8 +21,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       editAttribute: this.#editAttribute,
       rollAttribute: this.#rollAttribute,
       rollSkill: this.#rollSkill,
-      addDamage: this.#addDamage,
-      removeDamage: this.#removeDamage,
+      addAbsorb: this.#addAbsorb,
+      removeAbsorb: this.#removeAbsorb,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
       deleteDoc: this.#deleteDoc,
@@ -186,26 +186,35 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     const damageConfig = mythcraft.CONFIG.damage;
 
-    const damageOptions = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
-      types.push({
+    const absorbOptions = [];
+
+    context.damageTypes = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
+      const entry = {
         value,
         label: game.i18n.localize(label),
         group: game.i18n.localize(damageConfig.categories[category].label),
+      };
+      types.push(entry);
+      absorbOptions.push({
+        ...entry,
+        disabled: value in this.actor.system.damage.absorb,
       });
       return types;
     }, []);
 
-    const damageList = Object.entries(this.actor.system.damage).map(([key, entry]) => {
-      return {
-        key,
-        entry,
-        fields: systemSchema.getField("damage.element").fields,
-        name: `system.damage.${key}.`,
-        label: game.i18n.localize(mythcraft.CONFIG.damage.types[key]?.label),
-      };
-    }).sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
+    const formatter = game.i18n.getListFormatter({ type: "unit" });
 
-    context.damageInfo = { options: damageOptions, list: damageList };
+    const keyToLabel = (key) => game.i18n.format(damageConfig.types[key]?.label) || key;
+
+    const damageDescriptions = {
+      immune: formatter.format(this.actor.system.damage.immune.map(keyToLabel)),
+      affinity: formatter.format(this.actor.system.damage.affinity.map(keyToLabel)),
+      reduction: this.actor.system.damage.reduction.bypasses ?
+        game.i18n.format("MYTHCRAFT.Actor.base.DamageReductionListFormat", this.actor.system.damage.reduction)
+        : this.actor.system.damage.reduction.value,
+    };
+
+    context.damageInfo = { absorbOptions: absorbOptions, descriptions: damageDescriptions };
   }
 
   /* -------------------------------------------------- */
@@ -506,9 +515,9 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
-  static async #addDamage(event, target) {
-    const sense = target.previousElementSibling.value;
-    this.document.update({ [`system.damage.${sense}.immune`]: false });
+  static async #addAbsorb(event, target) {
+    const type = target.previousElementSibling.value;
+    this.document.update({ [`system.damage.absorb.${type}`]: 10 });
   }
 
   /* -------------------------------------------------- */
@@ -520,9 +529,9 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
-  static async #removeDamage(event, target) {
-    const sense = target.dataset.sense;
-    this.document.update({ [`system.damage.-=${sense}`]: null });
+  static async #removeAbsorb(event, target) {
+    const type = target.dataset.type;
+    this.document.update({ [`system.damage.-=${type}`]: null });
   }
 
   /* -------------------------------------------------- */

@@ -94,36 +94,63 @@
     </div>
     {{/each}}
   </div>
-  <fieldset class="conditions">
-    <legend>{{systemFields.conditions.label}}</legend>
-    {{formGroup systemFields.conditions.fields.absorb value=(ifThen isPlay system.conditions.absorb systemSource.conditions.absorb) disabled=isPlay}}
-    {{formGroup systemFields.conditions.fields.affinity value=system.conditions.affinity options=damageInfo.options disabled=isPlay}}
-    {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
-    {{formGroup systemFields.conditions.fields.burning value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning) disabled=isPlay}}
-  </fieldset>
   <fieldset class="damage-modification">
     <legend>{{systemFields.damage.label}}</legend>
     {{#if isPlay}}
+    <dl>
+      {{#if damageInfo.descriptions.affinity}}
+      <dt>{{systemFields.damage.fields.affinity.label}}</dt>
+      <dd>{{damageInfo.descriptions.affinity}}</dd>
+      {{/if}}
+      {{#if system.damage.resist}}
+      <dt>{{systemFields.damage.fields.resist.label}}</dt>
+      <dd>{{system.damage.resist}}</dd>
+      {{/if}}
+      {{#if damageInfo.descriptions.immune}}
+      <dt>{{systemFields.damage.fields.immune.label}}</dt>
+      <dd>{{damageInfo.descriptions.immune}}</dd>
+      {{/if}}
+      {{#if system.damage.vulnerable}}
+      <dt>{{systemFields.damage.fields.vulnerable.label}}</dt>
+      <dd>{{system.damage.vulnerable}}</dd>
+      {{/if}}
+      {{#if system.damage.reduction.value}}
+      <dt>{{systemFields.damage.fields.vulnerable.label}}</dt>
+      <dd>{{damageInfo.descriptions.reduction}}</dd>
+      {{/if}}
+      {{#if system.damage.threshold}}
+      <dt>{{systemFields.damage.fields.threshold.label}}</dt>
+      <dd>{{system.damage.threshold}}</dd>
+      {{/if}}
+    </dl>
     {{else}}
+    {{formGroup systemFields.damage.fields.affinity value=system.damage.affinity options=damageTypes disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.resist value=system.damage.resist disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.immune value=system.damage.immune options=damageTypes disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.vulnerable value=system.damage.vulnerable disabled=isPlay}}
+    <div class="form-group">
+      <label>{{systemFields.damage.fields.reduction.label}}</label>
+      {{formGroup systemFields.damage.fields.reduction.fields.value value=system.damage.reduction.value disabled=isPlay}}
+      {{formGroup systemFields.damage.fields.reduction.fields.bypasses value=system.damage.reduction.bypasses disabled=isPlay}}
+    </div>
+    {{formGroup systemFields.damage.fields.threshold value=system.damage.threshold disabled=isPlay}}
+
+    {{!--
     <div class="form-group slim">
-      <label>{{localize "MYTHCRAFT.SHEET.AddDamage"}}</label>
+      <label>{{localize "MYTHCRAFT.SHEET.AddAbsorb"}}</label>
       <div class="form-fields">
         <select data-name="add">
-          {{selectOptions damageInfo.options localize="true"}}
+          {{selectOptions damageInfo.absorbOptions localize="true"}}
         </select>
-        <button type="button" class="icon fa-solid fa-plus" data-action="addDamage"></button>
+        <button type="button" class="icon fa-solid fa-plus" data-action="addAbsorb"></button>
       </div>
     </div>
-    {{#each damageInfo.list}}
-    <div class="form-group">
-      <label>{{label}}</label>
-      {{formGroup fields.resist value=entry.resist name=(concat name "resist") classes="stacked"}}
-      {{formGroup fields.vulnerable value=entry.vulnerable name=(concat name "vulnerable") classes="stacked"}}
-      {{formGroup fields.immune value=entry.immune name=(concat name "immune") classes="stacked"}}
-      {{formGroup fields.reduction value=entry.reduction name=(concat name "reduction") classes="stacked"}}
-      {{formGroup fields.threshold value=entry.threshold name=(concat name "threshold") classes="stacked"}}
-    </div>
-    {{/each}}
+    --}}
     {{/if}}
+  </fieldset>
+  <fieldset class="conditions">
+    <legend>{{systemFields.conditions.label}}</legend>
+    {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
+    {{formGroup systemFields.conditions.fields.burning value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning) disabled=isPlay}}
   </fieldset>
 </section>

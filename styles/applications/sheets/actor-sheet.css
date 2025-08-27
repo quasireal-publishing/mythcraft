@@ -90,17 +90,6 @@
     .exploration {
       align-items: stretch;
     }
-    .damage-modification {
-      label {
-        text-align: center;
-      }
-      .form-fields {
-        justify-content: center;
-        input {
-          text-align: center;
-        }
-      }
-    }
   }
 
   .item-header, .item-list {

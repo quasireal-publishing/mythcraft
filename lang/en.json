@@ -22,7 +22,7 @@
       "Share": "Share",
       "Delete": "Delete",
       "AddSense": "Add Sense",
-      "AddDamage": "Add Modification"
+      "AddAbsorb": "Add Absorption"
     },
     "Actor": {
       "base": {
@@ -162,22 +162,29 @@
           },
           "damage": {
             "label": "Damage Modification",
-            "element": {
-              "resist": {
-                "label": "Resist"
+            "resist": {
+              "label": "Resist"
+            },
+            "immune": {
+              "label": "Immune"
+            },
+            "vulnerable": {
+              "label": "Vulnerable"
+            },
+            "reduction": {
+              "label": "DR",
+              "value": {
+                "label": "Value"
               },
-              "vulnerable": {
-                "label": "Vulnerable"
-              },
-              "immune": {
-                "label": "Immune"
-              },
-              "reduction": {
-                "label": "DR"
-              },
-              "threshold": {
-                "label": "DT"
+              "bypasses": {
+                "label": "Bypasses"
               }
+            },
+            "threshold": {
+              "label": "DT"
+            },
+            "affinity": {
+              "label": "Affinity"
             }
           }
         },
@@ -201,8 +208,7 @@
         "DamageResistListFormat": "{type} resist {number}",
         "DamageVulnerableListFormat": "{type} vulnerable {number}",
         "DamageImmuneListFormat": "{type} immunity",
-        "DamageReductionListFormat": "DR {number}/{type}",
-        "DamageThresholdListFormat": "DT {number}/{type}"
+        "DamageReductionListFormat": "{value}/{bypasses}"
       },
       "character": {
         "FIELDS": {

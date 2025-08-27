@@ -61,19 +61,22 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       skills: new fields.TypedObjectField(new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
       })),
-      conditions: new fields.SchemaField({
-        absorb: new fields.NumberField({ integer: true, min: 0 }),
+      damage: new fields.SchemaField({
+        resist: new fields.StringField(),
+        vulnerable: new fields.StringField(),
+        absorb: new fields.TypedObjectField(new fields.NumberField({ integer: true, min: 0, nullable: false })),
         affinity: new fields.SetField(setOptions()),
+        immune: new fields.SetField(setOptions()),
+        reduction: new fields.SchemaField({
+          value: new fields.NumberField({ integer: true, min: 0, nullable: false }),
+          bypasses: new fields.StringField(),
+        }),
+        threshold: new fields.NumberField({ integer: true, min: 0, nullable: false }),
+      }),
+      conditions: new fields.SchemaField({
         bleeding: new FormulaField(),
         burning: new FormulaField(),
       }),
-      damage: new fields.TypedObjectField(new fields.SchemaField({
-        resist: new fields.NumberField(requiredInteger({ initial: 0 })),
-        vulnerable: new fields.NumberField(requiredInteger({ initial: 0 })),
-        immune: new fields.BooleanField(),
-        reduction: new fields.NumberField(requiredInteger({ initial: 0 })),
-        threshold: new fields.NumberField(requiredInteger({ initial: 0 })),
-      })),
     };
   }
 
@@ -241,14 +244,12 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
    * @param {string} [options.type]   A key in {@link mythcraft.CONFIG.damage.types}.
    */
   async takeDamage(damage, options = {}) {
-    const damageInfo = this.damage[options.type];
+    const absorb = this.damage.absorb[options.type];
     let zeroMessage = "MythCraft.Actor.DamageNotification.AbsorbReducedToZero";
-    if (damageInfo) {
-      damage = Math.max(damage - damageInfo.absorb, 0);
-      if (damageInfo.immune) {
-        damage = 0;
-        zeroMessage = "MythCraft.Actor.DamageNotification.ImmuneReducedToZero";
-      }
+    if (absorb) damage = Math.max(damage - absorb, 0);
+    if (this.damage.immune.has(options.type)) {
+      damage = 0;
+      zeroMessage = "MythCraft.Actor.DamageNotification.ImmuneReducedToZero";
     }
 
     if (damage === 0) {
@@ -257,7 +258,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     }
 
     const damageTypeOption = { mythcraft: { damageType: options.type } };
-    // If there's damage left after weakness/immunities, apply damage to temporary stamina then stamina value
+
     const hpUpdates = {};
     const damageToShield = Math.min(damage, this.hp.shield);
     hpUpdates.shield = Math.max(0, this.hp.shield - damageToShield);
