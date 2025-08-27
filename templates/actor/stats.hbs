@@ -52,6 +52,60 @@
       {{/if}}
     </fieldset>
   </div>
+  <fieldset class="damage-modification">
+    <legend>{{systemFields.damage.label}}</legend>
+    {{#if isPlay}}
+    <dl>
+      {{#if damageInfo.descriptions.affinity}}
+      <dt>{{systemFields.damage.fields.affinity.label}}</dt>
+      <dd>{{damageInfo.descriptions.affinity}}</dd>
+      {{/if}}
+      {{#if system.damage.resist}}
+      <dt>{{systemFields.damage.fields.resist.label}}</dt>
+      <dd>{{system.damage.resist}}</dd>
+      {{/if}}
+      {{#if damageInfo.descriptions.immune}}
+      <dt>{{systemFields.damage.fields.immune.label}}</dt>
+      <dd>{{damageInfo.descriptions.immune}}</dd>
+      {{/if}}
+      {{#if system.damage.vulnerable}}
+      <dt>{{systemFields.damage.fields.vulnerable.label}}</dt>
+      <dd>{{system.damage.vulnerable}}</dd>
+      {{/if}}
+      {{#if system.damage.reduction.value}}
+      <dt>{{systemFields.damage.fields.reduction.label}}</dt>
+      <dd>{{damageInfo.descriptions.reduction}}</dd>
+      {{/if}}
+      {{#if system.damage.threshold}}
+      <dt>{{systemFields.damage.fields.threshold.label}}</dt>
+      <dd>{{system.damage.threshold}}</dd>
+      {{/if}}
+    </dl>
+    {{else}}
+    {{formGroup systemFields.damage.fields.affinity value=system.damage.affinity options=damageTypes disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.resist value=system.damage.resist disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.immune value=system.damage.immune options=damageTypes disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.vulnerable value=system.damage.vulnerable disabled=isPlay}}
+    <div class="form-group">
+      <label>{{systemFields.damage.fields.reduction.label}}</label>
+      {{formGroup systemFields.damage.fields.reduction.fields.value value=system.damage.reduction.value disabled=isPlay}}
+      {{formGroup systemFields.damage.fields.reduction.fields.bypasses value=system.damage.reduction.bypasses disabled=isPlay}}
+    </div>
+    {{formGroup systemFields.damage.fields.threshold value=system.damage.threshold disabled=isPlay}}
+
+    {{!--
+    <div class="form-group slim">
+      <label>{{localize "MYTHCRAFT.SHEET.AddAbsorb"}}</label>
+      <div class="form-fields">
+        <select data-name="add">
+          {{selectOptions damageInfo.absorbOptions localize="true"}}
+        </select>
+        <button type="button" class="icon fa-solid fa-plus" data-action="addAbsorb"></button>
+      </div>
+    </div>
+    --}}
+    {{/if}}
+  </fieldset>
   <div class="attributes">
     {{#each attributeInfo as |group|}}
     <div class="attribute-group flexrow">
@@ -94,60 +148,6 @@
     </div>
     {{/each}}
   </div>
-  <fieldset class="damage-modification">
-    <legend>{{systemFields.damage.label}}</legend>
-    {{#if isPlay}}
-    <dl>
-      {{#if damageInfo.descriptions.affinity}}
-      <dt>{{systemFields.damage.fields.affinity.label}}</dt>
-      <dd>{{damageInfo.descriptions.affinity}}</dd>
-      {{/if}}
-      {{#if system.damage.resist}}
-      <dt>{{systemFields.damage.fields.resist.label}}</dt>
-      <dd>{{system.damage.resist}}</dd>
-      {{/if}}
-      {{#if damageInfo.descriptions.immune}}
-      <dt>{{systemFields.damage.fields.immune.label}}</dt>
-      <dd>{{damageInfo.descriptions.immune}}</dd>
-      {{/if}}
-      {{#if system.damage.vulnerable}}
-      <dt>{{systemFields.damage.fields.vulnerable.label}}</dt>
-      <dd>{{system.damage.vulnerable}}</dd>
-      {{/if}}
-      {{#if system.damage.reduction.value}}
-      <dt>{{systemFields.damage.fields.vulnerable.label}}</dt>
-      <dd>{{damageInfo.descriptions.reduction}}</dd>
-      {{/if}}
-      {{#if system.damage.threshold}}
-      <dt>{{systemFields.damage.fields.threshold.label}}</dt>
-      <dd>{{system.damage.threshold}}</dd>
-      {{/if}}
-    </dl>
-    {{else}}
-    {{formGroup systemFields.damage.fields.affinity value=system.damage.affinity options=damageTypes disabled=isPlay}}
-    {{formGroup systemFields.damage.fields.resist value=system.damage.resist disabled=isPlay}}
-    {{formGroup systemFields.damage.fields.immune value=system.damage.immune options=damageTypes disabled=isPlay}}
-    {{formGroup systemFields.damage.fields.vulnerable value=system.damage.vulnerable disabled=isPlay}}
-    <div class="form-group">
-      <label>{{systemFields.damage.fields.reduction.label}}</label>
-      {{formGroup systemFields.damage.fields.reduction.fields.value value=system.damage.reduction.value disabled=isPlay}}
-      {{formGroup systemFields.damage.fields.reduction.fields.bypasses value=system.damage.reduction.bypasses disabled=isPlay}}
-    </div>
-    {{formGroup systemFields.damage.fields.threshold value=system.damage.threshold disabled=isPlay}}
-
-    {{!--
-    <div class="form-group slim">
-      <label>{{localize "MYTHCRAFT.SHEET.AddAbsorb"}}</label>
-      <div class="form-fields">
-        <select data-name="add">
-          {{selectOptions damageInfo.absorbOptions localize="true"}}
-        </select>
-        <button type="button" class="icon fa-solid fa-plus" data-action="addAbsorb"></button>
-      </div>
-    </div>
-    --}}
-    {{/if}}
-  </fieldset>
   <fieldset class="conditions">
     <legend>{{systemFields.conditions.label}}</legend>
     {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
