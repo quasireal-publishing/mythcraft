@@ -1,6 +1,6 @@
 import BaseAdvancement from "./base-advancement.mjs";
-import DSDialog from "../../../applications/api/dialog.mjs";
-import { systemID } from "../../../constants.mjs";
+import MythCraftDialog from "../../../applications/api/dialog.mjs";
+import { systemId } from "../../../constants.mjs";
 
 /**
  * @import DrawSteelActor from "../../../documents/actor.mjs";
@@ -85,7 +85,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
     // There is probably a more efficient function that uses less recursion
     // but it is unlikely that even deleting a level 10 class will have a noticeable performance cost.
     for (const item of this.document.collection) {
-      const advancementFlags = item.getFlag(systemID, "advancement");
+      const advancementFlags = item.getFlag(systemId, "advancement");
       if ((advancementFlags?.advancementId === this.id) && (advancementFlags.parentId === this.document.id)) {
         items.add(item);
         if (item.hasGrantedItems) {
@@ -138,7 +138,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
     /**
      * Render callback for Dialog.
      * @param {Event} event
-     * @param {DSDialog} dialog
+     * @param {MythCraftDialog} dialog
      */
     function render(event, dialog) {
       const checkboxes = dialog.element.querySelectorAll("input[name=choices]");
@@ -153,7 +153,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
       checkboxes[0].dispatchEvent(new Event("change"));
     }
 
-    const selection = await DSDialog.input({
+    const selection = await MythCraftDialog.input({
       content,
       render,
       classes: ["configure-advancement"],

@@ -1,4 +1,4 @@
-import { requiredInteger } from "../fields/helpers.mjs";
+import { requiredInteger, setOptions } from "../fields/helpers.mjs";
 import SourceModel from "../models/source.mjs";
 import BaseActorModel from "./base-actor.mjs";
 
@@ -16,6 +16,8 @@ export default class NpcModel extends BaseActorModel {
 
     // features/actions/reactions are items
     const schema = super.defineSchema();
+
+    schema.tags = new fields.SetField(setOptions());
 
     schema.traits = new fields.TypedObjectField(new fields.SchemaField({
       value: new fields.NumberField(requiredInteger({ initial: 1 })),

@@ -1,3 +1,5 @@
+import { pseudoDocuments } from "./data/_module.mjs";
+
 /** @import { StatusEffectConfig } from "@client/config.mjs" */
 
 /**
@@ -1192,6 +1194,125 @@ export const healing = {
 };
 
 /**
+ * @typedef MonsterTag
+ * @property {string} label               The i18n string for the monster tag.
+ * @property {string} group               The tag grouping.
+ */
+
+/**
+ * @type {Record<string, MonsterTag>}
+ */
+const monsterTags = {
+  beast: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.beast",
+    group: "mundane",
+  },
+  humanoid: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.humanoid",
+    group: "mundane",
+  },
+  monstrosity: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.monstrosity",
+    group: "mundane",
+  },
+  plant: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.plant",
+    group: "mundane",
+  },
+  avadri: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.avadri",
+    group: "planar",
+  },
+  celestial: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.celestial",
+    group: "planar",
+  },
+  eldritch: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.eldritch",
+    group: "planar",
+  },
+  elemental: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.elemental",
+    group: "planar",
+  },
+  fae: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.fae",
+    group: "planar",
+  },
+  fiend: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.fiend",
+    group: "planar",
+  },
+  arcane: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.arcane",
+    group: "magic",
+  },
+  divine: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.divine",
+    group: "magic",
+  },
+  occult: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.occult",
+    group: "magic",
+  },
+  primal: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.primal",
+    group: "magic",
+  },
+  psionic: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.psionic",
+    group: "magic",
+  },
+  abominable: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.abominable",
+    group: "modifying",
+  },
+  constructed: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.constructed",
+    group: "modifying",
+  },
+  giant: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.giant",
+    group: "modifying",
+  },
+  shapechanger: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.shapechanger",
+    group: "modifying",
+  },
+  swarm: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.swarm",
+    group: "modifying",
+  },
+  undead: {
+    label: "MYTHCRAFT.Actor.npc.MonsterTags.undead",
+    group: "modifying",
+  },
+};
+
+/**
+ * @typedef MonsterGrouping
+ * @property {string} label               The i18n string for the monster grouping.
+ */
+
+/**
+ * @type {Record<string, MonsterGrouping}
+ */
+const monsterGroupings = {
+  mundane: {
+    label: "MYTHCRAFT.Actor.npc.MonsterGroupings.mundane",
+  },
+  planar: {
+    label: "MYTHCRAFT.Actor.npc.MonsterGroupings.planar",
+  },
+  magic: {
+    label: "MYTHCRAFT.Actor.npc.MonsterGroupings.magic",
+  },
+  modifying: {
+    label: "MYTHCRAFT.Actor.npc.MonsterGroupings.modifying",
+  },
+};
+
+/**
  * @typedef MonsterTrait
  * @property {string} label         The i18n string for the trait.
  * @property {boolean} [variable]   Does this take a numerical value.
@@ -1202,7 +1323,7 @@ export const healing = {
  *
  * @type {Record<string, MonsterTrait>}
  */
-export const monsterTraits = {
+const monsterTraits = {
   ethereal: {
     label: "MYTHCRAFT.MonsterTraits.ethereal",
     reference: "",
@@ -1243,6 +1364,17 @@ export const monsterTraits = {
   vigilant: {
     label: "MYTHCRAFT.MonsterTraits.vigilant",
     reference: "",
+  },
+};
+
+export const monster = {
+  tags: monsterTags,
+  tagGroups: monsterGroupings,
+  traits: monsterTraits,
+  get tagOptions() {
+    return Object.entries(monsterTags).map(([value, { label, group }]) => ({
+      value, label, group: monsterGroupings[group].label,
+    }));
   },
 };
 
@@ -1305,4 +1437,3 @@ export const Advancement = {
     documentClass: pseudoDocuments.advancements.ItemGrantAdvancement,
   },
 };
-preLocalize("Advancement", { key: "label" });

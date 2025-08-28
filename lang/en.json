@@ -35,6 +35,13 @@
         "type": {
           "label": "Type"
         }
+      },
+      "SHEET": {
+        "baseConfiguration": "Base Configuration",
+        "TABS": {
+          "details": "Details",
+          "identity": "Identity"
+        }
       }
     },
     "Actor": {
@@ -243,6 +250,35 @@
             "label": "Action Text",
             "placeholder": "The {name} can take..."
           }
+        },
+        "MonsterTags": {
+          "beast": "Beast",
+          "humanoid": "Humanoid",
+          "monstrosity": "Monstrosity",
+          "plant": "Plant",
+          "avadri": "Avadri",
+          "celestial": "Celestial",
+          "eldritch": "Eldritch",
+          "elemental": "Elemental",
+          "fae": "Fae",
+          "fiend": "Fiend",
+          "arcane": "Arcane",
+          "divine": "Divine",
+          "occult": "Occult",
+          "primal": "Primal",
+          "psionic": "Psionic",
+          "abominable": "Abominable",
+          "constructed": "Constructed",
+          "giant": "Giant",
+          "shapechanger": "Shapechanger",
+          "swarm": "Swarm",
+          "undead": "Undead"
+        },
+        "MonsterGroupings": {
+          "mundane": "Mundane",
+          "planar": "Planar",
+          "magic": "Magic",
+          "modifying": "Modifying"
         }
       },
       "DamageNotification": {

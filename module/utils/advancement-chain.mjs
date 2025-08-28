@@ -1,5 +1,3 @@
-import { TraitAdvancement } from "../data/pseudo-documents/advancements/_module.mjs";
-
 /**
  * @import { AdvancementChain } from "../_types"
  * @import { BaseAdvancement } from "../data/pseudo-documents/advancements/_module.mjs";
@@ -131,23 +129,6 @@ export default class AdvancementChain {
             choice.children[advancement.uuid].parentChoice = choice; // Helps detect if chosen.
           }
         }
-      }
-    } else if (advancement instanceof TraitAdvancement) {
-      for (const trait of advancement.traitOptions) {
-        const choice = node.choices[trait.value] = {
-          node,
-          choice: trait.label,
-          trait: trait.value,
-          children: {},
-        };
-
-        Object.defineProperty(choice, "isChosen", {
-          get() {
-            if (!node.isChosen) return false;
-            if (!node.advancement.isChoice) return true;
-            return node.selected[trait.value] === true;
-          },
-        });
       }
     }
 
