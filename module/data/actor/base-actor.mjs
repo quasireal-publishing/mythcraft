@@ -26,6 +26,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         value: new fields.HTMLField(),
         gm: new fields.HTMLField({ gmOnly: true }),
       }),
+      size: new fields.StringField(),
       hp: new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
         max: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),

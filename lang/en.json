@@ -55,6 +55,9 @@
               "label": "GM Notes"
             }
           },
+          "size": {
+            "label": "Size"
+          },
           "hp": {
             "label": "Hit Points",
             "value": {

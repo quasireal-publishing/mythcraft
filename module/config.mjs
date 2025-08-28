@@ -928,15 +928,15 @@ export const rests = {
 export const sizes = {
   fine: {
     label: "MYTHCRAFT.Sizes.fine",
-    strMod: -8,
-    dexMod: 8,
+    strMod: -16,
+    dexMod: 16,
     width: 1,
     length: 1,
   },
   diminutive: {
-    label: "MYTHCRAFT.Sizes.dimunitive",
-    strMod: -4,
-    dexMod: 4,
+    label: "MYTHCRAFT.Sizes.diminutive",
+    strMod: -8,
+    dexMod: 8,
     width: 1,
     length: 1,
   },
