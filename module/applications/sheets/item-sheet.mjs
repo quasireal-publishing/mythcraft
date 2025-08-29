@@ -34,6 +34,9 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
           id: "details",
         },
         {
+          id: "advancements",
+        },
+        {
           id: "effects",
         },
       ],
@@ -59,6 +62,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     details: {
       template: systemPath("templates/item/details.hbs"),
       templates: ["armor", "background", "feature", "gear", "lineage", "profession", "spell", "talent", "weapon"].map(type => systemPath(`templates/item/partials/${type}.hbs`)),
+      scrollable: [""],
+    },
+    advancements: {
+      template: systemPath("templates/item/advancements.hbs"),
       scrollable: [""],
     },
     effects: {
@@ -96,6 +103,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
 
+    if (!this.document.system.schema.getField("advancements")) delete parts.advancements;
+
     if (this.document.limited) this._restrictLimited(parts);
 
     return parts;
@@ -106,6 +115,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /** @inheritdoc */
   _prepareTabs(group) {
     const tabs = super._prepareTabs(group);
+
+    if (!this.document.system.schema.getField("advancements")) delete group.advancements;
 
     if (this.document.limited && (group === "primary")) this._restrictLimited(tabs);
 
@@ -120,6 +131,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
    */
   _restrictLimited(record) {
     delete record.details;
+    delete record.advancements;
     delete record.effects;
   }
 
@@ -139,6 +151,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       case "details":
         context.tab = context.tabs[partId];
         await this._prepareDetailsTab(context, options);
+        break;
+      case "advancements":
+        context.tab = context.tabs[partId];
+        await this._prepareAdvancementTab(context, options);
         break;
       case "effects":
         context.tab = context.tabs[partId];
@@ -173,6 +189,50 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
    */
   async _prepareDetailsTab(context, options) {
     context.partialPath = this.constructor.DETAILS_PARTIAL[this.item.type];
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * @typedef AdvancementContext
+   * @property {number} level
+   * @property {string} section
+   * @property {BaseAdvancement} documents
+   */
+
+  /**
+   * Prepares context info for the Advancements tab.
+   * @returns {AdvancementContext[]}
+   */
+  async _prepareAdvancementTab(context, options) {
+    // Advancements
+    const advs = {};
+    /** @type {foundry.utils.Collection<string, BaseAdvancement>} */
+    const models = this.document.getEmbeddedPseudoDocumentCollection("Advancement")[
+      this.isPlayMode ? "contents" : "sourceContents"
+    ];
+    for (const model of models) {
+      if (!advs[model.requirements.level]) {
+        const section = Number.isNumeric(model.requirements.level) ?
+          game.i18n.format("MYTHCRAFT.ADVANCEMENT.HEADERS.level", { level: model.requirements.level }) :
+          game.i18n.localize("MYTHCRAFT.ADVANCEMENT.HEADERS.null");
+        advs[model.requirements.level] = {
+          section,
+          level: model.requirements.level,
+          documents: [],
+        };
+      }
+      const advancementContext = {
+        name: model.name,
+        img: model.img,
+        id: model.id,
+        canReconfigure: model.canReconfigure,
+      };
+      if (model.description) advancementContext.enrichedDescription = await enrichHTML(model.description, { relativeTo: this.document });
+      advs[model.requirements.level].documents.push(advancementContext);
+    }
+
+    context.advancements = Object.values(advs).sort((a, b) => a.level - b.level);
   }
 
   /* -------------------------------------------------- */

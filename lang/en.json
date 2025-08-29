@@ -8,6 +8,7 @@
         "biography": "Biography",
         "description": "Description",
         "details": "Details",
+        "advancements": "Advancements",
         "features": "Features",
         "spells": "Spells",
         "equipment": "Equipment",
@@ -409,6 +410,13 @@
           "_mcid": {
             "label": "MythCraft ID",
             "hint": "The MythCraft ID identifies this game rule element without concern for localization or source tracking."
+          }
+        }
+      },
+      "advancement": {
+        "FIELDS": {
+          "advancements": {
+            "label": "Advancements"
           }
         }
       },
