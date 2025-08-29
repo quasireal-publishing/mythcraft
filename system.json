@@ -41,9 +41,13 @@
         ]
       },
       "lineage": {
+        "filePathFields": {
+          "advancements.*.img": ["IMAGE"]
+        },
         "htmlFields": [
           "description.value",
-          "description.gm"
+          "description.gm",
+          "advancements.*.description"
         ],
         "gmOnlyFields": [
           "description.gm"
@@ -77,9 +81,13 @@
         ]
       },
       "talent": {
+        "filePathFields": {
+          "advancements.*.img": ["IMAGE"]
+        },
         "htmlFields": [
           "description.value",
-          "description.gm"
+          "description.gm",
+          "advancements.*.description"
         ],
         "gmOnlyFields": [
           "description.gm"
@@ -167,6 +175,41 @@
       "name": "bestiary",
       "label": "MYTHCRAFT.COMPENDIUM.bestiary",
       "type": "Actor"
+    },
+    {
+      "name": "lineages",
+      "label": "MYTHCRAFT.COMPENDIUM.lineages",
+      "type": "Item"
+    },
+    {
+      "name": "bop",
+      "label": "MYTHCRAFT.COMPENDIUM.bop",
+      "type": "Item"
+    },
+    {
+      "name": "classes",
+      "label": "MYTHCRAFT.COMPENDIUM.classes",
+      "type": "Item"
+    },
+    {
+      "name": "magic",
+      "label": "MYTHCRAFT.COMPENDIUM.magic",
+      "type": "Item"
+    },
+    {
+      "name": "specialization",
+      "label": "MYTHCRAFT.COMPENDIUM.specialization",
+      "type": "Item"
+    },
+    {
+      "name": "equipment",
+      "label": "MYTHCRAFT.COMPENDIUM.equipment",
+      "type": "Item"
+    },
+    {
+      "name": "rules",
+      "label": "MYTHCRAFT.COMPENDIUM.rules",
+      "type": "JournalEntry"
     }
   ],
   "packFolders": [

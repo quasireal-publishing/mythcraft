@@ -1,9 +1,9 @@
-import BaseItemModel from "./base-item.mjs";
+import AdvancementModel from "./advancement.mjs";
 
 /**
  * The system model for "talent" items.
  */
-export default class TalentModel extends BaseItemModel {
+export default class TalentModel extends AdvancementModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.talent");
 

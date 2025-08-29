@@ -1,10 +1,10 @@
 import { requiredInteger } from "../fields/helpers.mjs";
-import BaseItemModel from "./base-item.mjs";
+import AdvancementModel from "./advancement.mjs";
 
 /**
  * The system model for "lineage" items.
  */
-export default class LineageModel extends BaseItemModel {
+export default class LineageModel extends AdvancementModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.lineage");
 

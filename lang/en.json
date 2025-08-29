@@ -1,7 +1,14 @@
 {
   "MYTHCRAFT": {
     "COMPENDIUM": {
-      "bestiary": "Bestiary"
+      "bestiary": "Bestiary",
+      "lineages": "Lineages",
+      "bop": "Background, Occupation, Profession",
+      "classes": "Classes",
+      "magic": "Magic",
+      "specialization": "Specialization",
+      "equipment": "Equipment",
+      "rules": "Rules and Documentation"
     },
     "SHEET": {
       "Tabs": {
