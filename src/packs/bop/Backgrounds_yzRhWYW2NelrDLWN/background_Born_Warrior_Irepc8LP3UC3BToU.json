@@ -1,0 +1,50 @@
+{
+  "folder": "yzRhWYW2NelrDLWN",
+  "name": "Born Warrior",
+  "type": "background",
+  "_id": "Irepc8LP3UC3BToU",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>You possess a natural talent for combat and have an unshakable bravery that inspires those around you. With your strong body and quick reflexes, you are a formidable force, always ready to defend those in need and vanquish evil wherever it may lurk.</p>",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "born-warrior",
+    "skills": {},
+    "occupation": {
+      "bonus": 2,
+      "skill": "Forced March",
+      "tag": "Militant"
+    },
+    "professions": 1,
+    "wealth": "",
+    "startingEquipment": {},
+    "skillPoints": 12
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500742765,
+    "modifiedTime": 1756500838587,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!Irepc8LP3UC3BToU"
+}

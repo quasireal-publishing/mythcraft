@@ -1,0 +1,29 @@
+{
+  "name": "Trinkets",
+  "_id": "O9Bh5MXUknc6JW48",
+  "img": "icons/commodities/treasure/brooch-eye-silver-teal.webp",
+  "description": "<p>You might have one or more trinkets that have sentimental value. You can make up such items or roll on the following table.</p>",
+  "results": [],
+  "replacement": true,
+  "displayRoll": true,
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500476449,
+    "modifiedTime": 1756500547819,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "formula": "1d100",
+  "_key": "!tables!O9Bh5MXUknc6JW48"
+}

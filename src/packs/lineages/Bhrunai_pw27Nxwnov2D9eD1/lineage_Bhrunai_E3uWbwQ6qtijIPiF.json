@@ -1,0 +1,48 @@
+{
+  "folder": "pw27Nxwnov2D9eD1",
+  "name": "Bhrunai",
+  "type": "lineage",
+  "_id": "E3uWbwQ6qtijIPiF",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "bhrunai",
+    "advancements": {},
+    "baseSpeed": {
+      "walk": 20,
+      "climb": null,
+      "swim": null,
+      "fly": null,
+      "burrow": null
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756501369827,
+    "modifiedTime": 1756501369827,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!E3uWbwQ6qtijIPiF"
+}

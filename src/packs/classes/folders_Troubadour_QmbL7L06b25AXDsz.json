@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Troubadour",
+  "color": "#405515",
+  "sorting": "a",
+  "_id": "QmbL7L06b25AXDsz",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499749842,
+    "modifiedTime": 1756499874170,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!folders!QmbL7L06b25AXDsz"
+}

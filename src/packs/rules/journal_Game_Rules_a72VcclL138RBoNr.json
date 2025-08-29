@@ -1,0 +1,25 @@
+{
+  "name": "Game Rules",
+  "_id": "a72VcclL138RBoNr",
+  "pages": [],
+  "folder": null,
+  "categories": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500143126,
+    "modifiedTime": 1756500143126,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!journal!a72VcclL138RBoNr"
+}

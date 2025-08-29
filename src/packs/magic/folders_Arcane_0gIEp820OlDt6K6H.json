@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Arcane",
+  "color": "#6495ed",
+  "sorting": "a",
+  "_id": "0gIEp820OlDt6K6H",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756498388243,
+    "modifiedTime": 1756498501443,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!folders!0gIEp820OlDt6K6H"
+}

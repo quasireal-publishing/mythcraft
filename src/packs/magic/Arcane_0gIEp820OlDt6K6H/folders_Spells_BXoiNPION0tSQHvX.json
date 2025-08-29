@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "0gIEp820OlDt6K6H",
+  "name": "Spells",
+  "color": null,
+  "sorting": "a",
+  "_id": "BXoiNPION0tSQHvX",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!BXoiNPION0tSQHvX"
+}

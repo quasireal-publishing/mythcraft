@@ -1,0 +1,45 @@
+{
+  "folder": "Z8I6yeCHWvdV3xlT",
+  "name": "Leather Cuirass",
+  "type": "feature",
+  "_id": "NgV6fm9Irimb2N2B",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "leather-cuirass",
+    "category": "passive",
+    "prerequisites": "",
+    "uses": {
+      "maxFormula": ""
+    }
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756501245112,
+    "modifiedTime": 1756501245112,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!NgV6fm9Irimb2N2B"
+}

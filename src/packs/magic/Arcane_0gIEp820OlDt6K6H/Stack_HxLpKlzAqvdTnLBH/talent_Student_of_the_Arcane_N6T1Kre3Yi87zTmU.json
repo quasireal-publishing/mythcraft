@@ -1,0 +1,43 @@
+{
+  "folder": "HxLpKlzAqvdTnLBH",
+  "name": "Student of the Arcane",
+  "type": "talent",
+  "_id": "N6T1Kre3Yi87zTmU",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>Having tapped into the Fundamental Wellspring and achieved Attunation, you gain the following benefits. </p><p><strong>Spell Points.</strong> If this is your first magic entry talent, gain 10 Spell Points. Otherwise, gain +5 SP. Each time you level up and take a talent with the arcane magic tag, you gain +5 SP.</p><p><strong>Arcane Power.</strong> Gain 1 Arcane Power. Each time you level up and take a talent with the arcane magic tag, you gain +1 Arcane Power. </p><p><strong>Arcane Spells.</strong> You know a number of arcane cantrips and spells equal to your Arcane Power + INT. Each time this number increases, learn another arcane cantrip or spell. </p><p><strong>Student.</strong> Gain access to the Arcane Magic stack. Gain two talents from the Arcane Magic stack. (You do not gain additional SP or Arcane Power from these selections.) </p><p><strong>Arcanist.</strong> Your magic attribute is INT unless another talent says otherwise.</p>",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "student-of-the-arcane",
+    "advancements": {},
+    "prerequisites": "",
+    "incompatibilities": ""
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756501415890,
+    "modifiedTime": 1756501464837,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!N6T1Kre3Yi87zTmU"
+}

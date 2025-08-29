@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "DH8Iz2wqFpCYUO4p",
+  "name": "Dual Wielding Track",
+  "color": null,
+  "sorting": "a",
+  "_id": "Cm3yNRqxIkZPAvZj",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!Cm3yNRqxIkZPAvZj"
+}

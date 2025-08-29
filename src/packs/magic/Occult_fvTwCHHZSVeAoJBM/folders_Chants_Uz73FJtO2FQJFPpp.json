@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "fvTwCHHZSVeAoJBM",
+  "name": "Chants",
+  "color": null,
+  "sorting": "a",
+  "_id": "Uz73FJtO2FQJFPpp",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!Uz73FJtO2FQJFPpp"
+}

@@ -1,0 +1,43 @@
+{
+  "folder": "n5hAeijKEdVEPMlf",
+  "name": "Archivist",
+  "type": "profession",
+  "_id": "SROlluvbtUWTpqK1",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>You are passionate about preserving the past and uncovering the secrets of the ages. Through weeks upon weeks of research sifting through dusty tomes, you are always seeking to expand your understanding of the world and to bring new knowledge to light. </p>",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "archivist",
+    "rank": 1,
+    "startingEquipment": {},
+    "skills": {}
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500753568,
+    "modifiedTime": 1756500769837,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!SROlluvbtUWTpqK1"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "pw27Nxwnov2D9eD1",
+  "name": "Features",
+  "color": null,
+  "sorting": "a",
+  "_id": "RH3PqygDOAPWF77O",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!RH3PqygDOAPWF77O"
+}

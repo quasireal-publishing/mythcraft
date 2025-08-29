@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Pugilist",
+  "color": "#56721c",
+  "sorting": "a",
+  "_id": "ifKHb4kWfpQtsNWQ",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499563615,
+    "modifiedTime": 1756499813521,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!folders!ifKHb4kWfpQtsNWQ"
+}

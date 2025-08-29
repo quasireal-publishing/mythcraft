@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "bwfQeThLUeOYJQgx",
+  "name": "Rituals",
+  "color": null,
+  "sorting": "a",
+  "_id": "mg7Vs1bKPTbVTfzv",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!mg7Vs1bKPTbVTfzv"
+}

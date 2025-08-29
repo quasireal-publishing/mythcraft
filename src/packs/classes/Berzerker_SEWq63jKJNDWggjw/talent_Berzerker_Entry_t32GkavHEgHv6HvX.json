@@ -1,0 +1,43 @@
+{
+  "folder": "SEWq63jKJNDWggjw",
+  "name": "Berzerker Entry",
+  "type": "talent",
+  "_id": "t32GkavHEgHv6HvX",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>When you take this entry talent, you gain the following benefits.</p><p><strong>Blood Rage.</strong> Gain one special Rage AP that can only be used to make attacks on your turn or to make reactive attacks if you have the ability to do so. You regain this AP at the start of each of your turns, but it cannot carry over like normal AP.</p><p>You can only have one source of special AP. If you gain a second source of special AP, choose whether you keep this source or your new source.</p><p><strong>Ferocious.</strong> Gain the Ferocious ability. <strong>Ferocious (2/Rest).</strong> If an effect would cause you to become Frightened, you may become determined and ferocious. You ignore that effect and gain Immune Frightened for a number of minutes equal to your amount of Berzerker talents + 1.</p>",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "berzerker-entry",
+    "advancements": {},
+    "prerequisites": "Character Level 2",
+    "incompatibilities": ""
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500598650,
+    "modifiedTime": 1756500652219,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!t32GkavHEgHv6HvX"
+}

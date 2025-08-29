@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "9B3tfYwbaGnRMQyf",
+  "name": "Stack",
+  "color": null,
+  "sorting": "a",
+  "_id": "DNwPxWXwM7WB446Y",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!DNwPxWXwM7WB446Y"
+}

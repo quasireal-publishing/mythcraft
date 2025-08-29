@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Berzerker",
+  "color": "#6b8e23",
+  "sorting": "a",
+  "_id": "SEWq63jKJNDWggjw",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499554682,
+    "modifiedTime": 1756499791426,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!folders!SEWq63jKJNDWggjw"
+}

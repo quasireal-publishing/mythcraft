@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "TTgqnyDQqAsv7YW1",
+  "name": "Shield Track",
+  "color": null,
+  "sorting": "a",
+  "_id": "N2vNcAk1r8do1wSB",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!N2vNcAk1r8do1wSB"
+}

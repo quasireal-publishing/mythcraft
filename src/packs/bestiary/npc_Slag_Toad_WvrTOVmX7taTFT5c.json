@@ -59,11 +59,12 @@
     "damage": {},
     "traits": {},
     "source": {
-      "book": "",
-      "page": "",
+      "book": "Creature Compendium",
+      "page": "154",
       "license": "",
       "revision": 1
-    }
+    },
+    "actions": "The Slag Toad can take TWO of the following actions, or take the same action twice"
   },
   "prototypeToken": {
     "name": "Slag Toad",
@@ -162,19 +163,20 @@
   "items": [
     {
       "folder": "lspyMJLp0gtg9YiR",
-      "name": "Feature",
+      "name": "Molten Flesh",
       "type": "feature",
       "_id": "BtJJ8VIUtxLoo91s",
-      "img": "icons/svg/item-bag.svg",
+      "img": "icons/magic/fire/flame-burning-campfire-rocks.webp",
       "system": {
         "description": {
-          "value": "",
+          "value": "<p>All creatures that start their turn within 10 ft of the Slag Toad must make a DC 12 END check, taking [[/damage 1d6 fire avg]] damage on a failure.</p>",
           "gm": ""
         },
         "tags": [],
         "prerequisites": "",
         "uses": {
-          "maxFormula": ""
+          "maxFormula": "",
+          "spent": null
         },
         "source": {
           "book": "",
@@ -199,34 +201,42 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755543559359,
-        "modifiedTime": 1755543559359,
+        "modifiedTime": 1756235025022,
         "lastModifiedBy": "9xohpsq2hVYIXGuB"
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.BtJJ8VIUtxLoo91s"
-    }
-  ],
-  "effects": [
+    },
     {
-      "name": "Active Effect",
-      "duration": {
-        "rounds": 1,
-        "startTime": 0,
-        "combat": null,
-        "startRound": 1,
-        "startTurn": 0
+      "name": "Earthbound",
+      "type": "feature",
+      "_id": "zvbiHKN2hHJJabOO",
+      "img": "icons/magic/earth/strike-fist-stone-light.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Slag Toad cannot use its Regen trait when it is not in contact with sand, dirt, or stone.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature-2",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        }
       },
-      "origin": "Compendium.mythcraft.bestiary.Actor.WvrTOVmX7taTFT5c",
-      "img": "icons/svg/aura.svg",
-      "_id": "JYjezaWozKVgJ0uJ",
-      "type": "base",
-      "system": {},
-      "changes": [],
-      "disabled": false,
-      "description": "",
-      "tint": "#ffffff",
-      "transfer": false,
-      "statuses": [],
+      "effects": [],
+      "folder": null,
       "sort": 0,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
       "flags": {},
       "_stats": {
         "compendiumSource": null,
@@ -235,13 +245,289 @@
         "coreVersion": "13.347",
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
-        "createdTime": 1755543636462,
-        "modifiedTime": 1755543636462,
+        "createdTime": 1755556879249,
+        "modifiedTime": 1756235739729,
         "lastModifiedBy": "9xohpsq2hVYIXGuB"
       },
-      "_key": "!actors.effects!WvrTOVmX7taTFT5c.JYjezaWozKVgJ0uJ"
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.zvbiHKN2hHJJabOO"
+    },
+    {
+      "name": "Earth Glide",
+      "type": "feature",
+      "_id": "UNz2aHTduTbPPspg",
+      "img": "icons/magic/earth/projectile-stone-landslide.webp",
+      "system": {
+        "description": {
+          "value": "<p>When the Slag Toad uses its burrow speed, it does not leave a tunnel behind.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755724944737,
+        "modifiedTime": 1756235835716,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.UNz2aHTduTbPPspg"
+    },
+    {
+      "name": "Move",
+      "type": "feature",
+      "_id": "vMSL9jz6LxvgdsIG",
+      "img": "icons/skills/movement/arrow-upward-white.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Slag Toad can move up to its speed.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        },
+        "category": "action"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755724954146,
+        "modifiedTime": 1756235051981,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.vMSL9jz6LxvgdsIG"
+    },
+    {
+      "name": "Bite",
+      "type": "feature",
+      "_id": "gJVPxYBSemCQ3Ve3",
+      "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Reach 5 ft Natural Weapon. +3 vs AR. Hit: [[/damage 1d4+3 sharp avg]] and [[/damage 1d6 fire avg]].</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        },
+        "category": "action"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755725018208,
+        "modifiedTime": 1756239456063,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.gJVPxYBSemCQ3Ve3"
+    },
+    {
+      "name": "Tongue",
+      "type": "feature",
+      "_id": "p88zCf6VVgDM4891",
+      "img": "icons/creatures/tentacles/tentacle-earth-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Reach 15 ft Natural Weapon. +3 vs ANT. Hit: [[/damage 1d6 fire avg]] and the creature is pulled 10 ft closer to the Slag Toad.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        },
+        "category": "action"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 150000,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755725024693,
+        "modifiedTime": 1756239485873,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.p88zCf6VVgDM4891"
+    },
+    {
+      "name": "Pursue",
+      "type": "feature",
+      "_id": "jR3R1WTn7gDH1kdy",
+      "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Slag Toad assumes a stance that allows it to Exploit.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        },
+        "category": "action"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755725030778,
+        "modifiedTime": 1756235936110,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.jR3R1WTn7gDH1kdy"
+    },
+    {
+      "name": "Exploit",
+      "type": "feature",
+      "_id": "X8ozHZAg1WBB44kR",
+      "img": "icons/skills/melee/strike-spear-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>If the Slag Toad used the Pursue action on its last turn, it can Exploit.</p>",
+          "gm": ""
+        },
+        "source": {
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1
+        },
+        "tags": [],
+        "_mcid": "feature",
+        "prerequisites": "",
+        "uses": {
+          "maxFormula": "",
+          "spent": null
+        },
+        "category": "reaction"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.347",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1755725036189,
+        "modifiedTime": 1756235949525,
+        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+      },
+      "_key": "!actors.items!WvrTOVmX7taTFT5c.X8ozHZAg1WBB44kR"
     }
   ],
+  "effects": [],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -257,7 +543,7 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1755541779353,
-    "modifiedTime": 1755543122994,
+    "modifiedTime": 1756241094317,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
   "_key": "!actors!WvrTOVmX7taTFT5c"

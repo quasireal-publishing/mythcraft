@@ -1,0 +1,21 @@
+{
+  "type": "Item",
+  "folder": "DH8Iz2wqFpCYUO4p",
+  "name": "Archery Track",
+  "color": null,
+  "sorting": "a",
+  "_id": "ovsSFP8wjOAUEVO1",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!ovsSFP8wjOAUEVO1"
+}

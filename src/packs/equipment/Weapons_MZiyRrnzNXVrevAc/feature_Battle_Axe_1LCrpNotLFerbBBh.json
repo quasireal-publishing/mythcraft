@@ -1,0 +1,45 @@
+{
+  "folder": "MZiyRrnzNXVrevAc",
+  "name": "Battle Axe",
+  "type": "feature",
+  "_id": "1LCrpNotLFerbBBh",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": "",
+      "revision": 1
+    },
+    "tags": [],
+    "_mcid": "battle-axe",
+    "category": "passive",
+    "prerequisites": "",
+    "uses": {
+      "maxFormula": ""
+    }
+  },
+  "effects": [],
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756501225832,
+    "modifiedTime": 1756501231198,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!1LCrpNotLFerbBBh"
+}

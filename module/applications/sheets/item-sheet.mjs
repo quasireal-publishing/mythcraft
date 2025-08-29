@@ -226,8 +226,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     for (const model of models) {
       if (!advs[model.requirements.level]) {
         const section = Number.isNumeric(model.requirements.level) ?
-          game.i18n.format("MYTHCRAFT.ADVANCEMENT.HEADERS.level", { level: model.requirements.level }) :
-          game.i18n.localize("MYTHCRAFT.ADVANCEMENT.HEADERS.null");
+          game.i18n.format("MYTHCRAFT.Advancement.HEADERS.level", { level: model.requirements.level }) :
+          game.i18n.localize("MYTHCRAFT.Advancement.HEADERS.null");
         advs[model.requirements.level] = {
           section,
           level: model.requirements.level,

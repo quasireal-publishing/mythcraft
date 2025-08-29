@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Warrior",
+  "color": "#364712",
+  "sorting": "a",
+  "_id": "P1Ss4skNf67687Nq",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499753735,
+    "modifiedTime": 1756499884788,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!folders!P1Ss4skNf67687Nq"
+}

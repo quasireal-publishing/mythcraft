@@ -210,13 +210,18 @@
       "name": "rules",
       "label": "MYTHCRAFT.COMPENDIUM.rules",
       "type": "JournalEntry"
+    },
+    {
+      "name": "tables",
+      "label": "MYTHCRAFT.COMPENDIUM.tables",
+      "type": "RollTable"
     }
   ],
   "packFolders": [
     {
       "name": "MythCraft System",
       "color": "#174345",
-      "packs": ["bestiary"]
+      "packs": ["bestiary", "lineages", "bop", "classes", "magic", "specialization", "equipment", "rules", "tables"]
     }
   ],
   "socket": false,
