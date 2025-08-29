@@ -1,10 +1,11 @@
-<section class="tab standard-form {{tab.cssClass}}" data-group="primary" data-tab="advancement" data-subtype="{{document.type}}" data-pseudo-document-name="Advancement">
+<section class="tab standard-form {{tab.cssClass}}" data-group="primary" data-tab="advancements" data-subtype="{{document.type}}" data-pseudo-document-name="Advancement">
   <div class="section-header">
     <button type="button" data-action="createPseudoDocument" {{disabled (not @root.editable)}}>
       <i class="{{advancementIcon}}"></i>
       {{localize "DOCUMENT.Create" type=(localize "DOCUMENT.Advancement")}}
     </button>
   </div>
+  {{log this}}
   {{#each advancements}}
   <fieldset class="advancement">
     <legend>{{section}}</legend>

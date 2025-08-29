@@ -20,7 +20,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
       ...super.metadata,
       documentName: "Advancement",
       icon: "fa-solid fa-circle-nodes",
-      sheetClass: mythcraft.applications.sheets.pseudoDocuments.AdvancementSheet,
+      sheetClass: mythcraft.applications.sheets.AdvancementSheet,
     };
   }
 

@@ -5,6 +5,17 @@ import enrichHTML from "../../utils/enrich-html.mjs";
  * A shared implementation for the system data model for items.
  */
 export default class BaseItemModel extends foundry.abstract.TypeDataModel {
+  /**
+   * Key information about this item subtype.
+   */
+  static get metadata() {
+    return {
+      embedded: {},
+    };
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = ["MYTHCRAFT.Source", "MYTHCRAFT.Item.base"];
 

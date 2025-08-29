@@ -10,9 +10,6 @@ export default class AdvancementModel extends BaseItemModel {
   /** @inheritdoc */
   static get metadata() {
     return {
-      ...super.metadata,
-      type: "",
-      packOnly: true,
       embedded: {
         Advancement: "system.advancements",
       },
@@ -24,7 +21,7 @@ export default class AdvancementModel extends BaseItemModel {
   /** @inheritdoc */
   static defineSchema() {
     return Object.assign(super.defineSchema(), {
-      advancements: new ds.data.fields.CollectionField(ds.data.pseudoDocuments.advancements.BaseAdvancement),
+      advancements: new mythcraft.data.fields.CollectionField(mythcraft.data.pseudoDocuments.advancements.BaseAdvancement),
     });
   }
 
@@ -106,7 +103,7 @@ export default class AdvancementModel extends BaseItemModel {
       game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.levelUpTitle", { name: actor.name }) :
       game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.createWithAdvancementsTitle", { name: this.parent.name });
 
-    const configured = await ds.applications.apps.advancement.ChainConfigurationDialog.create({
+    const configured = await mythcraft.applications.apps.advancement.ChainConfigurationDialog.create({
       chains, actor, window: { title },
     });
     if (!configured) return;

@@ -1,6 +1,7 @@
 import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemId, systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
+import { BaseAdvancement } from "../../data/pseudo-documents/advancements/_module.mjs";
 
 const { ItemSheet } = foundry.applications.sheets;
 
@@ -76,6 +77,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
 
   /* -------------------------------------------------- */
 
+  /**
+   * Partials to pull in for the Details tab by item type.
+   * Modules can add to this property directly to register their partials.
+   */
   static DETAILS_PARTIAL = {
     armor: systemPath("templates/item/partials/armor.hbs"),
     background: systemPath("templates/item/partials/background.hbs"),
@@ -205,7 +210,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
    * @returns {AdvancementContext[]}
    */
   async _prepareAdvancementTab(context, options) {
-    // Advancements
+    context.advancementIcon = BaseAdvancement.metadata.icon;
     const advs = {};
     /** @type {foundry.utils.Collection<string, BaseAdvancement>} */
     const models = this.document.getEmbeddedPseudoDocumentCollection("Advancement")[

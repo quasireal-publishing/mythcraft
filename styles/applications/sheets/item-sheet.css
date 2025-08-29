@@ -19,6 +19,12 @@
   [data-application-part="description"] {
     padding-top: 0.5rem;
   }
+  [data-application-part="details"] {
+    padding-top: 0.5rem;
+  }
+  [data-application-part="advancements"] {
+    padding-top: 0.5rem;
+  }
   [data-application-part="effects"] {
     ul {
       list-style: none;
