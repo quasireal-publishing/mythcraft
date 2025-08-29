@@ -54,7 +54,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  static CREATE_TEMPLATE = systemPath("templates/sheets/pseudo-documents/advancement/create-dialog.hbs");
+  static CREATE_TEMPLATE = systemPath("templates/advancement/create-dialog.hbs");
 
   /* -------------------------------------------------- */
 
@@ -63,7 +63,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
 
     /** @type {FormSelectOption[]} */
     const typeOptions = Object.entries(mythcraft.CONFIG.Advancement).reduce((arr, [value, config]) => {
-      if (config.itemTypes.has(parent.type)) arr.push({ value, label: config.label });
+      if (config.itemTypes.has(parent.type)) arr.push({ value, label: game.i18n.localize(config.label) });
       return arr;
     }, []);
 

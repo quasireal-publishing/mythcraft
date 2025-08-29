@@ -3,6 +3,10 @@ import { systemId, systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 import { BaseAdvancement } from "../../data/pseudo-documents/advancements/_module.mjs";
 
+/**
+ * @import PseudoDocument from "../../data/pseudo-documents/pseudo-document.mjs";
+ */
+
 const { ItemSheet } = foundry.applications.sheets;
 
 /**
@@ -17,6 +21,9 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       viewDoc: this.#viewEffect,
       createDoc: this.#createEffect,
       deleteDoc: this.#deleteEffect,
+      createPseudoDocument: this.#createPseudoDocument,
+      deletePseudoDocument: this.#deletePseudoDocument,
+      renderPseudoDocumentSheet: this.#renderPseudoDocumentSheet,
       toggleEffect: this.#toggleEffect,
       toggleEffectEmbed: this.#toggleEffectEmbed,
     },
@@ -365,6 +372,52 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
+     * Create a pseudo-document.
+     * @this {DSDocumentSheet}
+     * @param {PointerEvent} event    The initiating click event.
+     * @param {HTMLElement} target    The capturing HTML element which defined a [data-action].
+     */
+  static #createPseudoDocument(event, target) {
+    const documentName = target.closest("[data-pseudo-document-name]").dataset.pseudoDocumentName;
+    const type = target.closest("[data-pseudo-type]")?.dataset.pseudoType;
+    const Cls = this.document.getEmbeddedPseudoDocumentCollection(documentName).documentClass;
+
+    if (!type && (foundry.utils.isSubclass(Cls, mythcraft.data.pseudoDocuments.TypedPseudoDocument))) {
+      Cls.createDialog({}, { parent: this.document });
+    } else {
+      Cls.create({ type }, { parent: this.document });
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+     * Delete a pseudo-document.
+     * @this {DSDocumentSheet}
+     * @param {PointerEvent} event    The initiating click event.
+     * @param {HTMLElement} target    The capturing HTML element which defined a [data-action].
+     */
+  static #deletePseudoDocument(event, target) {
+    const doc = this._getPseudoDocument(target);
+    doc.delete();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+     * Render the sheet of a pseudo-document.
+     * @this {DSDocumentSheet}
+     * @param {PointerEvent} event    The initiating click event.
+     * @param {HTMLElement} target    The capturing HTML element which defined a [data-action].
+     */
+  static #renderPseudoDocumentSheet(event, target) {
+    const doc = this._getPseudoDocument(target);
+    doc.sheet.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Renders an embedded document's sheet.
    *
    * @this MythCraftItemSheet
@@ -461,6 +514,19 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------------- */
 
   /**
+     * Helper method to retrieve an embedded pseudo-document.
+     * @param {HTMLElement} element   The element with relevant data.
+     * @returns {PseudoDocument}
+     */
+  _getPseudoDocument(element) {
+    const documentName = element.closest("[data-pseudo-document-name]").dataset.pseudoDocumentName;
+    const id = element.closest("[data-pseudo-id]").dataset.pseudoId;
+    return this.document.getEmbeddedDocument(documentName, id);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Fetches the row with the data for the rendered embedded document.
    *
    * @param {HTMLElement} target  The element with the action.
@@ -470,5 +536,4 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     const li = target.closest(".effect");
     return this.item.effects.get(li?.dataset?.effectId);
   }
-
 }

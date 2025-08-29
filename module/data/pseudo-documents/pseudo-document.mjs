@@ -47,7 +47,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
   /**
    * Template for {@link createDialog}.
    */
-  static CREATE_TEMPLATE = systemPath("templates/sheets/pseudo-documents/base-create-dialog.hbs");
+  static CREATE_TEMPLATE = systemPath("templates/pseudo-documents/base-create-dialog.hbs");
 
   /* -------------------------------------------------- */
 

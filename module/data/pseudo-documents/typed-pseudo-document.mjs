@@ -43,7 +43,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  static CREATE_TEMPLATE = systemPath("templates/sheets/pseudo-documents/typed-create-dialog.hbs");
+  static CREATE_TEMPLATE = systemPath("templates/pseudo-documents/typed-create-dialog.hbs");
 
   /* -------------------------------------------------- */
 
@@ -81,7 +81,9 @@ export default class TypedPseudoDocument extends PseudoDocument {
   static _prepareCreateDialogContext(parent) {
 
     /** @type {FormSelectOption[]} */
-    const typeOptions = Object.entries(mythcraft.CONFIG[this.metadata.documentName]).map(([value, { label }]) => ({ value, label }));
+    const typeOptions = Object.entries(mythcraft.CONFIG[this.metadata.documentName]).map(
+      ([value, config]) => ({ value, label: game.i18n.localize(config.label) }),
+    );
 
     return {
       typeOptions,
@@ -95,7 +97,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   static _createDialogRenderCallback(event, dialog) {
     const typeInput = dialog.element.querySelector("[name=\"type\"]");
     const nameInput = dialog.element.querySelector("[name=\"name\"]");
-    nameInput.placeholder = mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label;
-    typeInput.addEventListener("change", () => nameInput.placeholder = mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label);
+    nameInput.placeholder = game.i18n.localize(mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label);
+    typeInput.addEventListener("change", () => nameInput.placeholder = game.i18n.localize(mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label));
   }
 }

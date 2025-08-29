@@ -24,6 +24,20 @@
   }
   [data-application-part="advancements"] {
     padding-top: 0.5rem;
+    .advancement {
+      .advancement-img {
+        flex: 0 0 var(--input-height);
+        max-height: var(--input-height);
+      }
+      .hint {
+        > :first-child {
+          margin-top: 0;
+        }
+        > :last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
   [data-application-part="effects"] {
     ul {

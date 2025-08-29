@@ -55,6 +55,17 @@ Hooks.once("i18nInit", () => {
   for (const [id, value] of Object.entries(SystemCONFIG.conditions)) {
     CONFIG.statusEffects.push({ id, _id: id.padEnd(16, "0"), ...value });
   }
+
+  // Localize pseudo-documents. Base first, then loop through the types in use
+  foundry.helpers.Localization.localizeDataModel(data.pseudoDocuments.advancements.BaseAdvancement);
+
+  const localizePseudos = record => {
+    for (const cls of Object.values(record)) {
+      foundry.helpers.Localization.localizeDataModel(cls);
+    }
+  };
+
+  localizePseudos(data.pseudoDocuments.advancements.BaseAdvancement.TYPES);
 });
 
 Hooks.once("ready", () => {

@@ -1433,7 +1433,7 @@ export const Advancement = {
   itemGrant: {
     label: "TYPES.Advancement.itemGrant",
     defaultImage: "icons/svg/item-bag.svg",
-    itemTypes: new Set(["feature"]),
+    itemTypes: new Set(["talent", "lineage"]),
     documentClass: pseudoDocuments.advancements.ItemGrantAdvancement,
   },
 };
