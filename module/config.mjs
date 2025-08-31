@@ -1,6 +1,9 @@
 import { pseudoDocuments } from "./data/_module.mjs";
 
-/** @import { StatusEffectConfig } from "@client/config.mjs" */
+/**
+ * @import { StatusEffectConfig } from "@client/config.mjs";
+ * @import { FormSelectOption } from "@client/applications/forms/fields.mjs";
+ */
 
 /**
  * Condition definitions provided by the system that are merged in during the `i18nInit` hook.
@@ -1371,6 +1374,7 @@ export const monster = {
   tags: monsterTags,
   tagGroups: monsterGroupings,
   traits: monsterTraits,
+  /** @type {FormSelectOption} */
   get tagOptions() {
     return Object.entries(monsterTags).map(([value, { label, group }]) => ({
       value, label, group: monsterGroupings[group].label,

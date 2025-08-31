@@ -7,11 +7,13 @@
       {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay classes="stacked slim"}}
     </fieldset>
     {{formGroup systemFields.defenses.fields.ar value=system.defenses.ar hint="" classes="stacked slim" disabled=isPlay}}
+    {{#if (or system.death.max (not isPlay))}}
     <fieldset class="death-points">
       <legend>{{systemFields.death.label}}</legend>
       {{formGroup systemFields.death.fields.value value=systemSource.death.value classes="stacked slim"}}
-      {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.value systemSource.death.value) disabled=isPlay classes="stacked slim"}}
+      {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.max systemSource.death.max) disabled=isPlay classes="stacked slim"}}
     </fieldset>
+    {{/if}}
   </div>
   <div class="flexrow exploration">
     <fieldset class="movement">

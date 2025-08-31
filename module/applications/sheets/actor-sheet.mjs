@@ -102,28 +102,42 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     Hooks.callAll(`${systemId}.prepareActorTab`, partId, context, options);
 
     switch (partId) {
-      case "header": break;
+      case "header":
+        await this._prepareHeader(context);
+        break;
       case "tabs": break;
       case "stats":
-        await this._prepareStatsTab(context);
+        await this._prepareStatsTab(context, options);
         context.tab = context.tabs[partId];
         break;
       case "spells":
-        await this._prepareSpellsTab(context);
+        await this._prepareSpellsTab(context, options);
         context.tab = context.tabs[partId];
         break;
       case "effects":
-        await this._prepareEffectsTab(context);
+        await this._prepareEffectsTab(context, options);
         context.tab = context.tabs[partId];
         break;
       case "biography":
-        await this._prepareBiographyTab(context);
+        await this._prepareBiographyTab(context, options);
         context.tab = context.tabs[partId];
         break;
       default: context.tab = context.tabs[partId];
     }
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Mutate the context for the header.
+   * @param {object} context
+   * @param {ApplicationRenderOptions} options
+   */
+  async _prepareHeader(context, options) {
+    context.sizeOptions = Object.entries(mythcraft.CONFIG.sizes).map(([value, { label }]) => ({ value, label }));
+    context.tagOptions = mythcraft.CONFIG.monster.tagOptions;
   }
 
   /* -------------------------------------------------- */

@@ -8,15 +8,15 @@
     aria=(object label=(localize "DOCUMENT.FIELDS.name.label"))
     disabled=isPlay}}
   </div>
-  <div class="form-group">
-
+  <div class="header-right standard-form">
     {{#if (eq document.type "character")}}
-    {{formGroup systemFields.ap.fields.value value=system.ap.value classes="action-points"}}
+    {{formGroup systemFields.ap.fields.value value=system.ap.value classes="slim"}}
     {{else if (eq document.type "npc")}}
     <div class="actor-source">
       {{document.system.source.label}}
     </div>
     {{/if}}
-    {{formGroup systemFields.size value=system.size disabled=isPlay}}
+    {{formGroup systemFields.size options=sizeOptions value=(ifThen isPlay system.size systemSource.size) disabled=isPlay localize=true}}
+    {{formGroup systemFields.tags options=tagOptions value=(ifThen isPlay system.tags systemSource.tags) disabled=isPlay localize=true}}
   </div>
 </header>
