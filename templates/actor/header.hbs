@@ -1,17 +1,20 @@
 <header class="sheet-header img-name flexrow">
   <img src="{{source.img}}" data-action="{{ifThen isPlay "showPortraitArtwork" "editImage"}}" data-edit="img" alt="{{localize "DOCUMENT.FIELDS.img.label"}}">
-  <div class="header-center">
+  <div class="header-center standard-form">
     {{formInput
     fields.name
     value=source.name
     placeholder=(localize "DOCUMENT.FIELDS.name.label")
     aria=(object label=(localize "DOCUMENT.FIELDS.name.label"))
     disabled=isPlay}}
-    {{#if isPlay}}
-    <div>{{tagList}}</div>
-    {{else}}
-    {{formGroup systemFields.tags options=tagOptions value=systemSource.tags disabled=isPlay localize=true}}
-    {{/if}}
+    <div class="form-group">
+      {{formInput systemFields.size options=sizeOptions value=(ifThen isPlay system.size systemSource.size) disabled=isPlay localize=true}}
+      {{#if isPlay}}
+      <div>{{tagList}}</div>
+      {{else}}
+      {{formInput systemFields.tags options=tagOptions value=systemSource.tags disabled=isPlay localize=true}}
+      {{/if}}
+    </div>
   </div>
   <div class="header-right standard-form">
     {{#if (eq document.type "character")}}
@@ -21,6 +24,6 @@
       {{document.system.source.label}}
     </div>
     {{/if}}
-    {{formGroup systemFields.size options=sizeOptions value=(ifThen isPlay system.size systemSource.size) disabled=isPlay localize=true}}
+    {{formGroup systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay classes="slim"}}
   </div>
 </header>

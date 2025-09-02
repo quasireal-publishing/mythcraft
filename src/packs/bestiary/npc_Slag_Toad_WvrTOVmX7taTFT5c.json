@@ -31,11 +31,11 @@
     },
     "defenses": {
       "ar": 12,
-      "ref": 10,
-      "fort": 10,
-      "ant": 10,
-      "log": 10,
-      "will": 10
+      "ref": "10 + @DEX",
+      "fort": "10 + @END",
+      "ant": "10 + @AWR",
+      "log": "10 + @INT",
+      "will": "10 + @CHA"
     },
     "movement": {
       "walk": 25,
@@ -56,7 +56,13 @@
       "burning": "",
       "absorb": null
     },
-    "damage": {},
+    "damage": {
+      "resist": "",
+      "vulnerable": "",
+      "reduction": {
+        "bypasses": ""
+      }
+    },
     "traits": {},
     "source": {
       "book": "Creature Compendium",
@@ -64,7 +70,11 @@
       "license": "",
       "revision": 1
     },
-    "actions": "The Slag Toad can take TWO of the following actions, or take the same action twice"
+    "actions": "The Slag Toad can take TWO of the following actions, or take the same action twice",
+    "tags": [
+      "beast",
+      "elemental"
+    ]
   },
   "prototypeToken": {
     "name": "Slag Toad",
@@ -539,11 +549,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.347",
+    "coreVersion": "13.348",
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1755541779353,
-    "modifiedTime": 1756241094317,
+    "modifiedTime": 1756834985612,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
   "_key": "!actors!WvrTOVmX7taTFT5c"

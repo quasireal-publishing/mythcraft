@@ -67,6 +67,12 @@
           "size": {
             "label": "Size"
           },
+          "level": {
+            "label": "Level"
+          },
+          "tags": {
+            "label": "Tags"
+          },
           "hp": {
             "label": "Hit Points",
             "value": {
