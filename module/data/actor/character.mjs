@@ -46,6 +46,15 @@ export default class CharacterModel extends BaseActorModel {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  modifyRollData(rollData) {
+    super.modifyRollData(rollData);
+    rollData.LUCK = this.attributes.luck;
+    rollData.COR = this.attributes.cor;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async _preCreate(data, options, user) {
     const allowed = await super._preCreate(data, options, user);
     if (allowed === false) return false;

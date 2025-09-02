@@ -1,6 +1,7 @@
 export { default as AdvancementChain } from "./advancement-chain.mjs";
 export { default as constructHTMLButton } from "./construct-html-button.mjs";
 export { default as enrichHTML } from "./enrich-html.mjs";
+export { default as evaluateFormula } from "./evaluate-formula.mjs";
 export * from "./hot-reload.mjs";
 export { default as ModelCollection } from "./model-collection.mjs";
 export { default as tokensToActors } from "./tokens-to-actors.mjs";

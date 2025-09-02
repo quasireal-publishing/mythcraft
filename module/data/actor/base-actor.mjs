@@ -43,12 +43,12 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       }),
       attributes: new fields.SchemaField(this.defineAttributes()),
       defenses: new fields.SchemaField({
-        ar: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
-        ref: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
-        fort: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
-        ant: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
-        log: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
-        will: new fields.NumberField(requiredInteger({ min: 0, initial: 10 })),
+        ar: new FormulaField({ deterministic: true, initial: "10", blank: false }),
+        ref: new FormulaField({ deterministic: true, initial: "10 + @DEX", blank: false }),
+        fort: new FormulaField({ deterministic: true, initial: "10 + @END", blank: false }),
+        ant: new FormulaField({ deterministic: true, initial: "10 + @AWR", blank: false }),
+        log: new FormulaField({ deterministic: true, initial: "10 + @INT", blank: false }),
+        will: new FormulaField({ deterministic: true, initial: "10 + @CHA", blank: false }),
       }),
       movement: new fields.SchemaField({
         walk: new fields.NumberField(requiredInteger({ initial: 20, min: 0 })),
@@ -118,6 +118,11 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     for (const [key, data] of Object.entries(this.skills)) {
       const skillInfo = mythcraft.CONFIG.skills.list[key];
       if (skillInfo) data.bonus = this.attributes[skillInfo.attribute] + data.value;
+    }
+
+    for (const [key, formula] of Object.entries(this.defenses)) {
+      console.log(key, formula);
+      this.defenses[key] = mythcraft.utils.evaluateFormula(formula, this.parent.getRollData(), { contextName: `${key} in ${this.parent.uuid}` });
     }
   }
 
@@ -198,7 +203,14 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
    * Perform item subtype specific modifications to the actor roll data.
    * @param {object} rollData   Pointer to the roll data object.
    */
-  modifyRollData(rollData) {}
+  modifyRollData(rollData) {
+    rollData.DEX = this.attributes.dex;
+    rollData.STR = this.attributes.str;
+    rollData.END = this.attributes.end;
+    rollData.AWR = this.attributes.awr;
+    rollData.INT = this.attributes.int;
+    rollData.CHA = this.attributes.cha;
+  }
 
   /* -------------------------------------------------- */
 

@@ -59,6 +59,15 @@ export default class AttributeSkillInput extends DocumentInput {
       value: this.document.system.attributes[this.attribute],
     };
 
+    const defenseKey = mythcraft.CONFIG.attributes.list[this.attribute].defense;
+
+    if (defenseKey) {
+      context.defense = {
+        field: this.document.system.schema.getField(["defenses", defenseKey]),
+        value: this.document.system._source.defenses[defenseKey],
+      };
+    }
+
     context.attrSkills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
       if ((skillInfo.attribute === this.attribute)) {
         arr.push({
