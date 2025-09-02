@@ -136,8 +136,14 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {ApplicationRenderOptions} options
    */
   async _prepareHeader(context, options) {
+    const formatter = game.i18n.getListFormatter({ type: "unit" });
+
     context.sizeOptions = Object.entries(mythcraft.CONFIG.sizes).map(([value, { label }]) => ({ value, label }));
     context.tagOptions = mythcraft.CONFIG.monster.tagOptions;
+
+    context.tagList = formatter.format(this.actor.system.tags.map(
+      t => game.i18n.localize(mythcraft.CONFIG.monster.tags[t]?.label) ?? t,
+    ));
   }
 
   /* -------------------------------------------------- */
