@@ -63,7 +63,9 @@ jobs:
         run: |
           zip --recurse-paths ./mythcraft.zip  \
             LICENSE                         \
+            README.md                       \
             system.json                     \
+            index.mjs                       \
             assets/                         \
             lang/                           \
             module/                         \
