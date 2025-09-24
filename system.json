@@ -236,5 +236,5 @@
   },
   "primaryTokenAttribute": "hp",
   "secondaryTokenAttribute": "ap",
-  "initiative": "1d20 + @awr"
+  "initiative": "1d20 + @AWR"
 }
