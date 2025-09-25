@@ -12,9 +12,9 @@
     "source": {
       "book": "",
       "page": "",
-      "license": "",
-      "revision": 1
+      "license": ""
     },
+    "magicSource": "arcane",
     "tags": [],
     "_mcid": "beam-of-fire",
     "range": {

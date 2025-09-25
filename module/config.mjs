@@ -1419,9 +1419,36 @@ const spellRequirements = {
   },
 };
 
+/**
+ * @typedef SpellSource
+ * @property {string} label
+ */
+
+/**
+ * @type {Record<string, SpellSource>}
+ */
+const spellSources = {
+  arcane: {
+    label: "MYTHCRAFT.Item.spell.source.arcane",
+  },
+  divine: {
+    label: "MYTHCRAFT.Item.spell.source.divine",
+  },
+  occult: {
+    label: "MYTHCRAFT.Item.spell.source.occult",
+  },
+  primal: {
+    label: "MYTHCRAFT.Item.spell.source.primal",
+  },
+  psionic: {
+    label: "MYTHCRAFT.Item.spell.source.psionic",
+  },
+};
+
 export const spells = {
   components: spellComponents,
   requirements: spellRequirements,
+  sources: spellSources,
 };
 
 /**

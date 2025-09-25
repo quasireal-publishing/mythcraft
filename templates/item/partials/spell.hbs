@@ -1,3 +1,4 @@
+{{formGroup systemFields.magicSource value=system.magicSource options=system.magicSourceOptions localize=true disabled=isPlay}}
 <div class="form-group">
   {{formGroup systemFields.apc value=system.apc disabled=isPlay}}
   {{formGroup systemFields.spc value=system.spc disabled=isPlay}}
@@ -7,7 +8,7 @@
   {{formGroup systemFields.range.fields.value value=system.range.value}}
   {{formGroup systemFields.range.fields.unit value=system.range.unit}}
 </fieldset>
-{{formGroup systemFields.requirements value=system.requirements disabled=isPlay options=system.requirementOptions localize=true}}
+{{formGroup systemFields.requirements value=system.requirements options=system.requirementOptions localize=true disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.duration.label}}</legend>
   {{formGroup systemFields.duration.fields.value value=system.duration.value}}

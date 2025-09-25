@@ -3,7 +3,7 @@ import enrichHTML from "../../utils/enrich-html.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
- * @import { FormSelectOptions } from "@client/applications/forms/fields.mjs";
+ * @import { FormSelectOption } from "@client/applications/forms/fields.mjs";
  */
 
 /**
@@ -20,6 +20,8 @@ export default class SpellModel extends BaseItemModel {
     const schema = super.defineSchema();
 
     const fields = foundry.data.fields;
+
+    schema.magicSource = new fields.StringField({ required: true });
 
     schema.apc = new fields.NumberField({ integer: true, min: 0 });
 
@@ -48,6 +50,16 @@ export default class SpellModel extends BaseItemModel {
    */
   get rangeLabel() {
     return game.i18n.format("MYTHCRAFT.Item.spell.FIELDS.range.formatter", { value: this.range.value ?? "", unit: this.range.unit ?? "" }).trim();
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Valid spell sources.
+   * @type {FormSelectOption[]}
+   */
+  get magicSourceOptions() {
+    return Object.entries(mythcraft.CONFIG.spells.sources).map(([value, { label }]) => ({ value, label }));
   }
 
   /* -------------------------------------------------- */

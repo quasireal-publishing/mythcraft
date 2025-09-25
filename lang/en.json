@@ -561,6 +561,9 @@
       },
       "spell": {
         "FIELDS": {
+          "magicSource": {
+            "label": "Magic Source"
+          },
           "apc": {
             "label": "APC",
             "hint": "Action Point Cost"
@@ -601,6 +604,13 @@
         "requirements": {
           "los": "Line of Sight",
           "loe": "Line of Effect"
+        },
+        "source": {
+          "arcane": "Arcane",
+          "divine": "Divine",
+          "occult": "Occult",
+          "primal": "Primal",
+          "psionic": "Psionic"
         }
       },
       "talent": {

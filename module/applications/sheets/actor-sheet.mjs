@@ -251,7 +251,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     for (const item of sortedSpells) {
       const expanded = this.#expanded.items.has(item.id);
-      const itemContext = { item, expanded };
+      const itemContext = { item, expanded, magicSourceLabel: mythcraft.CONFIG.spells.sources[item.system.magicSource]?.label ?? "" };
       if (expanded) itemContext.embed = await item.system.toEmbed({ actorSheet: true });
 
       context.spells.push(itemContext);
