@@ -519,6 +519,9 @@
             "recharge": {
               "label": "Recharge"
             }
+          },
+          "tier": {
+            "label": "Tier"
           }
         },
         "category": {

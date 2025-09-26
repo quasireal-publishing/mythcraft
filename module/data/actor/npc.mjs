@@ -1,5 +1,4 @@
 import { requiredInteger, setOptions } from "../fields/helpers.mjs";
-import LocalDocumentField from "../fields/local-document.mjs";
 import SourceModel from "../models/source.mjs";
 import BaseActorModel from "./base-actor.mjs";
 
@@ -24,10 +23,7 @@ export default class NpcModel extends BaseActorModel {
 
     schema.source = new fields.EmbeddedDataField(SourceModel);
 
-    schema.actions = new fields.TypedObjectField(new fields.SchemaField({
-      text: new fields.StringField({ required: true, nullable: false }),
-      options: new fields.SetField(new LocalDocumentField(foundry.documents.Item)),
-    }));
+    schema.actions = new fields.HTMLField();
 
     return schema;
   }

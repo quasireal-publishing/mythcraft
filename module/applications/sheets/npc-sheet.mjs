@@ -1,6 +1,7 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import { systemPath } from "../../constants.mjs";
 import FeatureModel from "../../data/item/feature.mjs";
+import enrichHTML from "../../utils/enrich-html.mjs";
 
 /**
  * An actor sheet for npc type actors.
@@ -86,6 +87,8 @@ export default class NPCSheet extends MythCraftActorSheet {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareFeaturesTab(context, options) {
+
+    context.enrichedActions = await enrichHTML(this.actor.system.actions);
 
     context.features = Object.entries(FeatureModel.schema.getField("category").choices).reduce((record, [key, label]) => {
       record[key] = { label, list: [] };

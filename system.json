@@ -23,7 +23,8 @@
       "npc": {
         "htmlFields": [
           "biography.value",
-          "biography.gm"
+          "biography.gm",
+          "actions"
         ],
         "gmOnlyFields": [
           "biography.gm"

@@ -1,4 +1,5 @@
 import FormulaField from "../fields/formula-field.mjs";
+import { requiredInteger } from "../fields/helpers.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
@@ -14,9 +15,6 @@ export default class FeatureModel extends BaseItemModel {
 
     const fields = foundry.data.fields;
 
-    // TODO: Features that give skill points?
-    // starting features vs. advanceables
-
     schema.category = new fields.StringField({ initial: "passive", choices: {
       passive: "MYTHCRAFT.Item.feature.category.passive",
       action: "MYTHCRAFT.Item.feature.category.action",
@@ -31,7 +29,19 @@ export default class FeatureModel extends BaseItemModel {
       recharge: new fields.StringField({ blank: false }),
     });
 
+    schema.tier = new fields.NumberField(requiredInteger({ min: 1, initial: 1 }));
+
     return schema;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Display the tier information for this feature?
+   * @type {boolean}
+   */
+  get showTier() {
+    return (this.category === "action") && (this.parent.parent?.type === "npc");
   }
 
   /* -------------------------------------------------- */

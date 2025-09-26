@@ -122,7 +122,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     }
 
     for (const [key, formula] of Object.entries(this.defenses)) {
-      console.log(key, formula);
       this.defenses[key] = mythcraft.utils.evaluateFormula(formula, this.parent.getRollData(), { contextName: `${key} in ${this.parent.uuid}` });
     }
   }

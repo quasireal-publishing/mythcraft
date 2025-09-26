@@ -146,8 +146,16 @@
 
   [data-application-part="features"] {
     padding-top: 0.5rem;
-    .action-text {
-      margin: 0.5rem 0 1rem;
+    prose-mirror {
+      min-height: 130px;
+    }
+    .action .item-row {
+      .item-uses {
+        padding-left: 2.5rem;
+      }
+      .item-tier {
+        margin-left: 2rem;
+      }
     }
   }
 

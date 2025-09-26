@@ -1,12 +1,23 @@
+
 {{! Features Tab }}
 <section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="features">
   {{#each features}}
-  </div>
+
+  {{#if (eq @key "action")}}
+  {{#if @root.isPlay}}
+  {{{@root.enrichedActions}}}
+  {{else}}
+  {{formInput @root.systemFields.actions enriched=@root.enrichedActions value=@root.system.actions toggled="true"}}
+  {{/if}}
+  {{/if}}
   <div class="item-header flexrow">
     <div class="item-name">{{localize label}}</div>
     <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+    {{#if (eq @key "action")}}
+    <div class="item-tier">{{localize "MYTHCRAFT.Item.feature.FIELDS.tier.label"}}</div>
+    {{/if}}
     <div class="item-controls flexrow">
-      {{#if @root.editable}}
+      {{#unless @root.isPlay}}
       <button
         type="button"
         class="item-create"
@@ -18,19 +29,10 @@
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
       </button>
-      {{/if}}
+      {{/unless}}
     </div>
   </div>
-  {{#if (eq @key "action")}}
-  <div class="action-text">
-    {{!-- {{#if @root.isPlay}}
-    <em>{{@root.system.actions}}</em>
-    {{else}}
-    {{formInput @root.systemFields.actions value=@root.system.actions placeholder=(localize "MYTHCRAFT.Actor.npc.FIELDS.actions.placeholder" name=@root.document.name)}}
-    {{/if}} --}}
-  </div>
-  {{/if}}
-  <ul class="item-list">
+  <ul class="item-list {{@key}}">
     {{#each list}}
     <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
       <div class="item-row flexrow">
@@ -48,6 +50,11 @@
           <span>/ {{item.system.uses.max}}</span>
           {{/if}}
         </div>
+        {{#if item.system.showTier}}
+        <div class="item-tier">
+          {{item.system.tier}}
+        </div>
+        {{/if}}
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
           <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>

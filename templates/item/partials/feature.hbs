@@ -6,3 +6,6 @@
   {{formGroup systemFields.uses.fields.maxFormula value=system.uses.maxFormula}}
   {{formGroup systemFields.uses.fields.recharge value=system.uses.recharge}}
 </fieldset>
+{{#if system.showTier}}
+{{formGroup systemFields.tier value=system.tier disabled=isPlay}}
+{{/if}}
