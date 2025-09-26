@@ -56,6 +56,11 @@
         flex-grow: 2;
       }
     }
+    .damage-modification {
+      dl {
+        grid-template-columns: auto 1fr auto 1fr;
+      }
+    }
     .attributes {
       .attribute-group {
         flex-direction: row;
