@@ -35,18 +35,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   static TABS = {
     primary: {
       tabs: [
-        {
-          id: "description",
-        },
-        {
-          id: "details",
-        },
-        {
-          id: "advancements",
-        },
-        {
-          id: "effects",
-        },
+        { id: "description" },
+        { id: "details" },
+        { id: "advancements" },
+        { id: "effects" },
       ],
       initial: "description",
       labelPrefix: "MYTHCRAFT.SHEET.Tabs",

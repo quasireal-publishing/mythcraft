@@ -9,24 +9,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
   static TABS = {
     primary: {
       tabs: [
-        {
-          id: "stats",
-        },
-        {
-          id: "spells",
-        },
-        {
-          id: "equipment",
-        },
-        {
-          id: "talents",
-        },
-        {
-          id: "effects",
-        },
-        {
-          id: "biography",
-        },
+        { id: "stats" },
+        { id: "spells" },
+        { id: "equipment" },
+        { id: "talents" },
+        { id: "effects" },
+        { id: "biography" },
       ],
       initial: "stats",
       labelPrefix: "MYTHCRAFT.SHEET.Tabs",

@@ -23,11 +23,11 @@
   </div>
   {{#if (eq @key "action")}}
   <div class="action-text">
-    {{#if @root.isPlay}}
+    {{!-- {{#if @root.isPlay}}
     <em>{{@root.system.actions}}</em>
     {{else}}
     {{formInput @root.systemFields.actions value=@root.system.actions placeholder=(localize "MYTHCRAFT.Actor.npc.FIELDS.actions.placeholder" name=@root.document.name)}}
-    {{/if}}
+    {{/if}} --}}
   </div>
   {{/if}}
   <ul class="item-list">

@@ -11,21 +11,11 @@ export default class NPCSheet extends MythCraftActorSheet {
   static TABS = {
     primary: {
       tabs: [
-        {
-          id: "stats",
-        },
-        {
-          id: "features",
-        },
-        {
-          id: "spells",
-        },
-        {
-          id: "effects",
-        },
-        {
-          id: "biography",
-        },
+        { id: "stats" },
+        { id: "features" },
+        { id: "spells" },
+        { id: "effects" },
+        { id: "biography" },
       ],
       initial: "stats",
       labelPrefix: "MYTHCRAFT.SHEET.Tabs",
