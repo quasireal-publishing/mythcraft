@@ -120,7 +120,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   _prepareTabs(group) {
     const tabs = super._prepareTabs(group);
 
-    if (!this.document.system.schema.getField("advancements")) delete group.advancements;
+    if (!this.document.system.schema.getField("advancements")) delete tabs.advancements;
 
     if (this.document.limited && (group === "primary")) this._restrictLimited(tabs);
 
