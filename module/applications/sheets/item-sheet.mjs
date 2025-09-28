@@ -277,7 +277,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
 
     // Sort each category
     for (const c of Object.values(categories)) {
-      c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+      c.effects.sort((a, b) => (a.effect.sort || 0) - (b.effect.sort || 0));
     }
     context.effects = categories;
   }
@@ -339,6 +339,23 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
         },
       },
     ];
+  }
+
+  /** @inheritDoc */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    new foundry.applications.ux.DragDrop.implementation({
+      dragSelector: ".draggable",
+      permissions: {
+        dragstart: this._canDragStart.bind(this),
+        drop: this._canDragDrop.bind(this),
+      },
+      callbacks: {
+        dragstart: this._onDragStart.bind(this),
+        dragover: this._onDragOver.bind(this),
+        drop: this._onDrop.bind(this),
+      },
+    }).bind(this.element);
   }
 
   /* -------------------------------------------- */
@@ -500,6 +517,157 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   /* -------------------------------------------- */
   /*  Drag and Drop                               */
   /* -------------------------------------------- */
+
+  /**
+   * Define whether a user is able to begin a dragstart workflow for a given drag selector.
+   * @param {string} selector       The candidate HTML selector for dragging.
+   * @returns {boolean}             Can the current user drag this selector?
+   * @protected
+   */
+  _canDragStart(selector) {
+    return this.isEditable;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector.
+   * @param {string} selector       The candidate HTML selector for the drop target.
+   * @returns {boolean}             Can the current user drop on this selector?
+   * @protected
+   */
+  _canDragDrop(selector) {
+    return this.isEditable;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * An event that occurs when a drag workflow begins for a draggable ActiveEffect on the sheet.
+   * @param {DragEvent} event       The initiating drag start event.
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDragStart(event) {
+    const target = event.currentTarget;
+    if ("link" in event.target.dataset) return;
+
+    // If a Document reference is being dragged, assume it is either an ActiveEffect
+    const item = this.document;
+    const { effectId } = target.dataset;
+    const document = this.item.effects.get(effectId);
+
+    // Set data transfer
+    const dragData = document?.toDragData();
+    if (dragData) event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * An event that occurs when a drag workflow moves over a drop target.
+   * @param {DragEvent} event
+   * @protected
+   */
+  _onDragOver(event) {}
+
+  /* -------------------------------------------- */
+
+  /**
+   * An event that occurs when data is dropped into a drop target.
+   * @param {DragEvent} event
+   * @returns {Promise<void>}
+   * @protected
+   */
+  async _onDrop(event) {
+    const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
+    const actor = this.actor;
+    const allowed = Hooks.call("dropItemSheetData", actor, this, data);
+    if (allowed === false) return;
+
+    // Dropped Documents
+    const documentClass = foundry.utils.getDocumentClass(data.type);
+    if (documentClass) {
+      const document = await documentClass.fromDropData(data);
+      await this._onDropDocument(event, document);
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped document on the ActorSheet.
+   * @template {Document} TDocument
+   * @param {DragEvent} event         The initiating drop event.
+   * @param {TDocument} document       The resolved Document class.
+   * @returns {Promise<TDocument|null>} A Document of the same type as the dropped one in case of a successful result,
+   *                                    or null in case of failure or no action being taken.
+   * @protected
+   */
+  async _onDropDocument(event, document) {
+    switch (document.documentName) {
+      case "ActiveEffect":
+        return (await this._onDropActiveEffect(event, document)) ?? null;
+      default:
+        return null;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle a dropped Active Effect on the Item Sheet.
+   * The default implementation creates an Active Effect embedded document on the Item.
+   * @param {DragEvent} event       The initiating drop event.
+   * @param {ActiveEffect} effect   The dropped ActiveEffect document.
+   * @returns {Promise<ActiveEffect|null|undefined>} A Promise resolving to a newly created ActiveEffect, if one was
+   *                                                 created, or otherwise a nullish value.
+   * @protected
+   */
+  async _onDropActiveEffect(event, effect) {
+    const item = this.document;
+    if (!item.isOwner) return null;
+    if (item === effect.parent) return this._onSortActiveEffect(event, effect);
+    const keepId = !item.effects.has(effect.id);
+    const result = await ActiveEffect.implementation.create(effect.toObject(), { parent: item, keepId });
+    return result ?? null;
+  }
+
+  /**
+   * Handle a drop event for an existing embedded ActiveEffect to sort that ActiveEffect relative to its siblings.
+   * @param {DragEvent} event       The initiating drop event.
+   * @param {ActiveEffect} effect   The dropped ActiveEffect document.
+   * @returns {Promise<ActiveEffect[]>|void}
+   * @protected
+   */
+  async _onSortActiveEffect(event, effect) {
+    const effects = this.item.effects;
+    const source = effects.get(effect.id);
+
+    // Confirm the drop target
+    const dropTarget = event.target.closest("[data-effect-id]");
+    if (!dropTarget) return;
+    const target = effects.get(dropTarget.dataset.effectId);
+    if (source.id === target.id) return;
+
+    // Identify sibling effects based on adjacent HTML elements
+    const siblings = [];
+    for (const element of dropTarget.parentElement.children) {
+      const siblingId = element.dataset.effectId;
+      if (siblingId && (siblingId !== source.id)) siblings.push(effects.get(element.dataset.effectId));
+    }
+
+    // Perform the sort
+    const sortUpdates = foundry.utils.performIntegerSort(source, { target, siblings });
+    const updateData = sortUpdates.map(u => {
+      const update = u.update;
+      update._id = u.target._id;
+      return update;
+    });
+
+    // Perform the update
+    return this.item.updateEmbeddedDocuments("ActiveEffect", updateData);
+  }
 
   /* -------------------------------------------------- */
   /*   Helper functions                                 */

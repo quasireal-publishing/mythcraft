@@ -296,7 +296,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     // Sort each category
     for (const c of Object.values(categories)) {
-      c.effects.sort((a, b) => (a.sort || 0) - (b.sort || 0));
+      c.effects.sort((a, b) => (a.effect.sort || 0) - (b.effect.sort || 0));
     }
     context.effects = categories;
   }
@@ -662,6 +662,63 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   /*  Drag and Drop                               */
   /* -------------------------------------------- */
 
+  /**
+   * Backported from v14.
+   * @inheritdoc
+   */
+  async _onDragStart(event) {
+    const target = event.currentTarget;
+    if ("link" in event.target.dataset) return;
+
+    // If a Document reference is being dragged, assume it is either an Item or ActiveEffect
+    const actor = this.document;
+    const { effectId, itemId } = target.dataset;
+    const item = actor.items.get(itemId);
+    const effects = itemId ? item?.effects : actor.effects;
+    const document = effectId ? effects?.get(effectId) : item;
+
+    // Set data transfer
+    const dragData = document?.toDragData();
+    if (dragData) event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /** @inheritdoc */
+  async _onDropActiveEffect(event, effect) {
+    const actor = this.document;
+    if (!actor.isOwner) return null;
+    if ([effect.parent, effect.parent?.parent].includes(actor)) {
+      const result = await this._onSortActiveEffect(event, effect);
+      return result?.length ? effect : null;
+    }
+    else return super._onDropActiveEffect(event, effect);
+  }
+
+  /**
+   * Handle a drop event for an existing embedded ActiveEffect to sort that ActiveEffect relative to its siblings.
+   * @param {DragEvent} event       The initiating drop event.
+   * @param {ActiveEffect} effect   The dropped ActiveEffect document.
+   * @returns {Promise<ActiveEffect[]>|void}
+   * @protected
+   */
+  async _onSortActiveEffect(event, effect) {
+    const dropTarget = event.target.closest("[data-effect-id]");
+    if (!dropTarget) return;
+    const targetEffect = this._getEmbeddedDocument(dropTarget);
+    if (targetEffect === effect) return;
+
+    const siblings = [];
+    for (const element of dropTarget.parentElement.children) {
+      const { effectId, itemId } = element.dataset;
+      if (effectId && (effectId !== effect.id)) siblings.push(this._getEmbeddedDocument(element));
+    }
+
+    const sortUpdates = foundry.utils.performIntegerSort(effect, { target: effect, siblings });
+    // Could be improved with v14 batch updates
+    for (const { target, update } of sortUpdates) {
+      await target.update(update);
+    }
+  }
+
   /* -------------------------------------------------- */
   /*   Helper functions                                 */
   /* -------------------------------------------------- */
@@ -674,15 +731,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   _getEmbeddedDocument(target) {
     const docRow = target.closest("li[data-document-class]");
-    if (docRow.dataset.documentClass === "Item") {
-      return this.actor.items.get(docRow.dataset.itemId);
-    } else if (docRow.dataset.documentClass === "ActiveEffect") {
-      const parent = docRow.dataset.parentId === this.actor.id ?
-        this.actor :
-        this.actor.items.get(docRow?.dataset.parentId);
-      return parent.effects.get(docRow.dataset.effectId);
-    } else {
-      console.warn("Could not find document class");
-    }
+
+    const { effectId, itemId } = docRow.dataset;
+    const item = this.actor.items.get(itemId);
+    const effects = itemId ? item?.effects : this.actor.effects;
+    return effectId ? effects?.get(effectId) : item;
   }
 }
