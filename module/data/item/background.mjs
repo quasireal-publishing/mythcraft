@@ -1,6 +1,5 @@
 import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger } from "../fields/helpers.mjs";
-import StartingEquipmentModel from "./models/starting-equipment.mjs";
 import BaseItemModel from "./base-item.mjs";
 
 /**
@@ -32,8 +31,6 @@ export default class BackgroundModel extends BaseItemModel {
     schema.professions = new fields.NumberField(requiredInteger({ min: 0, initial: 1 }));
 
     schema.wealth = new FormulaField();
-
-    schema.startingEquipment = new fields.EmbeddedDataField(StartingEquipmentModel);
 
     return schema;
   }

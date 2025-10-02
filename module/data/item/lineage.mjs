@@ -22,8 +22,6 @@ export default class LineageModel extends AdvancementModel {
       burrow: new fields.NumberField({ required: true }),
     });
 
-    // TODO: feature advancement
-
     return schema;
   }
 }
