@@ -371,7 +371,8 @@
       },
       "ConfigureAdvancement": {
         "Title": "Configure {name}",
-        "ChooseN": "Choose {n}"
+        "ChooseN": "Choose {n}",
+        "SkillHint": "You have {points} points that you can spend on any of the following skills."
       },
       "DeleteDialog": {
         "ReplaceTitle": "Replace {type}",

@@ -59,23 +59,44 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     const content = document.createElement("div");
 
-    const fields = document.createElement("div");
+    const hint = document.createElement("p");
 
-    fields.className = "scrollable";
+    hint.className = "hint";
 
-    content.append(fields);
+    hint.innerText = game.i18n.format("MYTHCRAFT.Advancement.ConfigureAdvancement.SkillHint", { points: this.points });
+
+    content.append(hint);
 
     const skills = [...this.primary.skills, ...this.secondary.skills].sort();
 
+    /** Helper Function to repeatedly create form-group divs. */
+    function createGroup() {
+      const group = document.createElement("div");
+      group.className = "form-group";
+      return group;
+    }
+
+    let group = createGroup();
+
     // loop up the primary & secondary together then iterate to add form groups
     for (const skill of skills) {
-      const group = createFormGroup({
-        classes: ["slim"],
+      const input = createFormGroup({
+        classes: ["inline", "slim"],
         label: mythcraft.CONFIG.skills.list[skill].label,
-        input: createNumberInput({ min: 0, max: this.primary.max, value: 0, name: skill }),
+        input: createNumberInput({
+          min: 0,
+          max: this.primary.skills.has(skill) ? this.primary.max : this.secondary.max,
+          value: 0,
+          name: skill,
+        }),
         localize: true,
       });
-      fields.append(group);
+      group.append(input);
+      if (group.children.length === 2) {
+        content.append(group);
+        group = createGroup();
+      }
+
     }
 
     /**
