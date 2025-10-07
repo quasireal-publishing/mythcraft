@@ -1,11 +1,11 @@
 import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger } from "../fields/helpers.mjs";
-import BaseItemModel from "./base-item.mjs";
+import AdvancementModel from "./advancement.mjs";
 
 /**
  * The system model for "background" items.
  */
-export default class BackgroundModel extends BaseItemModel {
+export default class BackgroundModel extends AdvancementModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.background");
 

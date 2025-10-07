@@ -2,7 +2,9 @@
   <fieldset>
     <legend>{{localize "MYTHCRAFT.Advancement.SHEET.requirements"}}</legend>
     {{formGroup fields.requirements.fields.level value=source.requirements.level name="requirements.level" type="number" classes="slim"}}
+    {{#if fields.chooseN}}
     {{formGroup fields.chooseN value=source.chooseN name="chooseN" placeholder=(localize "MYTHCRAFT.Advancement.SHEET.chooseAll")}}
+    {{/if}}
   </fieldset>
 
   {{!-- ITEM GRANT POOL --}}
@@ -17,6 +19,16 @@
     </div>
     {{/each}}
   </section>
+  {{/if}}
+
+  {{#if (eq document.type "skill")}}
+
+  {{formGroup fields.points value=source.points name="source.points"}}
+  {{formGroup fields.primary.fields.skills value=source.primary.skills name="source.primary.skills" options=ctx.skillOptions localize=true sort=true}}
+  {{formGroup fields.primary.fields.max value=source.primary.max name="source.primary.max"}}
+  {{formGroup fields.secondary.fields.skills value=source.secondary.skills name="source.secondary.skills" options=ctx.skillOptions localize=true sort=true}}
+  {{formGroup fields.secondary.fields.max value=source.secondary.max name="source.secondary.max"}}
+
   {{/if}}
 
 </section>

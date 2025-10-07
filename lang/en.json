@@ -325,28 +325,25 @@
           }
         }
       },
-      "TRAIT": {
+      "SKILL": {
         "FIELDS": {
-          "chooseN": {
-            "label": "Choice",
-            "hint": "How many of the traits can be picked when this advancement is configured. If left blank or if the number is greater than the number of traits available, all the traits are granted."
+          "points": {
+            "label": "Skill Points"
           },
-          "any": {
-            "label": "Pick Any",
-            "hint": "Ignore the specific list of choices or groups and allow the character to pick any trait."
-          },
-          "languages": {
-            "label": "Language Choices",
-            "hint": "Specific languages that can be chosen in this advancement. If this is empty, any language can be chosen."
-          },
-          "skills": {
-            "choices": {
-              "label": "Skill Choices",
-              "hint": "Specific skills that can be chosen in this advancement. If this and skill groups are empty, any skill can be chosen."
+          "primary": {
+            "skills": {
+              "label": "Primary Skills"
             },
-            "groups": {
-              "label": "Skill Groups",
-              "hint": "Groups of skills that can be chosen in this advancement."
+            "max": {
+              "label": "Primary Max"
+            }
+          },
+          "secondary": {
+            "skills": {
+              "label": "Secondary Skills"
+            },
+            "max": {
+              "label": "Secondary Max"
             }
           }
         }
@@ -366,11 +363,6 @@
         "restrictedType": "{type} items cannot be added as advancements.",
         "requirePack": "Granted items must come from a compendium pack.",
         "forbidParent": "Granted items cannot be embedded in an actor."
-      },
-      "FillTrait": {
-        "button": "Pick Unchosen {type}",
-        "title": "Select Missing Trait Advancements",
-        "languageTitle": "I Speak Their Language"
       },
       "ChainConfiguration": {
         "levelUpTitle": "Level Up: {name}",
@@ -802,6 +794,7 @@
       "intuiting": "Intuiting",
       "investigating": "Investigating",
       "navigating": "Navigating",
+      "perceiving": "Perceiving",
       "sheltering": "Sheltering",
       "tracking": "Tracking",
       "alchemy": "Alchemy",
@@ -850,7 +843,7 @@
       "intimidating": "Intimidating",
       "leadership": "Leadership",
       "persuading": "Persuading",
-      "savoir faire": "Savoir Faire",
+      "savoirFaire": "Savoir Faire",
       "fortuity": "Fortuity",
       "scavenging": "Scavenging"
     },
@@ -939,7 +932,8 @@
       "npc": "NPC"
     },
     "Advancement": {
-      "itemGrant": "Item Grant"
+      "itemGrant": "Item Grant",
+      "skill": "Skills"
     },
     "Item": {
       "armor": "Armor",

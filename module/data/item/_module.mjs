@@ -8,7 +8,6 @@ import SpellModel from "./spell.mjs";
 import TalentModel from "./talent.mjs";
 import WeaponModel from "./weapon.mjs";
 
-export * as models from "./models/_module.mjs";
 export { default as BaseItemModel } from "./base-item.mjs";
 export { default as EquipmentModel } from "./equipment.mjs";
 export { ArmorModel, BackgroundModel, FeatureModel, GearModel, LineageModel, ProfessionModel, SpellModel, TalentModel, WeaponModel };

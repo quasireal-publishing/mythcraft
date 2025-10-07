@@ -113,7 +113,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
    * @returns {Promise<object>}         A promise that resolves to an update to perform on the parent of the advancement.
    * @abstract
    */
-  async configureAdvancement(node = null) {
+  async configureAdvancement(node) {
     return {};
   }
 

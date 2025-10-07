@@ -87,6 +87,8 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
           link: item ? item.toAnchor() : game.i18n.localize("MYTHCRAFT.Advancement.SHEET.unknownItem"),
         });
       }
+    } else if (context.document.type === "skill") {
+      ctx.skillOptions = mythcraft.CONFIG.skills.options;
     }
 
     return context;

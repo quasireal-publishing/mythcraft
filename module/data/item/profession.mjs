@@ -15,12 +15,6 @@ export default class ProfessionModel extends BaseItemModel {
 
     schema.rank = new fields.NumberField({ integer: true, min: 1, max: 5, initial: 1 });
 
-    schema.skills = new fields.TypedObjectField(new fields.SchemaField({
-      // TODO
-    }));
-
-    // TODO: Professional Benefits
-
     return schema;
   }
 }
