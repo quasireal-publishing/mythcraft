@@ -23,11 +23,21 @@
 
   {{#if (eq document.type "skill")}}
 
-  {{formGroup fields.points value=source.points name="source.points"}}
-  {{formGroup fields.primary.fields.skills value=source.primary.skills name="source.primary.skills" options=ctx.skillOptions localize=true sort=true}}
-  {{formGroup fields.primary.fields.max value=source.primary.max name="source.primary.max"}}
-  {{formGroup fields.secondary.fields.skills value=source.secondary.skills name="source.secondary.skills" options=ctx.skillOptions localize=true sort=true}}
-  {{formGroup fields.secondary.fields.max value=source.secondary.max name="source.secondary.max"}}
+  {{formGroup fields.points value=source.points name="points"}}
+  <div class="form-group">
+    <label>{{fields.primary.fields.skills.label}}</label>
+    <div class="form-fields">
+      <button type="button" class="icon fa-solid fa-cog" data-action="editSkills" data-name="primary"></button>
+    </div>
+  </div>
+  {{formGroup fields.primary.fields.max value=source.primary.max name="primary.max"}}
+  <div class="form-group">
+    <label>{{fields.secondary.fields.skills.label}}</label>
+    <div class="form-fields">
+      <button type="button" class="icon fa-solid fa-cog" data-action="editSkills" data-name="secondary"></button>
+    </div>
+  </div>
+  {{formGroup fields.secondary.fields.max value=source.secondary.max name="secondary.max"}}
 
   {{/if}}
 

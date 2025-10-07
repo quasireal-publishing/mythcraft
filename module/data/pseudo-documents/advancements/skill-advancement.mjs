@@ -59,16 +59,23 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     const content = document.createElement("div");
 
+    const fields = document.createElement("div");
+
+    fields.className = "scrollable";
+
+    content.append(fields);
+
     const skills = [...this.primary.skills, ...this.secondary.skills].sort();
 
     // loop up the primary & secondary together then iterate to add form groups
     for (const skill of skills) {
       const group = createFormGroup({
+        classes: ["slim"],
         label: mythcraft.CONFIG.skills.list[skill].label,
         input: createNumberInput({ min: 0, max: this.primary.max, value: 0, name: skill }),
         localize: true,
       });
-      content.append(group);
+      fields.append(group);
     }
 
     /**

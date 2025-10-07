@@ -13,6 +13,16 @@
       <img class="advancement-img" src="{{img}}" alt="{{name}}">
       <label>{{name}}</label>
       <div class="form-fields">
+        {{#if canReconfigure}}
+        <button
+          type="button"
+          data-tooltip="DRAW_STEEL.ADVANCEMENT.SHEET.reconfigure"
+          data-action="reconfigureAdvancement"
+          class="icon fa-fw fa-solid fa-arrow-rotate-right"
+          {{disabled (not @root.editable)}}
+        >
+        </button>
+        {{/if}}
         <button
           type="button"
           {{!-- <!-- eslint-disable-next-line @html-eslint/quotes --> --}}

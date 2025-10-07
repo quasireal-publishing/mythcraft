@@ -24,6 +24,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       createPseudoDocument: this.#createPseudoDocument,
       deletePseudoDocument: this.#deletePseudoDocument,
       renderPseudoDocumentSheet: this.#renderPseudoDocumentSheet,
+      reconfigureAdvancement: this.#reconfigureAdvancement,
       toggleEffect: this.#toggleEffect,
       toggleEffectEmbed: this.#toggleEffectEmbed,
     },
@@ -422,6 +423,22 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   static #renderPseudoDocumentSheet(event, target) {
     const doc = this._getPseudoDocument(target);
     doc.sheet.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Reconfigure an existing advancement on an actor.
+   *
+   * @this DrawSteelItemSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   * @private
+   */
+  static async #reconfigureAdvancement(event, target) {
+    if (!this.document.parent) throw new Error("You can only reconfigure advancements if the item is embedded in an actor");
+    const advancement = this._getPseudoDocument(target);
+    await advancement.reconfigure();
   }
 
   /* -------------------------------------------------- */

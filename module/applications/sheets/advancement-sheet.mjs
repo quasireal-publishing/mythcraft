@@ -17,6 +17,7 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
   static DEFAULT_OPTIONS = {
     actions: {
       deletePoolItem: AdvancementSheet.#deletePoolItem,
+      editSkills: AdvancementSheet.#editSkills,
     },
     classes: ["advancement"],
   };
@@ -87,8 +88,6 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
           link: item ? item.toAnchor() : game.i18n.localize("MYTHCRAFT.Advancement.SHEET.unknownItem"),
         });
       }
-    } else if (context.document.type === "skill") {
-      ctx.skillOptions = mythcraft.CONFIG.skills.options;
     }
 
     return context;
@@ -149,5 +148,45 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
     const pool = foundry.utils.deepClone(this.pseudoDocument._source.pool);
     pool.splice(index, 1);
     this.pseudoDocument.update({ pool });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Open a dialog to configure the skill options.
+   * @this {AdvancementSheet}
+   * @param {PointerEvent} event    The initiating click event.
+   * @param {HTMLElement} target    The capturing HTML element which defined a [data-action].
+   */
+  static async #editSkills(event, target) {
+    const { name } = target.dataset;
+
+    const options = mythcraft.CONFIG.skills.options;
+
+    const content = document.createElement("div");
+
+    const field = this.pseudoDocument.schema.getField([name, "skills"]);
+
+    content.append(field.toInput({
+      options,
+      name: `${name}.skills`,
+      value: this.pseudoDocument[name].skills,
+      type: "checkboxes",
+      localize: true,
+      sort: true,
+    }));
+
+    const fd = await mythcraft.applications.api.MythcraftDialog.input({
+      content,
+      classes: ["skill-picker"],
+      window: {
+        title: field.label,
+        icon: "fa-solid fa-edit",
+      },
+    });
+
+    if (!fd) return;
+
+    this.pseudoDocument.update(fd);
   }
 }
