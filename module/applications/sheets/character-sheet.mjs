@@ -151,6 +151,39 @@ export default class CharacterSheet extends MythCraftActorSheet {
 
       context.talents.push(itemContext);
     }
+
+    context.features = [];
+    const sortedFeatures = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+
+    for (const item of sortedFeatures) {
+      const expanded = this.expanded.items.has(item.id);
+      const itemContext = { item, expanded };
+      if (expanded) itemContext.embed = await item.system.toEmbed({});
+
+      context.features.push(itemContext);
+    }
   }
 
+  /** @inheritdoc */
+  async _prepareBiographyTab(context, options) {
+    await super._prepareBiographyTab(context, options);
+
+    context.origins = [...this.#prepareOrigin("lineage"), ...this.#prepareOrigin("background"), ...this.#prepareOrigin("profession")];
+  }
+
+  /**
+   * Helper function to construct origin context for the biography tab.
+   * @param {string} type A valid item subtype.
+   * @returns {object[]}
+   */
+  #prepareOrigin(type) {
+    const contexts = [];
+    for (const item of this.actor.itemTypes[type]) {
+      contexts.push({ item });
+    }
+    if (!this.actor.itemTypes[type].length) {
+      contexts.push({ type, label: game.i18n.localize(CONFIG.Item.typeLabels[type]) });
+    }
+    return contexts;
+  }
 }

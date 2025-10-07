@@ -730,7 +730,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @returns {Item|ActiveEffect}     The embedded Item or ActiveEffect.
    */
   _getEmbeddedDocument(target) {
-    const docRow = target.closest("li[data-document-class]");
+    const docRow = target.closest("[data-document-class]");
 
     const { effectId, itemId } = docRow.dataset;
     const item = this.actor.items.get(itemId);

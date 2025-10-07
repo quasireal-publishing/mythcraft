@@ -233,5 +233,11 @@
   }
   [data-application-part="biography"] {
     padding-top: 0.5rem;
+
+    .origins {
+      button[data-document-class] {
+        max-width: 180px;
+      }
+    }
   }
 }

@@ -1,4 +1,22 @@
 <section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="biography">
+  {{#if origins.length}}
+  <div class="form-group origins">
+    {{#each origins}}
+    {{#if item}}
+    <button type="button" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
+      {{item.name}}
+    </button>
+    {{else}}
+    {{#unless @root.isPlay}}
+    <button type="button" data-action="createDoc" data-document-class="Item" data-type="{{type}}">
+      <i class="fa-solid fa-plus"></i>
+      {{localize "DOCUMENT.Create" type=label}}
+    </button>
+    {{/unless}}
+    {{/if}}
+    {{/each}}
+  </div>
+  {{/if}}
   {{#if editable}}
   {{formInput systemFields.biography.fields.value enriched=enrichedBiography value=system.biography.value toggled="true"}}
   {{#if user.isGM}}

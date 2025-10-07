@@ -12,6 +12,40 @@
         data-type="talent"
       >
         <i class="fa-solid fa-plus"></i>
+        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+      </button>
+      {{/if}}
+    </div>
+  </div>
+  <ul class="item-list">
+    {{#each features}}
+    <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
+      <div class="item-row flexrow">
+        <img src="{{item.img}}" alt="{{item.name}}">
+        <div class="item-name">{{item.name}}</div>
+        <div class="item-controls flexrow">
+          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+        </div>
+      </div>
+      <div class="item-embed">
+        {{#if expanded}}{{{embed.outerHTML}}}{{/if}}
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+  <div class="item-header flexrow">
+    <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
+    <div class="item-controls flexrow">
+      {{#if @root.editable}}
+      <button
+        type="button"
+        class="item-create"
+        data-action="createDoc"
+        data-document-class="Item"
+        data-type="talent"
+      >
+        <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.talent")}}
       </button>
       {{/if}}
