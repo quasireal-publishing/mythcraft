@@ -50,6 +50,16 @@ export default class SkillAdvancement extends BaseAdvancement {
 
   /* -------------------------------------------------- */
 
+  /**
+   * Necessary for advancement chain.
+   * @type {number}
+   */
+  get chooseN() {
+    return this.points;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   async configureAdvancement(node = null) {
 
@@ -76,6 +86,8 @@ export default class SkillAdvancement extends BaseAdvancement {
       return group;
     }
 
+    const currentValues = (node ? node.selected : foundry.utils.getProperty(this.document, path)) ?? {};
+
     let group = createGroup();
 
     // loop up the primary & secondary together then iterate to add form groups
@@ -86,7 +98,7 @@ export default class SkillAdvancement extends BaseAdvancement {
         input: createNumberInput({
           min: 0,
           max: this.primary.skills.has(skill) ? this.primary.max : this.secondary.max,
-          value: 0,
+          value: currentValues[skill] ?? 0,
           name: skill,
         }),
         localize: true,
@@ -104,12 +116,27 @@ export default class SkillAdvancement extends BaseAdvancement {
      * @type {DialogV2RenderCallback}
      */
     function render(event, dialog) {
-      console.log(dialog.element);
+      const submitButton = dialog.element.querySelector("button[type=\"submit\"");
+
+      /** Helper function. */
+      const checkDisabled = () => {
+        const fd = new foundry.applications.ux.FormDataExtended(submitButton.form).object;
+        const spend = Object.values(fd).reduce((acc, b) => acc + b, 0);
+        submitButton.disabled = spend !== this.points;
+      };
+
+      dialog.element.addEventListener("change", () => {
+        const fd = new foundry.applications.ux.FormDataExtended(submitButton.form).object;
+        const spend = Object.values(fd).reduce((acc, b) => acc + b, 0);
+        submitButton.disabled = spend !== this.points;
+      });
+
+      checkDisabled();
     }
 
     const config = await mythcraft.applications.api.MythcraftDialog.input({
       content,
-      render,
+      render: render.bind(this),
       window: {
         title: "Skill",
       },
@@ -117,7 +144,14 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     if (!config) return null;
 
-    return { [path]: null };
+    const chosen = Object.entries(config).reduce((acc, [key, value]) => {
+      if (value) acc[key] = value;
+      return acc;
+    }, {});
+
+    if (node) node.selected = { ...chosen };
+
+    return { [path]: chosen };
   }
 
   /* -------------------------------------------------- */
