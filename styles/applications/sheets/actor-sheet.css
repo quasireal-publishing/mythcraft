@@ -236,6 +236,9 @@
 
     .origins {
       button[data-document-class] {
+        img {
+          max-height: 20px;
+        }
         max-width: 180px;
       }
     }

@@ -4,6 +4,7 @@
     {{#each origins}}
     {{#if item}}
     <button type="button" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
+      <img src="{{item.img}}" alt="{{item.name}}">
       {{item.name}}
     </button>
     {{else}}
