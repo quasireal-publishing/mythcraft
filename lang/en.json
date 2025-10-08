@@ -370,7 +370,8 @@
       "ChainConfiguration": {
         "levelUpTitle": "Level Up: {name}",
         "createWithAdvancementsTitle": "Create {name} with Advancements",
-        "reconfigureTitle": "Reconfigure Advancement"
+        "reconfigureTitle": "Reconfigure Advancement",
+        "skillRanks": "+{ranks} {skill}"
       },
       "ConfigureAdvancement": {
         "Title": "Configure {name}",

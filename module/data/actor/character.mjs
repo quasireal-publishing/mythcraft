@@ -159,7 +159,7 @@ export default class CharacterModel extends BaseActorModel {
 
     // Perform item data modifications or store item updates.
     for (const chain of chains) for (const node of chain.active()) {
-      if (!node.advancement.isTrait) continue;
+      if (node.advancement.type !== "skill") continue;
       const { document: item, id } = node.advancement;
       const isExisting = item.parent === this.parent;
       let itemData;

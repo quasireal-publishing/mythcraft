@@ -3,6 +3,7 @@
 
 /** Applications */
 @import url("./applications/api/roll-dialog.css");
+@import url("./applications/apps/chain-configuration-dialog.css");
 
 /** Sheet Imports */
 @import url("./applications/sheets/actor-sheet.css");

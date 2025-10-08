@@ -1,6 +1,7 @@
 /**
  * @import { AdvancementChain } from "../_types"
  * @import { BaseAdvancement } from "../data/pseudo-documents/advancements/_module.mjs";
+ * @import MythCraftItem from "../documents/item.mjs";
  */
 
 /**
@@ -92,15 +93,21 @@ export default class AdvancementChain {
     };
 
     const node = new this(nodeData);
-
     if (advancement.type === "itemGrant") {
       for (const { uuid } of advancement.pool) {
         const item = await fromUuid(uuid);
         if (!item) continue;
 
-        const choice = node.choices[item.uuid] = {
-          item, node,
-          itemLink: item.toAnchor(),
+        node.choices[item.uuid] = await this.createItemGrantChoice(item, node);
+      }
+    } else if (advancement.type === "skill") {
+      const skills = [...advancement.primary.skills, ...advancement.secondary.skills];
+
+      for (const skill of skills) {
+        const choice = node.choices[skill] = {
+          node,
+          choice: game.i18n.localize(mythcraft.CONFIG.skills.list[skill].label),
+          skill: skill,
           children: {},
         };
 
@@ -108,31 +115,57 @@ export default class AdvancementChain {
           get() {
             if (!node.isChosen) return false;
             if (!node.advancement.isChoice) return true;
-            return node.selected[item.uuid] === true;
+            return node.selected[skill] > 0;
           },
         });
-
-        if (!item.supportsAdvancements) continue;
-
-        // Find any "child" advancements.
-        for (const advancement of item.getEmbeddedPseudoDocumentCollection("Advancement")) {
-          const validRange = advancement.levels.some(level => {
-            if (Number.isNumeric(level)) return level.between(levelStart, levelEnd);
-            else return levelStart === null;
-          });
-          if (validRange) {
-            choice.children[advancement.uuid] = await AdvancementChain.create(advancement, node, {
-              _depth: _depth + 1,
-              start: levelStart,
-              end: levelEnd,
-            });
-            choice.children[advancement.uuid].parentChoice = choice; // Helps detect if chosen.
-          }
-        }
       }
     }
 
     return node;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Construct the choices for an item grant recursively.
+   * @param {MythCraftItem} item
+   * @param {AdvancementChain} node
+   * @returns {Promise<AdvancementChainItemGrantLeaf>}
+   */
+  static async createItemGrantChoice(item, node) {
+    const [levelStart, levelEnd] = node.levels;
+    const choice = {
+      item, node,
+      itemLink: item.toAnchor(),
+      children: {},
+    };
+
+    Object.defineProperty(choice, "isChosen", {
+      get() {
+        if (!node.isChosen) return false;
+        if (!node.advancement.isChoice) return true;
+        return node.selected[item.uuid] === true;
+      },
+    });
+
+    if (!item.system.advancements) return choice;
+
+    // Find any "child" advancements.
+    for (const advancement of item.getEmbeddedPseudoDocumentCollection("Advancement")) {
+      const validRange = advancement.levels.some(level => {
+        if (Number.isNumeric(level)) return level.between(levelStart, levelEnd);
+        else return levelStart === null;
+      });
+      if (validRange) {
+        choice.children[advancement.uuid] = await AdvancementChain.create(advancement, node, {
+          start: levelStart,
+          end: levelEnd,
+        });
+        choice.children[advancement.uuid].parentChoice = choice; // Helps detect if chosen.
+      }
+    }
+
+    return choice;
   }
 
   /* -------------------------------------------------- */
