@@ -30,7 +30,7 @@ export default class ArmorModel extends EquipmentModel {
 
     schema.speedPenalty = new fields.NumberField();
 
-    schema.resist = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 1 })));
+    schema.resist = new fields.StringField({ required: true });
 
     return schema;
   }

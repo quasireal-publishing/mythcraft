@@ -2,15 +2,19 @@
 {{formGroup systemFields.cost value=system.cost disabled=isPlay}}
 {{formGroup systemFields.category value=system.category disabled=isPlay}}
 {{formGroup systemFields.ar value=system.ar disabled=isPlay}}
-<fieldset {{disabled isPlay}}>
+<fieldset class="defenses" {{disabled isPlay}}>
   <legend>{{systemFields.defenses.label}}</legend>
-  {{formGroup systemFields.defenses.fields.ref value=system.defenses.ref disabled=isPlay}}
-  {{formGroup systemFields.defenses.fields.fort value=system.defenses.fort disabled=isPlay}}
-  {{formGroup systemFields.defenses.fields.ant value=system.defenses.ant disabled=isPlay}}
-  {{formGroup systemFields.defenses.fields.log value=system.defenses.log disabled=isPlay}}
-  {{formGroup systemFields.defenses.fields.will value=system.defenses.will disabled=isPlay}}
+  <div class="form-group">
+    {{formGroup systemFields.defenses.fields.ref value=system.defenses.ref classes="slim" disabled=isPlay}}
+    {{formGroup systemFields.defenses.fields.fort value=system.defenses.fort classes="slim" disabled=isPlay}}
+  </div>
+  <div class="form-group">
+    {{formGroup systemFields.defenses.fields.ant value=system.defenses.ant classes="slim" disabled=isPlay}}
+    {{formGroup systemFields.defenses.fields.log value=system.defenses.log classes="slim" disabled=isPlay}}
+    {{formGroup systemFields.defenses.fields.will value=system.defenses.will classes="slim" disabled=isPlay}}
+  </div>
 </fieldset>
 {{formGroup systemFields.strMin value=system.strMin disabled=isPlay}}
 {{formGroup systemFields.dexMax value=system.dexMax disabled=isPlay}}
 {{formGroup systemFields.speedPenalty value=system.speedPenalty disabled=isPlay}}
-{{!-- resist --}}
+{{formGroup systemFields.resist value=system.resist disabled=isPlay}}

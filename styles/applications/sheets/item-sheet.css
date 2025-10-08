@@ -21,6 +21,11 @@
   }
   [data-application-part="details"] {
     padding-top: 0.5rem;
+    .defenses {
+      .form-fields {
+        justify-content: flex-start;
+      }
+    }
   }
   [data-application-part="advancements"] {
     padding-top: 0.5rem;
