@@ -18,4 +18,6 @@
 ### Known Issues
 -->
 
-## 0.1.0
+## 0.6.0
+
+Initial release
