@@ -1,0 +1,54 @@
+{
+  "folder": "Z8I6yeCHWvdV3xlT",
+  "name": "Leather Cuirass",
+  "type": "armor",
+  "_id": "3nyXH34nCT7r5sqL",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": ""
+    },
+    "tags": [],
+    "_mcid": "leather-cuirass",
+    "quantity": 1,
+    "defenses": {
+      "ref": 1,
+      "fort": 1,
+      "ant": null,
+      "log": null,
+      "will": null
+    },
+    "resist": "Blunt 2",
+    "cost": 100,
+    "ar": 12,
+    "strMin": null,
+    "dexMax": null,
+    "speedPenalty": null,
+    "category": "Light Armor"
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1759940200670,
+    "modifiedTime": 1759946684419,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!3nyXH34nCT7r5sqL"
+}

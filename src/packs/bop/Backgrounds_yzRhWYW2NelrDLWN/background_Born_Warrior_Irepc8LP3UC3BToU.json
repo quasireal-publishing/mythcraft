@@ -12,7 +12,8 @@
     "source": {
       "book": "",
       "page": "",
-      "license": ""
+      "license": "",
+      "revision": 1
     },
     "tags": [],
     "_mcid": "born-warrior",
@@ -25,7 +26,16 @@
     "professions": 1,
     "wealth": "",
     "startingEquipment": {},
-    "skillPoints": 12
+    "skillPoints": 12,
+    "advancements": {
+      "4kU7ov4fMD09JdTt": {
+        "name": "",
+        "img": null,
+        "type": "skill",
+        "_id": "4kU7ov4fMD09JdTt",
+        "description": "<p>Gain +12 Skill Points that you can spend on any of the following skills. With this feature, you may put up to +4 points into any individual skill.</p>"
+      }
+    }
   },
   "effects": [],
   "sort": 0,
@@ -38,11 +48,11 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.348",
+    "coreVersion": "13.350",
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1756500742765,
-    "modifiedTime": 1756500838587,
+    "modifiedTime": 1759524738661,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
   "_key": "!items!Irepc8LP3UC3BToU"

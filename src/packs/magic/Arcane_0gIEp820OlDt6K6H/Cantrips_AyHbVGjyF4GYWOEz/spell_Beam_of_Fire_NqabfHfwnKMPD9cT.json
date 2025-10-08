@@ -12,9 +12,9 @@
     "source": {
       "book": "",
       "page": "",
-      "license": ""
+      "license": "",
+      "revision": 1
     },
-    "magicSource": "arcane",
     "tags": [],
     "_mcid": "beam-of-fire",
     "range": {
@@ -31,7 +31,8 @@
       "value": null
     },
     "apc": 3,
-    "spc": null
+    "spc": null,
+    "magicSource": "arcane"
   },
   "effects": [],
   "sort": 0,
@@ -48,7 +49,7 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1756501484854,
-    "modifiedTime": 1756501554862,
+    "modifiedTime": 1758769665936,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
   "_key": "!items!NqabfHfwnKMPD9cT"

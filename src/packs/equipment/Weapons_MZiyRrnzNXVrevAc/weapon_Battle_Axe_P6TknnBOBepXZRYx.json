@@ -1,0 +1,56 @@
+{
+  "folder": "MZiyRrnzNXVrevAc",
+  "name": "Battle Axe",
+  "type": "weapon",
+  "_id": "P6TknnBOBepXZRYx",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": {
+      "value": "<p>[[/damage @item.damage.formula type=sharp]]</p>",
+      "gm": ""
+    },
+    "source": {
+      "book": "",
+      "page": "",
+      "license": ""
+    },
+    "tags": [
+      "handHalf"
+    ],
+    "_mcid": "battle-axe",
+    "quantity": 1,
+    "damage": {
+      "formula": "1d8 + @STR",
+      "type": "sharp"
+    },
+    "attr": "str",
+    "range": {
+      "unit": "ft",
+      "value": null,
+      "type": "melee"
+    },
+    "apc": "max(5 - @STR, 3)",
+    "cost": 35,
+    "category": "Axe",
+    "apcFormula": "max(5 - @STR, 3)"
+  },
+  "effects": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "9xohpsq2hVYIXGuB": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1759940234290,
+    "modifiedTime": 1759943110944,
+    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+  },
+  "_key": "!items!P6TknnBOBepXZRYx"
+}

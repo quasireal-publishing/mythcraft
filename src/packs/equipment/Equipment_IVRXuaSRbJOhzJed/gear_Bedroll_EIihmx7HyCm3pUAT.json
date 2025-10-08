@@ -1,8 +1,8 @@
 {
-  "folder": "Z8I6yeCHWvdV3xlT",
-  "name": "Leather Cuirass",
-  "type": "feature",
-  "_id": "NgV6fm9Irimb2N2B",
+  "folder": "IVRXuaSRbJOhzJed",
+  "name": "Bedroll",
+  "type": "gear",
+  "_id": "EIihmx7HyCm3pUAT",
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": {
@@ -15,12 +15,8 @@
       "license": ""
     },
     "tags": [],
-    "_mcid": "leather-cuirass",
-    "category": "passive",
-    "prerequisites": "",
-    "uses": {
-      "maxFormula": ""
-    }
+    "_mcid": "bedroll",
+    "quantity": 1
   },
   "effects": [],
   "sort": 0,
@@ -33,12 +29,12 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.348",
+    "coreVersion": "13.350",
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
-    "createdTime": 1756501245112,
-    "modifiedTime": 1756501245112,
+    "createdTime": 1759940228541,
+    "modifiedTime": 1759940228541,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
-  "_key": "!items!NgV6fm9Irimb2N2B"
+  "_key": "!items!EIihmx7HyCm3pUAT"
 }

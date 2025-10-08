@@ -67,13 +67,15 @@
     "source": {
       "book": "Creature Compendium",
       "page": "154",
-      "license": ""
+      "license": "",
+      "revision": 1
     },
     "actions": "The Slag Toad can take TWO of the following actions, or take the same action twice",
     "tags": [
       "beast",
       "elemental"
-    ]
+    ],
+    "size": "medium"
   },
   "prototypeToken": {
     "name": "Slag Toad",
@@ -190,7 +192,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "_mcid": "feature"
       },
@@ -227,7 +230,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature-2",
@@ -271,7 +275,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -315,7 +320,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -360,7 +366,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -405,7 +412,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -450,7 +458,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -495,7 +504,8 @@
         "source": {
           "book": "",
           "page": "",
-          "license": ""
+          "license": "",
+          "revision": 1
         },
         "tags": [],
         "_mcid": "feature",
@@ -544,7 +554,7 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1755541779353,
-    "modifiedTime": 1756834985612,
+    "modifiedTime": 1756835646985,
     "lastModifiedBy": "9xohpsq2hVYIXGuB"
   },
   "_key": "!actors!WvrTOVmX7taTFT5c"
