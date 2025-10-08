@@ -169,8 +169,11 @@
 
   [data-application-part="equipment"] {
     padding-top: 0.5rem;
-    .item-row {
-      .item-quantity {
+    .item-row, .item-row {
+      .item-apc {
+        padding-left: 40px;
+      }
+      .item-quantity, .item-quantity {
         /* Centers under "Quantity" */
         padding-left: 40px;
       }

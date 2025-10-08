@@ -1,14 +1,17 @@
+{{formGroup systemFields.tags value=system.tags disabled=isPlay options=config.weapon.tagOptions localize=true}}
 {{formGroup systemFields.quantity value=system.quantity disabled=isPlay}}
-{{formGroup systemFields.cost value=system.cos disabled=isPlay}}
+{{formGroup systemFields.cost value=system.cost disabled=isPlay}}
 {{formGroup systemFields.category value=system.category disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.damage.label}}</legend>
   {{formGroup systemFields.damage.fields.formula value=system.damage.formula}}
-  {{formGroup systemFields.damage.fields.type value=system.damage.type}}
+  {{formGroup systemFields.damage.fields.type value=system.damage.type options=config.damage.options sort=true localize=true}}
 </fieldset>
-{{formGroup systemFields.attr value=system.attr disabled=isPlay}}
+{{formGroup systemFields.attr value=system.attr disabled=isPlay options=config.attributes.options sort=true localize=true}}
+{{formGroup systemFields.apcFormula value=system.apcFormula disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.range.label}}</legend>
+  {{formGroup systemFields.range.fields.type value=system.range.type localize=true sort=true}}
   {{formGroup systemFields.range.fields.value value=system.range.value}}
   {{formGroup systemFields.range.fields.unit value=system.range.unit}}
 </fieldset>

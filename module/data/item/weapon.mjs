@@ -9,6 +9,8 @@ export default class WeaponModel extends EquipmentModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.weapon");
 
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   static defineSchema() {
     const schema = super.defineSchema();
@@ -17,19 +19,28 @@ export default class WeaponModel extends EquipmentModel {
 
     schema.damage = new fields.SchemaField({
       formula: new FormulaField(),
-      type: new fields.StringField({ blank: false, required: true, initial: "sharp" }),
+      type: new fields.StringField({ required: true, initial: "sharp" }),
     });
 
-    schema.attr = new fields.StringField({ blank: false, required: true, initial: "str" });
+    schema.attr = new fields.StringField({ required: true, initial: "str" });
+
+    schema.apcFormula = new FormulaField({ initial: "3" });
 
     schema.range = new fields.SchemaField({
+      type: new fields.StringField({ choices: constants.weaponRanges, required: true, initial: "melee" }),
       value: new fields.NumberField(),
-      type: new fields.StringField({ choices: constants.weaponRanges }),
       unit: new fields.StringField({ initial: "ft" }),
     });
 
-    schema.apc = new FormulaField();
-
     return schema;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The weapon's calculated APC cost.
+   */
+  get apc() {
+    return mythcraft.utils.evaluateFormula(this.apcFormula || "0", this.parent.getRollData());
   }
 }

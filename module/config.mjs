@@ -246,6 +246,12 @@ const attributeGroups = {
 export const attributes = {
   list: attributeList,
   groups: attributeGroups,
+  /** @type {FormSelectOption[]} */
+  get options() {
+    return Object.entries(attributeList).map(
+      ([value, { group }]) => ({ value, label: `MYTHCRAFT.Actor.base.FIELDS.attributes.${value}.label`, group: game.i18n.localize(attributeGroups[group]?.label) }),
+    );
+  },
 };
 
 /**
@@ -1192,6 +1198,12 @@ const damageCategories = {
 export const damage = {
   types: damageTypes,
   categories: damageCategories,
+  /** @type {FormSelectOption[]} */
+  get options() {
+    return Object.entries(damageTypes).map(
+      ([value, { label, category }]) => ({ value, label, group: game.i18n.localize(damageCategories[category]?.label) }),
+    );
+  },
 };
 
 const healTypes = {
@@ -1460,6 +1472,59 @@ export const spells = {
   components: spellComponents,
   requirements: spellRequirements,
   sources: spellSources,
+};
+
+/**
+ * @typedef WeaponTag
+ * @property {string} label
+ * @property {string} reference
+ */
+
+/** @type {Record<string, WeaponTag>} */
+const weaponTags = {
+  ammunition: {
+    label: "MYTHCRAFT.Item.weapon.Tags.ammunition",
+    reference: "",
+  },
+  concealed: {
+    label: "MYTHCRAFT.Item.weapon.Tags.concealed",
+    reference: "",
+  },
+  handHalf: {
+    label: "MYTHCRAFT.Item.weapon.Tags.handHalf",
+    reference: "",
+  },
+  light: {
+    label: "MYTHCRAFT.Item.weapon.Tags.light",
+    reference: "",
+  },
+  natural: {
+    label: "MYTHCRAFT.Item.weapon.Tags.natural",
+    reference: "",
+  },
+  oneHanded: {
+    label: "MYTHCRAFT.Item.weapon.Tags.oneHanded",
+    reference: "",
+  },
+  special: {
+    label: "MYTHCRAFT.Item.weapon.Tags.special",
+    reference: "",
+  },
+  twoHanded: {
+    label: "MYTHCRAFT.Item.weapon.Tags.twoHanded",
+    reference: "",
+  },
+  unwieldy: {
+    label: "MYTHCRAFT.Item.weapon.Tags.unwieldy",
+    reference: "",
+  },
+};
+
+export const weapon = {
+  tags: weaponTags,
+  get tagOptions() {
+    return Object.entries(weaponTags).map(([value, { label }]) => ({ value, label }));
+  },
 };
 
 /**

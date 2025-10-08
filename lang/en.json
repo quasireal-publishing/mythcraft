@@ -649,7 +649,27 @@
             "unit": {
               "label": "Unit"
             }
+          },
+          "apcFormula": {
+            "label": "APC"
           }
+        },
+        "Ranges": {
+            "melee": "Melee",
+            "ranged": "Ranged",
+            "reach": "Reach",
+            "thrown": "Thrown"
+        },
+        "Tags": {
+            "ammunition": "Ammunition",
+            "concealed": "Concealed",
+            "handHalf": "Hand-And-A-Half",
+            "light": "Light",
+            "natural": "Natural",
+            "oneHanded": "One-Handed",
+            "special": "Special",
+            "twoHanded": "Two-Handed",
+            "unwieldy": "Unwieldy"
         }
       }
     },

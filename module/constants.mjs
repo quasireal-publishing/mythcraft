@@ -7,26 +7,17 @@ export const systemId = "mythcraft";
  */
 export const systemPath = (path) => `systems/${systemId}/${path}`;
 
-export const equipmentCategories = {
-  weapon: {
-    label: "MYTHCRAFT.Item.Equipment.Categories.weapon",
-  },
-  armor: {
-    label: "MYTHCRAFT.Item.Equipment.Categories.armor",
-  },
-};
-
 export const weaponRanges = {
   melee: {
-    label: "",
+    label: "MYTHCRAFT.Item.weapon.Ranges.melee",
   },
   ranged: {
-    label: "",
+    label: "MYTHCRAFT.Item.weapon.Ranges.ranged",
   },
   reach: {
-    label: "",
+    label: "MYTHCRAFT.Item.weapon.Ranges.reach",
   },
   thrown: {
-    label: "",
+    label: "MYTHCRAFT.Item.weapon.Ranges.thrown",
   },
 };
