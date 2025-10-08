@@ -1,5 +1,4 @@
 import EquipmentModel from "./equipment.mjs";
-import * as constants from "../../constants.mjs";
 import { requiredInteger } from "../fields/helpers.mjs";
 
 /**

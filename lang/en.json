@@ -438,7 +438,22 @@
             "label": "Armor Rating"
           },
           "defenses": {
-            "label": "Defenses"
+            "label": "Defenses",
+            "ref": {
+              "label": "REF"
+            },
+            "fort": {
+              "label": "FORT"
+            },
+            "ant": {
+              "label": "ANT"
+            },
+            "log": {
+              "label": "LOG"
+            },
+            "will": {
+              "label": "WILL"
+            }
           },
           "strMin": {
             "label": "Strength Minimum"

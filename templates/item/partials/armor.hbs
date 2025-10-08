@@ -2,8 +2,13 @@
 {{formGroup systemFields.cost value=system.cost disabled=isPlay}}
 {{formGroup systemFields.category value=system.category disabled=isPlay}}
 {{formGroup systemFields.ar value=system.ar disabled=isPlay}}
-<fieldset disabled="@root.isPlay">
+<fieldset {{disabled isPlay}}>
   <legend>{{systemFields.defenses.label}}</legend>
+  {{formGroup systemFields.defenses.fields.ref value=system.defenses.ref disabled=isPlay}}
+  {{formGroup systemFields.defenses.fields.fort value=system.defenses.fort disabled=isPlay}}
+  {{formGroup systemFields.defenses.fields.ant value=system.defenses.ant disabled=isPlay}}
+  {{formGroup systemFields.defenses.fields.log value=system.defenses.log disabled=isPlay}}
+  {{formGroup systemFields.defenses.fields.will value=system.defenses.will disabled=isPlay}}
 </fieldset>
 {{formGroup systemFields.strMin value=system.strMin disabled=isPlay}}
 {{formGroup systemFields.dexMax value=system.dexMax disabled=isPlay}}
