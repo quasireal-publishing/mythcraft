@@ -9,9 +9,9 @@ export default class AttributeSkillInput extends DocumentInput {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     attribute: null,
-    classes: ["attribute-skill-editor"],
+    classes: ["attribute-skill-input"],
     window: {
-      // icon: "fa-solid fa-book",
+      icon: "fa-solid fa-book",
     },
     actions: {
       addSkill: this.#addSkill,
@@ -74,7 +74,8 @@ export default class AttributeSkillInput extends DocumentInput {
           label: skillInfo.label,
           value: id,
           disabled: id in this.document.system.skills,
-          skillPoints: this.document.system.skills[id]?.value,
+          skillPoints: this.document.system._source.skills[id]?.value,
+          advancements: this.document.system.skills[id].advancement ?? "",
           fieldPath: `system.skills.${id}.value`,
         });
       }

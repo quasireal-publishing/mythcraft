@@ -118,6 +118,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
 
     for (const [key, data] of Object.entries(this.skills)) {
       const skillInfo = mythcraft.CONFIG.skills.list[key];
+      data.value ??= 0;
       if (skillInfo) data.bonus = this.attributes[skillInfo.attribute] + data.value;
     }
 

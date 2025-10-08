@@ -240,7 +240,8 @@
         "AttributeSkillInput": {
           "Title": "Configure {attr} for {name}",
           "AddSkill": "Add Skill",
-          "RemoveSkill": "Remove Skill"
+          "RemoveSkill": "Remove Skill",
+          "AdvancementBonus": "Advancement Bonus"
         },
         "MovementListFormat": "{type} {number} ft",
         "SenseListFormat": "{type} {number} ft",

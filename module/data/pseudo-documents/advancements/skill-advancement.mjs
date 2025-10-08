@@ -1,3 +1,4 @@
+import { systemId } from "../../../constants.mjs";
 import { setOptions } from "../../fields/helpers.mjs";
 import BaseAdvancement from "./base-advancement.mjs";
 
@@ -56,6 +57,29 @@ export default class SkillAdvancement extends BaseAdvancement {
    */
   get chooseN() {
     return this.points;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    const actor = this.document.parent;
+    if (!actor) return;
+
+    const selections = this.document.getFlag(systemId, `advancement.${this.id}.selected`);
+
+    if (typeof selections !== "object") return void console.error("Incorrect selected structure in", this.uuid, selections);
+
+    for (const [skill, points] of Object.entries(selections)) {
+      if (!points) continue;
+      const skillInfo = actor.system.skills[skill];
+
+      if (skillInfo?.advancement) skillInfo.advancement += points;
+      else if (skillInfo) skillInfo.advancement = points;
+      else foundry.utils.setProperty(actor.system.skills, `${skill}.advancement`, points);
+    }
   }
 
   /* -------------------------------------------------- */

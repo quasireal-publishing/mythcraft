@@ -30,6 +30,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       toggleItemEmbed: this.#toggleItemEmbed,
       toggleEffectEmbed: this.#toggleEffectEmbed,
     },
+    position: {
+      // distance running display
+      width: 635,
+    },
   };
 
   /* -------------------------------------------- */

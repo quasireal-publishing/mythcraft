@@ -19,6 +19,10 @@
     <label>{{localize label}}</label>
     <div class="form-fields">
       {{formInput @root.systemFields.skills.element.fields.value value=skillPoints name=fieldPath}}
+      <span class="advancement-bonus" data-tooltip="MYTHCRAFT.Actor.base.AttributeSkillInput.AdvancementBonus">
+        +
+        {{advancements}}
+      </span>
       <button type="button" class="icon fa-solid fa-minus" data-action="removeSkill" data-skill="{{value}}" data-tooltip="MYTHCRAFT.Actor.base.AttributeSkillInput.RemoveSkill"></button>
     </div>
   </div>
