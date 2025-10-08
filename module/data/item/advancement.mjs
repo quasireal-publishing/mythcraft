@@ -1,4 +1,3 @@
-import { systemId } from "../../constants.mjs";
 import BaseItemModel from "./base-item.mjs";
 import AdvancementChain from "../../utils/advancement-chain.mjs";
 
@@ -103,7 +102,7 @@ export default class AdvancementModel extends BaseItemModel {
       game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.levelUpTitle", { name: actor.name }) :
       game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.createWithAdvancementsTitle", { name: this.parent.name });
 
-    const configured = await mythcraft.applications.apps.advancement.ChainConfigurationDialog.create({
+    const configured = await mythcraft.applications.apps.ChainConfigurationDialog.create({
       chains, actor, window: { title },
     });
     if (!configured) return;

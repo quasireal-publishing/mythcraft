@@ -54,13 +54,6 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  get levels() {
-    return [this.requirements.level];
-  }
-
-  /* -------------------------------------------------- */
-
-  /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
     // Item grants that are only granting a single item should have a matching icon
@@ -193,7 +186,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
     if (!allowed) return;
 
     const chains = [await mythcraft.utils.AdvancementChain.create(this, null, { end: actor.system.level })];
-    const configuration = await mythcraft.applications.apps.advancement.ChainConfigurationDialog.create({
+    const configuration = await mythcraft.applications.apps.ChainConfigurationDialog.create({
       chains, actor, window: { title: "MYTHCRAFT.Advancement.ChainConfiguration.reconfigureTitle" },
     });
     if (!configuration) return;

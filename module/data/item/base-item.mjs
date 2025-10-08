@@ -2,6 +2,10 @@ import SourceModel from "../models/source.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 
 /**
+ * @import MythCraftActor from "../../documents/actor.mjs";
+ */
+
+/**
  * A shared implementation for the system data model for items.
  */
 export default class BaseItemModel extends foundry.abstract.TypeDataModel {
@@ -37,6 +41,16 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
 
       _mcid: new fields.StringField({ required: true, readonly: true }),
     };
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Convenient access to the item's actor, if it exists.
+   * @returns {MythCraftActor | null}
+   */
+  get actor() {
+    return this.parent.actor;
   }
 
   /* -------------------------------------------------- */

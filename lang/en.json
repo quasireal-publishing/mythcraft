@@ -31,7 +31,8 @@
       "Share": "Share",
       "Delete": "Delete",
       "AddSense": "Add Sense",
-      "AddAbsorb": "Add Absorption"
+      "AddAbsorb": "Add Absorption",
+      "NoCreateAdvancement": "{name} could not be created as part of the folder drop because it has advancements."
     },
     "PSEUDO": {
       "FIELDS": {
@@ -359,6 +360,8 @@
         "reconfigure": "Reconfigure Advancement"
       },
       "WARNING": {
+        "LevelUp": "{name} leveled from {start} to {end}.",
+        "RankUp": "{actorName} increased their rank in {itemName} from {start} to {end}.",
         "cannotAddNewType": "You cannot add a new {type} to a character that already has one.",
         "restrictedType": "{type} items cannot be added as advancements.",
         "requirePack": "Granted items must come from a compendium pack.",

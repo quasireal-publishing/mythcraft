@@ -1,4 +1,5 @@
 import { requiredInteger } from "../fields/helpers.mjs";
+import AdvancementModel from "../item/advancement.mjs";
 import BaseActorModel from "./base-actor.mjs";
 
 /**
@@ -73,6 +74,41 @@ export default class CharacterModel extends BaseActorModel {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _preUpdate(changes, options, user) {
+    const allowed = await super._preUpdate(changes, options, user);
+    if (allowed === false) return false;
+
+    // Setup advancement trigger
+    const newLevel = foundry.utils.getProperty(changes, "system.level");
+    if ((newLevel !== undefined) && (newLevel > this.level)) {
+      options.mythcraft ??= {};
+      options.mythcraft.levels = { start: this.level, end: newLevel };
+    }
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+
+    if (options.mythcraft?.levels) {
+      const { start, end } = options.mythcraft.levels;
+
+      ChatMessage.implementation.create({
+        content: game.i18n.format("MYTHCRAFT.Advancement.WARNING.LevelUp", { name: this.parent.name, start, end }),
+      });
+      for (const item of this.parent.items) {
+        if ((item.type !== "profession") && (item.system instanceof AdvancementModel)) {
+          item.system.applyAdvancements({ levels: { start, end } });
+        }
+      }
+    }
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Perform document operations for advancements.
    * @param {object} config
@@ -84,8 +120,8 @@ export default class CharacterModel extends BaseActorModel {
    * @param {object} [options]                                      Operation options.
    * @param {{ start: number, end: number }} [options.levels]       Level information about these advancements.
    * @returns {[MythCraftItem[], MythCraftItem[], MythCraftActor]}
-   * @internal          End consumers should use the {@link advance}, AdvancementModel#applyAdvancements,
-   *                    or ItemGrantAdvancement#reconfigure methods
+   * @internal          End consumers should use the AdvancementModel#applyAdvancements
+   *                    or BaseAdvancement#reconfigure methods
    */
   async _finalizeAdvancements(
     { chains, toCreate = {}, toUpdate = {}, actorUpdate = {}, _idMap = new Map() },
@@ -142,9 +178,9 @@ export default class CharacterModel extends BaseActorModel {
     if (levels) operationOptions.levels = levels;
 
     return await Promise.all([
-      this.parent.createEmbeddedDocuments("Item", Object.values(toCreate), { keepId: true, ds: operationOptions }),
-      this.parent.updateEmbeddedDocuments("Item", Object.values(toUpdate), { ds: operationOptions }),
-      this.parent.update(actorUpdate, { ds: operationOptions }),
+      this.parent.createEmbeddedDocuments("Item", Object.values(toCreate), { keepId: true, mythcraft: operationOptions }),
+      this.parent.updateEmbeddedDocuments("Item", Object.values(toUpdate), { mythcraft: operationOptions }),
+      this.parent.update(actorUpdate, { mythcraft: operationOptions }),
     ]);
   }
 }

@@ -186,4 +186,52 @@ export default class CharacterSheet extends MythCraftActorSheet {
     }
     return contexts;
   }
+
+  /* -------------------------------------------------- */
+  /*   Drag and Drop                                    */
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _onDropItem(event, item) {
+    // Sort & Permission check first
+    if (!this.isEditable) return null;
+    if (this.actor.uuid === item.parent?.uuid) {
+      const result = await this._onSortItem(event, item);
+      return result?.length ? item : null;
+    }
+
+    if (item.system instanceof AdvancementModel) {
+      return item.system.applyAdvancements({ actor: this.actor, levels: { end: this.actor.system.level } });
+    }
+
+    // Fixed default implementation, see https://github.com/foundryvtt/foundryvtt/issues/13166
+
+    const keepId = !this.actor.items.has(item.id);
+    const itemData = game.items.fromCompendium(item, { keepId, clearFolder: true });
+    const result = await Item.implementation.create(itemData, { parent: this.actor, keepId });
+    return result ?? null;
+  }
+
+  /** @inheritdoc */
+  async _onDropFolder(event, data) {
+    if (!this.actor.isOwner) return null;
+    const folder = await Folder.implementation.fromDropData(data);
+    if (folder.type !== "Item") return null;
+    const droppedItemData = await Promise.all(
+      folder.contents.map(async (/** @type {DrawSteelItem} */ item) => {
+        if (!(document instanceof Item)) item = await fromUuid(item.uuid);
+
+        if (item.supportsAdvancements && (item.getEmbeddedCollection("Advancement").size > 0)) {
+          ui.notifications.error("MYTHCRAFT.SHEET.NoCreateAdvancement", { format: { name: item.name } });
+          return null;
+        }
+
+        const keepId = !this.actor.items.has(item.id);
+
+        return game.items.fromCompendium(item, { keepId, clearFolder: true });
+      }),
+    );
+    await this.actor.createEmbeddedDocuments("Item", droppedItemData.filter(_ => _), { keepId: true });
+    return folder;
+  }
 }
