@@ -13,4 +13,16 @@
       font-weight: bold;
     }
   }
+
+  .drop-target-area {
+    min-height: 300px;
+    border-radius: 5px;
+    border: 1px dashed var(--color-fieldset-border);
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+    &.dragover {
+      border-style: solid;
+    }
+  }
 }

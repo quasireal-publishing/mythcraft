@@ -153,7 +153,7 @@ export default class CharacterSheet extends MythCraftActorSheet {
     }
 
     context.features = [];
-    const sortedFeatures = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+    const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
 
     for (const item of sortedFeatures) {
       const expanded = this.expanded.items.has(item.id);

@@ -1,6 +1,7 @@
 import { requiredInteger } from "../fields/helpers.mjs";
 import AdvancementModel from "../item/advancement.mjs";
 import BaseActorModel from "./base-actor.mjs";
+import { systemId } from "../../constants.mjs";
 
 /**
  * @import {MythCraftActor, MythCraftItem} from "../../documents/_module.mjs";
@@ -154,7 +155,7 @@ export default class CharacterModel extends BaseActorModel {
       // Fall back to the _parentId, in the case of existing items being
       // updated to grant more items (eg a class leveling up).
       const parentId = _idMap.get(_parentId) ?? _parentId;
-      foundry.utils.setProperty(itemData, `flags.${systemID}.advancement`, { parentId: parentId, advancementId: _advId });
+      foundry.utils.setProperty(itemData, `flags.${systemId}.advancement`, { parentId: parentId, advancementId: _advId });
     }
 
     // Perform item data modifications or store item updates.
@@ -171,7 +172,7 @@ export default class CharacterModel extends BaseActorModel {
         itemData = toCreate[item.uuid];
       }
 
-      foundry.utils.setProperty(itemData, `flags.${systemID}.advancement.${id}.selected`, node.chosenSelection);
+      foundry.utils.setProperty(itemData, `flags.${systemId}.advancement.${id}.selected`, node.chosenSelection);
     }
 
     const operationOptions = {};

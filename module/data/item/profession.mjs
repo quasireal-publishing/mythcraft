@@ -1,9 +1,9 @@
-import BaseItemModel from "./base-item.mjs";
+import AdvancementModel from "./advancement.mjs";
 
 /**
  * The system model for "profession" items.
  */
-export default class ProfessionModel extends BaseItemModel {
+export default class ProfessionModel extends AdvancementModel {
   /** @inheritdoc */
   static LOCALIZATION_PREFIXES = super.LOCALIZATION_PREFIXES.concat("MYTHCRAFT.Item.profession");
 

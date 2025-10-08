@@ -1475,13 +1475,13 @@ export const Advancement = {
   itemGrant: {
     label: "TYPES.Advancement.itemGrant",
     defaultImage: "icons/svg/item-bag.svg",
-    itemTypes: new Set(["background", "lineage", "talent", "feature"]),
+    itemTypes: new Set(["background", "lineage", "feature", "profession", "talent" ]),
     documentClass: pseudoDocuments.advancements.ItemGrantAdvancement,
   },
   skill: {
     label: "TYPES.Advancement.skill",
     defaultImage: "icons/svg/hanging-sign.svg",
-    itemTypes: new Set(["background", "talent", "feature"]),
+    itemTypes: new Set(["background", "feature", "profession", "talent"]),
     documentClass: pseudoDocuments.advancements.SkillAdvancement,
   },
 };

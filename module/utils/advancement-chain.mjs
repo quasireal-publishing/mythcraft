@@ -81,18 +81,20 @@ export default class AdvancementChain {
    * @returns {Promise<AdvancementChain|AdvancementChain[]>}    A promise that resolves to the chain or chain link.
    */
   static async create(root, parent = null, options = {}) {
-    const { _depth: _depth = 0, start: levelStart = null, end: levelEnd = 1 } = options;
+    const { start: levelStart = null, end: levelEnd = 1 } = options;
 
     const advancement = root;
     const nodeData = {
       advancement, parent,
-      depth: _depth,
-      isRoot: !_depth,
+      depth: (parent?.depth ?? -1) + 1,
+      isRoot: !parent,
       choices: {},
       selected: {},
+      levels: [levelStart, levelEnd],
     };
 
     const node = new this(nodeData);
+
     if (advancement.type === "itemGrant") {
       for (const { uuid } of advancement.pool) {
         const item = await fromUuid(uuid);
