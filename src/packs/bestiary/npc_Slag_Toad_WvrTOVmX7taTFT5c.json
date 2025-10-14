@@ -212,8 +212,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755543559359,
-        "modifiedTime": 1756235025022,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.BtJJ8VIUtxLoo91s"
     },
@@ -257,8 +257,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755556879249,
-        "modifiedTime": 1756235739729,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.zvbiHKN2hHJJabOO"
     },
@@ -302,8 +302,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755724944737,
-        "modifiedTime": 1756235835716,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.UNz2aHTduTbPPspg"
     },
@@ -348,8 +348,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755724954146,
-        "modifiedTime": 1756235051981,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.vMSL9jz6LxvgdsIG"
     },
@@ -394,8 +394,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755725018208,
-        "modifiedTime": 1756239456063,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.gJVPxYBSemCQ3Ve3"
     },
@@ -440,8 +440,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755725024693,
-        "modifiedTime": 1756239485873,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.p88zCf6VVgDM4891"
     },
@@ -486,8 +486,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755725030778,
-        "modifiedTime": 1756235936110,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.jR3R1WTn7gDH1kdy"
     },
@@ -532,8 +532,8 @@
         "systemId": "mythcraft",
         "systemVersion": "DEVELOPMENT",
         "createdTime": 1755725036189,
-        "modifiedTime": 1756235949525,
-        "lastModifiedBy": "9xohpsq2hVYIXGuB"
+        "modifiedTime": null,
+        "lastModifiedBy": null
       },
       "_key": "!actors.items!WvrTOVmX7taTFT5c.X8ozHZAg1WBB44kR"
     }
@@ -542,8 +542,7 @@
   "folder": null,
   "sort": 0,
   "ownership": {
-    "default": 0,
-    "9xohpsq2hVYIXGuB": 3
+    "default": 0
   },
   "flags": {},
   "_stats": {
@@ -554,8 +553,8 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1755541779353,
-    "modifiedTime": 1756835646985,
-    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+    "modifiedTime": null,
+    "lastModifiedBy": null
   },
   "_key": "!actors!WvrTOVmX7taTFT5c"
 }

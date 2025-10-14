@@ -9,8 +9,7 @@
   "folder": null,
   "sort": 0,
   "ownership": {
-    "default": 0,
-    "9xohpsq2hVYIXGuB": 3
+    "default": 0
   },
   "flags": {},
   "_stats": {
@@ -21,8 +20,8 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1756500476449,
-    "modifiedTime": 1756500547819,
-    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+    "modifiedTime": null,
+    "lastModifiedBy": null
   },
   "formula": "1d100",
   "_key": "!tables!O9Bh5MXUknc6JW48"

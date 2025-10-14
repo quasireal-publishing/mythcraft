@@ -21,8 +21,7 @@
   "effects": [],
   "sort": 0,
   "ownership": {
-    "default": 0,
-    "9xohpsq2hVYIXGuB": 3
+    "default": 0
   },
   "flags": {},
   "_stats": {
@@ -33,8 +32,8 @@
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
     "createdTime": 1759940228541,
-    "modifiedTime": 1759940228541,
-    "lastModifiedBy": "9xohpsq2hVYIXGuB"
+    "modifiedTime": null,
+    "lastModifiedBy": null
   },
   "_key": "!items!EIihmx7HyCm3pUAT"
 }
