@@ -1,10 +1,9 @@
 {
   "name": "mythcraft",
   "version": "0.1.0",
-  "description": "A template repository for FoundryVTT system development.",
+  "description": "The MythCraft system for FoundryVTT.",
   "main": "index.mjs",
   "scripts": {
-    "generate": "node ./tools/rename-system.mjs",
     "createSymlinks": "node ./tools/create-symlinks.mjs",
     "pullJSONtoLDB": "node ./tools/pullJSONtoLDB.mjs",
     "pushLDBtoJSON": "node ./tools/pushLDBtoJSON.mjs",
