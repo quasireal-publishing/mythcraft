@@ -13,6 +13,7 @@ name: System Release Build
 env:
   node_version: 20
   latest_manifest_url: "https://github.com/${{github.repository}}/releases/latest/download/system.json"
+  release_manifest_url: "https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.json"
   release_download_url: "https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/system.zip"
 
 on:
@@ -85,4 +86,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './system.json, ./mythcraft.zip'
           tag: ${{ github.event.release.tag_name }}
-          body: ${{ github.event.release.body }}
+          body: |
+            ${{ github.event.release.body }}
+
+            **Installation:** To manually install this release, please use the following manifest URL: ${{ env.release_manifest_url }}
