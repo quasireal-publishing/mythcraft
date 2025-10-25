@@ -75,7 +75,7 @@ export default class AttributeSkillInput extends DocumentInput {
           value: id,
           disabled: id in this.document.system.skills,
           skillPoints: this.document.system._source.skills[id]?.value,
-          advancements: this.document.system.skills[id].advancement ?? "",
+          advancements: this.document.system.skills[id]?.advancement ?? "0",
           fieldPath: `system.skills.${id}.value`,
         });
       }
