@@ -18,6 +18,12 @@
 ### Known Issues
 -->
 
+## 0.6.1
+
+- Fixed item drag and drop issues
+- Fixed build process issues
+- Fixed skill advancement processing
+
 ## 0.6.0
 
 Initial release
