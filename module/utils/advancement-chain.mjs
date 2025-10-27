@@ -186,6 +186,8 @@ export default class AdvancementChain {
         if (this.advancement.chooseN === null) return null;
         if (this.advancement.chooseN >= Object.values(this.choices).length) return null;
         return this.advancement.chooseN;
+      case "skill":
+        return this.advancement.points;
     }
     return null;
   }
@@ -227,7 +229,6 @@ export default class AdvancementChain {
    */
   get chosenSelection() {
     if (!this.isConfigured) return null;
-    if (this.advancement.isChoice) return Object.entries(this.selected).filter(([, v]) => v).map(([k]) => k);
-    return Object.keys(this.choices);
+    return this.advancement.chosenSelection(this);
   }
 }

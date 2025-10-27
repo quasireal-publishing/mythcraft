@@ -15,7 +15,7 @@ export default class SkillAdvancement extends BaseAdvancement {
     const fields = foundry.data.fields;
     const schema = super.defineSchema();
 
-    schema.points = new fields.NumberField({ min: 0, integer: true });
+    schema.points = new fields.NumberField({ min: 0, integer: true, initial: 0, nullable: false });
 
     schema.primary = new fields.SchemaField({
       skills: new fields.SetField(setOptions()),
@@ -97,7 +97,7 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     hint.className = "hint";
 
-    hint.innerText = game.i18n.format("MYTHCRAFT.Advancement.ConfigureAdvancement.SkillHint", { points: this.points });
+    hint.innerText = game.i18n.format("MYTHCRAFT.Advancement.ConfigureAdvancement.SkillHint", { points: this.points ?? 0 });
 
     content.append(hint);
 
@@ -146,13 +146,13 @@ export default class SkillAdvancement extends BaseAdvancement {
       const checkDisabled = () => {
         const fd = new foundry.applications.ux.FormDataExtended(submitButton.form).object;
         const spend = Object.values(fd).reduce((acc, b) => acc + b, 0);
-        submitButton.disabled = spend !== this.points;
+        submitButton.disabled = spend !== (this.points ?? 0);
       };
 
       dialog.element.addEventListener("change", () => {
         const fd = new foundry.applications.ux.FormDataExtended(submitButton.form).object;
         const spend = Object.values(fd).reduce((acc, b) => acc + b, 0);
-        submitButton.disabled = spend !== this.points;
+        submitButton.disabled = spend !== (this.points ?? 0);
       });
 
       checkDisabled();
@@ -186,5 +186,12 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     const configuration = await this.configureAdvancement();
     if (configuration) await this.document.update(configuration);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  chosenSelection(node) {
+    return node.selected;
   }
 }

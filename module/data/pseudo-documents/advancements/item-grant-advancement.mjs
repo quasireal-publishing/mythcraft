@@ -200,4 +200,12 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
 
     await actor.system._finalizeAdvancements({ chains, toUpdate });
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  chosenSelection(node) {
+    if (this.isChoice) return Object.entries(node.selected).filter(([, v]) => v).map(([k]) => k);
+    return Object.keys(node.choices);
+  }
 }

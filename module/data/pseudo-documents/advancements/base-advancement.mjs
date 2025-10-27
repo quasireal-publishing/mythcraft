@@ -127,4 +127,14 @@ export default class BaseAdvancement extends TypedPseudoDocument {
   async reconfigure() {
     if (!this.canReconfigure) throw new Error("You can only reconfigure advancements if the item is embedded in an actor");
   }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Interpret the node data to produce the chosen selection.
+   * @param {AdvancementChain} node
+   * @returns {unknown}
+   * @abstract
+   */
+  chosenSelection(node) {}
 }

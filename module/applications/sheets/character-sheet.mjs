@@ -1,4 +1,5 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
+import AdvancementModel from "../../data/item/advancement.mjs";
 import { systemPath } from "../../constants.mjs";
 
 /**
