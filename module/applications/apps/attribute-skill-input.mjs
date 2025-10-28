@@ -74,9 +74,12 @@ export default class AttributeSkillInput extends DocumentInput {
           label: skillInfo.label,
           value: id,
           disabled: id in this.document.system.skills,
+          showSpecialization: !!skillInfo.specialized,
+          specValue: this.document.system._source.skills[id]?.specialization,
           skillPoints: this.document.system._source.skills[id]?.value,
           advancements: this.document.system.skills[id]?.advancement ?? "0",
           fieldPath: `system.skills.${id}.value`,
+          specFieldPath: `system.skills.${id}.specialization`,
         });
       }
       return arr;

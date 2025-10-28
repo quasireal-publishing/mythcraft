@@ -1,4 +1,4 @@
-<section>
+<section class="standard-form">
   <div class="form-group">
     <label>{{localize "MYTHCRAFT.Roll.AttributeRoll.SituationalBonus.Label"}}</label>
     <div class="form-fields">
@@ -6,4 +6,15 @@
     </div>
     <p class="hint">{{localize "MYTHCRAFT.Roll.AttributeRoll.SituationalBonus.Hint" formula=formula}}</p>
   </div>
+  {{#if specialization}}
+  <div class="form-group slim">
+    <label>{{localize "MYTHCRAFT.Roll.AttributeRoll.Specialization.Label"}}</label>
+    <div class="form-fields">
+      <select name="specializationMultiplier" data-dtype="Number">
+        {{selectOptions specialization.options selected=specializationMultiplier}}
+      </select>
+    </div>
+    <p class="hint">{{localize "MYTHCRAFT.Roll.AttributeRoll.Specialization.Hint" specialization=specialization.value}}</p>
+  </div>
+  {{/if}}
 </section>

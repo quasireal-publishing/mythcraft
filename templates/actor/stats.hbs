@@ -130,13 +130,13 @@
           <a class="icon fa-solid fa-gear" data-action="editAttribute"></a>
           {{/if}}
         </legend>
-        <dl>
+        <dl class="skills">
           {{#if defense}}
           <dt>{{defense.label}}</dt>
           <dd>{{defense.value}}</dd>
           {{/if}}
           {{#each skills}}
-          <dt>{{localize label}}</dt>
+          <dt>{{label}}</dt>
           <dd>
             <a data-skill="{{skillId}}" data-action="rollSkill">
               <i class="fa-solid fa-dice-d20"></i>

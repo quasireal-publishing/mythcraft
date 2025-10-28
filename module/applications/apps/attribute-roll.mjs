@@ -1,5 +1,4 @@
 import { systemPath } from "../../constants.mjs";
-import BaseActorModel from "../../data/actor/base-actor.mjs";
 import RollDialog from "../api/roll-dialog.mjs";
 
 const { FormDataExtended } = foundry.applications.ux;
@@ -72,5 +71,23 @@ export default class AttributeRollDialog extends RollDialog {
     foundry.utils.mergeObject(this.options.context, formData);
 
     this.render();
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+
+    const skillInfo = mythcraft.CONFIG.skills.list[this.options.context.skill];
+
+    if (skillInfo?.specialized) {
+      context.specialization = {
+        options: [{ label: "x1", value: 1 }, { label: "x1/2", value: 0.5 }, { label: "x0", value: 0 }],
+        value: this.options.context.specialization,
+      };
+    }
+
+    return context;
   }
 }

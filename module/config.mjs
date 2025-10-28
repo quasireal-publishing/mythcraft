@@ -375,6 +375,7 @@ export const occupation = {
  * @property {AttributeKey} attribute   The attribute tied to the skill.
  * @property {string} tag               The skill tag.
  * @property {boolean} [tool]           Is the skill tool dependent.
+ * @property {string} [specialized]     If present, the skill allows specialization and the string is the i18n format string.
  * @property {string} reference         The uuid reference to the journal page for the skill.
  */
 
@@ -712,12 +713,13 @@ const skillList = {
     tool: true,
     reference: "",
   },
-  // "politics of [choose region]": {
-  //   label: "MYTHCRAFT.Skills",
-  //   attribute: "int",
-  //   tag: "",
-  //   reference: "",
-  // },
+  politics: {
+    label: "MYTHCRAFT.Skills.politics",
+    attribute: "int",
+    tag: "knowledge",
+    specialized: "MYTHCRAFT.Skills.politicsSpecialization",
+    reference: "",
+  },
   pottery: {
     label: "MYTHCRAFT.Skills.pottery",
     attribute: "int",
@@ -725,12 +727,13 @@ const skillList = {
     tool: true,
     reference: "",
   },
-  // "religion [choose one]": {
-  //   label: "MYTHCRAFT.Skills",
-  //   attribute: "int",
-  //   tag: "",
-  //   reference: "",
-  // },
+  religion: {
+    label: "MYTHCRAFT.Skills.religion",
+    attribute: "int",
+    tag: "knowledge",
+    specialized: "MYTHCRAFT.Skills.religionSpecialization",
+    reference: "",
+  },
   sleightOfHand: {
     label: "MYTHCRAFT.Skills.sleightOfHand",
     attribute: "int",
@@ -794,13 +797,14 @@ const skillList = {
     tag: "influence",
     reference: "",
   },
-  // "instrument [choose one]": {
-  //   label: "MYTHCRAFT.Skills",
-  //   attribute: "cha",
-  //   tag: "",
-  //   tool: true,
-  //   reference: "",
-  // },
+  instrument: {
+    label: "MYTHCRAFT.Skills.instrument",
+    attribute: "cha",
+    tag: "performance",
+    tool: true,
+    specialized: "MYTHCRAFT.Skills.instrumentSpecialization",
+    reference: "",
+  },
   intimidating: {
     label: "MYTHCRAFT.Skills.intimidating",
     attribute: "cha",

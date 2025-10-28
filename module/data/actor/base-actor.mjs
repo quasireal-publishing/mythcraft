@@ -63,6 +63,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       })),
       skills: new fields.TypedObjectField(new fields.SchemaField({
         value: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+        specialization: new fields.StringField({ required: true }),
       })),
       damage: new fields.SchemaField({
         resist: new fields.StringField(),
@@ -227,7 +228,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     if (!fd) throw new Error("Roll Dialog Cancelled");
     const { situationalBonus, rollMode } = fd;
     const rollData = this.parent.getRollData();
-    rollData.situationalBonus = situationalBonus || 0;
+    rollData.situationalBonus = AttributeRoll.replaceFormulaData(situationalBonus, rollData) || 0;
     const roll = new AttributeRoll(formula, rollData, { attribute });
     return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
@@ -242,12 +243,17 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
   async rollSkill(skill) {
     const formula = `1d20 + @skills.${skill}.bonus + @situationalBonus`;
     const attribute = mythcraft.CONFIG.skills.list[skill].attribute;
-    const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula } });
+    const specialization = this.skills[skill]?.specialization ?? "";
+    const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula, specialization } });
     if (!fd) throw new Error("Roll Dialog Cancelled");
-    const { situationalBonus, rollMode } = fd;
+    const { situationalBonus, rollMode, specializationMultiplier } = fd;
     const rollData = this.parent.getRollData();
-    rollData.situationalBonus = situationalBonus || 0;
+    rollData.situationalBonus = AttributeRoll.replaceFormulaData(situationalBonus, rollData) || 0;
     const roll = new AttributeRoll(formula, rollData, { attribute, skill });
+    if (Number.isNumeric(specializationMultiplier)) {
+      roll.terms[2].number = Math.ceil(roll.terms[2].number * specializationMultiplier);
+      roll.resetFormula();
+    }
     return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
 

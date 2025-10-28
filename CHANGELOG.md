@@ -18,6 +18,10 @@
 ### Known Issues
 -->
 
+## 0.6.2
+
+- Implemented handling for Instrument, Politics, and Religion
+
 ## 0.6.1
 
 - Fixed item drag and drop issues

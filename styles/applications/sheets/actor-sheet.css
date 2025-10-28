@@ -76,17 +76,8 @@
           writing-mode: sideways-lr;
           text-align: center;
         }
-        .attribute-primary {
-          .attribute-label {
-            border: none;
-            flex: 0 0 50%;
-          }
-          .attribute-defense {
-            text-align: center;
-            .form-fields {
-              justify-content: center;
-            }
-          }
+        dl.skills {
+          grid-template-columns: auto 40px;
         }
       }
     }

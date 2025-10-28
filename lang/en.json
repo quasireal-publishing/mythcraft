@@ -861,6 +861,8 @@
       "geography": "Geography",
       "glassblowing": "Glassblowing",
       "history": "History",
+      "instrument": "Instrument",
+      "instrumentSpecialization": "Instrument ({specialization})",
       "jeweling": "Jeweling",
       "law": "Law",
       "leatherworking": "Leatherworking",
@@ -870,7 +872,11 @@
       "military": "Military",
       "nature": "Nature",
       "painting": "Painting",
+      "politics": "Politics",
+      "politicsSpecialization": "Politics of {specialization}",
       "pottery": "Pottery",
+      "religion": "Religion",
+      "religionSpecialization": "Religion ({specialization})",
       "sleightOfHand": "Sleight of Hand",
       "smithing": "Smithing",
       "weaving": "Weaving",
@@ -934,6 +940,10 @@
           "Label": "Situational Bonus",
           "Placeholder": "e.g. 3",
           "Hint": "Formula: {formula}"
+        },
+        "Specialization": {
+          "Label": "Skill Specialization",
+          "Hint": "Your character has a specialization in {specialization}. When making checks outside of this specialization, you may only add 1/2 or none of your skill bonus depending on your MC's ruling."
         },
         "Flavor": {
           "Attribute": "{abbr} Check",

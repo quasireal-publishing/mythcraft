@@ -16,7 +16,12 @@
   {{#each attrSkills}}
   {{#if disabled}}
   <div class="form-group slim">
-    <label>{{localize label}}</label>
+    <label>
+      {{localize label}}
+      {{#if showSpecialization}}
+      {{formInput @root.systemFields.skills.element.fields.specialization value=specValue name=specFieldPath}}
+      {{/if}}
+    </label>
     <div class="form-fields">
       {{formInput @root.systemFields.skills.element.fields.value value=skillPoints name=fieldPath}}
       <span class="advancement-bonus" data-tooltip="MYTHCRAFT.Actor.base.AttributeSkillInput.AdvancementBonus">
