@@ -1,0 +1,36 @@
+{
+  "name": "Manor Uvior",
+  "img": null,
+  "caption": "",
+  "description": "<p>A beleaguered party seeks shelter from the storm in an abandoned manor overflowing with old books. As they explore, they will encounter roving undead, enchanted tomes, unexpected traps, and a band of hopeful gretchlings led by their elder, Mogg. The undead are the former hirelings of a once-powerful wizard named Uvior, who has now been reduced to a mere specter… literally. The gretchlings have invaded the manor in hopes of finding and devouring innumerable delicious magical scrolls. </p><p>While the gretchlings are technically the manor’s invaders, Uvior was known to be a cruel and callous figure, so the heroes might find either side sympathetic. Ultimately, the heroes can defeat both the undead and the gretchlings, or they can side with one faction or the other to put an end to the manor’s conflict. Either way, they will be rewarded handsomely with jewels and magic items.</p>",
+  "sort": 0,
+  "actors": [],
+  "combats": [],
+  "items": [],
+  "journal": [],
+  "scenes": [],
+  "tables": [],
+  "macros": [],
+  "cards": [],
+  "playlists": [],
+  "folders": [],
+  "_id": "i3aZbO7ZFgAQ5rbW",
+  "folder": null,
+  "flags": {
+    "core": {
+      "sheetClass": "core.AdventureImporterV2"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1761763126699,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!adventures!i3aZbO7ZFgAQ5rbW"
+}

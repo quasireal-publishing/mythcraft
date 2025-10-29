@@ -173,6 +173,11 @@
   ],
   "packs": [
     {
+      "name": "adventures",
+      "label": "MYTHCRAFT.COMPENDIUM.adventures",
+      "type": "Adventure"
+    },
+    {
       "name": "bestiary",
       "label": "MYTHCRAFT.COMPENDIUM.bestiary",
       "type": "Actor"
@@ -222,7 +227,7 @@
     {
       "name": "MythCraft System",
       "color": "#174345",
-      "packs": ["bestiary", "lineages", "bop", "classes", "magic", "specialization", "equipment", "rules", "tables"]
+      "packs": ["adventures", "bestiary", "lineages", "bop", "classes", "magic", "specialization", "equipment", "rules", "tables"]
     }
   ],
   "socket": false,
