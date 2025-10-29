@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Zealot",
+  "color": "#2b390e",
+  "sorting": "a",
+  "_id": "eD6fAojwmV0IY5nh",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499757830,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!eD6fAojwmV0IY5nh"
+}

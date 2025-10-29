@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Command Stack",
+  "color": "#971d1d",
+  "sorting": "a",
+  "_id": "9VRWtqAMeDS7V64S",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499190868,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!9VRWtqAMeDS7V64S"
+}

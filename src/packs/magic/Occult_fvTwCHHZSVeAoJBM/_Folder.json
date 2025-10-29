@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Occult",
+  "color": "#4b0082",
+  "sorting": "a",
+  "_id": "fvTwCHHZSVeAoJBM",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756498394699,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!fvTwCHHZSVeAoJBM"
+}

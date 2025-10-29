@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Divine",
+  "color": "#daa520",
+  "sorting": "a",
+  "_id": "bwfQeThLUeOYJQgx",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756498391165,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!bwfQeThLUeOYJQgx"
+}

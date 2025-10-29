@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Bhrunai",
+  "color": null,
+  "sorting": "a",
+  "_id": "pw27Nxwnov2D9eD1",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756501345736,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!pw27Nxwnov2D9eD1"
+}

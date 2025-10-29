@@ -1,0 +1,453 @@
+{
+  "name": "Game Rules",
+  "_id": "a72VcclL138RBoNr",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Role Playing and Roll Playing",
+      "type": "text",
+      "_id": "McvUnE2gRGiHVlOV",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": "<p>In the course of your game, you may resolve some situations through shared improvisation. Haggling with a merchant often does not require any rolls of the dice, and if a hero makes a persuasive argument for a discount, the MC might award it to them without any die rolls. At the same time, depending on the style of your table and the MC’s discretion, you might make a die roll to determine how successful you are at haggling. Neither approach is more correct than the other, and both approaches can be utilized multiple times in a single game session.</p>"
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761759629507,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.McvUnE2gRGiHVlOV"
+    },
+    {
+      "name": "Guiding Principles",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>There are a few general principles to keep in mind while playing MythCraft. Specific Beats General Whenever you run into rules that conflict with one another, defer to the most specific ruling. A talent or lineage ability should always supersede a general rule, and magical effects that last for a finite time override passive abilities. Always Round up In MythCraft, you always round up in the instance of fractional numbers. Overcoming DCs When making an attack or attribute check, you are successful if your roll equals or exceeds the Difficulty Class (DC). The DC might be a number set by the MC in the event of an ability check. In any kind of attack, the DC is the defending creature’s relevant defense Base, Cumulative, and Transformative When you see the word “base,” it means that this is the default instance of an ability. It might be modified by other abilities. Whenever you see “+” or “increase,” whether it is in reference to more damage, increased range, additional dice, or something else, the effect is cumulative, stacking on top of the base ability. If something says “now,” “is,” or “becomes,” then it is transformative, overriding any previous abilities, damage, range, and the like. Recharging Abilities Many abilities, especially those gained through talents, can only be used a finite number of times. You regain these abilities after you Catch your Breath, Recoup, or Take a Rest, as denoted by the ability. (2/Rest) means that you can use the ability twice, regaining the ability to do so after you Take a Rest. Similarly, (AWR/Recoup) means that you can use the ability a number of times equal to your Awareness (AWR) attribute, regaining all expended uses when you Recoup. If you have an ability that you can use a number of times equal to an attribute, you can always use that ability at least once, even if your corresponding attribute is 0 or a negative number. </p>"
+      },
+      "_id": "AyYTwneRwCuz4ExO",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 200000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.AyYTwneRwCuz4ExO",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760235165,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.AyYTwneRwCuz4ExO"
+    },
+    {
+      "name": "The Eight Attributes",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>Each of the attributes, and what they represent, are explained in this section. Each attribute is referred to with an abbreviation, listed in parentheses after the attribute. Physical Attributes Strength (STR): Lifting, pulling, dragging, and undergoing strenuous exertion. This is the attribute that demonstrates your sheer muscle. Dexterity (DEX): Nimbleness, good reflexes, maintaining balance, and motor function under duress. This is the attribute that allows you to be lighter on your feet. Endurance (END): Withstanding harsh external conditions and enduring long-term physical strain. This attribute also directly affects how many Hit Points (HP) you get. Mental Attributes Awareness (AWR): Picking up on sensory details that warn of danger, deceit, and the like. This is the attribute that measures your skill at observing and interpreting the world around you. Intellect (INT): Wealth of knowledge; your capacity to quickly consume and accurately retain information. This attribute determines how good you are at processing information and recalling it accurately when needed. Charisma (CHA): Projecting your desires, your confidence, and your force of will to your advantage. This attribute reflects your personal magnetism and your ability to sway people to your views. Metaphysical Attributes Luck (LUCK): Having things go your way even when they should not. This attribute sways fate in your favor and grants you a special ability, Luck Points. Luck Points. You may reroll 1d20 that you rolled if you are unsatisfied with the result. You may use this ability once for every 2 points of LUCK that you have, regaining all expended uses upon Taking a Rest. If your LUCK is lower than 0, you can never Critically Hit (crit), and you subtract your LUCK from every d20 roll that you make. If you have 1 or more LUCK, your crits become stronger. Add your LUCK score to critical damage that you deal. Furthermore, once you have 6 LUCK, your crit range increases by +1 (e.g., from 20 to 19-20, max 16-20), and if you have 12 LUCK, your crit range increases by an additional +1. Coordination (COR): Your overall ability, both physically and mentally, to process information and act upon it. This is neither DEX (physical) nor AWR (mental), but a separate mechanism by which the game tracks your capacity to act. All characters start with 3 Action Points (AP). For every 2 points of COR that you have, you gain +1 AP at the beginning of your turn. If you have -1 or -2 COR, you lose 1 AP at the beginning of your turn. If you have -3 COR, you lose 2 AP at the beginning of your turn. Note Your Stats Your DEX, END, AWR, INT, and CHA will affect some of your passive stats, including five of your six defenses and HP.</p>"
+      },
+      "_id": "rJzMcWt5XtqZI1GS",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 300000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.rJzMcWt5XtqZI1GS",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760317484,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.rJzMcWt5XtqZI1GS"
+    },
+    {
+      "name": "Skills",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p></p>"
+      },
+      "_id": "QsDIowvcQC553ZS6",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 400000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.QsDIowvcQC553ZS6",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760357171,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.QsDIowvcQC553ZS6"
+    },
+    {
+      "name": "Combat",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>Like many TTRPGs, the most intricate mechanics in MythCraft revolve around combat. Combat is resolved in a series of rounds. Each round consists of one turn per hero and one turn per creature. On a hero’s turn, they may spend a number of Action Points (AP) to perform any action available to them. On a creature’s turn, it may use a set of predetermined actions. Initiative To determine in what order the heroes and creatures take their turns, each hero and each creature rolls Initiative. This is 1d20 + their Awareness (AWR). The highest roll goes first, followed by the second-highest, and so forth. After the last participant takes their turn, combat enters the next round and the first goes again. Action Points Heroes track their capacity to perform different actions round by round using AP. Movement Move All adventurers start with a base speed of 20 ft. You can spend 1 AP to move up to your speed. This movement ends when you spend your next AP. If you have a climb, swim, fly, or burrow speed, that means that you can do those kinds of movements as well. If you combine movements (say you run, then fly over a trench, then keep running) – you use the largest movement number for your total movement (instead of adding them together), and cannot move more than your maximum speed in any specific type of movement. For example: If you have Speed 20, Swim 20, and Fly 30, then for 1 AP: You can run 10 ft, swim 10 ft, and fly 10 ft. You cannot swim 30 ft. If you do not have a climb speed or a swim speed, but wish to climb a surface or swim, it costs 2 ft of movement for every 1 ft that you actually move. If the surface might be challenging to climb, then your MC might also require you to make a STR check, and if you have the Athletics skill, you can add that bonus to checks of this nature. A climb speed automatically allows you to climb vertical surfaces, but not upside-down (such as ceilings). Difficult and Hazardous Terrain Difficult Terrain costs 2 ft of movement for every 1 ft that you actually move. Hazardous Terrain costs as much movement as Difficult Terrain, and will also specify an amount of damage that you take for every 5 ft actually moved. Jump While moving, you may need to jump. You cannot jump farther than you can move. Your vertical jump distance is 3 ft + a number of ft equal to your STR. Your horizontal jump distance is double your vertical jump distance. Moving Through Creatures You may move through an allied creature’s space, but this counts as Difficult Terrain. You may not end your turn in an allied creature’s space. You may not move through a hostile creature’s space unless that creature is Paralyzed, Restrained, Unconscious, or at least 3 Sizes larger than you. In that case, moving through a hostile creature’s space counts as Difficult Terrain. Attacking Weapon Attacks When a creature is in range, you may make an attack. To make an attack, you roll 1d20 and apply a modifier based on one of your attributes (usually STR or DEX). You compare your total modified roll to the target’s appropriate defense (usually their Armor Rating); if your attack equals or exceeds the target’s defense, then you hit them and they take some form of damage. If your attack roll is lower than the target’s defense, then your attack misses. Each weapon specifies how many AP it takes to make an attack with it. Some have set numbers of AP, and others have high APCs that you can lower through training. Examples: A dagger always costs 2 AP. A longsword costs 5-STR, min 2 AP; this means that it costs 5 AP to use a longsword, but you subtract your STR from that number, to a minimum of 2. A morningstar costs 5-STR min 3, but has the hand-and-a-half tag to reduce the APC by 1 (min 2); this means that if you are using the morningstar with 2 hands, you can attack more efficiently. Spells and Magic Spells will specify how many AP you need to use them. Spells also require you to expend SP; if you are out of SP, you cannot cast a spell. Cantrips, chants, and prayers specify how many AP you need to use them; they do not cost any SP, so they can be done as many times as you wish. Rituals and invocations take a significantly longer time to cast; each ritual or invocation will specify how long it takes to cast it. Combining Magical Effects Spells and magical effects of exactly the same name cannot stack on a target. The newer effect always replaces the older effect. Ranged Attacks in Melee If you make a ranged attack or thrown attack with a weapon, spell, or any other effect and a hostile creature is within 5 ft of you, you suffer 1 TD for each hostile creature within 5 ft of you. Tactical Advantage/Disadvantage Tactical Advantage (TA) and Tactical Disadvantage (TD) are situational bonuses and penalties that can accrue in combat. Each TA is a +1 bonus, and TD is a -1 penalty. TA and TD can accrue indefinitely. When you roll a d20, add all your sources of TA and TD together and add the sum to your roll. You might have several sources of TA and TD at once, so besure to account for all sources! You may also gain TA through clever implementation of conditions, such as attacking a Prone target. Your MC might also grant you TA for narrative reasons, such as having the high ground while dueling your corrupted apprentice.  </p>"
+      },
+      "_id": "X339MpUaSSzDj5gN",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 500000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.X339MpUaSSzDj5gN",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760392505,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.X339MpUaSSzDj5gN"
+    },
+    {
+      "name": "Damage",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>When you hit with an attack, you often deal damage. Dealing Damage When you hit with a weapon attack, magic attack, and the like, you often deal damage. Roll the amount of damage specified by your weapon, spell, etc.; the creature that you hit loses that many HP, subtracting it from their current HP. Weapons are unique in that they add one of your attributes to the amount of damage dealt. The attribute is specified by each weapon type. Your attack will also deal a specific type of damage. Unless otherwise stated, when resolving an attack that targets an area (such as a line or radius), you make a single attack and damage roll, applying the attack and damage to each target in the area. Damage Types There are eleven types of damage, divided across three categories: Physical Damage: blunt, sharp Elemental Damage: cold, corrosive, fire, lightning, toxic Energy Damage: necrotic, psychic, radiant, sonic. Critical Hits Sometimes, fate turns decisively in your favor or sways brutally against you. When you roll d20 and the number is a 20 before adding any modifiers, this is considered a critical hit (or a crit). Conversely, if you roll a 1 before adding any modifiers, this is a critical fail (or a crit fail). When making any attack, you automatically miss on a critical fail, even if you would have a high enough bonus to hit normally. Likewise, you automatically hit on a crit, regardless of the target’s defenses. If you crit with a weapon (including unarmed and natural weapons), you deal critical damage. When dealing critical damage, maximize the amount of damage that you would normally do (including any modifiers), and then roll your damage dice a second time. Furthermore, you add your LUCK score to your damage total when you deal critical damage. If you crit with a magical ability, you add your LUCK to your damage. Magic crits from the Arcane Source may have additional effects. Various abilities might let you expand your crit range. This means that you crit on a lower d20 roll, allowing you to crit more frequently. If you would normally crit on a roll of 20, and you have an ability that increases your crit range by +1, then you crit on a roll of 19-20. Note: No matter how many abilities you have that let you increase your crit range, your crit range can never be larger than 16-20. Massive Damage Sometimes, brutal amounts of damage can devastate you in a single strike. If you take enough damage that you would range negative HP equal to your max HP, you gain +4 Death Points. Shield HP Shield HP is a special type of HP that temporarily bolsters a creature. When you take damage, subtract that damage from your Shield HP first, then from your actual HP. You cannot benefit from multiple sources of Shield HP at once; if you would receive multiple sources of Shield HP or woul receive multiple instances of Shield HP from the same source, you can take whichever would give you more Shield HP. You lose all Shield HP when you Take a Rest. Resistances and Vulnerabilities Resist Some creatures have the ability to avoid or reduce specific types of damage. Resist adds the specified number to a creature’s defenses against that type of damage. When a creature with Resist X is attacked, and that attack would deal damage or impose a condition specified by the Resist feature or is made using a weapon type or magic source specified by the Resist feature, then the creature adds their Resist number to their defenses, making it less likely that they are hit. If an attack does multiple types of damage or would do damage and impose a condition, this could result in separate attack values. For example: A thresher moss has Resist Cold 3. If it is targeted by an ability that deals cold damage, then the thresher moss adds 3 to their relevant defense. If the thresher moss is targeted by an ability that would deal both cold damage and necrotic damage, then the thresher moss compares the attack roll against its defenses +3 to determine if it takes cold damage, and the attack roll unmodified against its defenses to determine if it takes necrotic damage. Resist is more powerful when it specifies a weapon type or a magic source, because if a creature Resists Primal then they apply their Resist to every attack roll that targets them if it is Primal Magic. When an attack misses a creature and would deal 1⁄2 damage on a miss, if the creature Resists that kind of damage, they take no damage instead of 1⁄2. Vulnerable A creature with Vulnerable X subtracts the specified number from their defenses against any attack roll that would deal that type of damage. Furthermore, when a creature attacks a Vulnerable creature with that type of damage, the attacking creature’s crit range is increased by the Vulnerable number. For example, if a skeleton is Vulnerable Blunt 2, then when Marcus attacks with his morningstar and deals blunt damage, he would crit on a roll of 18-20, instead of just 20. Vulnerable always supersedes Resist or Immune. For example, a creature that has Resist Fire 3 and Vulnerable Occult 1 still suffers the Vulnerable 1 penalty against fire damage from the Occult Source without gaining the Resist bonus. Vulnerable also always trumps DR and DT. No benefits are gained from DR or DT against a damage type to which the creature is Vulnerable. Immune If a creature is Immune to a damage type, disease, poison, or condition, they are not damaged or affected by it. Damage Reduction (DR) If a creature has Damage Reduction (DR) X, they subtract their DR number from all damage they take, unless they are Vulnerable to the type of damage that they are taking. If damage specifies that it ignores Resist, it also ignores DR. The DR number may be followed by a weapon tag, magic source, or damage type. This means that creature takes full damage from a weapon with that tag or damage type. For example, a creature with DR 5/Fire would take full damage from fire, and subtract 5 from all other sources of damage. A creature with DR 15/Silvered Weapons would take full damage from silvered weapons, and subtract 15 from all other damage. Damage Threshold (DT) Damage Threshold (DT) is a very rare defense that is typically seen on structures and vehicles. DT determines how much damage a creature must deal at once to deal any damage at all. For example, if a stone wall has DT 15, and a player deals 14 damage to it, it instead takes 0. If a player deals 16 damage, conversely, then the stone wall takes all 16 damage because its DT 15 was overcome. For the purposes of overcoming DT, “damage dealt at once” is determined by a single expenditure of AP. Each expenditure of AP for an attack is a new roll against DT; you cannot stack attacks to overcome DT. For example, a spell deals multiple damage sources, such as 2d8 fire damage and 2d8 blunt damage. Since that spell is one expenditure of AP, add them together to determine if it overcomes DT. A player makes two maul attacks against a stone wall on the same turn. Because these are two expenditures of AP, do not add the damage together from the two attacks to determine if they overcome DT.</p>"
+      },
+      "_id": "YGgE9eDEEvdcaJtj",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 600000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.YGgE9eDEEvdcaJtj",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760425139,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.YGgE9eDEEvdcaJtj"
+    },
+    {
+      "sort": 700000,
+      "name": "Tactical Advantage and Disadvantage",
+      "type": "text",
+      "_id": "Nq6pSAiQBMFxT679",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760469477,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.Nq6pSAiQBMFxT679"
+    },
+    {
+      "name": "Conditions",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>Conditions are effects that might be imposed during combat that work in your favor or against you. Some conditions are purely beneficial for you (such as Focused or Rallied), while others are solely detrimental to you (like Dazed or Frightened). Others can work for you or against you depending on how you utilize them (if you are Prone, you are harder to hit with ranged attacks but easier to hit with melee attacks).</p>"
+      },
+      "_id": "vmqq1QanxFvcIlly",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 800000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.vmqq1QanxFvcIlly",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760480250,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.vmqq1QanxFvcIlly"
+    },
+    {
+      "name": "Resting",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p></p>"
+      },
+      "_id": "xoLvV7SyV15mcSs1",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 900000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.xoLvV7SyV15mcSs1",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760491133,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.xoLvV7SyV15mcSs1"
+    },
+    {
+      "sort": 1000000,
+      "name": "Exploration",
+      "type": "text",
+      "_id": "MsXhzgmQH763xofR",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1,
+        "content": ""
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760500396,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.MsXhzgmQH763xofR"
+    },
+    {
+      "name": "Magic Items",
+      "type": "text",
+      "text": {
+        "format": 1,
+        "content": "<p>In Ancerra, some items are inherently magical and require some of the bearer’s Essence, or their life energy, to work. By default, an adventurer has 100 Essence Points. An adventurer cannot equip items whose sum Essence Point cost exceeds this limit.</p>"
+      },
+      "_id": "nlGwNMpzaobX9Vbr",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 1100000,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": "JournalEntry.TMniQT1JZ6FKp2PD.JournalEntryPage.nlGwNMpzaobX9Vbr",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760514914,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "_key": "!journal.pages!a72VcclL138RBoNr.nlGwNMpzaobX9Vbr"
+    }
+  ],
+  "folder": null,
+  "categories": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756500143126,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!journal!a72VcclL138RBoNr"
+}

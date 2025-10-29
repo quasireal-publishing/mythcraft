@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Oracle",
+  "color": "#5b791e",
+  "sorting": "a",
+  "_id": "wCIQQiRLA58agsJJ",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499561050,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!wCIQQiRLA58agsJJ"
+}

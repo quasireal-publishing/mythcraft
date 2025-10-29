@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Witch",
+  "color": "#304010",
+  "sorting": "a",
+  "_id": "EsXGS4ahJmlILxbs",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499755625,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!EsXGS4ahJmlILxbs"
+}

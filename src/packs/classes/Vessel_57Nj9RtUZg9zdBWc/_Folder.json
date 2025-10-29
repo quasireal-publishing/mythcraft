@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Vessel",
+  "color": "#3b4e13",
+  "sorting": "a",
+  "_id": "57Nj9RtUZg9zdBWc",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499751823,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!57Nj9RtUZg9zdBWc"
+}

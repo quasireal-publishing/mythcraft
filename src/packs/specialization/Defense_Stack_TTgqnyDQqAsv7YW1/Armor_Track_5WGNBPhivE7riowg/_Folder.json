@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "TTgqnyDQqAsv7YW1",
+  "name": "Armor Track",
+  "color": null,
+  "sorting": "a",
+  "_id": "5WGNBPhivE7riowg",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null,
+    "modifiedTime": null
+  },
+  "_key": "!folders!5WGNBPhivE7riowg"
+}

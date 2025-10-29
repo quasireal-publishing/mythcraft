@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Ranger",
+  "color": "#506a1a",
+  "sorting": "a",
+  "_id": "IpWQzNvOBFI8K3wU",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499740168,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!IpWQzNvOBFI8K3wU"
+}

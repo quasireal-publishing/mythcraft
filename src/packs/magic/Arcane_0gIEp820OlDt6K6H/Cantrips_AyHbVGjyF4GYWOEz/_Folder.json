@@ -1,0 +1,22 @@
+{
+  "type": "Item",
+  "folder": "0gIEp820OlDt6K6H",
+  "name": "Cantrips",
+  "color": null,
+  "sorting": "a",
+  "_id": "AyHbVGjyF4GYWOEz",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "lastModifiedBy": null,
+    "modifiedTime": null
+  },
+  "_key": "!folders!AyHbVGjyF4GYWOEz"
+}

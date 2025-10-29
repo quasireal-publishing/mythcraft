@@ -1,0 +1,139 @@
+{
+  "name": "Equipment",
+  "_id": "UhVEQPABtqk5rSCn",
+  "pages": [
+    {
+      "sort": 100000,
+      "name": "Weapons",
+      "type": "text",
+      "_id": "GhMO2xka9lT0b50O",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760708116,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!UhVEQPABtqk5rSCn.GhMO2xka9lT0b50O"
+    },
+    {
+      "sort": 200000,
+      "name": "Armor",
+      "type": "text",
+      "_id": "zS9TS4BU5rSvTmTX",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760714438,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!UhVEQPABtqk5rSCn.zS9TS4BU5rSvTmTX"
+    },
+    {
+      "sort": 300000,
+      "name": "Currency",
+      "type": "text",
+      "_id": "CGyBxxfVK4NSyFgw",
+      "system": {},
+      "title": {
+        "show": true,
+        "level": 1
+      },
+      "image": {},
+      "text": {
+        "format": 1
+      },
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "ownership": {
+        "default": -1,
+        "9xohpsq2hVYIXGuB": 3
+      },
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.350",
+        "systemId": "mythcraft",
+        "systemVersion": "DEVELOPMENT",
+        "createdTime": 1761760724992,
+        "modifiedTime": null,
+        "lastModifiedBy": null
+      },
+      "_key": "!journal.pages!UhVEQPABtqk5rSCn.CGyBxxfVK4NSyFgw"
+    }
+  ],
+  "folder": null,
+  "categories": [],
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.350",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1761760660842,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!journal!UhVEQPABtqk5rSCn"
+}

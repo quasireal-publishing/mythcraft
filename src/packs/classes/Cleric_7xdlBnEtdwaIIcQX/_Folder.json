@@ -1,0 +1,23 @@
+{
+  "type": "Item",
+  "folder": null,
+  "name": "Cleric",
+  "color": "#668721",
+  "sorting": "a",
+  "_id": "7xdlBnEtdwaIIcQX",
+  "description": "",
+  "sort": 0,
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.348",
+    "systemId": "mythcraft",
+    "systemVersion": "DEVELOPMENT",
+    "createdTime": 1756499556909,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!7xdlBnEtdwaIIcQX"
+}
