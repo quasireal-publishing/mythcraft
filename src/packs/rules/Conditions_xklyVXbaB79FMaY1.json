@@ -1,23 +1,24 @@
 {
-  "type": "Item",
+  "name": "Conditions",
+  "_id": "xklyVXbaB79FMaY1",
+  "pages": [],
   "folder": null,
-  "name": "Occult",
-  "color": "#4b0082",
-  "sorting": "a",
-  "_id": "fvTwCHHZSVeAoJBM",
-  "description": "",
+  "categories": [],
   "sort": 0,
+  "ownership": {
+    "default": 0
+  },
   "flags": {},
   "_stats": {
     "compendiumSource": null,
     "duplicateSource": null,
     "exportSource": null,
-    "coreVersion": "13.348",
+    "coreVersion": "13.350",
     "systemId": "mythcraft",
     "systemVersion": "DEVELOPMENT",
-    "createdTime": 1756498394699,
+    "createdTime": 1761765169301,
     "modifiedTime": null,
     "lastModifiedBy": null
   },
-  "_key": "!folders!fvTwCHHZSVeAoJBM"
+  "_key": "!journal!xklyVXbaB79FMaY1"
 }

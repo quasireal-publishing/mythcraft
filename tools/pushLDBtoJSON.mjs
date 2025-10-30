@@ -1,6 +1,5 @@
 import { extractPack } from "@foundryvtt/foundryvtt-cli";
 import { promises as fs } from "fs";
-import path from "path";
 
 const SYSTEM_ID = process.cwd();
 const yaml = false;
