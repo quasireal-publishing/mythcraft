@@ -946,6 +946,10 @@
           "Label": "Skill Specialization",
           "Hint": "Your character has a specialization in {specialization}. When making checks outside of this specialization, you may only add 1/2 or none of your skill bonus depending on your MC's ruling."
         },
+        "Attribute": {
+          "Label": "Attribute",
+          "Hint": "Alternative Attribute to use for this skill roll."
+        },
         "Flavor": {
           "Attribute": "{abbr} Check",
           "Skill": "{abbr} Check ({skill})"

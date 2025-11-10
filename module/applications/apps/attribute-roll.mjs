@@ -70,7 +70,7 @@ export default class AttributeRollDialog extends RollDialog {
 
     foundry.utils.mergeObject(this.options.context, formData);
 
-    this.render();
+    this.render({ window: { title: this.title } });
   }
 
   /* -------------------------------------------------- */
@@ -78,6 +78,8 @@ export default class AttributeRollDialog extends RollDialog {
   /** @inheritdoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+
+    context.attributeOptions = mythcraft.CONFIG.attributes.options;
 
     const skillInfo = mythcraft.CONFIG.skills.list[this.options.context.skill];
 

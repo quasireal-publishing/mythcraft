@@ -17,4 +17,15 @@
     <p class="hint">{{localize "MYTHCRAFT.Roll.AttributeRoll.Specialization.Hint" specialization=specialization.value}}</p>
   </div>
   {{/if}}
+  {{#if skill}}
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Roll.AttributeRoll.Attribute.Label"}}</label>
+    <div class="form-fields">
+      <select name="attribute">
+        {{selectOptions attributeOptions selected=attribute localize=true}}
+      </select>
+    </div>
+    <p class="hint">{{localize "MYTHCRAFT.Roll.AttributeRoll.Attribute.Hint"}}</p>
+  </div>
+  {{/if}}
 </section>

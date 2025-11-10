@@ -241,15 +241,18 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
    * @returns {ChatMessage}
    */
   async rollSkill(skill) {
-    const formula = `1d20 + @skills.${skill}.bonus + @situationalBonus`;
+    let formula = `1d20 + @skills.${skill}.bonus + @situationalBonus`;
     const attribute = mythcraft.CONFIG.skills.list[skill].attribute;
     const specialization = this.skills[skill]?.specialization ?? "";
     const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula, specialization } });
     if (!fd) throw new Error("Roll Dialog Cancelled");
+    if (fd.attribute !== attribute) {
+      formula += ` -@attributes.${attribute} + @attributes.${fd.attribute}`;
+    }
     const { situationalBonus, rollMode, specializationMultiplier } = fd;
     const rollData = this.parent.getRollData();
     rollData.situationalBonus = AttributeRoll.replaceFormulaData(situationalBonus, rollData) || 0;
-    const roll = new AttributeRoll(formula, rollData, { attribute, skill });
+    const roll = new AttributeRoll(formula, rollData, { attribute: fd.attribute, skill });
     if (Number.isNumeric(specializationMultiplier)) {
       roll.terms[2].number = Math.ceil(roll.terms[2].number * specializationMultiplier);
       roll.resetFormula();
