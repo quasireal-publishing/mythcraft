@@ -71,6 +71,19 @@
         &:last-child {
           margin-top: 1rem;
         }
+
+        .form-group {
+          flex: 0.7;
+          align-content: center;
+          gap: 0;
+          label {
+            text-align: center;
+          }
+          .form-fields {
+            justify-content: center;
+          }
+        }
+
         .attribute-group-label {
           flex: 0 0 20px;
           writing-mode: sideways-lr;

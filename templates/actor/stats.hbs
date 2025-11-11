@@ -58,6 +58,9 @@
     {{#each attributeInfo as |group|}}
     <div class="attribute-group flexrow">
       <span class="attribute-group-label">{{localize group.label}}</span>
+      {{#if (eq @key "meta")}}
+      {{formGroup @root.systemFields.lp.fields.value value=@root.system.lp.value classes="stacked slim"}}
+      {{/if}}
       {{#each group.list}}
       <fieldset class="attribute" data-attribute="{{field.name}}">
         <legend>
