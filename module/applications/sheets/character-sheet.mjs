@@ -95,6 +95,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareEquipmentTab(context, options) {
+    context.currencies = Object.entries(mythcraft.CONFIG.currencies).map(([key, { label, tooltip }]) => ({
+      label, tooltip,
+      value: this.actor.system.currency[key],
+      name: `system.currency.${key}`
+    }));
+
     context.armor = [];
 
     const sortedArmor = this.actor.itemTypes.armor.toSorted((a, b) => a.sort - b.sort);

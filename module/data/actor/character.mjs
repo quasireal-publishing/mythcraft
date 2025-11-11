@@ -28,6 +28,8 @@ export default class CharacterModel extends BaseActorModel {
       value: new fields.NumberField(requiredInteger({ min: 0, initial: 3 })),
     });
 
+    schema.currency = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 0 })));
+
     return schema;
   }
 

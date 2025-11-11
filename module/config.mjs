@@ -1531,6 +1531,25 @@ export const weapon = {
   },
 };
 
+export const currencies = {
+  sc: {
+    label: "MYTHCRAFT.Currency.sc.label",
+    tooltip: "MYTHCRAFT.Currency.sc.tooltip",
+  },
+  dc: {
+    label: "MYTHCRAFT.Currency.dc.label",
+    tooltip: "MYTHCRAFT.Currency.dc.tooltip",
+  },
+  a: {
+    label: "MYTHCRAFT.Currency.a.label",
+    tooltip: "MYTHCRAFT.Currency.a.tooltip",
+  },
+  q: {
+    label: "MYTHCRAFT.Currency.q.label",
+    tooltip: "MYTHCRAFT.Currency.q.tooltip",
+  },
+};
+
 /**
  * @typedef AdvancementType
  * @property {string} label                                                 Human-readable label.

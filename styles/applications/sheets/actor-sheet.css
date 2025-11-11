@@ -160,6 +160,11 @@
 
   [data-application-part="equipment"] {
     padding-top: 0.5rem;
+    .currency {
+      label, input {
+        text-align: right;
+      }
+    }
     .item-row, .item-row {
       .item-apc {
         padding-left: 40px;

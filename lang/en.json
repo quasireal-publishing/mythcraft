@@ -262,6 +262,9 @@
             "value": {
               "label": "Action Points"
             }
+          },
+          "currency": {
+            "label": "Currency"
           }
         }
       },
@@ -902,6 +905,24 @@
       "magicDarkvision": "Magical Darkvision",
       "tremorsense": "Tremorsense",
       "truesight": "Truesight"
+    },
+    "Currency": {
+      "a": {
+        "label": "a",
+        "tooltip": "Amber"
+      },
+      "dc": {
+        "label": "dc",
+        "tooltip": "Diamond Coins"
+      },
+      "q": {
+        "label": "q",
+        "tooltip": "Qorn"
+      },
+      "sc": {
+        "label": "sc",
+        "tooltip": "Silver Coins"
+      }
     },
     "Tags": {
       "Occupation": {

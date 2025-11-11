@@ -1,5 +1,13 @@
 {{! Equipment Tab }}
-<section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="equipment">
+<section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="equipment">
+  <fieldset class="currency">
+    <legend>{{localize systemFields.currency.label}}</legend>
+    <div class="form-group">
+      {{#each currencies}}
+      {{formGroup @root.systemFields.currency.element name=name value=value label=label dataset=(object tooltip=tooltip) localize=true}}
+      {{/each}}
+    </div>
+  </fieldset>
   <div class="item-header flexrow armor">
     <div class="item-name">{{localize "TYPES.Item.armor"}}</div>
     <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>

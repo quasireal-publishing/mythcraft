@@ -18,6 +18,12 @@
 ### Known Issues
 -->
 
+## 0.6.3
+
+- Added roll dialog option to skill rolls for an alternative attribute
+- Made adjustments to actor sheet layout
+- Added currency tracking to the equipment tab
+
 ## 0.6.2
 
 - Implemented handling for Instrument, Politics, and Religion
