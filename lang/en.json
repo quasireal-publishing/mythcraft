@@ -260,7 +260,12 @@
           },
           "ap": {
             "value": {
-              "label": "Action Points"
+              "label": "AP",
+              "tooltip": "Action Points"
+            },
+            "special": {
+              "label": "SAP",
+              "tooltip": "Special Action Points"
             }
           },
           "currency": {

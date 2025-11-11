@@ -18,7 +18,10 @@
   </div>
   <div class="header-right standard-form">
     {{#if (eq document.type "character")}}
-    {{formGroup systemFields.ap.fields.value value=system.ap.value classes="slim"}}
+    <div class="form-group">
+      {{formGroup systemFields.ap.fields.value value=system.ap.value dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.value.tooltip") classes="slim"}}
+      {{formGroup systemFields.ap.fields.special value=system.ap.special dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.special.tooltip") classes="slim"}}
+    </div>
     {{else if (eq document.type "npc")}}
     <div class="actor-source">
       {{document.system.source.label}}
