@@ -41,6 +41,7 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       sp: new fields.SchemaField({
         value: new fields.NumberField({ integer: true, min: 0 }),
         max: new fields.NumberField({ integer: true, min: 0 }),
+        attribute: new fields.StringField({ required: true, blank: false, initial: "int" }),
       }),
       attributes: new fields.SchemaField(this.defineAttributes()),
       defenses: new fields.SchemaField({

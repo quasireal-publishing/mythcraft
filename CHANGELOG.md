@@ -24,6 +24,7 @@
 - Made adjustments to actor sheet layout
 - Added currency tracking to the equipment tab
 - Added in support for spell tags
+- Added select for Magic Attribute on spells tab
 
 ## 0.6.2
 

@@ -97,7 +97,10 @@
             }
           },
           "sp": {
-            "label": "Spell Points"
+            "label": "Spell Points",
+            "attribute": {
+              "label": "Magic Attribute"
+            }
           },
           "attributes": {
             "label": "Attributes",
