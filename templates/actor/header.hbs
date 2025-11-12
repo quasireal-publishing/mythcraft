@@ -28,5 +28,8 @@
     </div>
     {{/if}}
     {{formGroup systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay classes="slim"}}
+    {{#if (eq document.type "character")}}
+    <span>{{system.classes}}</span>
+    {{/if}}
   </div>
 </header>

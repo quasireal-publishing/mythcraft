@@ -52,6 +52,49 @@ export default class CharacterModel extends BaseActorModel {
 
   /* -------------------------------------------------- */
 
+  /**
+   * A human readable list of this character's class levels.
+   * @type {string}
+   */
+  get classes() {
+    const labels = Object.entries(this.levels).map(([tag, level]) => {
+      const className = game.i18n.localize(
+        tag === "adventurer" ?
+          "MYTHCRAFT.Actor.character.adventurer" :
+          mythcraft.CONFIG.talents.tags[tag].label,
+      );
+
+      return `${className} ${level}`;
+    }).sort();
+
+    return game.i18n.getListFormatter({ type: "unit" }).format(labels);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    let totalClassLevels = 0;
+    this.levels = this.parent.itemTypes.talent.reduce((record, item) => {
+      for (const tag of item.system.tags) {
+        if (mythcraft.CONFIG.talents.tags[tag]?.isClass) {
+          record[tag] ??= 0;
+          record[tag] += 1;
+          totalClassLevels += 1;
+          break;
+        }
+      }
+      return record;
+    }, {});
+
+    const adventurerLevels = this.level - totalClassLevels;
+    if (adventurerLevels) this.levels.adventurer = adventurerLevels;
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   modifyRollData(rollData) {
     super.modifyRollData(rollData);

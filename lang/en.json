@@ -277,7 +277,8 @@
           "currency": {
             "label": "Currency"
           }
-        }
+        },
+        "adventurer": "Adventurer"
       },
       "npc": {
         "FIELDS": {

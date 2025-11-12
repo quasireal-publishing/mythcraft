@@ -1627,6 +1627,7 @@ export const spells = {
  * @typedef TalentTag
  * @property {string} label         The i18n string for the Tag.
  * @property {string} group         The i18n string for the tag group.
+ * @property {boolean} [isClass]    Is this a class talent?
  */
 
 /** @type {Record<string, TalentTag>} */
@@ -1643,6 +1644,7 @@ const talentTags = {
   berzerker: {
     label: "MYTHCRAFT.Item.talent.tags.berzerker",
     group: "MYTHCRAFT.Item.talent.tags.berzerker",
+    isClass: true,
   },
   exile: {
     label: "MYTHCRAFT.Item.talent.tags.exile",
@@ -1663,6 +1665,7 @@ const talentTags = {
   cleric: {
     label: "MYTHCRAFT.Item.talent.tags.cleric",
     group: "MYTHCRAFT.Item.talent.tags.cleric",
+    isClass: true,
   },
   exorcist: {
     label: "MYTHCRAFT.Item.talent.tags.exorcist",
@@ -1676,13 +1679,14 @@ const talentTags = {
     label: "MYTHCRAFT.Item.talent.tags.theologian",
     group: "MYTHCRAFT.Item.talent.tags.cleric",
   },
-  divineIcons: {
+  divineIconCleric: {
     label: "MYTHCRAFT.Item.talent.tags.divineIcons",
     group: "MYTHCRAFT.Item.talent.tags.cleric",
   },
   mage: {
     label: "MYTHCRAFT.Item.talent.tags.mage",
     group: "MYTHCRAFT.Item.talent.tags.mage",
+    isClass: true,
   },
   arcaneWeaving: {
     label: "MYTHCRAFT.Item.talent.tags.arcaneWeaving",
@@ -1703,6 +1707,7 @@ const talentTags = {
   oracle: {
     label: "MYTHCRAFT.Item.talent.tags.oracle",
     group: "MYTHCRAFT.Item.talent.tags.oracle",
+    isClass: true,
   },
   druid: {
     label: "MYTHCRAFT.Item.talent.tags.druid",
@@ -1723,6 +1728,7 @@ const talentTags = {
   pugilist: {
     label: "MYTHCRAFT.Item.talent.tags.pugilist",
     group: "MYTHCRAFT.Item.talent.tags.pugilist",
+    isClass: true,
   },
   constitute: {
     label: "MYTHCRAFT.Item.talent.tags.constitute",
@@ -1743,6 +1749,7 @@ const talentTags = {
   ranger: {
     label: "MYTHCRAFT.Item.talent.tags.ranger",
     group: "MYTHCRAFT.Item.talent.tags.ranger",
+    isClass: true,
   },
   bravery: {
     label: "MYTHCRAFT.Item.talent.tags.bravery",
@@ -1767,6 +1774,7 @@ const talentTags = {
   rogue: {
     label: "MYTHCRAFT.Item.talent.tags.rogue",
     group: "MYTHCRAFT.Item.talent.tags.rogue",
+    isClass: true,
   },
   con: {
     label: "MYTHCRAFT.Item.talent.tags.con",
@@ -1791,6 +1799,7 @@ const talentTags = {
   tinkerer: {
     label: "MYTHCRAFT.Item.talent.tags.tinkerer",
     group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+    isClass: true,
   },
   alchemist: {
     label: "MYTHCRAFT.Item.talent.tags.alchemist",
@@ -1811,6 +1820,7 @@ const talentTags = {
   troubadour: {
     label: "MYTHCRAFT.Item.talent.tags.troubadour",
     group: "MYTHCRAFT.Item.talent.tags.troubadour",
+    isClass: true,
   },
   encore: {
     label: "MYTHCRAFT.Item.talent.tags.encore",
@@ -1835,6 +1845,7 @@ const talentTags = {
   vessel: {
     label: "MYTHCRAFT.Item.talent.tags.vessel",
     group: "MYTHCRAFT.Item.talent.tags.vessel",
+    isClass: true,
   },
   antiessence: {
     label: "MYTHCRAFT.Item.talent.tags.antiessence",
@@ -1848,9 +1859,14 @@ const talentTags = {
     label: "MYTHCRAFT.Item.talent.tags.soulGraft",
     group: "MYTHCRAFT.Item.talent.tags.vessel",
   },
+  divineIconVessel: {
+    label: "MYTHCRAFT.Item.talent.tags.divineIcons",
+    group: "MYTHCRAFT.Item.talent.tags.vessel",
+  },
   warrior: {
     label: "MYTHCRAFT.Item.talent.tags.warrior",
     group: "MYTHCRAFT.Item.talent.tags.warrior",
+    isClass: true,
   },
   archeryWarrior: {
     label: "MYTHCRAFT.Item.talent.tags.archeryWarrior",
@@ -1871,6 +1887,7 @@ const talentTags = {
   witch: {
     label: "MYTHCRAFT.Item.talent.tags.witch",
     group: "MYTHCRAFT.Item.talent.tags.witch",
+    isClass: true,
   },
   darkHex: {
     label: "MYTHCRAFT.Item.talent.tags.darkHex",
@@ -1895,6 +1912,7 @@ const talentTags = {
   zealot: {
     label: "MYTHCRAFT.Item.talent.tags.zealot",
     group: "MYTHCRAFT.Item.talent.tags.zealot",
+    isClass: true,
   },
   aura: {
     label: "MYTHCRAFT.Item.talent.tags.aura",
