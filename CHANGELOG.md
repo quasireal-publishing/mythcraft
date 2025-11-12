@@ -23,6 +23,7 @@
 - Added roll dialog option to skill rolls for an alternative attribute
 - Made adjustments to actor sheet layout
 - Added currency tracking to the equipment tab
+- Added in support for spell tags
 
 ## 0.6.2
 

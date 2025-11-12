@@ -1472,10 +1472,177 @@ const spellSources = {
   },
 };
 
+/**
+ * @typedef SpellTag
+ * @property {string} label         An i18n label for the tag.
+ * @property {string} group         An i18n label for the group this tag is in.
+ * @property {string} [display]     An i18n label that takes the source {type} as a format string.
+ * @property {Set<string>} [sources]  Sources the tag is valid for. If the property is missing, it is valid for all sources.
+ */
+
+/**
+ * @type {Record<string, SpellTag>}
+ */
+const spellTags = {
+  cantrip: {
+    label: "MYTHCRAFT.Item.spell.tags.cantrip",
+    sources: new Set(["arcane"]),
+  },
+  prayer: {
+    label: "MYTHCRAFT.Item.spell.tags.prayer",
+    sources: new Set(["divine"]),
+  },
+  chant: {
+    label: "MYTHCRAFT.Item.spell.tags.chant",
+    sources: new Set(["occult", "primal"]),
+    display: "MYTHCRAFT.Item.spell.tags.chantLong",
+  },
+  invocation: {
+    label: "MYTHCRAFT.Item.spell.tags.invocation",
+    sources: new Set(["psionic"]),
+  },
+  ritual: {
+    label: "MYTHCRAFT.Item.spell.tags.ritual",
+    display: "MYTHCRAFT.Item.spell.tags.ritualLong",
+    sources: new Set(["arcane", "divine"]),
+  },
+  metamagic: {
+    label: "MYTHCRAFT.Item.spell.tags.metamagic",
+    sources: new Set(["arcane"]),
+  },
+  fundamental: {
+    label: "MYTHCRAFT.Item.spell.tags.fundamental",
+    sources: new Set(["arcane"]),
+  },
+  sacrament: {
+    label: "MYTHCRAFT.Item.spell.tags.sacrament",
+    sources: new Set(["divine"]),
+  },
+  curse: {
+    label: "MYTHCRAFT.Item.spell.tags.curse",
+    sources: new Set(["occult"]),
+  },
+  charm: {
+    label: "MYTHCRAFT.Item.spell.tags.charm",
+    sources: new Set(["occult"]),
+  },
+  incantation: {
+    label: "MYTHCRAFT.Item.spell.tags.incantation",
+    sources: new Set(["occult"]),
+  },
+  ritualize: {
+    label: "MYTHCRAFT.Item.spell.tags.ritualize",
+    sources: new Set(["occult"]),
+  },
+  darkPower: {
+    label: "MYTHCRAFT.Item.spell.tags.darkPower",
+    sources: new Set(["occult"]),
+  },
+  emotion: {
+    label: "MYTHCRAFT.Item.spell.tags.emotion",
+    sources: new Set(["primal"]),
+  },
+  nature: {
+    label: "MYTHCRAFT.Item.spell.tags.nature",
+    sources: new Set(["primal"]),
+  },
+  weather: {
+    label: "MYTHCRAFT.Item.spell.tags.weather",
+    sources: new Set(["primal"]),
+  },
+  extrinsic: {
+    label: "MYTHCRAFT.Item.spell.tags.extrinsic",
+    sources: new Set(["primal"]),
+  },
+  intrinsic: {
+    label: "MYTHCRAFT.Item.spell.tags.intrinsic",
+    sources: new Set(["primal"]),
+  },
+  concentration: {
+    label: "MYTHCRAFT.Item.spell.tags.concentration",
+    sources: new Set(["psionic"]),
+  },
+  manifestation: {
+    label: "MYTHCRAFT.Item.spell.tags.manifestation",
+    sources: new Set(["psionic"]),
+  },
+  meditation: {
+    label: "MYTHCRAFT.Item.spell.tags.meditation",
+    sources: new Set(["psionic"]),
+  },
+  alchemy: {
+    label: "MYTHCRAFT.Item.spell.tags.alchemy",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  altering: {
+    label: "MYTHCRAFT.Item.spell.tags.altering",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  divining: {
+    label: "MYTHCRAFT.Item.spell.tags.divining",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  enchanting: {
+    label: "MYTHCRAFT.Item.spell.tags.enchanting",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  evoking: {
+    label: "MYTHCRAFT.Item.spell.tags.evoking",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  illusory: {
+    label: "MYTHCRAFT.Item.spell.tags.illusory",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  necromancy: {
+    label: "MYTHCRAFT.Item.spell.tags.necromancy",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  summoning: {
+    label: "MYTHCRAFT.Item.spell.tags.summoning",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  warding: {
+    label: "MYTHCRAFT.Item.spell.tags.warding",
+    group: "MYTHCRAFT.Item.spell.tags.function",
+  },
+  clairsentience: {
+    label: "MYTHCRAFT.Item.spell.tags.clairsentience",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+  psychokinetics: {
+    label: "MYTHCRAFT.Item.spell.tags.psychokinetics",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+  metacreativity: {
+    label: "MYTHCRAFT.Item.spell.tags.metacreativity",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+  telepathy: {
+    label: "MYTHCRAFT.Item.spell.tags.telepathy",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+  psychometabolics: {
+    label: "MYTHCRAFT.Item.spell.tags.psychometabolics",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+  psychovillany: {
+    label: "MYTHCRAFT.Item.spell.tags.psychovillany",
+    group: "MYTHCRAFT.Item.spell.tags.aptitude",
+    sources: new Set(["psionic"]),
+  },
+};
+
 export const spells = {
   components: spellComponents,
   requirements: spellRequirements,
   sources: spellSources,
+  tags: spellTags,
 };
 
 /**

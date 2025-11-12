@@ -39,6 +39,8 @@ export default class SpellModel extends BaseItemModel {
       unit: new fields.StringField({ initial: "instant" }),
     });
 
+    schema.conjuring = new fields.NumberField({ required: true });
+
     return schema;
   }
 
@@ -60,6 +62,40 @@ export default class SpellModel extends BaseItemModel {
    */
   get magicSourceOptions() {
     return Object.entries(mythcraft.CONFIG.spells.sources).map(([value, { label }]) => ({ value, label }));
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Valid spell tags.
+   * @type {FormSelectOption[]}
+   */
+  get tagOptions() {
+    return Object.entries(mythcraft.CONFIG.spells.tags).reduce((options, [value, { label, group, sources }]) => {
+      if (!sources || (sources && sources.has(this.magicSource))) options.push({ value, label, group: game.i18n.localize(group) });
+      return options;
+    }, []);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The full list of tags as a human-readable string.
+   * @type {string}
+   */
+  get tagList() {
+    const magicSource = game.i18n.localize(mythcraft.CONFIG.spells.sources[this.magicSource]?.label);
+
+    const tags = this.tags.reduce((tagList, tag) => {
+      const tagInfo = mythcraft.CONFIG.spells.tags[tag];
+      if (tagInfo) {
+        if (tagInfo.display) tagList.push(game.i18n.format(tagInfo.display, { type: magicSource }));
+        else tagList.push(game.i18n.localize(tagInfo.label));
+      }
+      return tagList;
+    }, []);
+
+    return game.i18n.getListFormatter({ type: "unit" }).format(tags);
   }
 
   /* -------------------------------------------------- */
