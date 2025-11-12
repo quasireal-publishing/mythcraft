@@ -309,28 +309,6 @@ export const defenses = {
 };
 
 /**
- * @typedef ItemTag
- * @property {string} label         The i18n string for the Tag.
- * @property {string} reference     The uuid reference to the journal page for the tag.
- */
-
-/**
- * A list of item tags in MythCraft.
- * @type {Record<string, ItemTag>}
- */
-export const tags = {
-  repeatable: {
-    label: "MYTHCRAFT.Tags.repeatable",
-  },
-  entry: {
-    label: "MYTHCRAFT.Tags.entry",
-  },
-  capstone: {
-    label: "MYTHCRAFT.Tags.capstone",
-  },
-};
-
-/**
  * @typedef OccupationTag
  * @property {string} label The i18n string for the occupation tag.
  */
@@ -1646,6 +1624,380 @@ export const spells = {
 };
 
 /**
+ * @typedef TalentTag
+ * @property {string} label         The i18n string for the Tag.
+ * @property {string} group         The i18n string for the tag group.
+ */
+
+/** @type {Record<string, TalentTag>} */
+const talentTags = {
+  repeatable: {
+    label: "MYTHCRAFT.Tags.repeatable",
+  },
+  capstone: {
+    label: "MYTHCRAFT.Item.talent.tags.capstone",
+  },
+  entry: {
+    label: "MYTHCRAFT.Item.talent.tags.entry",
+  },
+  berzerker: {
+    label: "MYTHCRAFT.Item.talent.tags.berzerker",
+    group: "MYTHCRAFT.Item.talent.tags.berzerker",
+  },
+  exile: {
+    label: "MYTHCRAFT.Item.talent.tags.exile",
+    group: "MYTHCRAFT.Item.talent.tags.berzerker",
+  },
+  fearless: {
+    label: "MYTHCRAFT.Item.talent.tags.fearless",
+    group: "MYTHCRAFT.Item.talent.tags.berzerker",
+  },
+  juggernaut: {
+    label: "MYTHCRAFT.Item.talent.tags.juggernaut",
+    group: "MYTHCRAFT.Item.talent.tags.berzerker",
+  },
+  rage: {
+    label: "MYTHCRAFT.Item.talent.tags.rage",
+    group: "MYTHCRAFT.Item.talent.tags.berzerker",
+  },
+  cleric: {
+    label: "MYTHCRAFT.Item.talent.tags.cleric",
+    group: "MYTHCRAFT.Item.talent.tags.cleric",
+  },
+  exorcist: {
+    label: "MYTHCRAFT.Item.talent.tags.exorcist",
+    group: "MYTHCRAFT.Item.talent.tags.cleric",
+  },
+  piety: {
+    label: "MYTHCRAFT.Item.talent.tags.piety",
+    group: "MYTHCRAFT.Item.talent.tags.cleric",
+  },
+  theologian: {
+    label: "MYTHCRAFT.Item.talent.tags.theologian",
+    group: "MYTHCRAFT.Item.talent.tags.cleric",
+  },
+  divineIcons: {
+    label: "MYTHCRAFT.Item.talent.tags.divineIcons",
+    group: "MYTHCRAFT.Item.talent.tags.cleric",
+  },
+  mage: {
+    label: "MYTHCRAFT.Item.talent.tags.mage",
+    group: "MYTHCRAFT.Item.talent.tags.mage",
+  },
+  arcaneWeaving: {
+    label: "MYTHCRAFT.Item.talent.tags.arcaneWeaving",
+    group: "MYTHCRAFT.Item.talent.tags.mage",
+  },
+  archmage: {
+    label: "MYTHCRAFT.Item.talent.tags.archmage",
+    group: "MYTHCRAFT.Item.talent.tags.mage",
+  },
+  sorcery: {
+    label: "MYTHCRAFT.Item.talent.tags.sorcery",
+    group: "MYTHCRAFT.Item.talent.tags.mage",
+  },
+  tomeWizard: {
+    label: "MYTHCRAFT.Item.talent.tags.tomeWizard",
+    group: "MYTHCRAFT.Item.talent.tags.mage",
+  },
+  oracle: {
+    label: "MYTHCRAFT.Item.talent.tags.oracle",
+    group: "MYTHCRAFT.Item.talent.tags.oracle",
+  },
+  druid: {
+    label: "MYTHCRAFT.Item.talent.tags.druid",
+    group: "MYTHCRAFT.Item.talent.tags.oracle",
+  },
+  elementalist: {
+    label: "MYTHCRAFT.Item.talent.tags.elementalist",
+    group: "MYTHCRAFT.Item.talent.tags.oracle",
+  },
+  fate: {
+    label: "MYTHCRAFT.Item.talent.tags.fate",
+    group: "MYTHCRAFT.Item.talent.tags.oracle",
+  },
+  guide: {
+    label: "MYTHCRAFT.Item.talent.tags.guide",
+    group: "MYTHCRAFT.Item.talent.tags.oracle",
+  },
+  pugilist: {
+    label: "MYTHCRAFT.Item.talent.tags.pugilist",
+    group: "MYTHCRAFT.Item.talent.tags.pugilist",
+  },
+  constitute: {
+    label: "MYTHCRAFT.Item.talent.tags.constitute",
+    group: "MYTHCRAFT.Item.talent.tags.pugilist",
+  },
+  martialArts: {
+    label: "MYTHCRAFT.Item.talent.tags.martialArts",
+    group: "MYTHCRAFT.Item.talent.tags.pugilist",
+  },
+  pummeling: {
+    label: "MYTHCRAFT.Item.talent.tags.pummeling",
+    group: "MYTHCRAFT.Item.talent.tags.pugilist",
+  },
+  wrestling: {
+    label: "MYTHCRAFT.Item.talent.tags.wrestling",
+    group: "MYTHCRAFT.Item.talent.tags.pugilist",
+  },
+  ranger: {
+    label: "MYTHCRAFT.Item.talent.tags.ranger",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  bravery: {
+    label: "MYTHCRAFT.Item.talent.tags.bravery",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  hunter: {
+    label: "MYTHCRAFT.Item.talent.tags.hunter",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  instinct: {
+    label: "MYTHCRAFT.Item.talent.tags.instinct",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  survivor: {
+    label: "MYTHCRAFT.Item.talent.tags.survivor",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  wildernessWarden: {
+    label: "MYTHCRAFT.Item.talent.tags.wildernessWarden",
+    group: "MYTHCRAFT.Item.talent.tags.ranger",
+  },
+  rogue: {
+    label: "MYTHCRAFT.Item.talent.tags.rogue",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  con: {
+    label: "MYTHCRAFT.Item.talent.tags.con",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  guildAffiliate: {
+    label: "MYTHCRAFT.Item.talent.tags.guildAffiliate",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  psyblade: {
+    label: "MYTHCRAFT.Item.talent.tags.psyblade",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  subtlety: {
+    label: "MYTHCRAFT.Item.talent.tags.subtlety",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  stealthArcher: {
+    label: "MYTHCRAFT.Item.talent.tags.stealthArcher",
+    group: "MYTHCRAFT.Item.talent.tags.rogue",
+  },
+  tinkerer: {
+    label: "MYTHCRAFT.Item.talent.tags.tinkerer",
+    group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+  },
+  alchemist: {
+    label: "MYTHCRAFT.Item.talent.tags.alchemist",
+    group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+  },
+  augmentor: {
+    label: "MYTHCRAFT.Item.talent.tags.augmentor",
+    group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+  },
+  inventor: {
+    label: "MYTHCRAFT.Item.talent.tags.inventor",
+    group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+  },
+  magitechnician: {
+    label: "MYTHCRAFT.Item.talent.tags.magitechnician",
+    group: "MYTHCRAFT.Item.talent.tags.tinkerer",
+  },
+  troubadour: {
+    label: "MYTHCRAFT.Item.talent.tags.troubadour",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  encore: {
+    label: "MYTHCRAFT.Item.talent.tags.encore",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  jester: {
+    label: "MYTHCRAFT.Item.talent.tags.jester",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  legendKeeper: {
+    label: "MYTHCRAFT.Item.talent.tags.legendKeeper",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  lorist: {
+    label: "MYTHCRAFT.Item.talent.tags.lorist",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  lyricist: {
+    label: "MYTHCRAFT.Item.talent.tags.lyricist",
+    group: "MYTHCRAFT.Item.talent.tags.troubadour",
+  },
+  vessel: {
+    label: "MYTHCRAFT.Item.talent.tags.vessel",
+    group: "MYTHCRAFT.Item.talent.tags.vessel",
+  },
+  antiessence: {
+    label: "MYTHCRAFT.Item.talent.tags.antiessence",
+    group: "MYTHCRAFT.Item.talent.tags.vessel",
+  },
+  planarThievery: {
+    label: "MYTHCRAFT.Item.talent.tags.planarThievery",
+    group: "MYTHCRAFT.Item.talent.tags.vessel",
+  },
+  soulGraft: {
+    label: "MYTHCRAFT.Item.talent.tags.soulGraft",
+    group: "MYTHCRAFT.Item.talent.tags.vessel",
+  },
+  warrior: {
+    label: "MYTHCRAFT.Item.talent.tags.warrior",
+    group: "MYTHCRAFT.Item.talent.tags.warrior",
+  },
+  archeryWarrior: {
+    label: "MYTHCRAFT.Item.talent.tags.archeryWarrior",
+    group: "MYTHCRAFT.Item.talent.tags.warrior",
+  },
+  commander: {
+    label: "MYTHCRAFT.Item.talent.tags.commander",
+    group: "MYTHCRAFT.Item.talent.tags.warrior",
+  },
+  protection: {
+    label: "MYTHCRAFT.Item.talent.tags.protection",
+    group: "MYTHCRAFT.Item.talent.tags.warrior",
+  },
+  soldier: {
+    label: "MYTHCRAFT.Item.talent.tags.soldier",
+    group: "MYTHCRAFT.Item.talent.tags.warrior",
+  },
+  witch: {
+    label: "MYTHCRAFT.Item.talent.tags.witch",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  darkHex: {
+    label: "MYTHCRAFT.Item.talent.tags.darkHex",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  fae: {
+    label: "MYTHCRAFT.Item.talent.tags.fae",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  familiar: {
+    label: "MYTHCRAFT.Item.talent.tags.familiar",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  paganAttunement: {
+    label: "MYTHCRAFT.Item.talent.tags.paganAttunement",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  witchBrew: {
+    label: "MYTHCRAFT.Item.talent.tags.witchBrew",
+    group: "MYTHCRAFT.Item.talent.tags.witch",
+  },
+  zealot: {
+    label: "MYTHCRAFT.Item.talent.tags.zealot",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  aura: {
+    label: "MYTHCRAFT.Item.talent.tags.aura",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  auraEnhancements: {
+    label: "MYTHCRAFT.Item.talent.tags.auraEnhancements",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  cavalier: {
+    label: "MYTHCRAFT.Item.talent.tags.cavalier",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  consecratedBlade: {
+    label: "MYTHCRAFT.Item.talent.tags.consecratedBlade",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  crusader: {
+    label: "MYTHCRAFT.Item.talent.tags.crusader",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  holyCause: {
+    label: "MYTHCRAFT.Item.talent.tags.holyCause",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  reputation: {
+    label: "MYTHCRAFT.Item.talent.tags.reputation",
+    group: "MYTHCRAFT.Item.talent.tags.zealot",
+  },
+  combat: {
+    label: "MYTHCRAFT.Item.talent.tags.combat",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  archery: {
+    label: "MYTHCRAFT.Item.talent.tags.archery",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  crit: {
+    label: "MYTHCRAFT.Item.talent.tags.crit",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  twoWeaponFighting: {
+    label: "MYTHCRAFT.Item.talent.tags.twoWeaponFighting",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  oneHandedFighting: {
+    label: "MYTHCRAFT.Item.talent.tags.oneHandedFighting",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  twoHandedFighting: {
+    label: "MYTHCRAFT.Item.talent.tags.twoHandedFighting",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  weapon: {
+    label: "MYTHCRAFT.Item.talent.tags.weapon",
+    group: "MYTHCRAFT.Item.talent.tags.combat",
+  },
+  command: {
+    label: "MYTHCRAFT.Item.talent.tags.command",
+    group: "MYTHCRAFT.Item.talent.tags.command",
+  },
+  social: {
+    label: "MYTHCRAFT.Item.talent.tags.social",
+    group: "MYTHCRAFT.Item.talent.tags.command",
+  },
+  defense: {
+    label: "MYTHCRAFT.Item.talent.tags.defense",
+    group: "MYTHCRAFT.Item.talent.tags.defense",
+  },
+  armor: {
+    label: "MYTHCRAFT.Item.talent.tags.armor",
+    group: "MYTHCRAFT.Item.talent.tags.defense",
+  },
+  defensiveManeuver: {
+    label: "MYTHCRAFT.Item.talent.tags.defensiveManeuver",
+    group: "MYTHCRAFT.Item.talent.tags.defense",
+  },
+  shield: {
+    label: "MYTHCRAFT.Item.talent.tags.shield",
+    group: "MYTHCRAFT.Item.talent.tags.defense",
+  },
+  misc: {
+    label: "MYTHCRAFT.Item.talent.tags.misc",
+    group: "MYTHCRAFT.Item.talent.tags.misc",
+  },
+  primalAspect: {
+    label: "MYTHCRAFT.Item.talent.tags.primalAspect",
+    group: "MYTHCRAFT.Item.talent.tags.misc",
+  },
+  skill: {
+    label: "MYTHCRAFT.Item.talent.tags.skill",
+  },
+};
+
+export const talents = {
+  tags: talentTags,
+  /** @type {FormSelectOption[]} */
+  get tagOptions() {
+    return Object.entries(talentTags).map(([value, { label, group }]) => ({ value, label, group: game.i18n.localize(group) }));
+  },
+};
+
+/**
  * @typedef WeaponTag
  * @property {string} label
  * @property {string} reference
@@ -1693,6 +2045,7 @@ const weaponTags = {
 
 export const weapon = {
   tags: weaponTags,
+  /** @type {FormSelectOption[]} */
   get tagOptions() {
     return Object.entries(weaponTags).map(([value, { label }]) => ({ value, label }));
   },
