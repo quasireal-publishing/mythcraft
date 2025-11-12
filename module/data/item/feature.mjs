@@ -37,6 +37,16 @@ export default class FeatureModel extends AdvancementModel {
   /* -------------------------------------------------- */
 
   /**
+   * The localized label for the category.
+   * @type {string}
+   */
+  get categoryLabel() {
+    return game.i18n.localize(this.schema.fields.category.choices[this.category]);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Display the tier information for this feature?
    * @type {boolean}
    */

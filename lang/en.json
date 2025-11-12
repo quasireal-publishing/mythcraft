@@ -690,7 +690,14 @@
           },
           "incompatibilities": {
             "label": "Incompatibilities"
+          },
+          "category": {
+            "label": "Category"
           }
+        },
+        "actions": {
+          "action": "Action",
+          "reaction": "Reaction"
         },
         "tags": {
           "capstone": "Capstone",

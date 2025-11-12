@@ -1989,11 +1989,31 @@ const talentTags = {
   },
 };
 
+/**
+ * @typedef TalentAction
+ * @property {string} label   The i18n string for the category.
+ */
+
+/** @type {Record<string, TalentAction>} */
+const talentActions = {
+  action: {
+    label: "MYTHCRAFT.Item.talent.actions.action",
+  },
+  reaction: {
+    label: "MYTHCRAFT.Item.talent.actions.reaction",
+  },
+};
+
 export const talents = {
   tags: talentTags,
   /** @type {FormSelectOption[]} */
   get tagOptions() {
     return Object.entries(talentTags).map(([value, { label, group }]) => ({ value, label, group: game.i18n.localize(group) }));
+  },
+  actions: talentActions,
+  /** @type {FormSelectOption[]} */
+  get actionOptions() {
+    return Object.entries(talentActions).map(([value, { label }]) => ({ value, label }));
   },
 };
 

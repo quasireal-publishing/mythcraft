@@ -21,7 +21,19 @@ export default class TalentModel extends AdvancementModel {
 
     schema.incompatibilities = new fields.StringField({ required: true });
 
+    schema.category = new fields.StringField({ required: true });
+
     return schema;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The localized label for the action.
+   * @type {string}
+   */
+  get actionLabel() {
+    return game.i18n.localize(mythcraft.CONFIG.talents.actions[this.category]?.label ?? "");
   }
 
   /* -------------------------------------------------- */

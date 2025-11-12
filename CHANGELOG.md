@@ -25,6 +25,7 @@
 - Added currency tracking to the equipment tab
 - Added in support for spell & talent tags
 - Added select for Magic Attribute on spells tab
+- Implemented action categories for talents to help distinguish active vs. reactive
 
 ## 0.6.2
 
