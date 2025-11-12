@@ -22,6 +22,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       rollAttribute: this.#rollAttribute,
       rollSkill: this.#rollSkill,
       addAbsorb: this.#addAbsorb,
+      rollMagic: this.#rollMagic,
       removeAbsorb: this.#removeAbsorb,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
@@ -563,6 +564,19 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static async #removeAbsorb(event, target) {
     const type = target.dataset.type;
     this.document.update({ [`system.damage.-=${type}`]: null });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Make an attribute roll with the actor's magic attribute.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollMagic(event, target) {
+    this.actor.system.rollAttribute(this.actor.system.sp.attribute);
   }
 
   /* -------------------------------------------------- */

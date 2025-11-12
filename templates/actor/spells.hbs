@@ -8,7 +8,13 @@
         {{formInput systemFields.sp.fields.max value=system.sp.max disabled=isPlay}}
       </div>
     </div>
-    {{formGroup systemFields.sp.fields.attribute value=system.sp.attribute classes="slim" options=config.attributes.options localize=true disabled=isPlay}}
+    <div class="form-group slim">
+      <label>{{systemFields.sp.fields.attribute.label}}</label>
+      <div class="form-fields">
+        {{formInput systemFields.sp.fields.attribute value=system.sp.attribute options=config.attributes.options localize=true disabled=isPlay}}
+        <button type="button" data-action="rollMagic" class="icon fa-solid fa-dice-d20"></button>
+      </div>
+    </div>
   </div>
   <div>
     <div class="item-header flexrow">
