@@ -72,7 +72,8 @@ export default class BaseItemModel extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   async _preCreate(data, options, user) {
-    if (!this._mcid) this.updateSource({ _mcid: data.name.slugify({ strict: true }) });
+    const defaultName = game.i18n.localize(CONFIG.Item.typeLabels[data.type]);
+    if (!this._mcid && !data.name.startsWith(defaultName)) this.updateSource({ _mcid: data.name.slugify({ strict: true }) });
   }
 
   /** @inheritdoc */
