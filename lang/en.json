@@ -271,6 +271,9 @@
               "tooltip": "Special Action Points"
             }
           },
+          "powerLevel": {
+            "label": "Power Level"
+          },
           "currency": {
             "label": "Currency"
           }

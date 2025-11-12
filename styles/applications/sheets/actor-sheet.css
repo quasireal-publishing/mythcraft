@@ -163,13 +163,8 @@
     }
   }
 
-  [data-application-part="spells"] {
-    .attributes {
-      margin: 0.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+  /* [data-application-part="spells"] {
+  } */
 
   [data-application-part="equipment"] {
     padding-top: 0.5rem;

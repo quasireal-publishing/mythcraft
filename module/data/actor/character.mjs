@@ -26,8 +26,10 @@ export default class CharacterModel extends BaseActorModel {
     });
     schema.ap = new fields.SchemaField({
       value: new fields.NumberField(requiredInteger({ min: 0, initial: 3 })),
-      special: new fields.NumberField(requiredInteger({ min: 0, initial: 0 }))
+      special: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
     });
+
+    schema.powerLevel = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 0 })));
 
     schema.currency = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 0 })));
 

@@ -89,6 +89,22 @@ export default class CharacterSheet extends MythCraftActorSheet {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  async _prepareSpellsTab(context, options) {
+    await super._prepareSpellsTab(context, options);
+
+    context.magicLevels = Object.entries(mythcraft.CONFIG.spells.sources).reduce((magic, [key, sourceInfo]) => {
+      magic.push({
+        name: `system.powerLevel.${key}`,
+        value: this.actor.system.powerLevel[key],
+        label: sourceInfo.label,
+      });
+      return magic;
+    }, []);
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * Mutate the context for the equipment tab.
    * @param {object} context
@@ -98,7 +114,7 @@ export default class CharacterSheet extends MythCraftActorSheet {
     context.currencies = Object.entries(mythcraft.CONFIG.currencies).map(([key, { label, tooltip }]) => ({
       label, tooltip,
       value: this.actor.system.currency[key],
-      name: `system.currency.${key}`
+      name: `system.currency.${key}`,
     }));
 
     context.armor = [];
