@@ -42,7 +42,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
    */
   static defineRequirements() {
     return {
-      level: new NumberField({ min: 1, integer: true, max: 10, required: true }),
+      level: new NumberField({ min: 1, integer: true, required: true }),
     };
   }
 

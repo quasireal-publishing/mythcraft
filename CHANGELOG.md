@@ -18,6 +18,10 @@
 ### Known Issues
 -->
 
+## 0.6.4
+
+- Removed level cap in advancements
+
 ## 0.6.3
 
 - Added roll dialog option to skill rolls for an alternative attribute

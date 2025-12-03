@@ -132,7 +132,8 @@ export default class CharacterModel extends BaseActorModel {
     const newLevel = foundry.utils.getProperty(changes, "system.level");
     if ((newLevel !== undefined) && (newLevel > this.level)) {
       options.mythcraft ??= {};
-      options.mythcraft.levels = { start: this.level, end: newLevel };
+      // Need to not re-trigger current level
+      options.mythcraft.levels = { start: this.level + 1, end: newLevel };
     }
   }
 
