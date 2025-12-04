@@ -21,6 +21,8 @@
 ## 0.6.4
 
 - Removed level cap in advancements
+- Fixed bug where current level advancements would re-apply.
+- Added display for max AP on character sheets
 
 ## 0.6.3
 

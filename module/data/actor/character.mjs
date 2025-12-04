@@ -96,6 +96,15 @@ export default class CharacterModel extends BaseActorModel {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    this.ap.max = 3 + Math.ceil(this.attributes.cor / 2);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   modifyRollData(rollData) {
     super.modifyRollData(rollData);
     rollData.LUCK = this.attributes.luck;

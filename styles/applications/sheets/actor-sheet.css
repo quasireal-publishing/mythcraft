@@ -12,27 +12,33 @@
       max-width: 100px;
       flex: 0 0 100px;
     }
-    input[name="name"] {
-      height: var(--font-h1-size);
-      line-height: var(--font-h1-size);
-      font-size: var(--font-h2-size);
-    }
     .header-center {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      input[name="name"] {
+        height: var(--font-h1-size);
+        line-height: var(--font-h1-size);
+        font-size: var(--font-h2-size);
+      }
     }
     .header-right {
       flex: 0 0 200px;
       padding-left: 1rem;
-    }
-    .actor-source {
-      margin-top: 5px;
-      font-family: var(--font-h4);
-      font-size: var(--font-size-20);
-      flex-grow: 0.8;
-      align-items: start;
-      text-align: center;
+      .action-points {
+        gap: 0.25rem;
+        .max-ap {
+          flex: 0.5;
+        }
+      }
+      .actor-source {
+        margin-top: 5px;
+        font-family: var(--font-h4);
+        font-size: var(--font-size-20);
+        flex-grow: 0.8;
+        align-items: start;
+        text-align: center;
+      }
     }
   }
   [data-application-part="stats"] {
