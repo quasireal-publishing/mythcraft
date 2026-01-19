@@ -1,5 +1,5 @@
 {{! Talents Tab }}
-<section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="talents">
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="talents">
   <div class="item-header flexrow">
     <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
     <div class="item-action">{{localize "MYTHCRAFT.Item.feature.FIELDS.category.label"}}</div>
@@ -27,7 +27,11 @@
         <div class="item-action">{{item.system.categoryLabel}}</div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">
@@ -41,13 +45,7 @@
     <div class="item-action">{{localize "MYTHCRAFT.Item.talent.FIELDS.category.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="talent"
-      >
+      <button type="button" class="item-create" data-action="createDoc" data-document-class="Item" data-type="talent">
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.talent")}}
       </button>
@@ -63,7 +61,11 @@
         <div class="item-action">{{item.system.actionLabel}}</div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">

@@ -1,17 +1,33 @@
-<section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
+<section class="tab {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
   <div class="core-stats flexrow">
     <fieldset class="hit-points">
       <legend>{{systemFields.hp.label}}</legend>
       {{formGroup systemFields.hp.fields.value value=systemSource.hp.value classes="stacked slim"}}
       {{formGroup systemFields.hp.fields.shield value=systemSource.hp.shield classes="stacked slim"}}
-      {{formGroup systemFields.hp.fields.max value=(ifThen isPlay system.hp.max systemSource.hp.max) disabled=isPlay classes="stacked slim"}}
+      {{formGroup
+      systemFields.hp.fields.max
+      value=(ifThen isPlay system.hp.max systemSource.hp.max)
+      disabled=isPlay
+      classes="stacked slim"
+      }}
     </fieldset>
-    {{formGroup systemFields.defenses.fields.ar value=(ifThen isPlay system.defenses.ar systemSource.defenses.ar) hint="" classes="stacked slim" disabled=isPlay}}
+    {{formGroup
+    systemFields.defenses.fields.ar
+    value=(ifThen isPlay system.defenses.ar systemSource.defenses.ar)
+    hint=""
+    classes="stacked slim"
+    disabled=isPlay
+    }}
     {{#if (or system.death.max (not isPlay))}}
     <fieldset class="death-points">
       <legend>{{systemFields.death.label}}</legend>
       {{formGroup systemFields.death.fields.value value=systemSource.death.value classes="stacked slim"}}
-      {{formGroup systemFields.death.fields.max value=(ifThen isPlay system.death.max systemSource.death.max) disabled=isPlay classes="stacked slim"}}
+      {{formGroup
+      systemFields.death.fields.max
+      value=(ifThen isPlay system.death.max systemSource.death.max)
+      disabled=isPlay
+      classes="stacked slim"
+      }}
     </fieldset>
     {{/if}}
   </div>
@@ -47,7 +63,12 @@
         <label>{{label}}</label>
         <div class="form-fields">
           {{formInput field value=value name=name}}
-          <button type="button" class="icon fa-solid fa-minus" data-action="removeSense" data-sense="{{key}}"></button>
+          <button
+            type="button"
+            class="icon fa-solid fa-minus"
+            data-action="removeSense"
+            data-sense="{{key}}"
+          ></button>
         </div>
       </div>
       {{/each}}
@@ -101,8 +122,16 @@
   </div>
   <fieldset class="conditions">
     <legend>{{systemFields.conditions.label}}</legend>
-    {{formGroup systemFields.conditions.fields.bleeding value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding) disabled=isPlay}}
-    {{formGroup systemFields.conditions.fields.burning value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning) disabled=isPlay}}
+    {{formGroup
+    systemFields.conditions.fields.bleeding
+    value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding)
+    disabled=isPlay
+    }}
+    {{formGroup
+    systemFields.conditions.fields.burning
+    value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning)
+    disabled=isPlay
+    }}
   </fieldset>
   <fieldset class="damage-modification">
     <legend>{{systemFields.damage.label}}</legend>
@@ -140,8 +169,16 @@
     {{formGroup systemFields.damage.fields.vulnerable value=system.damage.vulnerable disabled=isPlay}}
     <div class="form-group">
       <label>{{systemFields.damage.fields.reduction.label}}</label>
-      {{formGroup systemFields.damage.fields.reduction.fields.value value=system.damage.reduction.value disabled=isPlay}}
-      {{formGroup systemFields.damage.fields.reduction.fields.bypasses value=system.damage.reduction.bypasses disabled=isPlay}}
+      {{formGroup
+      systemFields.damage.fields.reduction.fields.value
+      value=system.damage.reduction.value
+      disabled=isPlay
+      }}
+      {{formGroup
+      systemFields.damage.fields.reduction.fields.bypasses
+      value=system.damage.reduction.bypasses
+      disabled=isPlay
+      }}
     </div>
     {{formGroup systemFields.damage.fields.threshold value=system.damage.threshold disabled=isPlay}}
     {{/if}}

@@ -1,10 +1,31 @@
 .mythcraft {
+  section.tab {
+    overflow: auto;
+    --scroll-margin: 0.75rem;
+    margin-right: calc(-1 * var(--scroll-margin));
+    padding-right: var(--scroll-margin);
+    scrollbar-gutter: stable;
+
+    &.standard-form {
+      padding-top: 0.5rem;
+    }
+
+    > nav.tabs {
+      border-top-color: var(--color-fieldset-border);
+      border-bottom-color: var(--color-fieldset-border);
+      border-style: groove none;
+      border-width: 2px;
+      margin: 0 1rem;
+    }
+  }
+
   dl {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
     margin: 10px 0px;
-    dt, dd {
+    dt,
+    dd {
       margin: 0;
       color: inherit;
     }

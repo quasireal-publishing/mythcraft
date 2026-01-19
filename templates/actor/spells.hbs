@@ -1,5 +1,5 @@
 {{! Spells Tab }}
-<section class="tab scrollable standard-form {{tab.cssClass}}" data-group="primary" data-tab="spells">
+<section class="tab standard-form {{tab.cssClass}}" data-group="primary" data-tab="spells">
   <div class="form-group">
     <div class="form-group slim">
       <label>{{systemFields.sp.label}}</label>
@@ -11,7 +11,13 @@
     <div class="form-group slim">
       <label>{{systemFields.sp.fields.attribute.label}}</label>
       <div class="form-fields">
-        {{formInput systemFields.sp.fields.attribute value=system.sp.attribute options=config.attributes.options localize=true disabled=isPlay}}
+        {{formInput
+        systemFields.sp.fields.attribute
+        value=system.sp.attribute
+        options=config.attributes.options
+        localize=true
+        disabled=isPlay
+        }}
         <button type="button" data-action="rollMagic" class="icon fa-solid fa-dice-d20"></button>
       </div>
     </div>
@@ -20,8 +26,12 @@
     <div class="item-header flexrow">
       <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
       <div class="item-magicSource">{{localize "MYTHCRAFT.Item.spell.FIELDS.magicSource.label"}}</div>
-      <div class="item-apc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.apc.hint">{{localize "MYTHCRAFT.Item.spell.FIELDS.apc.label"}}</div>
-      <div class="item-spc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.spc.hint">{{localize "MYTHCRAFT.Item.spell.FIELDS.spc.label"}}</div>
+      <div class="item-apc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.apc.hint">{{localize
+        "MYTHCRAFT.Item.spell.FIELDS.apc.label"
+        }}</div>
+      <div class="item-spc" data-tooltip="MYTHCRAFT.Item.spell.FIELDS.spc.hint">{{localize
+        "MYTHCRAFT.Item.spell.FIELDS.spc.label"
+        }}</div>
       <div class="item-controls flexrow">
         {{#if @root.editable}}
         <button
@@ -48,7 +58,11 @@
           <div class="item-spc">{{item.system.spc}}</div>
           <div class="item-controls flexrow">
             <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-            <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+            <button
+              type="button"
+              data-action="toggleItemEmbed"
+              class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+            ></button>
           </div>
         </div>
         <div class="item-embed">
@@ -63,7 +77,14 @@
     <legend>{{systemFields.powerLevel.label}}</legend>
     <div class="form-group">
       {{#each magicLevels}}
-      {{formGroup @root.systemFields.powerLevel.element name=name value=value label=label localize=true disabled=@root.isPlay}}
+      {{formGroup
+      @root.systemFields.powerLevel.element
+      name=name
+      value=value
+      label=label
+      localize=true
+      disabled=@root.isPlay
+      }}
       {{/each}}
     </div>
   </fieldset>

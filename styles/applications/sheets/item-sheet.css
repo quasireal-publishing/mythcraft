@@ -16,11 +16,7 @@
       font-size: var(--font-h2-size);
     }
   }
-  [data-application-part="description"] {
-    padding-top: 0.5rem;
-  }
   [data-application-part="details"] {
-    padding-top: 0.5rem;
     .defenses {
       .form-fields {
         justify-content: flex-start;
@@ -28,7 +24,6 @@
     }
   }
   [data-application-part="advancements"] {
-    padding-top: 0.5rem;
     .advancement {
       .advancement-img {
         flex: 0 0 var(--input-height);

@@ -1,10 +1,17 @@
 {{! Equipment Tab }}
-<section class="tab scrollable {{tab.cssClass}} standard-form" data-group="primary" data-tab="equipment">
+<section class="tab {{tab.cssClass}} standard-form" data-group="primary" data-tab="equipment">
   <fieldset class="currency">
     <legend>{{localize systemFields.currency.label}}</legend>
     <div class="form-group">
       {{#each currencies}}
-      {{formGroup @root.systemFields.currency.element name=name value=value label=label dataset=(object tooltip=tooltip) localize=true}}
+      {{formGroup
+      @root.systemFields.currency.element
+      name=name
+      value=value
+      label=label
+      dataset=(object tooltip=tooltip)
+      localize=true
+      }}
       {{/each}}
     </div>
   </fieldset>
@@ -13,13 +20,7 @@
     <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="armor"
-      >
+      <button type="button" class="item-create" data-action="createDoc" data-document-class="Item" data-type="armor">
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.armor")}}
       </button>
@@ -35,7 +36,11 @@
         <div class="item-quantity">{{item.system.quantity}}</div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">
@@ -50,13 +55,7 @@
     <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="weapon"
-      >
+      <button type="button" class="item-create" data-action="createDoc" data-document-class="Item" data-type="weapon">
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.weapon")}}
       </button>
@@ -73,7 +72,11 @@
         <div class="item-quantity">{{item.system.quantity}}</div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">
@@ -87,13 +90,7 @@
     <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="gear"
-      >
+      <button type="button" class="item-create" data-action="createDoc" data-document-class="Item" data-type="gear">
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.gear")}}
       </button>
@@ -109,7 +106,11 @@
         <div class="item-quantity">{{item.system.quantity}}</div>
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">

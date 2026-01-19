@@ -1,13 +1,17 @@
-
 {{! Features Tab }}
-<section class="tab scrollable {{tab.cssClass}}" data-group="primary" data-tab="features">
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="features">
   {{#each features}}
 
   {{#if (eq @key "action")}}
   {{#if @root.isPlay}}
   {{{@root.enrichedActions}}}
   {{else}}
-  {{formInput @root.systemFields.actions enriched=@root.enrichedActions value=@root.system.actions toggled="true"}}
+  {{formInput
+  @root.systemFields.actions
+  enriched=@root.enrichedActions
+  value=@root.system.actions
+  toggled="true"
+  }}
   {{/if}}
   {{/if}}
   <div class="item-header flexrow">
@@ -57,7 +61,11 @@
         {{/if}}
         <div class="item-controls flexrow">
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button type="button" data-action="toggleItemEmbed" class="icon fa-solid fa-angle-{{ifThen expanded "down" "right"}}"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
         </div>
       </div>
       <div class="item-embed">
