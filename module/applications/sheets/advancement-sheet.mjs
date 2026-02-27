@@ -176,7 +176,7 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
       sort: true,
     }));
 
-    const fd = await mythcraft.applications.api.MythcraftDialog.input({
+    const fd = await mythcraft.applications.api.MythCraftDialog.input({
       content,
       classes: ["skill-picker"],
       window: {

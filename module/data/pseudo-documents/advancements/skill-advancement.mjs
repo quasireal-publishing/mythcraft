@@ -1,4 +1,5 @@
 import { systemId } from "../../../constants.mjs";
+import AdvancementLeaf from "../../../utils/advancement/leaf.mjs";
 import { setOptions } from "../../fields/helpers.mjs";
 import BaseAdvancement from "./base-advancement.mjs";
 
@@ -85,6 +86,18 @@ export default class SkillAdvancement extends BaseAdvancement {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  async createLeaves(node) {
+    const skills = [...this.primary.skills, ...this.secondary.skills];
+
+    // forEach has performance gains over `for of`, and this operation is sync
+    skills.forEach(skill => {
+      node.choices[skill] = new AdvancementLeaf(node, skill, game.i18n.localize(mythcraft.CONFIG.skills.list[skill]?.label));
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async configureAdvancement(node = null) {
 
     const path = `flags.mythcraft.advancement.${this.id}.selected`;
@@ -158,7 +171,7 @@ export default class SkillAdvancement extends BaseAdvancement {
       checkDisabled();
     }
 
-    const config = await mythcraft.applications.api.MythcraftDialog.input({
+    const config = await mythcraft.applications.api.MythCraftDialog.input({
       content,
       render: render.bind(this),
       window: {

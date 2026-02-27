@@ -34,7 +34,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
    * @type {Record<string, typeof TypedPseudoDocument>}
    */
   static get TYPES() {
-    return Object.values(mythcraft.CONFIG[this.metadata.documentName]).reduce((acc, { documentClass }) => {
+    return Object.values(this.documentConfig).reduce((acc, { documentClass }) => {
       if (documentClass.TYPE) acc[documentClass.TYPE] = documentClass;
       return acc;
     }, {});
@@ -47,10 +47,20 @@ export default class TypedPseudoDocument extends PseudoDocument {
 
   /* -------------------------------------------------- */
 
+  /**
+   * The object that defines this model's subtypes.
+   * @type {object}
+   */
+  static get documentConfig() {
+    return mythcraft.CONFIG[this.metadata.documentName];
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   prepareBaseData() {
     super.prepareBaseData();
-    this.img ||= mythcraft.CONFIG[this.constructor.metadata.documentName][this.type].defaultImage;
+    this.img ||= this.constructor.documentConfig[this.type].defaultImage;
   }
 
   /* -------------------------------------------------- */
@@ -81,7 +91,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   static _prepareCreateDialogContext(parent) {
 
     /** @type {FormSelectOption[]} */
-    const typeOptions = Object.entries(mythcraft.CONFIG[this.metadata.documentName]).map(
+    const typeOptions = Object.entries(this.documentConfig).map(
       ([value, config]) => ({ value, label: game.i18n.localize(config.label) }),
     );
 
@@ -97,7 +107,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   static _createDialogRenderCallback(event, dialog) {
     const typeInput = dialog.element.querySelector("[name=\"type\"]");
     const nameInput = dialog.element.querySelector("[name=\"name\"]");
-    nameInput.placeholder = game.i18n.localize(mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label);
-    typeInput.addEventListener("change", () => nameInput.placeholder = game.i18n.localize(mythcraft.CONFIG[this.metadata.documentName][typeInput.value].label));
+    nameInput.placeholder = game.i18n.localize(this.documentConfig[typeInput.value].label);
+    typeInput.addEventListener("change", () => nameInput.placeholder = game.i18n.localize(this.documentConfig[typeInput.value].label));
   }
 }

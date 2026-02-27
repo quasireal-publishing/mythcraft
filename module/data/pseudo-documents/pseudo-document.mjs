@@ -305,7 +305,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
     // If there's demand or need we can make the template & context more dynamic
     const content = await foundry.applications.handlebars.renderTemplate(this.CREATE_TEMPLATE, this._prepareCreateDialogContext(parent));
 
-    const result = await mythcraft.applications.api.MythcraftDialog.input({
+    const result = await mythcraft.applications.api.MythCraftDialog.input({
       content,
       window: {
         title: game.i18n.format("DOCUMENT.New", { type: game.i18n.localize(`DOCUMENT.${this.metadata.documentName}`) }),
@@ -336,7 +336,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
   /**
    * Render callback for dynamic handling on the .
    * @param {Event} event
-   * @param {mythcraft.applications.api.MythcraftDialog} dialog
+   * @param {mythcraft.applications.api.MythCraftDialog} dialog
    * @protected
    */
   static _createDialogRenderCallback(event, dialog) {}

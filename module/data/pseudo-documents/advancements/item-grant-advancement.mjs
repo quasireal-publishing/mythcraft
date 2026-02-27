@@ -1,9 +1,10 @@
 import BaseAdvancement from "./base-advancement.mjs";
 import MythCraftDialog from "../../../applications/api/dialog.mjs";
 import { systemId } from "../../../constants.mjs";
+import AdvancementChain from "../../../utils/advancement/chain.mjs";
 
 /**
- * @import DrawSteelActor from "../../../documents/actor.mjs";
+ * @import { MythCraftActor, MythCraftItem } from "../../../documents/_module.mjs";
  */
 
 const { ArrayField, DocumentUUIDField, NumberField, SchemaField } = foundry.data.fields;
@@ -95,6 +96,21 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
+  async createLeaves(node) {
+    const promises = [];
+    for (const { uuid } of this.pool) {
+      // TODO: Optimize DB calls
+      /** @type {MythCraftItem} */
+      const item = await fromUuid(uuid);
+      if (!item) continue;
+      node.choices[item.uuid] = new AdvancementLeaf(node, item.uuid, item.toAnchor().outerHTML, { item });
+    }
+    return Promise.allSettled(promises);
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
   async configureAdvancement(node = null) {
     const items = node ?
       Object.values(node.choices).map(choice => choice.item)
@@ -173,10 +189,10 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
   async reconfigure() {
     await super.reconfigure();
 
-    /** @type {DrawSteelActor} */
+    /** @type {MythCraftActor} */
     const actor = this.document.parent;
 
-    const allowed = await mythcraft.applications.api.MythcraftDialog.confirm({
+    const allowed = await mythcraft.applications.api.MythCraftDialog.confirm({
       window: {
         icon: "fa-solid fa-arrow-rotate-right",
         title: "MYTHCRAFT.Advancement.Reconfigure.ConfirmItemGrant.Title",
@@ -185,9 +201,12 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
     });
     if (!allowed) return;
 
-    const chains = [await mythcraft.utils.AdvancementChain.create(this, null, { end: actor.system.level })];
+    const chain = new AdvancementChain(actor, { start: null, end: actor.system.level });
+
+    await chain.initializeRoots({ advancement: this });
+
     const configuration = await mythcraft.applications.apps.ChainConfigurationDialog.create({
-      chains, actor, window: { title: "MYTHCRAFT.Advancement.ChainConfiguration.reconfigureTitle" },
+      chain, window: { title: "MYTHCRAFT.Advancement.ChainConfiguration.reconfigureTitle" },
     });
     if (!configuration) return;
 
@@ -198,7 +217,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
       [this.document.id]: { _id: this.document.id },
     };
 
-    await actor.system._finalizeAdvancements({ chains, toUpdate });
+    await actor.system._finalizeAdvancements({ chain, toUpdate });
   }
 
   /* -------------------------------------------------- */

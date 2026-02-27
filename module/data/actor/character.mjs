@@ -5,7 +5,7 @@ import { systemId } from "../../constants.mjs";
 
 /**
  * @import {MythCraftActor, MythCraftItem} from "../../documents/_module.mjs";
- * @import AdvancementChain from "../../utils/advancement-chain.mjs";
+ * @import AdvancementChain from "../../utils/advancement/chain.mjs";
  */
 
 const fields = foundry.data.fields;
@@ -171,7 +171,7 @@ export default class CharacterModel extends BaseActorModel {
   /**
    * Perform document operations for advancements.
    * @param {object} config
-   * @param {AdvancementChain[]} config.chains
+   * @param {AdvancementChain} config.chain
    * @param {ItemData[]} [config.toCreate={}]
    * @param {ItemData[]} [config.toUpdate={}]
    * @param {ActorData} [config.actorUpdate={}]
@@ -183,11 +183,11 @@ export default class CharacterModel extends BaseActorModel {
    *                    or BaseAdvancement#reconfigure methods
    */
   async _finalizeAdvancements(
-    { chains, toCreate = {}, toUpdate = {}, actorUpdate = {}, _idMap = new Map() },
+    { chain, toCreate = {}, toUpdate = {}, actorUpdate = {}, _idMap = new Map() },
     { levels } = {},
   ) {
     // First gather all new items that are to be created.
-    for (const chain of chains) for (const node of chain.active()) {
+    for (const node of chain.activeNodes()) {
       if (node.advancement.type !== "itemGrant") continue;
       const parentItem = node.advancement.document;
 
@@ -217,7 +217,7 @@ export default class CharacterModel extends BaseActorModel {
     }
 
     // Perform item data modifications or store item updates.
-    for (const chain of chains) for (const node of chain.active()) {
+    for (const node of chain.activeNodes()) {
       if (node.advancement.type !== "skill") continue;
       const { document: item, id } = node.advancement;
       const isExisting = item.parent === this.parent;

@@ -1,32 +1,27 @@
-import AdvancementChain from "../../utils/advancement-chain.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 import MythCraftApplication from "../api/application.mjs";
 
 /**
- * @import { ApplicationConfiguration } from "@client/applications/_types.mjs";
+ * @import { ApplicationConfiguration, ApplicationRenderContext, ApplicationRenderOptions } from "@client/applications/_types.mjs";
+ * @import AdvancementChain from "../../utils/advancement/chain.mjs";
  * @import MythCraftActor from "../../documents/actor.mjs";
  */
 
 /**
  * @typedef ChainConfigurationDialogOptions
- * @property {MythCraftActor} actor
- * @property {AdvancementChain[]} chains
+ * @property {AdvancementChain} chain
  */
 
 export default class ChainConfigurationDialog extends MythCraftApplication {
   /**
    * @param {ApplicationConfiguration & ChainConfigurationDialogOptions} options
    */
-  constructor({ chains, actor, ...options } = {}) {
-    if (!chains) {
-      throw new Error("The chain configuration dialog was constructed without Chains.");
-    }
-    if (!actor || !(actor.documentName === "Actor") || !(actor.type === "character")) {
-      throw new Error("A chain configuration dialog can only be constructed for characters.");
+  constructor({ chain, ...options } = {}) {
+    if (!chain) {
+      throw new Error("The chain configuration dialog was constructed without an Advancement Chain.");
     }
     super(options);
-    this.#chains = chains;
-    this.#character = actor;
+    Object.defineProperty(this, "chain", { value: chain, writable: false, configurable: false });
   }
 
   /* -------------------------------------------------- */
@@ -63,62 +58,57 @@ export default class ChainConfigurationDialog extends MythCraftApplication {
   /* -------------------------------------------------- */
 
   /**
-   * The individual advancement chains. These will be mutated by the application
-   * and as such cannot be reused for repeat behavior.
-   * @type {AdvancementChain[]}
+   * The advancement chain this dialog is modifying.
+   * @type {AdvancementChain}
    */
-  #chains;
-  // eslint-disable-next-line @jsdoc/require-jsdoc
-  get chains() {
-    return this.#chains;
-  }
+  chain;
 
   /* -------------------------------------------------- */
 
   /**
-   * The character leveling up.
+   * The actor leveling up.
    * @type {MythCraftActor}
    */
-  #character;
-  // eslint-disable-next-line @jsdoc/require-jsdoc
-  get character() {
-    return this.#character;
+  get actor() {
+    return this.chain.actor;
   }
 
   /* -------------------------------------------------- */
 
   /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = await super._prepareContext(options);
-    context.ctx = { chains: this.#chains.map(c => c.active()) };
-    context.buttons = [{ type: "submit", label: "Confirm", icon: "fa-solid fa-fw fa-check" }];
+  async _preparePartContext(partId, context, options) {
+    context = await super._preparePartContext(partId, context, options);
+
+    switch (partId) {
+      case "chains":
+        await this._prepareChainContext(context, options);
+        break;
+      case "footer":
+        context.buttons = [{ type: "submit", label: "Confirm", icon: "fa-solid fa-fw fa-check" }];
+        break;
+    }
+
     return context;
   }
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _preFirstRender(context, options) {
-    await super._preFirstRender(context, options);
-
-    for (const chain of this.#chains) {
-      chain.enrichedDescription = await enrichHTML(chain.advancement.description, { relativeTo: chain.advancement.document });
-    }
-  }
-
-  /* -------------------------------------------------- */
-
   /**
-   * Find the node that contains an advancement.
-   * @param {string} uuid   The uuid of an advancement.
-   * @returns {AdvancementChain|null}
+   *
+   * @param {ApplicationRenderContext} context      Shared context provided by _preparePartContext, will be mutated.
+   * @param {ApplicationRenderOptions} options       Options which configure application rendering behavior.
    */
-  getByAdvancement(uuid) {
-    for (const chain of this.#chains) {
-      const node = chain.getByAdvancement(uuid);
-      if (node) return node;
+  async _prepareChainContext(context, options) {
+
+    /** @type {AdvancementNode[][]} */
+    const rootNodes = context.rootNodes = [];
+
+    for (const node of this.chain.activeNodes()) {
+      node.enrichedDescription ??= await enrichHTML(node.advancement.description, { relativeTo: node.advancement.document });
+      // Possibly a more efficient method here, this is looping over the nodes array a *lot*.
+      // Might involve the currently-unused index property
+      if (!node.parent) rootNodes.push([node, ...node.descendants()].filter(n => n.active));
     }
-    return null;
   }
 
   /* -------------------------------------------------- */
@@ -141,7 +131,7 @@ export default class ChainConfigurationDialog extends MythCraftApplication {
    */
   static async #configureAdvancement(event, target) {
     const advancementUuid = target.closest("[data-advancement-uuid]").dataset.advancementUuid;
-    const node = this.getByAdvancement(advancementUuid);
+    const node = this.chain.nodes.get(advancementUuid);
     const configured = await node.advancement.configureAdvancement(node);
     if (!configured) return;
     this.render();

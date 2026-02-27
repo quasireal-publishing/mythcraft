@@ -4,7 +4,7 @@ import { systemPath } from "../../../constants.mjs";
 /**
  * @import { DataSchema } from "@common/abstract/_types.mjs"
  * @import { FormSelectOption } from "@client/applications/forms/fields.mjs"
- * @import AdvancementChain from "../../../utils/advancement-chain.mjs";
+ * @import AdvancementChain from "../../../utils/advancement/chain.mjs";
  */
 
 const { HTMLField, NumberField, SchemaField } = foundry.data.fields;
@@ -102,6 +102,26 @@ export default class BaseAdvancement extends TypedPseudoDocument {
    */
   get levels() {
     return [this.requirements.level];
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Populate a node's choices.
+   * @param {advancements.AdvancementNode} node
+   * @abstract
+   */
+  async createLeaves(node) {}
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Was this leaf chosen?
+   * @param {advancements.AdvancementLeaf} leaf
+   * @returns {boolean}
+   */
+  isChosen(leaf) {
+    return !this.isChoice || !!leaf.node.selected[leaf.key];
   }
 
   /* -------------------------------------------------- */
