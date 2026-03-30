@@ -91,7 +91,7 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     // forEach has performance gains over `for of`, and this operation is sync
     skills.forEach(skill => {
-      node.choices[skill] = new AdvancementLeaf(node, skill, game.i18n.localize(mythcraft.CONFIG.skills.list[skill]?.label));
+      node.choices[skill] = new AdvancementLeaf(node, skill, _loc(mythcraft.CONFIG.skills.list[skill]?.label));
     });
   }
 
@@ -110,7 +110,7 @@ export default class SkillAdvancement extends BaseAdvancement {
 
     hint.className = "hint";
 
-    hint.innerText = game.i18n.format("MYTHCRAFT.Advancement.ConfigureAdvancement.SkillHint", { points: this.points ?? 0 });
+    hint.innerText = _loc("MYTHCRAFT.Advancement.ConfigureAdvancement.SkillHint", { points: this.points ?? 0 });
 
     content.append(hint);
 

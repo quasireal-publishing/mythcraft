@@ -48,8 +48,8 @@ export default class DamageRoll extends MythCraftRoll {
    * @type {string}
    */
   get typeLabel() {
-    if (this.isHeal) return game.i18n.localize(mythcraft.CONFIG.healing.types[this.type]?.label);
-    return game.i18n.localize(mythcraft.CONFIG.damage.types[this.type]?.label) ?? "";
+    if (this.isHeal) return _loc(mythcraft.CONFIG.healing.types[this.type]?.label);
+    return _loc(mythcraft.CONFIG.damage.types[this.type]?.label) ?? "";
   }
 
   /* -------------------------------------------------- */
@@ -85,13 +85,13 @@ export default class DamageRoll extends MythCraftRoll {
     const tooltipPath = this.isHeal ? "MYTHCRAFT.ChatMessage.base.Buttons.ApplyHeal.Tooltip" : "MYTHCRAFT.ChatMessage.base.Buttons.ApplyDamage.Tooltip";
 
     return mythcraft.utils.constructHTMLButton({
-      label: game.i18n.format(labelPath, {
+      label: _loc(labelPath, {
         type: this.typeLabel ? " " + this.typeLabel : "",
         amount: this.total,
       }),
       dataset: {
         index,
-        tooltip: game.i18n.localize(tooltipPath),
+        tooltip: _loc(tooltipPath),
         tooltipDirection: "UP",
       },
       classes: ["apply-damage"],

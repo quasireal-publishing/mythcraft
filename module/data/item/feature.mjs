@@ -41,7 +41,7 @@ export default class FeatureModel extends AdvancementModel {
    * @type {string}
    */
   get categoryLabel() {
-    return game.i18n.localize(this.schema.fields.category.choices[this.category]);
+    return _loc(this.schema.fields.category.choices[this.category]);
   }
 
   /* -------------------------------------------------- */

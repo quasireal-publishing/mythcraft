@@ -51,7 +51,7 @@ export default class SpellModel extends BaseItemModel {
    * @type {string}
    */
   get rangeLabel() {
-    return game.i18n.format("MYTHCRAFT.Item.spell.FIELDS.range.formatter", { value: this.range.value ?? "", unit: this.range.unit ?? "" }).trim();
+    return _loc("MYTHCRAFT.Item.spell.FIELDS.range.formatter", { value: this.range.value ?? "", unit: this.range.unit ?? "" }).trim();
   }
 
   /* -------------------------------------------------- */
@@ -72,7 +72,7 @@ export default class SpellModel extends BaseItemModel {
    */
   get tagOptions() {
     return Object.entries(mythcraft.CONFIG.spells.tags).reduce((options, [value, { label, group, sources }]) => {
-      if (!sources || (sources && sources.has(this.magicSource))) options.push({ value, label, group: game.i18n.localize(group) });
+      if (!sources || (sources && sources.has(this.magicSource))) options.push({ value, label, group: _loc(group) });
       return options;
     }, []);
   }
@@ -84,13 +84,13 @@ export default class SpellModel extends BaseItemModel {
    * @type {string}
    */
   get tagList() {
-    const magicSource = game.i18n.localize(mythcraft.CONFIG.spells.sources[this.magicSource]?.label);
+    const magicSource = _loc(mythcraft.CONFIG.spells.sources[this.magicSource]?.label);
 
     const tags = this.tags.reduce((tagList, tag) => {
       const tagInfo = mythcraft.CONFIG.spells.tags[tag];
       if (tagInfo) {
-        if (tagInfo.display) tagList.push(game.i18n.format(tagInfo.display, { type: magicSource }));
-        else tagList.push(game.i18n.localize(tagInfo.label));
+        if (tagInfo.display) tagList.push(_loc(tagInfo.display, { type: magicSource }));
+        else tagList.push(_loc(tagInfo.label));
       }
       return tagList;
     }, []);
@@ -118,7 +118,7 @@ export default class SpellModel extends BaseItemModel {
    */
   get requirementsList() {
     const requirementOptions = this.requirementOptions;
-    const labels = this.requirements.map(r => game.i18n.localize(requirementOptions.find(({ value }) => r === value)?.label));
+    const labels = this.requirements.map(r => _loc(requirementOptions.find(({ value }) => r === value)?.label));
     const formatter = game.i18n.getListFormatter({ type: "unit" });
     return formatter.format(labels.filter(_ => _));
   }
@@ -130,7 +130,7 @@ export default class SpellModel extends BaseItemModel {
    * @type {string}
    */
   get durationLabel() {
-    return game.i18n.format("MYTHCRAFT.Item.spell.FIELDS.duration.formatter", { value: this.duration.value ?? "", unit: this.duration.unit ?? "" }).trim();
+    return _loc("MYTHCRAFT.Item.spell.FIELDS.duration.formatter", { value: this.duration.value ?? "", unit: this.duration.unit ?? "" }).trim();
   }
 
   /* -------------------------------------------------- */

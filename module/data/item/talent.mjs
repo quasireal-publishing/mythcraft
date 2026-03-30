@@ -33,7 +33,7 @@ export default class TalentModel extends AdvancementModel {
    * @type {string}
    */
   get actionLabel() {
-    return game.i18n.localize(mythcraft.CONFIG.talents.actions[this.category]?.label ?? "");
+    return _loc(mythcraft.CONFIG.talents.actions[this.category]?.label ?? "");
   }
 
   /* -------------------------------------------------- */
@@ -45,7 +45,7 @@ export default class TalentModel extends AdvancementModel {
   get tagList() {
     const tags = this.tags.reduce((tagList, tag) => {
       const tagInfo = mythcraft.CONFIG.talents.tags[tag];
-      if (tagInfo) tagList.push(game.i18n.localize(tagInfo.label));
+      if (tagInfo) tagList.push(_loc(tagInfo.label));
       return tagList;
     }, []);
 

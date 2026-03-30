@@ -43,4 +43,18 @@ export default class WeaponModel extends EquipmentModel {
   get apc() {
     return mythcraft.utils.evaluateFormula(this.apcFormula || "0", this.parent.getRollData());
   }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    this.attrLabel = this.attr ? _loc(`MYTHCRAFT.Actor.base.FIELDS.attributes.${this.attr}.label`) : "";
+
+    this.damage.label = _loc("MYTHCRAFT.Item.weapon.DamageFormula", {
+      formula: this.damage.formula,
+      type: _loc(mythcraft.CONFIG.damage.types[this.damage.type]?.label) ?? "",
+    });
+  }
 }

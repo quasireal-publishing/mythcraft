@@ -69,7 +69,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   prepareDerivedData() {
     super.prepareDerivedData();
     if (!this.name) {
-      this.name = game.i18n.localize(`TYPES.${this.documentName}.${this.type}`);
+      this.name = _loc(`TYPES.${this.documentName}.${this.type}`);
     }
   }
 
@@ -92,7 +92,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
 
     /** @type {FormSelectOption[]} */
     const typeOptions = Object.entries(this.documentConfig).map(
-      ([value, config]) => ({ value, label: game.i18n.localize(config.label) }),
+      ([value, config]) => ({ value, label: _loc(config.label) }),
     );
 
     return {
@@ -107,7 +107,7 @@ export default class TypedPseudoDocument extends PseudoDocument {
   static _createDialogRenderCallback(event, dialog) {
     const typeInput = dialog.element.querySelector("[name=\"type\"]");
     const nameInput = dialog.element.querySelector("[name=\"name\"]");
-    nameInput.placeholder = game.i18n.localize(this.documentConfig[typeInput.value].label);
-    typeInput.addEventListener("change", () => nameInput.placeholder = game.i18n.localize(this.documentConfig[typeInput.value].label));
+    nameInput.placeholder = _loc(this.documentConfig[typeInput.value].label);
+    typeInput.addEventListener("change", () => nameInput.placeholder = _loc(this.documentConfig[typeInput.value].label));
   }
 }

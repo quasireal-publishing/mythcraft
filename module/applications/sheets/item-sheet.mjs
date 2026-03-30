@@ -219,8 +219,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     for (const model of models) {
       if (!advs[model.requirements.level]) {
         const section = Number.isNumeric(model.requirements.level) ?
-          game.i18n.format("MYTHCRAFT.Advancement.HEADERS.level", { level: model.requirements.level }) :
-          game.i18n.localize("MYTHCRAFT.Advancement.HEADERS.null");
+          _loc("MYTHCRAFT.Advancement.HEADERS.level", { level: model.requirements.level }) :
+          _loc("MYTHCRAFT.Advancement.HEADERS.null");
         advs[model.requirements.level] = {
           section,
           level: model.requirements.level,
@@ -251,17 +251,17 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     const categories = {
       temporary: {
         type: "temporary",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Temporary"),
+        label: _loc("MYTHCRAFT.Effect.Temporary"),
         effects: [],
       },
       passive: {
         type: "passive",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Passive"),
+        label: _loc("MYTHCRAFT.Effect.Passive"),
         effects: [],
       },
       inactive: {
         type: "inactive",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Inactive"),
+        label: _loc("MYTHCRAFT.Effect.Inactive"),
         effects: [],
       },
     };

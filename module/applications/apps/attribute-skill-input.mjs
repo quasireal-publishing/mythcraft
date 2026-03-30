@@ -32,7 +32,7 @@ export default class AttributeSkillInput extends DocumentInput {
 
   /** @inheritdoc */
   get title() {
-    return game.i18n.format("MYTHCRAFT.Actor.base.AttributeSkillInput.Title", {
+    return _loc("MYTHCRAFT.Actor.base.AttributeSkillInput.Title", {
       attr: this.document.system.schema.getField(["attributes", this.attribute])?.hint,
       name: this.document.name,
     });

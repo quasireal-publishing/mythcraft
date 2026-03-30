@@ -82,8 +82,8 @@ export default class AdvancementModel extends BaseItemModel {
     }
 
     const title = this.actor ?
-      game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.levelUpTitle", { name: actor.name }) :
-      game.i18n.format("MYTHCRAFT.Advancement.ChainConfiguration.createWithAdvancementsTitle", { name: this.parent.name });
+      _loc("MYTHCRAFT.Advancement.ChainConfiguration.levelUpTitle", { name: actor.name }) :
+      _loc("MYTHCRAFT.Advancement.ChainConfiguration.createWithAdvancementsTitle", { name: this.parent.name });
 
     const configured = await mythcraft.applications.apps.ChainConfigurationDialog.create({
       chain, window: { title },

@@ -249,7 +249,7 @@ export const attributes = {
   /** @type {FormSelectOption[]} */
   get options() {
     return Object.entries(attributeList).map(
-      ([value, { group }]) => ({ value, label: `MYTHCRAFT.Actor.base.FIELDS.attributes.${value}.label`, group: game.i18n.localize(attributeGroups[group]?.label) }),
+      ([value, { group }]) => ({ value, label: `MYTHCRAFT.Actor.base.FIELDS.attributes.${value}.label`, group: _loc(attributeGroups[group]?.label) }),
     );
   },
 };
@@ -877,7 +877,7 @@ export const skills = {
     return Object.entries(skillList).map(([value, { label, tag }]) => ({
       label,
       value,
-      group: game.i18n.localize(skillTags[tag]?.label),
+      group: _loc(skillTags[tag]?.label),
     }));
   },
 };
@@ -1183,7 +1183,7 @@ export const damage = {
   /** @type {FormSelectOption[]} */
   get options() {
     return Object.entries(damageTypes).map(
-      ([value, { label, category }]) => ({ value, label, group: game.i18n.localize(damageCategories[category]?.label) }),
+      ([value, { label, category }]) => ({ value, label, group: _loc(damageCategories[category]?.label) }),
     );
   },
 };
@@ -2026,7 +2026,7 @@ export const talents = {
   tags: talentTags,
   /** @type {FormSelectOption[]} */
   get tagOptions() {
-    return Object.entries(talentTags).map(([value, { label, group }]) => ({ value, label, group: game.i18n.localize(group) }));
+    return Object.entries(talentTags).map(([value, { label, group }]) => ({ value, label, group: _loc(group) }));
   },
   actions: talentActions,
   /** @type {FormSelectOption[]} */

@@ -144,7 +144,7 @@ function enrichDamageHeal(parsedConfig, label, options) {
   for (const [idx, formula] of linkConfig.formulas.entries()) {
     const type = linkConfig.damageTypes[idx];
     const types = type?.split("|")
-      .map(t => game.i18n.localize(mythcraft.CONFIG.damage.types[t]?.label ?? mythcraft.CONFIG.healing.types[t]?.label)?.toLowerCase())
+      .map(t => _loc(mythcraft.CONFIG.damage.types[t]?.label ?? mythcraft.CONFIG.healing.types[t]?.label)?.toLowerCase())
       .filter(_ => _);
     const localizationData = {
       formula: createRollLink(formula, {}, { tag: "span" }).outerHTML,
@@ -162,7 +162,7 @@ function enrichDamageHeal(parsedConfig, label, options) {
       else localizationType = "FormatShort";
     }
 
-    parts.push(game.i18n.format("MYTHCRAFT.EDITOR.Enrichers.DamageHeal." + localizationType, localizationData));
+    parts.push(_loc("MYTHCRAFT.EDITOR.Enrichers.DamageHeal." + localizationType, localizationData));
   }
 
   const link = document.createElement("a");
@@ -209,7 +209,7 @@ async function rollDamageHeal(link, event) {
     const content = typeOptions.reduce((htmlString, choices) => {
       const options = choices.types.map((type) => ({
         value: type,
-        label: game.i18n.localize(mythcraft.CONFIG[rollType].types[type].label),
+        label: _loc(mythcraft.CONFIG[rollType].types[type].label),
       }));
 
       const input = foundry.applications.fields.createSelectInput({
@@ -219,7 +219,7 @@ async function rollDamageHeal(link, event) {
         value: choices.types[0],
       });
 
-      const label = game.i18n.format("MYTHCRAFT.EDITOR.Enrichers.DamageHeal.ChooseType.InputLabel", { index: choices.index + 1 });
+      const label = _loc("MYTHCRAFT.EDITOR.Enrichers.DamageHeal.ChooseType.InputLabel", { index: choices.index + 1 });
 
       htmlString += foundry.applications.fields.createFormGroup({ input, label, localize: true }).outerHTML;
 
@@ -241,7 +241,7 @@ async function rollDamageHeal(link, event) {
   }
 
   const rolls = rollPrep.map(({ formula, options }) => {
-    options.flavor = game.i18n.localize(mythcraft.CONFIG[rollType].types[options.type]?.label);
+    options.flavor = _loc(mythcraft.CONFIG[rollType].types[options.type]?.label);
 
     return new DamageRoll(formula, {}, options);
   });
@@ -251,7 +251,7 @@ async function rollDamageHeal(link, event) {
 
   ChatMessage.create({
     rolls,
-    flavor: game.i18n.localize("MYTHCRAFT.EDITOR.Enrichers.DamageHeal.MessageTitle." + rollType),
+    flavor: _loc("MYTHCRAFT.EDITOR.Enrichers.DamageHeal.MessageTitle." + rollType),
     flags: { core: { canPopout: true } },
   });
 }

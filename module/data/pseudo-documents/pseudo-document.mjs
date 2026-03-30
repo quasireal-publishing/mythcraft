@@ -308,7 +308,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
     const result = await mythcraft.applications.api.MythCraftDialog.input({
       content,
       window: {
-        title: game.i18n.format("DOCUMENT.New", { type: game.i18n.localize(`DOCUMENT.${this.metadata.documentName}`) }),
+        title: _loc("DOCUMENT.New", { type: _loc(`DOCUMENT.${this.metadata.documentName}`) }),
         icon: this.metadata.icon,
       },
       render: (event, dialog) => this._createDialogRenderCallback(event, dialog),
@@ -365,7 +365,7 @@ export default class PseudoDocument extends foundry.abstract.DataModel {
   async duplicate() {
     if (!this.isSource) throw new Error("You cannot duplicate a non-source pseudo-document!");
     const activityData = foundry.utils.mergeObject(this.toObject(), {
-      name: game.i18n.format("DOCUMENT.CopyOf", { name: this.name }),
+      name: _loc("DOCUMENT.CopyOf", { name: this.name }),
     });
     return this.constructor.create(activityData, { parent: this.document });
   }

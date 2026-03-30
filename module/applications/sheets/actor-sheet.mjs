@@ -147,7 +147,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     context.tagOptions = mythcraft.CONFIG.monster.tagOptions;
 
     context.tagList = formatter.format(this.actor.system.tags.map(
-      t => game.i18n.localize(mythcraft.CONFIG.monster.tags[t]?.label) ?? t,
+      t => _loc(mythcraft.CONFIG.monster.tags[t]?.label) ?? t,
     ));
   }
 
@@ -177,7 +177,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
           const skillData = this.actor.system.skills[id];
           arr.push({
             skillId: id,
-            label: game.i18n.format(skillInfo.specialized ?? skillInfo.label, skillData),
+            label: _loc(skillInfo.specialized ?? skillInfo.label, skillData),
             bonus: skillData.bonus,
           });
         }
@@ -190,7 +190,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     const movementInfo = Object.entries(this.actor.system.movement).map(([key, value]) => {
       if (value === null) return null;
       const label = key === "walk" ? "" : systemSchema.getField(["movement", key]).label;
-      return game.i18n.format("MYTHCRAFT.Actor.base.MovementListFormat", { type: label, number: value });
+      return _loc("MYTHCRAFT.Actor.base.MovementListFormat", { type: label, number: value });
     });
     context.movementInfo = unitFormatter.format(movementInfo.filter(_ => _));
 
@@ -202,11 +202,11 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         value,
         field: systemSchema.getField("senses.element.value"),
         name: `system.senses.${key}.value`,
-        label: game.i18n.localize(mythcraft.CONFIG.senses[key]?.label),
+        label: _loc(mythcraft.CONFIG.senses[key]?.label),
       };
     }).sort((a, b) => (a.key > b.key) ? 1 : ((b.key > a.key) ? -1 : 0));
 
-    const senseDescription = unitFormatter.format(senseList.map(s => game.i18n.format("MYTHCRAFT.Actor.base.SenseListFormat", { type: s.label, number: s.value })));
+    const senseDescription = unitFormatter.format(senseList.map(s => _loc("MYTHCRAFT.Actor.base.SenseListFormat", { type: s.label, number: s.value })));
 
     context.senseInfo = { options: senseOptions, list: senseList, description: senseDescription };
 
@@ -217,8 +217,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     context.damageTypes = Object.entries(damageConfig.types).reduce((types, [value, { label, category }]) => {
       const entry = {
         value,
-        label: game.i18n.localize(label),
-        group: game.i18n.localize(damageConfig.categories[category].label),
+        label: _loc(label),
+        group: _loc(damageConfig.categories[category].label),
       };
       types.push(entry);
       absorbOptions.push({
@@ -230,13 +230,13 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     const formatter = game.i18n.getListFormatter({ type: "unit" });
 
-    const keyToLabel = (key) => game.i18n.format(damageConfig.types[key]?.label) || key;
+    const keyToLabel = (key) => _loc(damageConfig.types[key]?.label) || key;
 
     const damageDescriptions = {
       immune: formatter.format(this.actor.system.damage.immune.map(keyToLabel)),
       affinity: formatter.format(this.actor.system.damage.affinity.map(keyToLabel)),
       reduction: this.actor.system.damage.reduction.bypasses ?
-        game.i18n.format("MYTHCRAFT.Actor.base.DamageReductionListFormat", this.actor.system.damage.reduction)
+        _loc("MYTHCRAFT.Actor.base.DamageReductionListFormat", this.actor.system.damage.reduction)
         : this.actor.system.damage.reduction.value,
     };
 
@@ -275,17 +275,17 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     const categories = {
       temporary: {
         type: "temporary",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Temporary"),
+        label: _loc("MYTHCRAFT.Effect.Temporary"),
         effects: [],
       },
       passive: {
         type: "passive",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Passive"),
+        label: _loc("MYTHCRAFT.Effect.Passive"),
         effects: [],
       },
       inactive: {
         type: "inactive",
-        label: game.i18n.localize("MYTHCRAFT.Effect.Inactive"),
+        label: _loc("MYTHCRAFT.Effect.Inactive"),
         effects: [],
       },
     };

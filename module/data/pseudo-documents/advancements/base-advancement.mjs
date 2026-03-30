@@ -63,7 +63,7 @@ export default class BaseAdvancement extends TypedPseudoDocument {
 
     /** @type {FormSelectOption[]} */
     const typeOptions = Object.entries(mythcraft.CONFIG.Advancement).reduce((arr, [value, config]) => {
-      if (config.itemTypes.has(parent.type)) arr.push({ value, label: game.i18n.localize(config.label) });
+      if (config.itemTypes.has(parent.type)) arr.push({ value, label: _loc(config.label) });
       return arr;
     }, []);
 

@@ -58,7 +58,7 @@ export default class CharacterModel extends BaseActorModel {
    */
   get classes() {
     const labels = Object.entries(this.levels).map(([tag, level]) => {
-      const className = game.i18n.localize(
+      const className = _loc(
         tag === "adventurer" ?
           "MYTHCRAFT.Actor.character.adventurer" :
           mythcraft.CONFIG.talents.tags[tag].label,
@@ -156,7 +156,7 @@ export default class CharacterModel extends BaseActorModel {
       const { start, end } = options.mythcraft.levels;
 
       ChatMessage.implementation.create({
-        content: game.i18n.format("MYTHCRAFT.Advancement.WARNING.LevelUp", { name: this.parent.name, start, end }),
+        content: _loc("MYTHCRAFT.Advancement.WARNING.LevelUp", { name: this.parent.name, start, end }),
       });
       for (const item of this.parent.items) {
         if ((item.type !== "profession") && (item.system instanceof AdvancementModel)) {

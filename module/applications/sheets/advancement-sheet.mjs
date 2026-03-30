@@ -85,7 +85,7 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
         ctx.itemPool.push({
           ...pool,
           index: i,
-          link: item ? item.toAnchor() : game.i18n.localize("MYTHCRAFT.Advancement.SHEET.unknownItem"),
+          link: item ? item.toAnchor() : _loc("MYTHCRAFT.Advancement.SHEET.unknownItem"),
         });
       }
     }
@@ -122,7 +122,7 @@ export default class AdvancementSheet extends PseudoDocumentSheet {
     if (!item || (item.documentName !== "Item")) return;
     const subclassException = (item.type === "subclass") && (this.pseudoDocument.document.type === "class");
     if (!ItemGrantAdvancement.ALLOWED_TYPES.has(item.type) && !subclassException) return void ui.notifications.error("MYTHCRAFT.Advancement.WARNING.restrictedType", {
-      format: { type: game.i18n.localize(CONFIG.Item.typeLabels[item.type]) },
+      format: { type: _loc(CONFIG.Item.typeLabels[item.type]) },
     });
     if (!item.pack) return void ui.notifications.error("MYTHCRAFT.Advancement.WARNING.requirePack", { localize: true });
     if (item.parent) return void ui.notifications.error("MYTHCRAFT.Advancement.WARNING.forbidParent", { localize: true });

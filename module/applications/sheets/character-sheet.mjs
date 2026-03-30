@@ -205,7 +205,7 @@ export default class CharacterSheet extends MythCraftActorSheet {
       contexts.push({ item });
     }
     if (!this.actor.itemTypes[type].length) {
-      contexts.push({ type, label: game.i18n.localize(CONFIG.Item.typeLabels[type]) });
+      contexts.push({ type, label: _loc(CONFIG.Item.typeLabels[type]) });
     }
     return contexts;
   }

@@ -126,7 +126,7 @@ export default class MythCraftItem extends foundry.documents.Item {
 
     const content = document.createElement("div");
 
-    content.insertAdjacentHTML("afterbegin", `<p>${game.i18n.localize("MYTHCRAFT.Advancement.DeleteDialog.Content")}</p>`);
+    content.insertAdjacentHTML("afterbegin", `<p>${_loc("MYTHCRAFT.Advancement.DeleteDialog.Content")}</p>`);
     content.append(this.toAnchor());
 
     const itemIds = new Set([this.id]);
@@ -138,7 +138,7 @@ export default class MythCraftItem extends foundry.documents.Item {
     }
 
     if (!skipDialog) {
-      const title = game.i18n.format(
+      const title = _loc(
         replacement ? "MYTHCRAFT.Advancement.DeleteDialog.ReplaceTitle" : "DOCUMENT.Delete",
         { type: this.name },
       );

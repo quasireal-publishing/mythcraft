@@ -67,8 +67,8 @@ export default class SourceModel extends foundry.abstract.DataModel {
     if (!this.book) this.book = this.bookPlaceholder;
 
     const page = Number.isNumeric(this.page)
-      ? game.i18n.format("MYTHCRAFT.Source.Display.Page", { page: this.page }) : (this.page ?? "");
-    this.label = game.i18n.format("MYTHCRAFT.Source.Display.Full", { book: this.book, page }).trim();
+      ? _loc("MYTHCRAFT.Source.Display.Page", { page: this.page }) : (this.page ?? "");
+    this.label = _loc("MYTHCRAFT.Source.Display.Full", { book: this.book, page }).trim();
 
     this.value = this.book || (pkg?.title ?? "");
     this.slug = this.value.slugify({ strict: true });

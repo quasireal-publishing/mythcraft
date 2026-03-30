@@ -167,7 +167,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
       render,
       classes: ["configure-advancement"],
       window: {
-        title: game.i18n.format("MYTHCRAFT.Advancement.ConfigureAdvancement.Title", { name: this.name }),
+        title: _loc("MYTHCRAFT.Advancement.ConfigureAdvancement.Title", { name: this.name }),
         icon: "fa-solid fa-edit",
       },
     });
@@ -197,7 +197,7 @@ export default class ItemGrantAdvancement extends BaseAdvancement {
         icon: "fa-solid fa-arrow-rotate-right",
         title: "MYTHCRAFT.Advancement.Reconfigure.ConfirmItemGrant.Title",
       },
-      content: `<p>${game.i18n.localize("MYTHCRAFT.Advancement.Reconfigure.ConfirmItemGrant.Content")}</p>`,
+      content: `<p>${_loc("MYTHCRAFT.Advancement.Reconfigure.ConfirmItemGrant.Content")}</p>`,
     });
     if (!allowed) return;
 

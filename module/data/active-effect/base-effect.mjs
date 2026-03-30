@@ -1,13 +1,6 @@
 import enrichHTML from "../../utils/enrich-html.mjs";
 
-export default class BaseEffectModel extends foundry.abstract.TypeDataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {};
-  }
-
-  /* -------------------------------------------------- */
-
+export default class BaseEffectModel extends foundry.data.ActiveEffectTypeDataModel {
   /** @inheritdoc */
   async toEmbed(config, options = {}) {
 

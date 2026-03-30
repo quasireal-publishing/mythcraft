@@ -841,7 +841,8 @@
             "special": "Special",
             "twoHanded": "Two-Handed",
             "unwieldy": "Unwieldy"
-        }
+        },
+        "DamageFormula": "{formula} {type}"
       }
     },
     "Source": {

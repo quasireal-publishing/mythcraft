@@ -45,7 +45,7 @@ export default class ProfessionModel extends AdvancementModel {
       const { start, end } = options.mythcraft.ranks;
 
       ChatMessage.implementation.create({
-        content: game.i18n.format("MYTHCRAFT.Advancement.WARNING.RankUp", { actorName: this.actor.name, itemName: this.parent.name, start, end }),
+        content: _loc("MYTHCRAFT.Advancement.WARNING.RankUp", { actorName: this.actor.name, itemName: this.parent.name, start, end }),
       });
       this.applyAdvancements({ levels: { start, end } });
     }
