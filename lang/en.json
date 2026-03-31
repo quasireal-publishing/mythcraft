@@ -23,9 +23,11 @@
         "equipment": "Equipment",
         "talents": "Talents",
         "effects": "Effects",
-        "stats": "Stats"
+        "stats": "Stats",
+        "journal": "Journal"
       },
       "ToggleMode": "Toggle Sheet Mode",
+      "EditAttribute": "Edit Attribute & Skills",
       "UpdateSource": "Update Source Info",
       "View": "View",
       "Edit": "Edit",
@@ -33,7 +35,10 @@
       "Delete": "Delete",
       "AddSense": "Add Sense",
       "AddAbsorb": "Add Absorption",
-      "NoCreateAdvancement": "{name} could not be created as part of the folder drop because it has advancements."
+      "Reactions": "Reactions",
+      "Favorite": "Toggle Favorite",
+      "NoCreateAdvancement": "{name} could not be created as part of the folder drop because it has advancements.",
+      "SiegeWeapon": "MythCraft Siege Weapon Sheet"
     },
     "PSEUDO": {
       "FIELDS": {
@@ -276,9 +281,74 @@
           },
           "currency": {
             "label": "Currency"
+          },
+          "personality": {
+            "label": "Personality",
+            "values": { "label": "Values" },
+            "drive": { "label": "Drive" },
+            "quirk": { "label": "Quirk" }
+          },
+          "appearance": {
+            "label": "Appearance",
+            "height": { "label": "Height" },
+            "weight": { "label": "Weight" },
+            "age": { "label": "Age" },
+            "description": { "label": "Description" }
+          },
+          "hpOverride": { "label": "HP Override" },
+          "initiative": {
+            "label": "Initiative",
+            "bonus": { "label": "Initiative Bonus" },
+            "override": { "label": "Initiative Override" }
+          },
+          "critical": {
+            "label": "Critical",
+            "hit": { "label": "Critical Hit Range", "short": "Crit" },
+            "fail": { "label": "Critical Fail Range", "short": "Fail" }
+          },
+          "additionalInfo": {
+            "label": "Additional Info",
+            "name": { "label": "Name" },
+            "category": { "label": "Category" },
+            "description": { "label": "Description" }
+          },
+          "journal": {
+            "label": "Journal",
+            "name": { "label": "Entry" },
+            "date": { "label": "Date" },
+            "content": { "label": "Content" }
+          },
+          "contacts": {
+            "label": "Contacts",
+            "name": { "label": "Name" },
+            "location": { "label": "Location" },
+            "description": { "label": "Notes" }
+          },
+          "resources": {
+            "label": "Resources",
+            "name": { "label": "Resource" },
+            "value": { "label": "Current" },
+            "max": { "label": "Maximum" }
           }
         },
         "adventurer": "Adventurer"
+      },
+      "siege": {
+        "label": "Siege Weapon",
+        "FIELDS": {
+          "range": { "label": "Range", "value": { "label": "Value" }, "unit": { "label": "Unit" } },
+          "ammunition": { "label": "Ammunition", "value": { "label": "Current" }, "max": { "label": "Maximum" } },
+          "reload": { "label": "Reload" },
+          "aoe": { "label": "Area of Effect" },
+          "speed": { "label": "Speed" },
+          "hp": { "label": "Hit Points", "value": { "label": "Current" }, "max": { "label": "Maximum" } },
+          "ar": { "label": "Armor Rating" },
+          "defenses": { "label": "Defenses", "ref": { "label": "Reflexes" }, "fort": { "label": "Fortitude" } },
+          "resistances": { "label": "Resistances", "resist": { "label": "Resist" }, "immune": { "label": "Immune" }, "vulnerable": { "label": "Vulnerable" } },
+          "reduction": { "label": "Damage Reduction", "value": { "label": "Value" } },
+          "threshold": { "label": "Damage Threshold", "value": { "label": "Value" } },
+          "description": { "label": "Description", "value": { "label": "Description" }, "gm": { "label": "GM Notes" } }
+        }
       },
       "npc": {
         "FIELDS": {
@@ -626,6 +696,9 @@
             "unit": {
               "label": "Unit"
             }
+          },
+          "isAttack": {
+            "label": "Attack Spell"
           }
         },
         "components": {
@@ -1059,22 +1132,11 @@
       "truesight": "Truesight"
     },
     "Currency": {
-      "a": {
-        "label": "a",
-        "tooltip": "Amber"
-      },
-      "dc": {
-        "label": "dc",
-        "tooltip": "Diamond Coins"
-      },
-      "q": {
-        "label": "q",
-        "tooltip": "Qorn"
-      },
-      "sc": {
-        "label": "sc",
-        "tooltip": "Silver Coins"
-      }
+      "astra": { "label": "Astra", "tooltip": "Gold equivalent" },
+      "scillings": { "label": "Scillings", "tooltip": "Silver equivalent" },
+      "quints": { "label": "Quints", "tooltip": "Copper equivalent" },
+      "denarii": { "label": "Denarii", "tooltip": "Quest currency" },
+      "notes": { "label": "Currency Notes" }
     },
     "Tags": {
       "Occupation": {
@@ -1102,7 +1164,15 @@
       "vigilant": "Vigilant"
     },
     "Roll": {
+      "AbilityModifier": "Ability Modifier",
+      "Attack": "Attack Roll",
+      "Attribute": "Attribute",
       "Button": "Roll",
+      "CriticalRange": "Critical Range",
+      "Initiative": "Initiative",
+      "Modifier": "Situational Modifier",
+      "Source": "Magic Source",
+      "Spell": "Spell Roll",
       "AttributeRoll": {
         "Title": {
           "Attribute": "{attr} Attribute Roll",
@@ -1126,6 +1196,8 @@
           "Skill": "{abbr} Check ({skill})"
         }
       },
+      "RollDamage": "Roll Damage",
+      "Damage": "Damage",
       "DamageRoll": {
         "Apply": {
           "NoToken": "You must have at least one token selected."
@@ -1156,7 +1228,8 @@
   "TYPES": {
     "Actor": {
       "character": "Character",
-      "npc": "NPC"
+      "npc": "NPC",
+      "siege": "Siege Weapon"
     },
     "Advancement": {
       "itemGrant": "Item Grant",

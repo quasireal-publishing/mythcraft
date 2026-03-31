@@ -1,6 +1,5 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import { systemPath } from "../../constants.mjs";
-import FeatureModel from "../../data/item/feature.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 
 /**
@@ -90,19 +89,34 @@ export default class NPCSheet extends MythCraftActorSheet {
 
     context.enrichedActions = await enrichHTML(this.actor.system.actions);
 
-    context.features = Object.entries(FeatureModel.schema.getField("category").choices).reduce((record, [key, label]) => {
-      record[key] = { label, list: [] };
-      return record;
-    }, {});
-
     const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
 
-    for (const item of sortedFeatures) {
+    // Build item context for each feature.
+    const buildContext = async (item) => {
       const expanded = this.expanded.items.has(item.id);
       const itemContext = { item, expanded };
       if (expanded) itemContext.embed = await item.system.toEmbed({});
+      return itemContext;
+    };
 
-      context.features[item.system.category].list.push(itemContext);
+    // Passives — flat list
+    const passives = sortedFeatures.filter(f => f.system.category === "passive");
+    context.passives = await Promise.all(passives.map(buildContext));
+
+    // Actions — grouped by tier
+    const actions = sortedFeatures.filter(f => f.system.category === "action");
+    const tieredActions = {};
+    for (const action of actions) {
+      const tier = action.system.tier ?? 1;
+      tieredActions[tier] ??= [];
+      tieredActions[tier].push(await buildContext(action));
     }
+    context.tieredActions = Object.keys(tieredActions)
+      .sort((a, b) => Number(a) - Number(b))
+      .reduce((obj, key) => { obj[key] = tieredActions[key]; return obj; }, {});
+
+    // Reactions — flat list
+    const reactions = sortedFeatures.filter(f => f.system.category === "reaction");
+    context.reactions = await Promise.all(reactions.map(buildContext));
   }
 }

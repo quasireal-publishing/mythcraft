@@ -23,6 +23,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       rollSkill: this.#rollSkill,
       addAbsorb: this.#addAbsorb,
       rollMagic: this.#rollMagic,
+      rollAttack: this.#rollAttack,
+      rollSpell: this.#rollSpell,
       removeAbsorb: this.#removeAbsorb,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
@@ -30,10 +32,12 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       toggleEffect: this.#toggleEffect,
       toggleItemEmbed: this.#toggleItemEmbed,
       toggleEffectEmbed: this.#toggleEffectEmbed,
+      toggleSpellAttack: this.#toggleSpellAttack,
+      openTab: this.#openTab,
     },
     position: {
       // distance running display
-      width: 635,
+      width: 800,
     },
   };
 
@@ -149,6 +153,19 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     context.tagList = formatter.format(this.actor.system.tags.map(
       t => game.i18n.localize(mythcraft.CONFIG.monster.tags[t]?.label) ?? t,
     ));
+
+    if (this.actor.system.personality) {
+      context.personality = this.actor.system.personality;
+    }
+    if (this.actor.system.appearance) {
+      context.appearance = this.actor.system.appearance;
+    }
+    if (this.actor.system.initiative) {
+      context.initiative = this.actor.system.initiative;
+    }
+    if (this.actor.system.critical) {
+      context.critical = this.actor.system.critical;
+    }
   }
 
   /* -------------------------------------------------- */
@@ -171,7 +188,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       const { group, defense, check } = attributeConfig.list[key];
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
       const attrInfo = { value, field, check };
-      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: systemData.defenses[defense] };
+      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: this.actor.system.defenses[defense] };
       attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillData = this.actor.system.skills[id];
@@ -327,12 +344,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
 
     this._createContextMenu(this._getItemListContextOptions, "[data-document-class][data-item-id] .item-controls .fa-ellipsis-vertical", {
       eventName: "click",
-      hookName: "getItemListContextOptions",
-      parentClassHooks: false,
-      fixed: true,
-    });
-
-    this._createContextMenu(this._getItemListContextOptions, ".origins [data-document-class][data-item-id]", {
       hookName: "getItemListContextOptions",
       parentClassHooks: false,
       fixed: true,
@@ -590,7 +601,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   static async #viewDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
-    doc.sheet.render(true);
+    doc.sheet.render({ force: true });
   }
 
   /* -------------------------------------------------- */
@@ -681,6 +692,102 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static async #toggleEffect(event, target) {
     const effect = this._getEmbeddedDocument(target);
     effect.update({ disabled: !effect.disabled });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle the isAttack flag on a spell item.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #toggleSpellAttack(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId ?? target.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "spell") return;
+    await item.update({"system.isAttack": !item.system.isAttack});
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll an attack with a weapon item.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollAttack(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "weapon") return;
+
+    const attr = item.system.attr;
+    const attrValue = this.actor.system.attributes[attr] ?? 0;
+    const critHit = this.actor.system.critical?.effectiveHit ?? 20;
+    const critFail = this.actor.system.critical?.effectiveFail ?? 1;
+
+    const formula = `1d20 + ${attrValue}`;
+    const roll = new mythcraft.rolls.AttackRoll(formula, this.actor.getRollData(), {
+      weaponName: item.name,
+      attribute: attr,
+      critHit,
+      critFail,
+      damageFormula: item.system.damage?.formula,
+      damageType: item.system.damage?.type,
+    });
+    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }) });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a spell cast.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollSpell(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "spell") return;
+
+    const spellcastingAbility = this.actor.system.sp.attribute ?? "int";
+    let abilityMod = this.actor.system.attributes[spellcastingAbility] ?? 0;
+
+    const powerLevels = this.actor.system.powerLevel ?? {};
+    const primarySource = Object.entries(powerLevels)
+      .sort(([, a], [, b]) => b - a)[0]?.[0];
+    const isPrimary = item.system.magicSource === primarySource;
+    if (!isPrimary) abilityMod = Math.ceil(abilityMod / 2);
+
+    const formula = `1d20 + ${abilityMod}`;
+    const roll = new mythcraft.rolls.SpellRoll(formula, this.actor.getRollData(), {
+      spellName: item.name,
+      source: item.system.magicSource,
+      isPrimary,
+      spc: item.system.spc,
+      range: item.system.rangeLabel,
+      duration: item.system.durationLabel,
+    });
+    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }) });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Switch to a specific tab on the sheet.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static #openTab(event, target) {
+    const tab = target.dataset.tab;
+    if (tab) this.changeTab(tab, "primary");
   }
 
   /* -------------------------------------------- */

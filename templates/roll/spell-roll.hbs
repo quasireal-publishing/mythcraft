@@ -1,0 +1,26 @@
+<section class="standard-form">
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Roll.Source"}}</label>
+    <div class="form-fields">
+      <span>{{sourceLabel}} {{#unless isPrimary}}(½){{/unless}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Roll.AbilityModifier"}}</label>
+    <div class="form-fields">
+      <span>{{abilityModifier}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Roll.Modifier"}}</label>
+    <div class="form-fields">
+      <input type="number" name="situationalBonus" value="{{situationalBonus}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{localize "MYTHCRAFT.Item.spell.FIELDS.spc.label"}}</label>
+    <div class="form-fields">
+      <span>{{spc}}</span>
+    </div>
+  </div>
+</section>

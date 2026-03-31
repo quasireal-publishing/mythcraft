@@ -1,0 +1,112 @@
+<section class="tab siege-weapon-stats {{tab.cssClass}} standard-form" data-group="primary" data-tab="stats">
+
+  {{! Properties }}
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.range.label"}}</legend>
+    <div class="form-group">
+      {{formGroup systemFields.range.fields.value value=system.range.value disabled=isPlay classes="slim"}}
+      {{formGroup systemFields.range.fields.unit value=system.range.unit disabled=isPlay classes="slim"}}
+    </div>
+  </fieldset>
+
+  <div class="siege-properties-grid">
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.ammunition.label"}}</legend>
+      <div class="form-group">
+        {{formGroup systemFields.ammunition.fields.value value=system.ammunition.value disabled=isPlay classes="slim"}}
+        <span class="separator">/</span>
+        {{formGroup systemFields.ammunition.fields.max value=system.ammunition.max disabled=isPlay classes="slim"}}
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.reload.label"}}</legend>
+      {{formGroup systemFields.reload value=system.reload disabled=isPlay classes="slim"}}
+    </fieldset>
+
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.aoe.label"}}</legend>
+      {{formGroup systemFields.aoe value=system.aoe disabled=isPlay classes="slim"}}
+    </fieldset>
+
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.speed.label"}}</legend>
+      {{formGroup systemFields.speed value=system.speed disabled=isPlay classes="slim"}}
+    </fieldset>
+  </div>
+
+  {{! Durability }}
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.hp.label"}}</legend>
+    <div class="form-group">
+      {{formGroup systemFields.hp.fields.value value=system.hp.value disabled=isPlay classes="slim"}}
+      <span class="separator">/</span>
+      {{formGroup systemFields.hp.fields.max value=system.hp.max disabled=isPlay classes="slim"}}
+    </div>
+    <div class="form-group">
+      {{formGroup systemFields.ar value=system.ar disabled=isPlay classes="slim"}}
+    </div>
+  </fieldset>
+
+  {{! Defenses }}
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.defenses.label"}}</legend>
+    <div class="form-group">
+      {{formGroup systemFields.defenses.fields.ref value=system.defenses.ref disabled=isPlay classes="slim"}}
+      {{formGroup systemFields.defenses.fields.fort value=system.defenses.fort disabled=isPlay classes="slim"}}
+    </div>
+  </fieldset>
+
+  {{! Resistances }}
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.resistances.label"}}</legend>
+    <div class="form-group">
+      <label>{{localize "MYTHCRAFT.Actor.siege.FIELDS.resistances.resist.label"}}</label>
+      <input type="text" name="system.resistances.resist" value="{{join system.resistances.resist ", "}}" {{#if isPlay}}disabled{{/if}}>
+    </div>
+    <div class="form-group">
+      <label>{{localize "MYTHCRAFT.Actor.siege.FIELDS.resistances.immune.label"}}</label>
+      <input type="text" name="system.resistances.immune" value="{{join system.resistances.immune ", "}}" {{#if isPlay}}disabled{{/if}}>
+    </div>
+    <div class="form-group">
+      <label>{{localize "MYTHCRAFT.Actor.siege.FIELDS.resistances.vulnerable.label"}}</label>
+      <input type="text" name="system.resistances.vulnerable" value="{{join system.resistances.vulnerable ", "}}" {{#if isPlay}}disabled{{/if}}>
+    </div>
+  </fieldset>
+
+  {{! Damage Reduction & Threshold }}
+  <div class="siege-properties-grid">
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.reduction.label"}}</legend>
+      {{formGroup systemFields.reduction.fields.value value=system.reduction.value disabled=isPlay classes="slim"}}
+    </fieldset>
+
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.threshold.label"}}</legend>
+      {{formGroup systemFields.threshold.fields.value value=system.threshold.value disabled=isPlay classes="slim"}}
+    </fieldset>
+  </div>
+
+  {{! Description }}
+  <fieldset>
+    <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.description.value.label"}}</legend>
+    {{#if editable}}
+    {{formInput
+    systemFields.description.fields.value
+    enriched=enrichedDescription
+    value=system.description.value
+    toggled="true"
+    }}
+    {{#if user.isGM}}
+    <hr>
+    {{formGroup systemFields.description.fields.gm enriched=enrichedGMNotes value=system.description.gm toggled="true"}}
+    {{/if}}
+    {{else}}
+    {{{enrichedDescription}}}
+    {{#if user.isGM}}
+    <hr>
+    {{{enrichedGMNotes}}}
+    {{/if}}
+    {{/if}}
+  </fieldset>
+</section>

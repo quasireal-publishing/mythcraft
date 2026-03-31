@@ -49,14 +49,21 @@
     </div>
     <ul class="item-list">
       {{#each spells}}
-      <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
+      <li class="item draggable spell-{{item.system.magicSource}}" data-item-id="{{item.id}}" data-document-class="Item">
         <div class="item-row flexrow">
           <img src="{{item.img}}" alt="{{item.name}}">
           <div class="item-name">{{item.name}}</div>
           <div class="item-magicSource">{{localize magicSourceLabel}}</div>
           <div class="item-apc">{{item.system.apc}}</div>
           <div class="item-spc">{{item.system.spc}}</div>
+          <input type="checkbox" class="spell-attack-toggle"
+                 data-action="toggleSpellAttack" data-item-id="{{item.id}}"
+                 {{#if item.system.isAttack}}checked{{/if}}
+                 title="{{localize 'MYTHCRAFT.Item.spell.FIELDS.isAttack.label'}}">
           <div class="item-controls flexrow">
+            <button type="button" class="roll-spell" data-action="rollSpell" data-item-id="{{item.id}}" title="Cast Spell">
+              <i class="fas fa-magic"></i>
+            </button>
             <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
             <button
               type="button"

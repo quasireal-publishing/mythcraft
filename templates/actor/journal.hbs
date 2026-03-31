@@ -1,0 +1,154 @@
+{{! Journal tab — Additional Info (full), Contacts + Resources (half/half), Journal (full) }}
+<section class="tab journal-tab {{tab.cssClass}} standard-form" data-group="primary" data-tab="journal">
+
+  {{! ---- Additional Info (full width) ---- }}
+  <section class="journal-section additional-info-list">
+    <div class="section-header">
+      <h3>{{localize "MYTHCRAFT.Actor.character.FIELDS.additionalInfo.label"}}</h3>
+      {{#if @root.editable}}
+      <button type="button" class="add-btn" data-action="addAdditionalInfo"><i class="fas fa-plus"></i></button>
+      {{/if}}
+    </div>
+    {{#each additionalInfo.entries}}
+    <div class="journal-card {{#if this.expanded}}expanded{{else}}collapsed{{/if}}" data-entry-id="{{@key}}">
+      {{#if this.expanded}}
+      <div class="card-row">
+        <button type="button" class="toggle-btn" data-action="toggleJournalCard"><i class="fas fa-chevron-down"></i></button>
+        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.additionalInfo.name.label"}}</label>
+        <input type="text" name="system.additionalInfo.{{@key}}.name" value="{{this.name}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.additionalInfo.category.label"}}</label>
+        <input type="text" name="system.additionalInfo.{{@key}}.category" value="{{this.category}}" {{#unless @root.editable}}disabled{{/unless}}>
+        {{#if @root.editable}}
+        <button type="button" class="remove-btn" data-action="removeAdditionalInfo" data-entry-id="{{@key}}"><i class="fas fa-trash"></i></button>
+        {{/if}}
+      </div>
+      <div class="card-description">
+        {{#if @root.editable}}
+        {{formInput @root.additionalInfo.field value=this.description enriched=this.enrichedHTML name=(concat "system.additionalInfo." @key ".description")}}
+        {{else}}
+        <div class="enriched-text">{{{this.enrichedHTML}}}</div>
+        {{/if}}
+      </div>
+      {{else}}
+      <div class="card-row collapsed-row" data-action="toggleJournalCard">
+        <button type="button" class="toggle-btn"><i class="fas fa-chevron-right"></i></button>
+        <span class="collapsed-name">{{this.name}}</span>
+        {{#if this.category}}<span class="collapsed-detail">{{this.category}}</span>{{/if}}
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </section>
+
+  {{! ---- Middle grid: Contacts (left) + Resources (right) ---- }}
+  <div class="journal-middle-grid">
+
+    {{! Contacts }}
+    <section class="journal-section contacts-list">
+      <div class="section-header">
+        <h3>{{localize "MYTHCRAFT.Actor.character.FIELDS.contacts.label"}}</h3>
+        {{#if @root.editable}}
+        <button type="button" class="add-btn" data-action="addContact"><i class="fas fa-plus"></i></button>
+        {{/if}}
+      </div>
+      {{#each contacts.entries}}
+      <div class="journal-card {{#if this.expanded}}expanded{{else}}collapsed{{/if}}" data-entry-id="{{@key}}">
+        {{#if this.expanded}}
+        <div class="card-row">
+          <button type="button" class="toggle-btn" data-action="toggleJournalCard"><i class="fas fa-chevron-down"></i></button>
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.contacts.name.label"}}</label>
+          <input type="text" name="system.contacts.{{@key}}.name" value="{{this.name}}" {{#unless @root.editable}}disabled{{/unless}}>
+          {{#if @root.editable}}
+          <button type="button" class="remove-btn" data-action="removeContact" data-entry-id="{{@key}}"><i class="fas fa-trash"></i></button>
+          {{/if}}
+        </div>
+        <div class="card-row">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.contacts.location.label"}}</label>
+          <input type="text" name="system.contacts.{{@key}}.location" value="{{this.location}}" {{#unless @root.editable}}disabled{{/unless}}>
+        </div>
+        <div class="card-description">
+          {{#if @root.editable}}
+          {{formInput @root.contacts.field value=this.description enriched=this.enrichedHTML name=(concat "system.contacts." @key ".description")}}
+          {{else}}
+          <div class="enriched-text">{{{this.enrichedHTML}}}</div>
+          {{/if}}
+        </div>
+        {{else}}
+        <div class="card-row collapsed-row" data-action="toggleJournalCard">
+          <button type="button" class="toggle-btn"><i class="fas fa-chevron-right"></i></button>
+          <span class="collapsed-name">{{this.name}}</span>
+          {{#if this.location}}<span class="collapsed-detail">{{this.location}}</span>{{/if}}
+        </div>
+        {{/if}}
+      </div>
+      {{/each}}
+    </section>
+
+    {{! Resources }}
+    <section class="journal-section resources-list">
+      <div class="section-header">
+        <h3>{{localize "MYTHCRAFT.Actor.character.FIELDS.resources.label"}}</h3>
+        {{#if @root.editable}}
+        <button type="button" class="add-btn" data-action="addResource"><i class="fas fa-plus"></i></button>
+        {{/if}}
+      </div>
+      {{#each resources}}
+      <div class="journal-card resource-card" data-entry-id="{{@key}}">
+        <div class="card-row">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.resources.name.label"}}</label>
+          <input type="text" name="system.resources.{{@key}}.name" value="{{this.name}}" {{#unless @root.editable}}disabled{{/unless}}>
+          <div class="resource-values">
+            <input type="number" name="system.resources.{{@key}}.value" value="{{this.value}}" min="0" {{#unless @root.editable}}disabled{{/unless}}>
+            <span>/</span>
+            <input type="number" name="system.resources.{{@key}}.max" value="{{this.max}}" min="0" {{#unless @root.editable}}disabled{{/unless}}>
+          </div>
+          {{#if @root.editable}}
+          <button type="button" class="remove-btn" data-action="removeResource" data-entry-id="{{@key}}"><i class="fas fa-trash"></i></button>
+          {{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </section>
+
+  </div>
+
+  {{! ---- Journal Entries (full width) ---- }}
+  <section class="journal-section journal-entries">
+    <div class="section-header">
+      <h3>{{localize "MYTHCRAFT.Actor.character.FIELDS.journal.label"}}</h3>
+      {{#if @root.editable}}
+      <button type="button" class="add-btn" data-action="addJournalEntry"><i class="fas fa-plus"></i></button>
+      {{/if}}
+    </div>
+    {{#each journal.entries}}
+    <div class="journal-card {{#if this.expanded}}expanded{{else}}collapsed{{/if}}" data-entry-id="{{@key}}">
+      {{#if this.expanded}}
+      <div class="card-row">
+        <button type="button" class="toggle-btn" data-action="toggleJournalCard"><i class="fas fa-chevron-down"></i></button>
+        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.journal.name.label"}}</label>
+        <input type="text" name="system.journal.{{@key}}.name" value="{{this.name}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.journal.date.label"}}</label>
+        <input type="text" name="system.journal.{{@key}}.date" value="{{this.date}}" {{#unless @root.editable}}disabled{{/unless}}>
+        {{#if @root.editable}}
+        <button type="button" class="remove-btn" data-action="removeJournalEntry" data-entry-id="{{@key}}"><i class="fas fa-trash"></i></button>
+        {{/if}}
+      </div>
+      <div class="card-description">
+        {{#if @root.editable}}
+        {{formInput @root.journal.field value=this.content enriched=this.enrichedHTML name=(concat "system.journal." @key ".content")}}
+        {{else}}
+        <div class="enriched-text">{{{this.enrichedHTML}}}</div>
+        {{/if}}
+      </div>
+      {{else}}
+      <div class="card-row collapsed-row" data-action="toggleJournalCard">
+        <button type="button" class="toggle-btn"><i class="fas fa-chevron-right"></i></button>
+        <span class="collapsed-name">{{this.name}}</span>
+        {{#if this.date}}<span class="collapsed-detail">{{this.date}}</span>{{/if}}
+      </div>
+      {{/if}}
+    </div>
+    {{/each}}
+  </section>
+
+</section>

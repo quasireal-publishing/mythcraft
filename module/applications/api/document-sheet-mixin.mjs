@@ -47,7 +47,7 @@ export default base => {
      * @type {typeof MCDocumentSheet.MODES[keyof typeof MCDocumentSheet.MODES]}
      * @protected
      */
-    _mode = MCDocumentSheet.MODES.PLAY;
+    _mode = MCDocumentSheet.MODES.EDIT;
 
     /* -------------------------------------------------- */
 
@@ -86,6 +86,13 @@ export default base => {
       if (options.mode && this.isEditable) this._mode = options.mode;
       // New sheets should always start in edit mode
       else if (options.renderContext === `create${this.document.documentName}`) this._mode = MCDocumentSheet.MODES.EDIT;
+      // Restore persisted mode from document flags
+      else {
+        const persisted = this.document.getFlag(systemId, "sheetMode");
+        if (persisted && Object.values(MCDocumentSheet.MODES).includes(persisted)) {
+          this._mode = this.isEditable ? persisted : MCDocumentSheet.MODES.PLAY;
+        }
+      }
     }
 
     /* -------------------------------------------------- */
@@ -138,6 +145,7 @@ export default base => {
         return;
       }
       this._mode = this.isPlayMode ? MCDocumentSheet.MODES.EDIT : MCDocumentSheet.MODES.PLAY;
+      await this.document.setFlag(systemId, "sheetMode", this._mode);
       this.render();
     }
 

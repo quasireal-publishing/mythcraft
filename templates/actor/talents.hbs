@@ -26,6 +26,11 @@
         <div class="item-name">{{item.name}}</div>
         <div class="item-action">{{item.system.categoryLabel}}</div>
         <div class="item-controls flexrow">
+          <button type="button" class="toggle-favorite {{#if item.flags.mythcraft.favorite}}active{{/if}}"
+                  data-action="toggleFavorite" data-item-id="{{item.id}}"
+                  title="{{localize 'MYTHCRAFT.SHEET.Favorite'}}">
+            <i class="{{#if item.flags.mythcraft.favorite}}fas{{else}}far{{/if}} fa-star"></i>
+          </button>
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
           <button
             type="button"
@@ -60,6 +65,11 @@
         <div class="item-name">{{item.name}}</div>
         <div class="item-action">{{item.system.actionLabel}}</div>
         <div class="item-controls flexrow">
+          <button type="button" class="toggle-favorite {{#if item.flags.mythcraft.favorite}}active{{/if}}"
+                  data-action="toggleFavorite" data-item-id="{{item.id}}"
+                  title="{{localize 'MYTHCRAFT.SHEET.Favorite'}}">
+            <i class="{{#if item.flags.mythcraft.favorite}}fas{{else}}far{{/if}} fa-star"></i>
+          </button>
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
           <button
             type="button"

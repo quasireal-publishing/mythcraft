@@ -14,6 +14,10 @@
       }}
       {{/each}}
     </div>
+    <div class="form-group currency-notes">
+      <label>{{localize "MYTHCRAFT.Currency.notes.label"}}</label>
+      <textarea name="system.currency.notes" {{#unless @root.editable}}disabled{{/unless}}>{{@root.system.currency.notes}}</textarea>
+    </div>
   </fieldset>
   <div class="item-header flexrow armor">
     <div class="item-name">{{localize "TYPES.Item.armor"}}</div>
@@ -71,6 +75,9 @@
         <div class="item-apc">{{item.system.apc}}</div>
         <div class="item-quantity">{{item.system.quantity}}</div>
         <div class="item-controls flexrow">
+          <button type="button" class="roll-attack" data-action="rollAttack" data-item-id="{{item.id}}" title="Roll Attack">
+            <i class="fas fa-dice-d20"></i>
+          </button>
           <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
           <button
             type="button"

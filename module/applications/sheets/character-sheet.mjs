@@ -1,11 +1,222 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import AdvancementModel from "../../data/item/advancement.mjs";
-import { systemPath } from "../../constants.mjs";
+import { systemId, systemPath } from "../../constants.mjs";
+import enrichHTML from "../../utils/enrich-html.mjs";
+import InitiativeRollDialog from "../apps/initiative-roll-dialog.mjs";
 
 /**
  * An actor sheet for character type actors.
  */
 export default class CharacterSheet extends MythCraftActorSheet {
+
+  /**
+   * A set of journal/contact/additionalInfo entry IDs that are expanded on this sheet.
+   * @type {Set<string>}
+   */
+  #expandedCards = new Set();
+
+  /** @inheritdoc */
+  static DEFAULT_OPTIONS = {
+    actions: {
+      toggleFavorite: this.#toggleFavorite,
+      toggleJournalCard: this.#toggleJournalCard,
+      addAdditionalInfo: this.#addAdditionalInfo,
+      removeAdditionalInfo: this.#removeAdditionalInfo,
+      addJournalEntry: this.#addJournalEntry,
+      removeJournalEntry: this.#removeJournalEntry,
+      addContact: this.#addContact,
+      removeContact: this.#removeContact,
+      addResource: this.#addResource,
+      removeResource: this.#removeResource,
+      rollInitiative: this.#rollInitiative,
+      pickOrigin: this.#pickOrigin,
+    },
+  };
+
+  /**
+   * Toggle the favorite flag on an item.
+   *
+   * @this CharacterSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #toggleFavorite(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+    const current = item.getFlag("mythcraft", "favorite") ?? false;
+    await item.setFlag("mythcraft", "favorite", !current);
+  }
+
+  static #toggleJournalCard(event, target) {
+    const entryId = target.closest("[data-entry-id]").dataset.entryId;
+    if (this.#expandedCards.has(entryId)) this.#expandedCards.delete(entryId);
+    else this.#expandedCards.add(entryId);
+    this.render({ parts: ["journal"] });
+  }
+
+  static async #addAdditionalInfo() {
+    const id = foundry.utils.randomID();
+    this.#expandedCards.add(id);
+    await this.actor.update({ [`system.additionalInfo.${id}`]: { name: "", category: "", description: "" } });
+  }
+
+  static async #removeAdditionalInfo(event, target) {
+    const entryId = target.dataset.entryId;
+    await this.actor.update({ [`system.additionalInfo.-=${entryId}`]: null });
+  }
+
+  static async #addJournalEntry() {
+    const id = foundry.utils.randomID();
+    this.#expandedCards.add(id);
+    await this.actor.update({ [`system.journal.${id}`]: { name: "", date: "", content: "" } });
+  }
+
+  static async #removeJournalEntry(event, target) {
+    const entryId = target.dataset.entryId;
+    await this.actor.update({ [`system.journal.-=${entryId}`]: null });
+  }
+
+  static async #addContact() {
+    const id = foundry.utils.randomID();
+    this.#expandedCards.add(id);
+    await this.actor.update({ [`system.contacts.${id}`]: { name: "", location: "", description: "" } });
+  }
+
+  static async #removeContact(event, target) {
+    const entryId = target.dataset.entryId;
+    await this.actor.update({ [`system.contacts.-=${entryId}`]: null });
+  }
+
+  static async #addResource() {
+    const id = foundry.utils.randomID();
+    await this.actor.update({ [`system.resources.${id}`]: { name: "", value: 0, max: 0 } });
+  }
+
+  static async #removeResource(event, target) {
+    const entryId = target.dataset.entryId;
+    await this.actor.update({ [`system.resources.-=${entryId}`]: null });
+  }
+
+  /**
+   * Open the initiative roll dialog from the header button.
+   *
+   * @this CharacterSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollInitiative(event, target) {
+    const system = this.actor.system;
+    const awr = system.attributes.awr ?? 0;
+    const bonus = system.initiative.bonus ?? 0;
+    const total = system.initiative.total ?? 0;
+
+    const fd = await InitiativeRollDialog.create({
+      context: { awr, bonus, total },
+    });
+    if (!fd) return;
+
+    const { rollMode } = fd;
+    const formula = `1d20 + ${awr} + ${bonus}`;
+    const roll = new mythcraft.rolls.InitiativeRoll(formula, this.actor.getRollData());
+    await roll.toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      rollMode,
+    });
+  }
+
+  /**
+   * Map of origin item types to their compendium pack names.
+   * @type {Record<string, string>}
+   */
+  static ORIGIN_PACKS = {
+    lineage: `${systemId}.lineages`,
+    background: `${systemId}.bop`,
+    profession: `${systemId}.bop`,
+  };
+
+  /**
+   * Show a picker dialog for origin items (lineage, background, profession).
+   * Lists items from the compendium pack and offers a "Create New" option.
+   *
+   * @this CharacterSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #pickOrigin(event, target) {
+    const type = target.dataset.type;
+    const packName = CharacterSheet.ORIGIN_PACKS[type];
+    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[type]);
+    const actor = this.actor;
+
+    // Gather items from compendium pack
+    const pack = game.packs.get(packName);
+    const compendiumItems = [];
+    if (pack) {
+      const docs = await pack.getDocuments({ type });
+      compendiumItems.push(...docs.sort((a, b) => a.name.localeCompare(b.name)));
+    }
+
+    // Gather matching world items from the Items sidebar
+    const worldItems = game.items
+      .filter(i => i.type === type)
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    // Build grouped dialog content
+    const renderGroup = (label, items) => {
+      if (!items.length) return '';
+      const lis = items.map(item =>
+        `<li class="origin-pick-item" data-uuid="${item.uuid}">
+          <img src="${item.img}" width="24" height="24">
+          <span>${item.name}</span>
+        </li>`
+      ).join('');
+      return `<h3>${label}</h3><ul class="origin-pick-list">${lis}</ul>`;
+    };
+
+    const packLabel = pack ? game.i18n.localize(pack.metadata.label) : 'Compendium';
+    const content = [
+      renderGroup(packLabel, compendiumItems),
+      renderGroup('World Items', worldItems),
+    ].filter(Boolean).join('') || '<p><em>No items available</em></p>';
+
+    // Show dialog — clicking an item selects it
+    const { promise, resolve } = Promise.withResolvers();
+    let resolved = false;
+
+    const dialog = new mythcraft.applications.api.MythCraftDialog({
+      window: { title: typeLabel },
+      content,
+      buttons: [{
+        action: "close",
+        label: game.i18n.localize("Close"),
+        callback: () => { resolved = true; resolve(null); },
+      }],
+      close: () => { if (!resolved) resolve(null); },
+    });
+
+    dialog.addEventListener("render", () => {
+      for (const li of dialog.element.querySelectorAll(".origin-pick-item")) {
+        li.addEventListener("click", () => {
+          resolved = true;
+          resolve(li.dataset.uuid);
+          dialog.close();
+        });
+      }
+    }, { once: true });
+
+    dialog.render({ force: true });
+    const uuid = await promise;
+    if (!uuid) return;
+
+    const item = await fromUuid(uuid);
+    if (!item) return;
+    const keepId = !actor.items.has(item.id);
+    const itemData = game.items.fromCompendium(item, { keepId, clearFolder: true });
+    const created = await Item.implementation.create(itemData, { parent: actor, keepId });
+    created?.sheet?.render({ force: true });
+  }
+
   /** @inheritdoc */
   static TABS = {
     primary: {
@@ -16,6 +227,7 @@ export default class CharacterSheet extends MythCraftActorSheet {
         { id: "talents" },
         { id: "effects" },
         { id: "biography" },
+        { id: "journal" },
       ],
       initial: "stats",
       labelPrefix: "MYTHCRAFT.SHEET.Tabs",
@@ -56,6 +268,10 @@ export default class CharacterSheet extends MythCraftActorSheet {
       template: systemPath("templates/actor/biography.hbs"),
       scrollable: [""],
     },
+    journal: {
+      template: systemPath("templates/actor/journal.hbs"),
+      scrollable: [""],
+    },
   };
 
   /* -------------------------------------------------- */
@@ -81,6 +297,13 @@ export default class CharacterSheet extends MythCraftActorSheet {
       case "talents":
         await this._prepareTalentsTab(context, options);
         context.tab = context.tabs[partId];
+        break;
+      case "journal":
+        context.additionalInfo = await this.#prepareJournalEntries("additionalInfo", "description");
+        context.journal = await this.#prepareJournalEntries("journal", "content");
+        context.contacts = await this.#prepareJournalEntries("contacts", "description");
+        context.resources = this.actor.system.resources ?? {};
+        context.tab = context.tabs.journal;
         break;
     }
 
@@ -165,7 +388,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
   async _prepareTalentsTab(context, options) {
     context.talents = [];
 
-    const sortedTalents = this.actor.itemTypes.talent.toSorted((a, b) => a.sort - b.sort);
+    const sortedTalents = this.actor.itemTypes.talent.toSorted((a, b) => {
+      const aFav = a.getFlag("mythcraft", "favorite") ? 0 : 1;
+      const bFav = b.getFlag("mythcraft", "favorite") ? 0 : 1;
+      if (aFav !== bFav) return aFav - bFav;
+      return a.sort - b.sort;
+    });
 
     for (const item of sortedTalents) {
       const expanded = this.expanded.items.has(item.id);
@@ -176,7 +404,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
     }
 
     context.features = [];
-    const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
+    const sortedFeatures = this.actor.itemTypes.feature.toSorted((a, b) => {
+      const aFav = a.getFlag("mythcraft", "favorite") ? 0 : 1;
+      const bFav = b.getFlag("mythcraft", "favorite") ? 0 : 1;
+      if (aFav !== bFav) return aFav - bFav;
+      return a.sort - b.sort;
+    });
 
     for (const item of sortedFeatures) {
       const expanded = this.expanded.items.has(item.id);
@@ -187,27 +420,40 @@ export default class CharacterSheet extends MythCraftActorSheet {
     }
   }
 
-  /** @inheritdoc */
-  async _prepareBiographyTab(context, options) {
-    await super._prepareBiographyTab(context, options);
-
-    context.origins = [...this.#prepareOrigin("lineage"), ...this.#prepareOrigin("background"), ...this.#prepareOrigin("profession")];
+  /**
+   * Annotate journal-style entries with expanded state, enriched HTML, and field references.
+   * @param {string} fieldName The system field name (e.g. "journal", "contacts", "additionalInfo").
+   * @param {string} htmlField The name of the HTML sub-field (e.g. "content", "description").
+   * @returns {Promise<object>} Object with `entries` (keyed by ID) and `field` (the HTMLField reference).
+   */
+  async #prepareJournalEntries(fieldName, htmlField) {
+    const entries = this.actor.system[fieldName] ?? {};
+    const field = new foundry.data.fields.HTMLField();
+    const prepared = {};
+    for (const [id, entry] of Object.entries(entries)) {
+      prepared[id] = {
+        ...entry,
+        expanded: this.#expandedCards.has(id),
+        enrichedHTML: await enrichHTML(entry[htmlField] ?? "", { relativeTo: this.actor }),
+      };
+    }
+    return { entries: prepared, field };
   }
 
-  /**
-   * Helper function to construct origin context for the biography tab.
-   * @param {string} type A valid item subtype.
-   * @returns {object[]}
-   */
-  #prepareOrigin(type) {
-    const contexts = [];
-    for (const item of this.actor.itemTypes[type]) {
-      contexts.push({ item });
-    }
-    if (!this.actor.itemTypes[type].length) {
-      contexts.push({ type, label: game.i18n.localize(CONFIG.Item.typeLabels[type]) });
-    }
-    return contexts;
+  /** @inheritdoc */
+  async _prepareHeader(context, options) {
+    await super._prepareHeader(context, options);
+
+    const originTypes = ["lineage", "background", "profession"];
+    context.origins = originTypes.map(type => {
+      const item = this.actor.itemTypes[type][0] ?? null;
+      return {
+        type,
+        label: game.i18n.localize(CONFIG.Item.typeLabels[type]),
+        item,
+        name: item?.name ?? "\u2014",
+      };
+    });
   }
 
   /* -------------------------------------------------- */

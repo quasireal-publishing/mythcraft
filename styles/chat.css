@@ -1,0 +1,42 @@
+/* Chat card branding */
+.mythcraft.chat-card .card-header {
+  background-color: var(--mc-primary);
+  color: var(--mc-secondary);
+  padding: 4px 8px;
+  font-family: var(--mc-font-heading);
+}
+
+.mythcraft.chat-card .card-body {
+  font-family: var(--mc-font-body);
+  padding: 6px 8px;
+}
+
+.mythcraft.chat-card .damage-type {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
+.mythcraft.chat-card .critical-hit {
+  color: var(--mc-accent);
+  font-weight: bold;
+}
+
+.mythcraft.chat-card .critical-fail {
+  color: #888;
+  font-style: italic;
+}
+
+.mythcraft.chat-card button.roll-damage {
+  background-color: var(--mc-accent);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.mythcraft.chat-card button.roll-damage:hover {
+  background-color: var(--mc-primary);
+}

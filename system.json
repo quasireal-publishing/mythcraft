@@ -29,6 +29,15 @@
         "gmOnlyFields": [
           "biography.gm"
         ]
+      },
+      "siege": {
+        "htmlFields": [
+          "description.value",
+          "description.gm"
+        ],
+        "gmOnlyFields": [
+          "description.gm"
+        ]
       }
     },
     "Item": {

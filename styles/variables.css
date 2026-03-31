@@ -1,0 +1,22 @@
+:root {
+  /* Brand colors */
+  --mc-primary: rgb(23, 67, 69);
+  --mc-secondary: rgb(254, 235, 179);
+  --mc-accent: rgb(252, 101, 67);
+  --mc-dark: rgb(44, 37, 34);
+  --mc-teal: rgb(41, 135, 140);
+
+  /* Spell source colors */
+  --mc-arcane: rgba(0, 207, 255, 0.2);
+  --mc-divine: rgba(234, 216, 73, 0.2);
+  --mc-primal: rgba(102, 255, 102, 0.2);
+  --mc-psionic: rgba(168, 77, 255, 0.2);
+  --mc-occult: rgba(209, 44, 44, 0.2);
+  --mc-crit-hit: rgb(56, 142, 60);
+  --mc-crit-fail: rgb(198, 40, 40);
+
+  /* Typography */
+  --mc-font-display: 'Gideon Roman', serif;
+  --mc-font-heading: 'Josefin Sans', sans-serif;
+  --mc-font-body: 'Tinos', serif;
+}

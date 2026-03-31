@@ -7,30 +7,182 @@
 
   [data-application-part="header"] {
     padding: 0.5rem 0;
-    img {
-      border: none;
-      max-width: 100px;
-      flex: 0 0 100px;
-    }
-    .header-center {
+
+    .logo-mode-wrapper {
+      flex: 0 0 120px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      gap: 6px;
+      margin-right: 0.75rem;
+    }
+
+    .logo-mode-wrapper .system-logo {
+      max-width: 120px;
+      max-height: 100px;
+      object-fit: contain;
+      cursor: default;
+    }
+
+    .mode-badge {
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--mc-dark);
+      cursor: pointer;
+      font-family: var(--mc-font-heading);
+      font-size: var(--font-size-12);
+      transition: background-color 0.15s;
+    }
+
+    .mode-badge.mode-play {
+      background-color: rgba(254, 235, 179, 0.4);
+      color: var(--mc-dark);
+    }
+
+    .mode-badge.mode-edit {
+      background-color: var(--mc-primary);
+      color: #fff;
+    }
+
+    .header-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+
+      .header-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 8px;
+      }
+
       input[name="name"] {
-        height: var(--font-h1-size);
-        line-height: var(--font-h1-size);
+        height: 34px;
+        line-height: 34px;
         font-size: var(--font-h2-size);
       }
+
+      .field-lineage {
+        flex: 1 1 100px;
+        min-width: 100px;
+      }
+
+      .field-name {
+        flex: 2 1 180px;
+        min-width: 180px;
+      }
+
+      .field-level {
+        flex: 0 1 50px;
+      }
+
+      .field-size {
+        flex: 1 1 75px;
+      }
+
+      .field-height {
+        flex: 1 1 60px;
+      }
+
+      .field-weight {
+        flex: 1 1 80px;
+      }
+
+      .field-age {
+        flex: 0 1 50px;
+      }
+
+      .field-appearance {
+        flex: 1 1 100%;
+      }
+
+      .field-appearance textarea {
+        min-height: 28px;
+        resize: vertical;
+        field-sizing: content;
+      }
+
+      .header-field label {
+        font-size: var(--font-size-11);
+        font-weight: bold;
+        color: var(--mc-primary);
+        display: block;
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+
+      .header-field input,
+      .header-field select,
+      .header-field textarea {
+        width: 100%;
+        height: 28px;
+      }
+
+      .header-field input[name="name"] {
+        height: 34px;
+      }
+
+      .header-field .readonly-value {
+        height: 28px;
+        line-height: 28px;
+        padding: 0 4px;
+        color: var(--mc-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
+
     .header-right {
-      flex: 0 0 200px;
-      padding-left: 1rem;
+      flex: 0 0 170px;
+      padding-left: 0.75rem;
+      border-left: 1px solid rgba(44, 37, 34, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: var(--font-size-12);
+
       .action-points {
         gap: 0.25rem;
         .max-ap {
           flex: 0.5;
         }
       }
+
+      .classes-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: var(--font-size-11);
+        min-height: 20px;
+      }
+
+      .classes-text {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .tab-shortcut {
+        flex: 0 0 auto;
+        background: none;
+        border: 1px solid rgba(44, 37, 34, 0.3);
+        border-radius: 3px;
+        cursor: pointer;
+        padding: 1px 6px;
+        color: var(--mc-primary);
+        font-size: var(--font-size-11);
+      }
+
+      .tab-shortcut:hover {
+        background-color: var(--mc-teal);
+        color: #fff;
+        border-color: var(--mc-teal);
+      }
+
       .actor-source {
         margin-top: 5px;
         font-family: var(--font-h4);
@@ -256,4 +408,600 @@
       }
     }
   }
+}
+
+/* === MythCraft Branding === */
+
+/* Light-mode overrides for Foundry dark-mode variables */
+.mythcraft.sheet {
+  color-scheme: light;
+  --color-text-primary: var(--mc-dark);
+  --color-text-secondary: #5a4e47;
+  --color-form-label: var(--mc-dark);
+  --color-fieldset-border: rgba(44, 37, 34, 0.4);
+  --color-border-light-2: rgba(44, 37, 34, 0.3);
+}
+
+/* Typography */
+.mythcraft.sheet {
+  font-family: var(--mc-font-body);
+}
+
+.mythcraft.sheet h1,
+.mythcraft.sheet .actor-name {
+  font-family: var(--mc-font-display);
+}
+
+.mythcraft.sheet h2,
+.mythcraft.sheet h3,
+.mythcraft.sheet h4,
+.mythcraft.sheet .tab-label {
+  font-family: var(--mc-font-heading);
+}
+
+/* Background — parchment texture over cream base */
+.mythcraft.sheet .window-content {
+  color: var(--mc-dark);
+  background: var(--mc-secondary) url("../../../assets/MythCraft-PaperTexture.jpg") center / cover no-repeat;
+  background-blend-mode: multiply;
+}
+
+/* Ensure dark text on light background */
+.mythcraft.sheet label,
+.mythcraft.sheet legend,
+.mythcraft.sheet h3,
+.mythcraft.sheet .form-group label {
+  color: var(--mc-dark);
+}
+
+.mythcraft.sheet input,
+.mythcraft.sheet select,
+.mythcraft.sheet textarea {
+  color: var(--mc-dark);
+}
+
+/* Input styling — semi-transparent to let paper texture show through */
+.mythcraft.sheet {
+  --input-background-color: rgba(254, 235, 179, 0.25);
+  --input-border-color: rgba(44, 37, 34, 0.25);
+}
+
+.mythcraft.sheet input,
+.mythcraft.sheet select,
+.mythcraft.sheet textarea {
+  background-color: rgba(254, 235, 179, 0.25);
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+}
+
+.mythcraft.sheet input:focus,
+.mythcraft.sheet select:focus,
+.mythcraft.sheet textarea:focus {
+  background-color: rgba(254, 235, 179, 0.4);
+  border-color: rgba(44, 37, 34, 0.5);
+  outline: none;
+  box-shadow: 0 0 3px rgba(41, 135, 140, 0.3);
+}
+
+/* Tab bar */
+.mythcraft.sheet nav.sheet-tabs {
+  background: none;
+  gap: 0.25rem;
+  padding: 0.25rem 0.25rem 0;
+  border: none;
+  line-height: 1;
+  justify-content: start;
+}
+
+.mythcraft.sheet nav.sheet-tabs a {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--mc-dark);
+  border-radius: 4px;
+  padding: 0.3rem;
+  text-shadow: none;
+  transition: background-color 0.15s, color 0.15s;
+  border: 1px solid var(--mc-dark);
+  transition-property: border-color,color,background-color,scale,text-shadow;
+  transition-duration: 500ms;
+}
+
+.mythcraft.sheet nav.sheet-tabs a.active {
+  background-color: var(--mc-primary);
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-color: transparent;
+}
+
+.mythcraft.sheet nav.sheet-tabs a:hover:not(.active) {
+  background-color: var(--mc-teal);
+  color: #fff;
+  scale: 1.1;
+}
+
+/* Attribute edit button */
+.mythcraft.sheet.actor .attribute-circle {
+  position: relative;
+}
+
+.mythcraft.sheet.actor .attribute-circle .edit-attribute-btn {
+  position: absolute;
+  top: -26px;
+  right: 2px;
+  font-size: var(--font-size-12);
+  color: var(--mc-primary);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.mythcraft.sheet.actor .attribute-circle .edit-attribute-btn:hover {
+  opacity: 1;
+}
+
+/* Attribute circles */
+.mythcraft.sheet.actor .attribute-circle legend {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--mc-dark);
+  background-color: var(--mc-primary);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mc-font-heading);
+  font-weight: bold;
+  font-size: 0.85em;
+  line-height: 1.1;
+  text-align: center;
+  margin: 0 auto;
+  padding: 4px;
+}
+
+.mythcraft.sheet.actor .attribute-circle legend[data-action] {
+  cursor: pointer;
+}
+
+.mythcraft.sheet.actor .attribute-circle legend[data-action]:hover {
+  background-color: var(--mc-teal);
+}
+
+.mythcraft.sheet.actor .attribute-circle legend a {
+  color: white;
+}
+
+/* Item rows */
+.mythcraft.sheet.actor .item-list .item:nth-child(odd) {
+  background-color: rgba(23, 67, 69, 0.03);
+}
+
+.mythcraft.sheet.actor .item-list .item:hover {
+  background-color: rgba(41, 135, 140, 0.1);
+}
+
+/* Roll buttons */
+.mythcraft.sheet.actor button.roll-attack,
+.mythcraft.sheet.actor button.roll-spell {
+  background-color: var(--mc-teal);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.mythcraft.sheet.actor button.roll-attack:hover,
+.mythcraft.sheet.actor button.roll-spell:hover {
+  background-color: var(--mc-primary);
+}
+
+/* Spell source colors */
+.mythcraft.sheet.actor .spell-arcane { background-color: var(--mc-arcane); }
+.mythcraft.sheet.actor .spell-divine { background-color: var(--mc-divine); }
+.mythcraft.sheet.actor .spell-primal { background-color: var(--mc-primal); }
+.mythcraft.sheet.actor .spell-psionic { background-color: var(--mc-psionic); }
+.mythcraft.sheet.actor .spell-occult { background-color: var(--mc-occult); }
+
+/* Journal tab layout */
+.mythcraft.sheet.actor .journal-tab.active {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+.mythcraft.sheet.actor .journal-middle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.mythcraft.sheet.actor .journal-section {
+  border: 1px solid rgba(44, 37, 34, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: rgba(254, 235, 179, 0.1);
+}
+
+.mythcraft.sheet.actor .journal-section .section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.mythcraft.sheet.actor .journal-section .section-header h3 {
+  font-family: var(--mc-font-heading);
+  color: var(--mc-primary);
+  border-bottom: 1px solid var(--mc-primary);
+  margin: 0;
+  flex: 1;
+  font-size: var(--font-size-16);
+  padding-bottom: 2px;
+}
+
+.mythcraft.sheet.actor .journal-section .add-btn {
+  flex: 0 0 auto;
+  background: none;
+  border: 1px solid rgba(44, 37, 34, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px 8px;
+  color: var(--mc-primary);
+}
+
+.mythcraft.sheet.actor .journal-section .add-btn:hover {
+  background-color: rgba(41, 135, 140, 0.15);
+}
+
+.mythcraft.sheet.actor .journal-card {
+  border: 1px solid rgba(44, 37, 34, 0.15);
+  border-radius: 3px;
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 0.35rem;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.mythcraft.sheet.actor .journal-card .card-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.mythcraft.sheet.actor .journal-card .card-row label {
+  font-size: var(--font-size-12);
+  font-weight: bold;
+  color: var(--mc-primary);
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.mythcraft.sheet.actor .journal-card .card-row input[type="text"] {
+  flex: 1;
+  min-width: 60px;
+}
+
+.mythcraft.sheet.actor .journal-card .card-description {
+  margin-top: 0.25rem;
+}
+
+.mythcraft.sheet.actor .journal-card .card-description label {
+  font-size: var(--font-size-11);
+  color: var(--mc-primary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.mythcraft.sheet.actor .journal-card .card-description prose-mirror {
+  min-height: 150px;
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+}
+
+.mythcraft.sheet.actor .journal-card .card-description prose-mirror .editor-content {
+  min-height: 80px;
+  color: var(--mc-dark);
+  background: rgba(254, 235, 179, 0.25);
+}
+
+.mythcraft.sheet prose-mirror menu {
+  background: var(--mc-primary);
+  border-bottom: 1px solid rgba(44, 37, 34, 0.3);
+  border-radius: 2px 2px 0 0;
+}
+
+.mythcraft.sheet prose-mirror menu button {
+  color: var(--mc-secondary);
+}
+
+.mythcraft.sheet prose-mirror menu button:hover {
+  color: #fff;
+  background-color: var(--mc-teal);
+}
+
+.mythcraft.sheet prose-mirror menu button.active {
+  color: #fff;
+  background-color: var(--mc-teal);
+}
+
+.mythcraft.sheet prose-mirror menu select,
+.mythcraft.sheet prose-mirror menu .pm-dropdown {
+  color: var(--mc-secondary);
+  background: var(--mc-primary);
+  border-color: rgba(254, 235, 179, 0.3);
+}
+
+.mythcraft.sheet.actor .journal-card .card-description .enriched-text {
+  padding: 0.25rem;
+  font-size: var(--font-size-13);
+}
+
+.mythcraft.sheet.actor .journal-card .remove-btn {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 2px 4px;
+}
+
+.mythcraft.sheet.actor .journal-card .remove-btn:hover {
+  color: var(--mc-accent);
+}
+
+.mythcraft.sheet.actor .resource-values {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.mythcraft.sheet.actor .resource-values input[type="number"] {
+  width: 45px;
+  text-align: center;
+}
+
+.mythcraft.sheet.actor .resource-values span {
+  font-weight: bold;
+  color: var(--mc-primary);
+}
+
+/* Collapsed/expanded card toggle */
+.mythcraft.sheet.actor .journal-card .toggle-btn {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--mc-primary);
+  padding: 0 4px;
+  font-size: var(--font-size-11);
+}
+
+.mythcraft.sheet.actor .journal-card.collapsed {
+  padding: 0.2rem 0.5rem;
+}
+
+.mythcraft.sheet.actor .journal-card .collapsed-row {
+  cursor: pointer;
+}
+
+.mythcraft.sheet.actor .journal-card .collapsed-row:hover {
+  color: var(--mc-teal);
+}
+
+.mythcraft.sheet.actor .journal-card .collapsed-name {
+  font-weight: bold;
+  color: var(--mc-dark);
+}
+
+.mythcraft.sheet.actor .journal-card .collapsed-detail {
+  color: #5a4e47;
+  font-size: var(--font-size-12);
+  margin-left: 0.25rem;
+}
+
+.mythcraft.sheet.actor .journal-card .collapsed-detail::before {
+  content: "\2014\00a0";
+}
+
+/* === Final Polish === */
+
+/* Favorites toggle */
+.mythcraft.sheet.actor .toggle-favorite {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 1em;
+}
+
+.mythcraft.sheet.actor .toggle-favorite.active {
+  color: var(--mc-accent);
+}
+
+/* Initiative button — matches attribute circles */
+.mythcraft.sheet.actor .initiative-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid var(--mc-dark);
+  background-color: var(--mc-primary);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mc-font-heading);
+  font-weight: bold;
+  font-size: 0.85em;
+  line-height: 1.1;
+  text-align: center;
+  margin: 4px auto 0;
+  padding: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.mythcraft.sheet.actor .initiative-btn:hover {
+  background-color: var(--mc-teal);
+}
+
+/* Critical range display */
+.mythcraft.sheet.actor .critical-display {
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--mc-font-heading);
+  font-size: var(--font-size-11);
+  text-align: center;
+}
+
+.mythcraft.sheet.actor .critical-display .crit-label {
+  font-size: var(--font-size-10);
+  color: #888;
+  display: block;
+}
+
+.mythcraft.sheet.actor .crit-hit {
+  color: var(--mc-crit-hit);
+  font-weight: bold;
+}
+
+.mythcraft.sheet.actor .crit-fail {
+  color: var(--mc-crit-fail);
+  font-weight: bold;
+}
+
+/* Header extra — personality & origins row */
+.mythcraft.sheet.actor .header-extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 8px;
+  border-top: 1px solid var(--mc-dark);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.mythcraft.sheet.actor .header-extra .header-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.mythcraft.sheet.actor .header-extra .header-field label {
+  font-size: var(--font-size-11);
+  font-weight: bold;
+  color: var(--mc-primary);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.mythcraft.sheet.actor .header-extra .header-field input,
+.mythcraft.sheet.actor .header-extra .header-field textarea {
+  width: 100%;
+  height: 28px;
+}
+
+.mythcraft.sheet.actor .header-extra .header-field textarea {
+  min-height: 28px;
+  resize: vertical;
+  field-sizing: content;
+}
+
+.mythcraft.sheet.actor .header-extra .header-field .readonly-value {
+  height: 28px;
+  line-height: 28px;
+  padding: 0 4px;
+  color: var(--mc-dark);
+}
+
+.mythcraft.sheet.actor .header-extra .field-values {
+  flex: 1 1 100px;
+  min-width: 90px;
+}
+
+.mythcraft.sheet.actor .header-extra .field-drive {
+  flex: 2 1 140px;
+  min-width: 130px;
+}
+
+.mythcraft.sheet.actor .header-extra .field-background {
+  flex: 1 1 90px;
+  min-width: 80px;
+}
+
+.mythcraft.sheet.actor .header-extra .field-profession {
+  flex: 1 1 90px;
+  min-width: 80px;
+}
+
+.mythcraft.sheet.actor .header-extra .field-quirk {
+  flex: 3 1 180px;
+  min-width: 160px;
+}
+
+.mythcraft.sheet.actor .header-extra .field-quirk textarea {
+  min-height: 28px;
+  resize: vertical;
+  field-sizing: content;
+}
+
+/* Origin buttons (lineage, background, profession) */
+.mythcraft.sheet.actor .origin-btn {
+  height: 28px;
+  width: 100%;
+  background: none;
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--mc-dark);
+  font-family: var(--mc-font-body);
+  font-size: var(--font-size-13);
+  text-align: left;
+  padding: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mythcraft.sheet.actor .origin-btn:hover {
+  background-color: rgba(41, 135, 140, 0.1);
+  border-color: var(--mc-teal);
+  color: var(--mc-teal);
+}
+
+.mythcraft.sheet.actor .origin-btn.origin-empty {
+  color: #888;
+  font-style: italic;
+}
+
+/* Origin picker dialog */
+.origin-pick-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.origin-pick-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.origin-pick-item:nth-child(odd) {
+  background-color: rgba(23, 67, 69, 0.03);
+}
+
+.origin-pick-item:hover {
+  background-color: rgba(41, 135, 140, 0.15);
+}
+
+.origin-pick-item img {
+  border: none;
+  flex: 0 0 24px;
 }

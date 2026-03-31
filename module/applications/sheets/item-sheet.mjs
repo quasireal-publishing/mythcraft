@@ -213,7 +213,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     context.advancementIcon = BaseAdvancement.metadata.icon;
     const advs = {};
     /** @type {foundry.utils.Collection<string, BaseAdvancement>} */
-    const models = this.document.getEmbeddedPseudoDocumentCollection("Advancement")[
+    const models = this.document.getEmbeddedCollection("Advancement")[
       this.isPlayMode ? "contents" : "sourceContents"
     ];
     for (const model of models) {
@@ -390,7 +390,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   static #createPseudoDocument(event, target) {
     const documentName = target.closest("[data-pseudo-document-name]").dataset.pseudoDocumentName;
     const type = target.closest("[data-pseudo-type]")?.dataset.pseudoType;
-    const Cls = this.document.getEmbeddedPseudoDocumentCollection(documentName).documentClass;
+    const Cls = this.document.getEmbeddedCollection(documentName).documentClass;
 
     if (!type && (foundry.utils.isSubclass(Cls, mythcraft.data.pseudoDocuments.TypedPseudoDocument))) {
       Cls.createDialog({}, { parent: this.document });
