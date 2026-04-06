@@ -113,7 +113,7 @@ export default class AttributeSkillInput extends DocumentInput {
    */
   static async #removeSkill(event, target) {
     const skill = target.dataset.skill;
-    this.document.update({ [`system.skills.-=${skill}`]: null });
+    this.document.update({ [`system.skills.${skill}`]: _del });
   }
 
 }

@@ -492,7 +492,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   static async #removeSense(event, target) {
     const sense = target.dataset.sense;
-    this.document.update({ [`system.senses.-=${sense}`]: null });
+    this.document.update({ [`system.senses.${sense}`]: _del });
   }
 
   /* -------------------------------------------------- */
@@ -563,7 +563,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   static async #removeAbsorb(event, target) {
     const type = target.dataset.type;
-    this.document.update({ [`system.damage.-=${type}`]: null });
+    this.document.update({ [`system.damage.${type}`]: _del });
   }
 
   /* -------------------------------------------------- */
