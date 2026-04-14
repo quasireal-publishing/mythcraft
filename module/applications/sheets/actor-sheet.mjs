@@ -153,19 +153,6 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     context.tagList = formatter.format(this.actor.system.tags.map(
       t => game.i18n.localize(mythcraft.CONFIG.monster.tags[t]?.label) ?? t,
     ));
-
-    if (this.actor.system.personality) {
-      context.personality = this.actor.system.personality;
-    }
-    if (this.actor.system.appearance) {
-      context.appearance = this.actor.system.appearance;
-    }
-    if (this.actor.system.initiative) {
-      context.initiative = this.actor.system.initiative;
-    }
-    if (this.actor.system.critical) {
-      context.critical = this.actor.system.critical;
-    }
   }
 
   /* -------------------------------------------------- */
@@ -188,7 +175,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       const { group, defense, check } = attributeConfig.list[key];
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
       const attrInfo = { value, field, check };
-      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: this.actor.system.defenses[defense] };
+      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: systemData.defenses[defense] };
       attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillData = this.actor.system.skills[id];
@@ -352,6 +339,12 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     this._createContextMenu(this._getEffectListContextOptions, "[data-document-class][data-effect-id] .effect-controls .fa-ellipsis-vertical", {
       eventName: "click",
       hookName: "getActiveEffectListContextOptions",
+      parentClassHooks: false,
+      fixed: true,
+    });
+
+    this._createContextMenu(this._getItemListContextOptions, ".origin-btn[data-item-id]", {
+      hookName: "getItemListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });

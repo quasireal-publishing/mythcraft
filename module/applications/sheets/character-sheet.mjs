@@ -1,6 +1,6 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import AdvancementModel from "../../data/item/advancement.mjs";
-import { systemId, systemPath } from "../../constants.mjs";
+import { systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
 import InitiativeRollDialog from "../apps/initiative-roll-dialog.mjs";
 
@@ -29,7 +29,6 @@ export default class CharacterSheet extends MythCraftActorSheet {
       addResource: this.#addResource,
       removeResource: this.#removeResource,
       rollInitiative: this.#rollInitiative,
-      pickOrigin: this.#pickOrigin,
     },
   };
 
@@ -123,98 +122,6 @@ export default class CharacterSheet extends MythCraftActorSheet {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       rollMode,
     });
-  }
-
-  /**
-   * Map of origin item types to their compendium pack names.
-   * @type {Record<string, string>}
-   */
-  static ORIGIN_PACKS = {
-    lineage: `${systemId}.lineages`,
-    background: `${systemId}.bop`,
-    profession: `${systemId}.bop`,
-  };
-
-  /**
-   * Show a picker dialog for origin items (lineage, background, profession).
-   * Lists items from the compendium pack and offers a "Create New" option.
-   *
-   * @this CharacterSheet
-   * @param {PointerEvent} event   The originating click event.
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
-   */
-  static async #pickOrigin(event, target) {
-    const type = target.dataset.type;
-    const packName = CharacterSheet.ORIGIN_PACKS[type];
-    const typeLabel = game.i18n.localize(CONFIG.Item.typeLabels[type]);
-    const actor = this.actor;
-
-    // Gather items from compendium pack
-    const pack = game.packs.get(packName);
-    const compendiumItems = [];
-    if (pack) {
-      const docs = await pack.getDocuments({ type });
-      compendiumItems.push(...docs.sort((a, b) => a.name.localeCompare(b.name)));
-    }
-
-    // Gather matching world items from the Items sidebar
-    const worldItems = game.items
-      .filter(i => i.type === type)
-      .sort((a, b) => a.name.localeCompare(b.name));
-
-    // Build grouped dialog content
-    const renderGroup = (label, items) => {
-      if (!items.length) return '';
-      const lis = items.map(item =>
-        `<li class="origin-pick-item" data-uuid="${item.uuid}">
-          <img src="${item.img}" width="24" height="24">
-          <span>${item.name}</span>
-        </li>`
-      ).join('');
-      return `<h3>${label}</h3><ul class="origin-pick-list">${lis}</ul>`;
-    };
-
-    const packLabel = pack ? game.i18n.localize(pack.metadata.label) : 'Compendium';
-    const content = [
-      renderGroup(packLabel, compendiumItems),
-      renderGroup('World Items', worldItems),
-    ].filter(Boolean).join('') || '<p><em>No items available</em></p>';
-
-    // Show dialog — clicking an item selects it
-    const { promise, resolve } = Promise.withResolvers();
-    let resolved = false;
-
-    const dialog = new mythcraft.applications.api.MythCraftDialog({
-      window: { title: typeLabel },
-      content,
-      buttons: [{
-        action: "close",
-        label: game.i18n.localize("Close"),
-        callback: () => { resolved = true; resolve(null); },
-      }],
-      close: () => { if (!resolved) resolve(null); },
-    });
-
-    dialog.addEventListener("render", () => {
-      for (const li of dialog.element.querySelectorAll(".origin-pick-item")) {
-        li.addEventListener("click", () => {
-          resolved = true;
-          resolve(li.dataset.uuid);
-          dialog.close();
-        });
-      }
-    }, { once: true });
-
-    dialog.render({ force: true });
-    const uuid = await promise;
-    if (!uuid) return;
-
-    const item = await fromUuid(uuid);
-    if (!item) return;
-    const keepId = !actor.items.has(item.id);
-    const itemData = game.items.fromCompendium(item, { keepId, clearFolder: true });
-    const created = await Item.implementation.create(itemData, { parent: actor, keepId });
-    created?.sheet?.render({ force: true });
   }
 
   /** @inheritdoc */

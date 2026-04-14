@@ -1,24 +1,73 @@
-.mythcraft {
+.mythcraft.advancement {
+  .advancement-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  .advancement {
+    border: 1px solid rgba(44, 37, 34, 0.2);
+    border-radius: 3px;
+    background-color: rgba(254, 235, 179, 0.25);
+    padding: 0.35em 0.5em;
+    margin-bottom: 0.4em;
+  }
+  .advancement-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .advancement-img {
+    flex: 0 0 var(--input-height);
+    max-height: var(--input-height);
+    border-radius: 3px;
+  }
+  .advancement-name {
+    flex: 1;
+    font-weight: 600;
+    color: var(--mc-dark);
+  }
+  .advancement-controls {
+    flex: 0 0 auto;
+  }
+  .enriched-description {
+    color: rgba(44, 37, 34, 0.8);
+    font-size: var(--font-size-13);
+    margin-top: 0.2em;
+  }
+  .advancement-choices {
+    list-style: disc inside;
+    padding-left: 0.5em;
+    margin: 0.25em 0 0;
+    color: var(--mc-primary);
+  }
+  .advancement-choice {
+    font-size: var(--font-size-13);
+  }
+  .drop-target-area {
+    border: 1px dashed rgba(44, 37, 34, 0.3);
+    border-radius: 3px;
+    padding: 0.4em 0.5em;
+    background-color: rgba(254, 235, 179, 0.15);
+  }
+}
 
-
-  &.skill-picker {
-    .dialog-form {
-      max-height: 80vh;
-      .dialog-content {
-        overflow-y: auto;
-      }
+.mythcraft.skill-picker {
+  .dialog-form {
+    max-height: 80vh;
+    .dialog-content {
+      overflow-y: auto;
     }
-    multi-checkbox:has(fieldset) {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: stretch;
-      gap: 0.75rem;
-      fieldset {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-      }
+  }
+  multi-checkbox:has(fieldset) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 0.75rem;
+    fieldset {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
     }
   }
 }

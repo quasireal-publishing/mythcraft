@@ -12,15 +12,4 @@ export async function renderChatMessageHTML(message, html, context) {
   if (message.system.addListeners instanceof Function) {
     await message.system.addListeners(html);
   }
-
-  // Roll Damage button listener for attack and spell chat cards.
-  html.querySelectorAll('.roll-damage').forEach(btn => {
-    btn.addEventListener('click', async (event) => {
-      const formula = event.currentTarget.dataset.damageFormula;
-      const type = event.currentTarget.dataset.damageType;
-      const roll = new mythcraft.rolls.DamageRoll(formula, {}, { type });
-      await roll.evaluate();
-      await roll.toMessage({ speaker: ChatMessage.getSpeaker() });
-    });
-  });
 }

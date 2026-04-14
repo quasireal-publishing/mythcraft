@@ -35,7 +35,7 @@
           {{item.name}}
         </button>
         {{else}}
-        <button type="button" class="origin-btn origin-empty" data-action="pickOrigin" data-type="lineage">
+        <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="lineage">
           <i class="fa-solid fa-plus"></i> {{label}}
         </button>
         {{/if}}
@@ -57,15 +57,15 @@
       {{#if (eq document.type "character")}}
       <div class="header-field field-height">
         <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.height.label"}}</label>
-        <input type="text" name="system.appearance.height" value="{{appearance.height}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <input type="text" name="system.appearance.height" value="{{system.appearance.height}}" {{#unless @root.editable}}disabled{{/unless}}>
       </div>
       <div class="header-field field-weight">
         <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.weight.label"}}</label>
-        <input type="text" name="system.appearance.weight" value="{{appearance.weight}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <input type="text" name="system.appearance.weight" value="{{system.appearance.weight}}" {{#unless @root.editable}}disabled{{/unless}}>
       </div>
       <div class="header-field field-age">
         <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.age.label"}}</label>
-        <input type="text" name="system.appearance.age" value="{{appearance.age}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <input type="text" name="system.appearance.age" value="{{system.appearance.age}}" {{#unless @root.editable}}disabled{{/unless}}>
       </div>
       {{/if}}
     </div>
@@ -75,7 +75,7 @@
     <div class="header-row">
       <div class="header-field field-appearance">
         <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.description.label"}}</label>
-        <textarea name="system.appearance.description" {{#unless @root.editable}}disabled{{/unless}}>{{appearance.description}}</textarea>
+        <textarea name="system.appearance.description" {{#unless @root.editable}}disabled{{/unless}}>{{system.appearance.description}}</textarea>
       </div>
     </div>
     {{/if}}
@@ -107,23 +107,23 @@
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </button>
     </div>
-    {{#if initiative}}
+    {{#if system.initiative}}
     <button type="button" class="initiative-btn" data-action="rollInitiative"
             data-tooltip="{{localize 'MYTHCRAFT.Actor.character.FIELDS.initiative.label'}}">
       {{localize "MYTHCRAFT.Actor.character.FIELDS.initiative.label"}}
       <i class="fa-solid fa-dice-d20"></i>
-      {{numberFormat initiative.total sign=true}}
+      {{numberFormat system.initiative.total sign=true}}
     </button>
     {{/if}}
-    {{#if critical}}
+    {{#if system.critical}}
     <div class="critical-display">
       <div class="crit-hit">
         <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.hit.short"}}</span>
-        {{critical.effectiveHit}}+
+        {{system.critical.effectiveHit}}+
       </div>
       <div class="crit-fail">
         <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.fail.short"}}</span>
-        {{critical.effectiveFail}}&minus;
+        {{system.critical.effectiveFail}}&minus;
       </div>
     </div>
     {{/if}}
@@ -141,11 +141,11 @@
 <div class="header-extra">
   <div class="header-field field-values">
     <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.values.label"}}</label>
-    <input type="text" name="system.personality.values" value="{{personality.values}}" {{#unless @root.editable}}disabled{{/unless}}>
+    <input type="text" name="system.personality.values" value="{{system.personality.values}}" {{#unless @root.editable}}disabled{{/unless}}>
   </div>
   <div class="header-field field-drive">
     <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.drive.label"}}</label>
-    <input type="text" name="system.personality.drive" value="{{personality.drive}}" {{#unless @root.editable}}disabled{{/unless}}>
+    <input type="text" name="system.personality.drive" value="{{system.personality.drive}}" {{#unless @root.editable}}disabled{{/unless}}>
   </div>
   {{#with (lookup @root.origins 1)}}
   <div class="header-field field-background">
@@ -155,7 +155,7 @@
       {{item.name}}
     </button>
     {{else}}
-    <button type="button" class="origin-btn origin-empty" data-action="pickOrigin" data-type="background">
+    <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="background">
       <i class="fa-solid fa-plus"></i> {{label}}
     </button>
     {{/if}}
@@ -169,7 +169,7 @@
       {{item.name}}
     </button>
     {{else}}
-    <button type="button" class="origin-btn origin-empty" data-action="pickOrigin" data-type="profession">
+    <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="profession">
       <i class="fa-solid fa-plus"></i> {{label}}
     </button>
     {{/if}}
@@ -177,7 +177,7 @@
   {{/with}}
   <div class="header-field field-quirk">
     <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.quirk.label"}}</label>
-    <textarea name="system.personality.quirk" {{#unless @root.editable}}disabled{{/unless}}>{{personality.quirk}}</textarea>
+    <textarea name="system.personality.quirk" {{#unless @root.editable}}disabled{{/unless}}>{{system.personality.quirk}}</textarea>
   </div>
 </div>
 {{/if}}

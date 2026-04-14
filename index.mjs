@@ -34,6 +34,9 @@ Hooks.once("init", () => {
   DocumentSheetConfig.registerSheet(foundry.documents.Item, SystemCONST.systemId, applications.sheets.MythCraftItemSheet, {
     makeDefault: true,
   });
+  DocumentSheetConfig.registerSheet(foundry.documents.ActiveEffect, SystemCONST.systemId, applications.sheets.MythCraftActiveEffectConfig, {
+    makeDefault: true,
+  });
 
   // Movement
   CONFIG.Token.rulerClass = canvas.MythCraftTokenRuler;

@@ -266,12 +266,6 @@
       text-align: right;
       flex: 0 0 140px;
       justify-content: flex-end;
-      button.icon {
-        border: none;
-        &:not(:hover) {
-          background: none;
-        }
-      }
     }
   }
   .item-header {
@@ -356,6 +350,10 @@
     .effects-header {
       font-size: var(--font-size-16);
       margin: 0.4em 0;
+      font-family: var(--mc-font-heading);
+      color: var(--mc-primary);
+      border-bottom: 1px solid rgba(44, 37, 34, 0.3);
+      padding-bottom: 0.25em;
 
       .effect-duration {
         flex: 0 0 80px;
@@ -367,6 +365,14 @@
     }
     .effect {
       margin: 0.25em 0;
+      border: 1px solid rgba(44, 37, 34, 0.2);
+      border-radius: 3px;
+      background-color: rgba(254, 235, 179, 0.25);
+      padding: 0.25em 0.4em;
+
+      &:hover {
+        border-color: rgba(41, 135, 140, 0.4);
+      }
 
       .effect-label {
         img {
@@ -376,7 +382,17 @@
         }
         .effect-name {
           line-height: var(--font-size-24);
+          font-weight: 600;
+          color: var(--mc-dark);
         }
+      }
+      .effect-image {
+        border-radius: 3px;
+      }
+      .effect-source,
+      .effect-duration {
+        color: rgba(44, 37, 34, 0.75);
+        font-size: var(--font-size-13);
       }
       .effect-duration {
         flex: 0 0 100px;
@@ -384,12 +400,11 @@
       .effect-controls {
         flex: 0 0 80px;
         justify-content: flex-end;
-        button.icon {
-          border: none;
-          &:not(:hover) {
-            background: none;
-          }
-        }
+      }
+      .effect-embed {
+        border-top: 1px dashed rgba(44, 37, 34, 0.2);
+        margin-top: 0.25em;
+        padding-top: 0.25em;
       }
     }
     .effect-label {
@@ -516,6 +531,33 @@
   background-color: var(--mc-teal);
   color: #fff;
   scale: 1.1;
+}
+
+/* Icon buttons — paper-compatible contrast with hover feedback */
+.mythcraft button.icon {
+  color: var(--mc-primary);
+  opacity: 0.6;
+  border: none;
+  background: none;
+  transition: opacity 0.12s, color 0.12s, background-color 0.12s;
+}
+
+.mythcraft button.icon:hover {
+  opacity: 1;
+  color: var(--mc-teal);
+  background-color: rgba(41, 135, 140, 0.12);
+}
+
+.mythcraft button.icon.fa-trash:hover,
+.mythcraft button.icon.fa-trash-can:hover {
+  color: var(--mc-accent);
+  background-color: rgba(252, 101, 67, 0.12);
+}
+
+.mythcraft button.icon[disabled],
+.mythcraft button.icon:disabled {
+  opacity: 0.25;
+  cursor: default;
 }
 
 /* Attribute edit button */
@@ -973,35 +1015,4 @@
 .mythcraft.sheet.actor .origin-btn.origin-empty {
   color: #888;
   font-style: italic;
-}
-
-/* Origin picker dialog */
-.origin-pick-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.5rem;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.origin-pick-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.origin-pick-item:nth-child(odd) {
-  background-color: rgba(23, 67, 69, 0.03);
-}
-
-.origin-pick-item:hover {
-  background-color: rgba(41, 135, 140, 0.15);
-}
-
-.origin-pick-item img {
-  border: none;
-  flex: 0 0 24px;
 }
