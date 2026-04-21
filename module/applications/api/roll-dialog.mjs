@@ -50,7 +50,7 @@ export default class RollDialog extends MythCraftApplication {
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
 
-    if (partId === "footer") context.rollModes = CONFIG.Dice.rollModes;
+    if (partId === "footer") context.rollModes = CONFIG.ChatMessage.modes;
 
     return context;
   }
