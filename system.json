@@ -161,8 +161,8 @@
   ],
   "version": "DEVELOPMENT",
   "compatibility": {
-    "minimum": "13.348",
-    "verified": "13"
+    "minimum": "14",
+    "verified": "14"
   },
   "esmodules": [
     "index.mjs"
