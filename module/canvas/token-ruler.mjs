@@ -70,7 +70,9 @@ export default class MythCraftTokenRuler extends foundry.canvas.placeables.token
     if (waypoint.actionConfig.teleport) return style;
     else {
       let actorMovement = foundry.utils.getProperty(this, "token.document.actor.system.movement");
-      if (foundry.utils.isEmpty(actorMovement)) return style;
+      // Guard: NPC movement is a StringField after the v1 features migration.
+      // Skip ruler color-coding for tokens whose movement is not a plain object.
+      if (!actorMovement || (typeof actorMovement !== "object") || foundry.utils.isEmpty(actorMovement)) return style;
       let value = actorMovement.walk;
       switch (waypoint.action) {
         case "fly":
