@@ -55,6 +55,26 @@ export default class DamageRoll extends MythCraftRoll {
   /* -------------------------------------------------- */
 
   /**
+   * The attribute modifier added to this damage roll.
+   * @type {number}
+   */
+  get attributeModifier() {
+    return this.options.attributeModifier ?? 0;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The label of the attribute contributing to this damage roll.
+   * @type {string|undefined}
+   */
+  get attributeLabel() {
+    return this.options.attributeLabel;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * Damage immunities to ignore.
    * @type {string[]}
    */

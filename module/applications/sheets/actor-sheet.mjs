@@ -23,6 +23,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       rollSkill: this.#rollSkill,
       addAbsorb: this.#addAbsorb,
       rollMagic: this.#rollMagic,
+      rollAttack: this.#rollAttack,
+      rollSpell: this.#rollSpell,
       removeAbsorb: this.#removeAbsorb,
       viewDoc: this.#viewDoc,
       createDoc: this.#createDoc,
@@ -30,10 +32,12 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       toggleEffect: this.#toggleEffect,
       toggleItemEmbed: this.#toggleItemEmbed,
       toggleEffectEmbed: this.#toggleEffectEmbed,
+      toggleSpellAttack: this.#toggleSpellAttack,
+      openTab: this.#openTab,
     },
     position: {
       // distance running display
-      width: 635,
+      width: 800,
     },
   };
 
@@ -332,15 +336,15 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       fixed: true,
     });
 
-    this._createContextMenu(this._getItemListContextOptions, ".origins [data-document-class][data-item-id]", {
-      hookName: "getItemListContextOptions",
+    this._createContextMenu(this._getEffectListContextOptions, "[data-document-class][data-effect-id] .effect-controls .fa-ellipsis-vertical", {
+      eventName: "click",
+      hookName: "getActiveEffectListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });
 
-    this._createContextMenu(this._getEffectListContextOptions, "[data-document-class][data-effect-id] .effect-controls .fa-ellipsis-vertical", {
-      eventName: "click",
-      hookName: "getActiveEffectListContextOptions",
+    this._createContextMenu(this._getItemListContextOptions, ".origin-btn[data-item-id]", {
+      hookName: "getItemListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });
@@ -354,31 +358,31 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @protected
    */
   _getItemListContextOptions() {
-    // name is auto-localized
+    // label is auto-localized
     return [
       // All applicable options
       {
-        name: "MYTHCRAFT.SHEET.View",
+        label: "MYTHCRAFT.SHEET.View",
         icon: "<i class=\"fa-solid fa-fw fa-eye\"></i>",
-        condition: () => this.isPlayMode,
-        callback: async (target) => {
+        visible: () => this.isPlayMode,
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Edit",
+        label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        condition: () => this.isEditMode,
-        callback: async (target) => {
+        visible: () => this.isEditMode,
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Share",
+        label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        callback: async (target) => {
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} inline]</div>`,
@@ -391,10 +395,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Delete",
+        label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
-        condition: () => this.isEditable,
-        callback: async (target) => {
+        visible: () => this.isEditable,
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.deleteDialog();
         },
@@ -410,20 +414,20 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @protected
    */
   _getEffectListContextOptions() {
-    // name is auto-localized
+    // label is auto-localized
     return [
       {
-        name: "MYTHCRAFT.SHEET.Edit",
+        label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        callback: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.sheet.render({ force: true });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Share",
+        label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        callback: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} inline]</div>`,
@@ -436,10 +440,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Delete",
+        label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
-        condition: () => this.isEditable,
-        callback: async (target) => {
+        visible: () => this.isEditable,
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.deleteDialog();
         },
@@ -590,7 +594,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   static async #viewDoc(event, target) {
     const doc = this._getEmbeddedDocument(target);
-    doc.sheet.render(true);
+    doc.sheet.render({ force: true });
   }
 
   /* -------------------------------------------------- */
@@ -681,6 +685,102 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static async #toggleEffect(event, target) {
     const effect = this._getEmbeddedDocument(target);
     effect.update({ disabled: !effect.disabled });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle the isAttack flag on a spell item.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #toggleSpellAttack(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId ?? target.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "spell") return;
+    await item.update({"system.isAttack": !item.system.isAttack});
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll an attack with a weapon item.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollAttack(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "weapon") return;
+
+    const attr = item.system.attr;
+    const attrValue = this.actor.system.attributes[attr] ?? 0;
+    const critHit = this.actor.system.critical?.effectiveHit ?? 20;
+    const critFail = this.actor.system.critical?.effectiveFail ?? 1;
+
+    const formula = `1d20 + ${attrValue}`;
+    const roll = new mythcraft.rolls.AttackRoll(formula, this.actor.getRollData(), {
+      weaponName: item.name,
+      attribute: attr,
+      critHit,
+      critFail,
+      damageFormula: item.system.damage?.formula,
+      damageType: item.system.damage?.type,
+    });
+    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }) });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a spell cast.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollSpell(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || item.type !== "spell") return;
+
+    const spellcastingAbility = this.actor.system.sp.attribute ?? "int";
+    let abilityMod = this.actor.system.attributes[spellcastingAbility] ?? 0;
+
+    const powerLevels = this.actor.system.powerLevel ?? {};
+    const primarySource = Object.entries(powerLevels)
+      .sort(([, a], [, b]) => b - a)[0]?.[0];
+    const isPrimary = item.system.magicSource === primarySource;
+    if (!isPrimary) abilityMod = Math.ceil(abilityMod / 2);
+
+    const formula = `1d20 + ${abilityMod}`;
+    const roll = new mythcraft.rolls.SpellRoll(formula, this.actor.getRollData(), {
+      spellName: item.name,
+      source: item.system.magicSource,
+      isPrimary,
+      spc: item.system.spc,
+      range: item.system.rangeLabel,
+      duration: item.system.durationLabel,
+    });
+    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }) });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Switch to a specific tab on the sheet.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static #openTab(event, target) {
+    const tab = target.dataset.tab;
+    if (tab) this.changeTab(tab, "primary");
   }
 
   /* -------------------------------------------- */

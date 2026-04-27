@@ -83,23 +83,14 @@
       {{formGroup @root.systemFields.lp.fields.value value=@root.system.lp.value classes="stacked slim"}}
       {{/if}}
       {{#each group.list}}
-      <fieldset class="attribute" data-attribute="{{field.name}}">
-        <legend>
+      <fieldset class="attribute attribute-circle" data-attribute="{{field.name}}">
+        <legend {{#if check}}data-action="rollAttribute"{{/if}}>
           {{field.label}}
-          {{#if @root.isPlay}}
-          {{#if check}}
-          <a data-action="rollAttribute">
-            <i class="fa-solid fa-dice-d20"></i>
-            {{numberFormat value sign=true}}
-          </a>
-          {{else}}
-          {{value}}
-          {{/if}}
-          {{else}}
-          {{value}}
-          <a class="icon fa-solid fa-gear" data-action="editAttribute"></a>
-          {{/if}}
+          {{#if check}}<i class="fa-solid fa-dice-d20"></i>{{/if}}
+          {{numberFormat value sign=true}}
         </legend>
+        <a class="edit-attribute-btn icon fa-solid fa-gear" data-action="editAttribute"
+          data-tooltip="{{localize 'MYTHCRAFT.SHEET.EditAttribute'}}"></a>
         <dl class="skills">
           {{#if defense}}
           <dt>{{defense.label}}</dt>

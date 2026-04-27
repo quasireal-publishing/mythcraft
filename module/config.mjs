@@ -2090,21 +2090,21 @@ export const weapon = {
 };
 
 export const currencies = {
-  sc: {
-    label: "MYTHCRAFT.Currency.sc.label",
-    tooltip: "MYTHCRAFT.Currency.sc.tooltip",
+  astra: {
+    label: "MYTHCRAFT.Currency.astra.label",
+    tooltip: "MYTHCRAFT.Currency.astra.tooltip",
   },
-  dc: {
-    label: "MYTHCRAFT.Currency.dc.label",
-    tooltip: "MYTHCRAFT.Currency.dc.tooltip",
+  scillings: {
+    label: "MYTHCRAFT.Currency.scillings.label",
+    tooltip: "MYTHCRAFT.Currency.scillings.tooltip",
   },
-  a: {
-    label: "MYTHCRAFT.Currency.a.label",
-    tooltip: "MYTHCRAFT.Currency.a.tooltip",
+  quints: {
+    label: "MYTHCRAFT.Currency.quints.label",
+    tooltip: "MYTHCRAFT.Currency.quints.tooltip",
   },
-  q: {
-    label: "MYTHCRAFT.Currency.q.label",
-    tooltip: "MYTHCRAFT.Currency.q.tooltip",
+  denarii: {
+    label: "MYTHCRAFT.Currency.denarii.label",
+    tooltip: "MYTHCRAFT.Currency.denarii.tooltip",
   },
 };
 

@@ -1,8 +1,61 @@
 {{! Features Tab }}
 <section class="tab {{tab.cssClass}}" data-group="primary" data-tab="features">
-  {{#each features}}
 
-  {{#if (eq @key "action")}}
+  {{! Passives Section }}
+  <div class="item-header flexrow">
+    <div class="item-name">{{localize "MYTHCRAFT.Item.feature.category.passive"}}</div>
+    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+    <div class="item-controls flexrow">
+      {{#unless @root.isPlay}}
+      <button
+        type="button"
+        class="item-create"
+        data-action="createDoc"
+        data-document-class="Item"
+        data-type="feature"
+        data-system.category="passive"
+      >
+        <i class="fa-solid fa-plus"></i>
+        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+      </button>
+      {{/unless}}
+    </div>
+  </div>
+  <ul class="item-list passive">
+    {{#each passives}}
+    <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
+      <div class="item-row flexrow">
+        <img src="{{item.img}}" alt="{{item.name}}">
+        <div class="item-name">{{item.name}}</div>
+        <div class="item-uses">
+          {{#if item.system.uses.max}}
+          <input
+            type="number"
+            class="item-input inline"
+            data-name="system.uses.value"
+            {{disabled (not @root.editable)}}
+            value="{{item.system.uses.value}}"
+          >
+          <span>/ {{item.system.uses.max}}</span>
+          {{/if}}
+        </div>
+        <div class="item-controls flexrow">
+          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
+        </div>
+      </div>
+      <div class="item-embed">
+        {{#if expanded}}{{{embed.outerHTML}}}{{/if}}
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
+  {{! Tiered Actions Section }}
   {{#if @root.isPlay}}
   {{{@root.enrichedActions}}}
   {{else}}
@@ -13,13 +66,10 @@
   toggled="true"
   }}
   {{/if}}
-  {{/if}}
   <div class="item-header flexrow">
-    <div class="item-name">{{localize label}}</div>
+    <div class="item-name">{{localize "MYTHCRAFT.Item.feature.category.action"}}</div>
     <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
-    {{#if (eq @key "action")}}
     <div class="item-tier">{{localize "MYTHCRAFT.Item.feature.FIELDS.tier.label"}}</div>
-    {{/if}}
     <div class="item-controls flexrow">
       {{#unless @root.isPlay}}
       <button
@@ -28,7 +78,7 @@
         data-action="createDoc"
         data-document-class="Item"
         data-type="feature"
-        data-system.category="{{@key}}"
+        data-system.category="action"
       >
         <i class="fa-solid fa-plus"></i>
         {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
@@ -36,8 +86,10 @@
       {{/unless}}
     </div>
   </div>
-  <ul class="item-list {{@key}}">
-    {{#each list}}
+  {{#each tieredActions}}
+  <h4 class="tier-header">Tier {{@key}}</h4>
+  <ul class="item-list action">
+    {{#each this}}
     <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
       <div class="item-row flexrow">
         <img src="{{item.img}}" alt="{{item.name}}">
@@ -75,4 +127,59 @@
     {{/each}}
   </ul>
   {{/each}}
+
+  {{! Reactions Section }}
+  <div class="item-header flexrow">
+    <div class="item-name">{{localize "MYTHCRAFT.SHEET.Reactions"}}</div>
+    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+    <div class="item-controls flexrow">
+      {{#unless @root.isPlay}}
+      <button
+        type="button"
+        class="item-create"
+        data-action="createDoc"
+        data-document-class="Item"
+        data-type="feature"
+        data-system.category="reaction"
+      >
+        <i class="fa-solid fa-plus"></i>
+        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+      </button>
+      {{/unless}}
+    </div>
+  </div>
+  <ul class="item-list reaction">
+    {{#each reactions}}
+    <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
+      <div class="item-row flexrow">
+        <img src="{{item.img}}" alt="{{item.name}}">
+        <div class="item-name">{{item.name}}</div>
+        <div class="item-uses">
+          {{#if item.system.uses.max}}
+          <input
+            type="number"
+            class="item-input inline"
+            data-name="system.uses.value"
+            {{disabled (not @root.editable)}}
+            value="{{item.system.uses.value}}"
+          >
+          <span>/ {{item.system.uses.max}}</span>
+          {{/if}}
+        </div>
+        <div class="item-controls flexrow">
+          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+          <button
+            type="button"
+            data-action="toggleItemEmbed"
+            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
+          ></button>
+        </div>
+      </div>
+      <div class="item-embed">
+        {{#if expanded}}{{{embed.outerHTML}}}{{/if}}
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
 </section>

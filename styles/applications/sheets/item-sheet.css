@@ -22,14 +22,55 @@
         justify-content: flex-start;
       }
     }
+    fieldset {
+      border: 1px solid rgba(44, 37, 34, 0.25);
+      border-radius: 3px;
+      background-color: rgba(254, 235, 179, 0.2);
+      margin-bottom: 0.5em;
+      legend {
+        font-family: var(--mc-font-heading);
+        color: var(--mc-primary);
+        padding: 0 0.5em;
+      }
+    }
   }
   [data-application-part="advancements"] {
-    .advancement {
+    .section-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.25em 0;
+    }
+    fieldset.advancement {
+      border: 1px solid rgba(44, 37, 34, 0.3);
+      border-radius: 3px;
+      background-color: rgba(254, 235, 179, 0.2);
+      margin-bottom: 0.5em;
+
+      legend {
+        font-family: var(--mc-font-heading);
+        color: var(--mc-primary);
+        padding: 0 0.5em;
+      }
+
+      .form-group {
+        align-items: center;
+        gap: 0.4em;
+        padding: 0.2em 0;
+
+        & + .form-group {
+          border-top: 1px dashed rgba(44, 37, 34, 0.15);
+        }
+      }
       .advancement-img {
         flex: 0 0 var(--input-height);
         max-height: var(--input-height);
+        border-radius: 3px;
       }
       .hint {
+        flex: 1 1 100%;
+        color: rgba(44, 37, 34, 0.75);
+        font-size: var(--font-size-13);
+
         > :first-child {
           margin-top: 0;
         }
@@ -50,6 +91,10 @@
       font-size: var(--font-size-16);
       margin: 0.4em 0;
       gap: 3px;
+      font-family: var(--mc-font-heading);
+      color: var(--mc-primary);
+      border-bottom: 1px solid rgba(44, 37, 34, 0.3);
+      padding-bottom: 0.25em;
 
       .effect-duration {
         flex: 0 0 80px;
@@ -61,6 +106,15 @@
     }
     .effect {
       margin: 0.25em 0;
+      border: 1px solid rgba(44, 37, 34, 0.2);
+      border-radius: 3px;
+      background-color: rgba(254, 235, 179, 0.25);
+      padding: 0.25em 0.4em;
+
+      &:hover {
+        border-color: rgba(41, 135, 140, 0.4);
+      }
+
       .effect-row {
         gap: 3px;
       }
@@ -73,7 +127,17 @@
         }
         .effect-name {
           line-height: var(--font-size-24);
+          font-weight: 600;
+          color: var(--mc-dark);
         }
+      }
+      .effect-image {
+        border-radius: 3px;
+      }
+      .effect-source,
+      .effect-duration {
+        color: rgba(44, 37, 34, 0.75);
+        font-size: var(--font-size-13);
       }
       .effect-duration {
         flex: 0 0 100px;
@@ -81,12 +145,11 @@
       .effect-controls {
         flex: 0 0 80px;
         justify-content: flex-end;
-        button.icon {
-          border: none;
-          &:not(:hover) {
-            background: none;
-          }
-        }
+      }
+      .effect-embed {
+        border-top: 1px dashed rgba(44, 37, 34, 0.2);
+        margin-top: 0.25em;
+        padding-top: 0.25em;
       }
     }
     .effect-label {

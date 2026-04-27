@@ -1,0 +1,18 @@
+.mythcraft.sheet[class*="active-effect"] {
+  .tabs {
+    font-family: var(--mc-font-heading);
+  }
+  fieldset {
+    border: 1px solid rgba(44, 37, 34, 0.25);
+    border-radius: 3px;
+    background-color: rgba(254, 235, 179, 0.2);
+    legend {
+      font-family: var(--mc-font-heading);
+      color: var(--mc-primary);
+      padding: 0 0.5em;
+    }
+  }
+  .prose-mirror {
+    background-color: rgba(254, 235, 179, 0.25);
+  }
+}

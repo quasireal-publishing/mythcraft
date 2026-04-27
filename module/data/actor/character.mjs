@@ -2,6 +2,7 @@ import { requiredInteger } from "../fields/helpers.mjs";
 import AdvancementModel from "../item/advancement.mjs";
 import BaseActorModel from "./base-actor.mjs";
 import { systemId } from "../../constants.mjs";
+import { calculateHpMax, calculateApMax, calculateInitiative, calculateCriticalRanges } from "../../utils/character-math.mjs";
 
 /**
  * @import {MythCraftActor, MythCraftItem} from "../../documents/_module.mjs";
@@ -27,11 +28,67 @@ export default class CharacterModel extends BaseActorModel {
     schema.ap = new fields.SchemaField({
       value: new fields.NumberField(requiredInteger({ min: 0, initial: 3 })),
       special: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      override: new fields.NumberField({ nullable: true, initial: null }),
     });
 
     schema.powerLevel = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 0 })));
 
-    schema.currency = new fields.TypedObjectField(new fields.NumberField(requiredInteger({ min: 0, initial: 0 })));
+    schema.currency = new fields.SchemaField({
+      astra: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      scillings: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      quints: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      denarii: new fields.NumberField(requiredInteger({ min: 0, initial: 0 })),
+      notes: new fields.StringField(),
+    });
+
+    schema.personality = new fields.SchemaField({
+      values: new fields.StringField(),
+      drive: new fields.StringField(),
+      quirk: new fields.StringField(),
+    });
+
+    schema.appearance = new fields.SchemaField({
+      height: new fields.StringField(),
+      weight: new fields.StringField(),
+      age: new fields.StringField(),
+      description: new fields.StringField(),
+    });
+
+    schema.hpOverride = new fields.NumberField({ nullable: true, initial: null });
+
+    schema.initiative = new fields.SchemaField({
+      bonus: new fields.NumberField({ integer: true, initial: 0 }),
+      override: new fields.NumberField({ nullable: true, initial: null }),
+    });
+
+    schema.critical = new fields.SchemaField({
+      hit: new fields.NumberField({ integer: true, initial: 20, min: 1, max: 20 }),
+      fail: new fields.NumberField({ integer: true, initial: 1, min: 1, max: 20 }),
+    });
+
+    schema.additionalInfo = new fields.TypedObjectField(new fields.SchemaField({
+      name: new fields.StringField(),
+      category: new fields.StringField(),
+      description: new fields.HTMLField(),
+    }));
+
+    schema.journal = new fields.TypedObjectField(new fields.SchemaField({
+      name: new fields.StringField(),
+      date: new fields.StringField(),
+      content: new fields.HTMLField(),
+    }));
+
+    schema.contacts = new fields.TypedObjectField(new fields.SchemaField({
+      name: new fields.StringField(),
+      location: new fields.StringField(),
+      description: new fields.HTMLField(),
+    }));
+
+    schema.resources = new fields.TypedObjectField(new fields.SchemaField({
+      name: new fields.StringField(),
+      value: new fields.NumberField({ integer: true, initial: 0 }),
+      max: new fields.NumberField({ integer: true, initial: 0 }),
+    }));
 
     return schema;
   }
@@ -99,7 +156,20 @@ export default class CharacterModel extends BaseActorModel {
   prepareDerivedData() {
     super.prepareDerivedData();
 
-    this.ap.max = 3 + Math.ceil(this.attributes.cor / 2);
+    // HP auto-calculation
+    this.hp.max = calculateHpMax(this.level, this.attributes.end, this.hpOverride);
+
+    // AP per round from Corruption
+    this.ap.max = calculateApMax(this.attributes.cor, this.ap.override);
+
+    // Initiative
+    const init = calculateInitiative(this.attributes.awr, this.initiative.bonus, this.initiative.override);
+    this.initiative.total = init;
+
+    // Critical ranges modified by luck
+    const crit = calculateCriticalRanges(this.critical.hit, this.critical.fail, this.attributes.luck);
+    this.critical.effectiveHit = crit.effectiveHit;
+    this.critical.effectiveFail = crit.effectiveFail;
   }
 
   /* -------------------------------------------------- */

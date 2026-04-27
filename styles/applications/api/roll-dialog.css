@@ -20,3 +20,18 @@
     }
   }
 }
+
+/* === MythCraft Branding === */
+.mythcraft.roll-dialog {
+  font-family: var(--mc-font-body);
+}
+
+.mythcraft.roll-dialog h2 {
+  font-family: var(--mc-font-heading);
+  color: var(--mc-primary);
+}
+
+.mythcraft.roll-dialog .crit-hit {
+  color: var(--mc-accent);
+  font-weight: bold;
+}

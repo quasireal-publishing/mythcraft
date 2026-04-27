@@ -1,0 +1,16 @@
+<div class="mythcraft chat-card attack-card">
+  <div class="card-header">
+    <h3>{{weaponName}}</h3>
+    <span class="attack-type">{{attributeLabel}}</span>
+  </div>
+  <div class="card-body">
+    <div class="roll-result {{#if isCriticalHit}}critical-hit{{/if}} {{#if isCriticalFail}}critical-fail{{/if}}">
+      {{{rollHTML}}}
+    </div>
+    {{#if damageFormula}}
+    <button type="button" class="roll-damage" data-damage-formula="{{damageFormula}}" data-damage-type="{{damageType}}">
+      <i class="fas fa-burst"></i> {{localize "MYTHCRAFT.Roll.RollDamage"}}
+    </button>
+    {{/if}}
+  </div>
+</div>

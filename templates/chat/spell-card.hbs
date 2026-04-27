@@ -1,0 +1,21 @@
+<div class="mythcraft chat-card spell-card spell-{{source}}">
+  <div class="card-header">
+    <h3>{{spellName}}</h3>
+    <span class="spell-source">{{sourceLabel}} {{#unless isPrimary}}(½){{/unless}}</span>
+  </div>
+  <div class="card-body">
+    {{#if hasRoll}}
+    <div class="roll-result">{{{rollHTML}}}</div>
+    {{/if}}
+    <div class="spell-details">
+      {{#if range}}<span><strong>Range:</strong> {{range}}</span>{{/if}}
+      {{#if duration}}<span><strong>Duration:</strong> {{duration}}</span>{{/if}}
+      {{#if spc}}<span><strong>SPC:</strong> {{spc}}</span>{{/if}}
+    </div>
+    {{#if damageFormula}}
+    <button type="button" class="roll-damage" data-damage-formula="{{damageFormula}}" data-damage-type="{{damageType}}">
+      <i class="fas fa-burst"></i> {{localize "MYTHCRAFT.Roll.RollDamage"}}
+    </button>
+    {{/if}}
+  </div>
+</div>

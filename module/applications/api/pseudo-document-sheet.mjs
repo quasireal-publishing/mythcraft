@@ -32,7 +32,7 @@ export default class PseudoDocumentSheet extends HandlebarsApplicationMixin(Appl
         buttons: [0, 2],
       },
     },
-    classes: ["mythcraft"],
+    classes: ["mythcraft", "sheet"],
     form: {
       handler: PseudoDocumentSheet.#onSubmitForm,
       submitOnChange: true,

@@ -64,5 +64,15 @@ export default class BaseMessageModel extends foundry.abstract.TypeDataModel {
   addListeners(html) {
     const damageButtons = html.querySelectorAll(".apply-damage");
     for (const damageButton of damageButtons) damageButton.addEventListener("click", (event) => DamageRoll.applyDamageCallback(event));
+
+    const rollDamageButtons = html.querySelectorAll(".roll-damage");
+    for (const btn of rollDamageButtons) {
+      btn.addEventListener("click", async (event) => {
+        const { damageFormula, damageType } = event.currentTarget.dataset;
+        const roll = new DamageRoll(damageFormula, {}, { type: damageType });
+        await roll.evaluate();
+        await roll.toMessage({ speaker: ChatMessage.getSpeaker() });
+      });
+    }
   }
 }
