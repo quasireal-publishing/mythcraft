@@ -30,7 +30,7 @@ export default class MythCraftTokenRuler extends foundry.canvas.placeables.token
           else return cost => cost * 2;
         },
       },
-    }, { performDeletions: true });
+    }, { applyOperators: true });
   }
 
   /* -------------------------------------------------- */
