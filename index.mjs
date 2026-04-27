@@ -68,13 +68,14 @@ Hooks.once("init", () => {
 });
 
 Hooks.once("i18nInit", () => {
-  /**
-   * An array of status IDs provided by core foundry to remove.
-   * @type {string[]}
-   */
-  const toRemove = [];
-  CONFIG.statusEffects = CONFIG.statusEffects.filter(effect => !toRemove.includes(effect.id));
-  // Status Effect Transfer
+  // Status Effect Transfer.
+  // Foundry v14's CONFIG.statusEffects is a Proxy whose `ownKeys` trap returns
+  // each entry's `id`; duplicate ids violate the proxy invariant and throw at
+  // runtime ("trap returned duplicate entries"). Filter out any core-default
+  // status effect whose id collides with one of our system conditions before
+  // pushing our overrides.
+  const systemConditionIds = new Set(Object.keys(SystemCONFIG.conditions));
+  CONFIG.statusEffects = CONFIG.statusEffects.filter(effect => !systemConditionIds.has(effect.id));
   for (const [id, value] of Object.entries(SystemCONFIG.conditions)) {
     CONFIG.statusEffects.push({ id, _id: id.padEnd(16, "0"), ...value });
   }
