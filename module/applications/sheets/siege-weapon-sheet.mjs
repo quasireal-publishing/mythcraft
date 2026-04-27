@@ -172,18 +172,18 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
   _getEffectListContextOptions() {
     return [
       {
-        name: "MYTHCRAFT.SHEET.Edit",
+        label: "MYTHCRAFT.SHEET.Edit",
         icon: '<i class="fa-solid fa-fw fa-edit"></i>',
-        callback: async (target) => {
+        onClick: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.sheet.render({ force: true });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Delete",
+        label: "MYTHCRAFT.SHEET.Delete",
         icon: '<i class="fa-solid fa-fw fa-trash"></i>',
-        condition: () => this.isEditable,
-        callback: async (target) => {
+        visible: () => this.isEditable,
+        onClick: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.deleteDialog();
         },

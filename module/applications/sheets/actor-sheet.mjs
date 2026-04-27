@@ -358,31 +358,31 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @protected
    */
   _getItemListContextOptions() {
-    // name is auto-localized
+    // label is auto-localized
     return [
       // All applicable options
       {
-        name: "MYTHCRAFT.SHEET.View",
+        label: "MYTHCRAFT.SHEET.View",
         icon: "<i class=\"fa-solid fa-fw fa-eye\"></i>",
-        condition: () => this.isPlayMode,
-        callback: async (target) => {
+        visible: () => this.isPlayMode,
+        onClick: async (target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Edit",
+        label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        condition: () => this.isEditMode,
-        callback: async (target) => {
+        visible: () => this.isEditMode,
+        onClick: async (target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Share",
+        label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        callback: async (target) => {
+        onClick: async (target) => {
           const item = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} inline]</div>`,
@@ -395,10 +395,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Delete",
+        label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
-        condition: () => this.isEditable,
-        callback: async (target) => {
+        visible: () => this.isEditable,
+        onClick: async (target) => {
           const item = this._getEmbeddedDocument(target);
           await item.deleteDialog();
         },
@@ -414,20 +414,20 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @protected
    */
   _getEffectListContextOptions() {
-    // name is auto-localized
+    // label is auto-localized
     return [
       {
-        name: "MYTHCRAFT.SHEET.Edit",
+        label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        callback: async (target) => {
+        onClick: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.sheet.render({ force: true });
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Share",
+        label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        callback: async (target) => {
+        onClick: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} inline]</div>`,
@@ -440,10 +440,10 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         },
       },
       {
-        name: "MYTHCRAFT.SHEET.Delete",
+        label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
-        condition: () => this.isEditable,
-        callback: async (target) => {
+        visible: () => this.isEditable,
+        onClick: async (target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.deleteDialog();
         },
