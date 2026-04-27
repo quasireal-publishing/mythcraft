@@ -1385,6 +1385,10 @@ export const monster = {
       value, label, group: monsterGroupings[group].label,
     }));
   },
+  /** @type {FormSelectOption[]} */
+  get traitOptions() {
+    return Object.entries(monsterTraits).map(([value, { label }]) => ({ value, label }));
+  },
 };
 
 /**
@@ -1613,6 +1617,9 @@ const spellTags = {
     label: "MYTHCRAFT.Item.spell.tags.psychovillany",
     group: "MYTHCRAFT.Item.spell.tags.aptitude",
     sources: new Set(["psionic"]),
+  },
+  liturgy: {
+    label: "MYTHCRAFT.Item.spell.tags.liturgy",
   },
 };
 

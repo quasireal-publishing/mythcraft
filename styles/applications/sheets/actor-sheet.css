@@ -318,6 +318,13 @@
   /* [data-application-part="spells"] {
   } */
 
+  /* NPC Features tab — spacing between Passive/Action/Reaction sections */
+  .tab.features .item-list + .item-header,
+  .tab.features .item-list + h4.tier-header,
+  .tab.features [class*="prosemirror"] + .item-header {
+    margin-top: 1rem;
+  }
+
   [data-application-part="equipment"] {
     padding-top: 0.5rem;
     .currency {

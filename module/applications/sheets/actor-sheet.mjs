@@ -700,7 +700,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     const itemId = target.closest("[data-item-id]")?.dataset.itemId ?? target.dataset.itemId;
     const item = this.actor.items.get(itemId);
     if (!item || item.type !== "spell") return;
-    await item.update({"system.isAttack": !item.system.isAttack});
+    await item.update({ "system.isAttack": !item.system.isAttack });
   }
 
   /* -------------------------------------------------- */

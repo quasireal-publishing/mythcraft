@@ -41,7 +41,11 @@ export default class SpellModel extends BaseItemModel {
 
     schema.conjuring = new fields.NumberField({ required: true });
 
-    schema.isAttack = new fields.BooleanField({initial: false});
+    schema.isAttack = new fields.BooleanField({ initial: false });
+
+    schema.spcSpecial = new fields.BooleanField({ initial: false });
+    schema.castingTime = new fields.StringField();
+    schema.recharge = new fields.StringField();
 
     return schema;
   }

@@ -3,9 +3,12 @@
   {{#unless config.actorSheet}}
   <dt>{{systemFields.apc.label}}</dt>
   <dd>{{system.apc}}</dd>
-  {{#if system.spc}}
+  {{#if system.spcSpecial}}
   <dt>{{systemFields.spc.label}}</dt>
-  <dd>{{system.spc}}</dd>
+  <dd><span class="spc">Special SP</span></dd>
+  {{else if system.spc}}
+  <dt>{{systemFields.spc.label}}</dt>
+  <dd><span class="spc">{{system.spc}} SP</span></dd>
   {{/if}}
   {{/unless}}
   <dt>{{systemFields.range.label}}</dt>
@@ -14,6 +17,14 @@
   <dd>{{system.requirementsList}}</dd>
   <dt>{{systemFields.duration.label}}</dt>
   <dd>{{system.durationLabel}}</dd>
+  {{#if system.castingTime}}
+  <dt>{{systemFields.castingTime.label}}</dt>
+  <dd><span class="casting-time">{{system.castingTime}}</span></dd>
+  {{/if}}
+  {{#if system.recharge}}
+  <dt>{{systemFields.recharge.label}}</dt>
+  <dd><span class="recharge">{{system.recharge}}</span></dd>
+  {{/if}}
 </dl>
 <div class="description">
   {{{enriched}}}

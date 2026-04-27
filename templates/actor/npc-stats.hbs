@@ -1,0 +1,137 @@
+<section class="tab {{tab.cssClass}} standard-form npc-stats" data-group="primary" data-tab="stats">
+
+  {{! HP, AR, Death }}
+  <div class="core-stats flexrow">
+    <fieldset class="hit-points">
+      <legend>{{systemFields.hp.label}}</legend>
+      {{formGroup systemFields.hp.fields.value value=systemSource.hp.value classes="stacked slim"}}
+      {{formGroup systemFields.hp.fields.shield value=systemSource.hp.shield classes="stacked slim"}}
+      {{formGroup
+      systemFields.hp.fields.max
+      value=(ifThen isPlay system.hp.max systemSource.hp.max)
+      disabled=isPlay
+      classes="stacked slim"
+      }}
+    </fieldset>
+    {{formGroup
+    systemFields.defenses.fields.ar
+    value=(ifThen isPlay system.defenses.ar systemSource.defenses.ar)
+    hint=""
+    classes="stacked slim"
+    disabled=isPlay
+    }}
+    {{#if (or system.death.max (not isPlay))}}
+    <fieldset class="death-points">
+      <legend>{{systemFields.death.label}}</legend>
+      {{formGroup systemFields.death.fields.value value=systemSource.death.value classes="stacked slim"}}
+      {{formGroup
+      systemFields.death.fields.max
+      value=(ifThen isPlay system.death.max systemSource.death.max)
+      disabled=isPlay
+      classes="stacked slim"
+      }}
+    </fieldset>
+    {{/if}}
+  </div>
+
+  {{! Attributes }}
+  <div class="attributes">
+    {{#each attributeInfo as |group|}}
+    <div class="attribute-group flexrow">
+      <span class="attribute-group-label">{{localize group.label}}</span>
+      {{#each group.list}}
+      <fieldset class="attribute attribute-circle" data-attribute="{{field.name}}">
+        <legend {{#if check}}data-action="rollAttribute"{{/if}}>
+          {{field.label}}
+          {{#if check}}<i class="fa-solid fa-dice-d20"></i>{{/if}}
+          {{numberFormat value sign=true}}
+        </legend>
+        <a class="edit-attribute-btn icon fa-solid fa-gear" data-action="editAttribute"
+          data-tooltip="{{localize 'MYTHCRAFT.SHEET.EditAttribute'}}"></a>
+        <dl class="skills">
+          {{#if defense}}
+          <dt>{{defense.label}}</dt>
+          <dd>{{defense.value}}</dd>
+          {{/if}}
+          {{#each skills}}
+          <dt>{{label}}</dt>
+          <dd>
+            <a data-skill="{{skillId}}" data-action="rollSkill">
+              <i class="fa-solid fa-dice-d20"></i>
+              {{numberFormat bonus sign=true}}
+            </a>
+          </dd>
+          {{/each}}
+        </dl>
+      </fieldset>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+
+  {{! Speed & Senses }}
+  <div class="flexrow exploration">
+    {{formGroup systemFields.movement value=systemSource.movement disabled=isPlay}}
+    {{formGroup systemFields.senses value=systemSource.senses disabled=isPlay}}
+  </div>
+
+  {{! Traits }}
+  <div class="form-group">
+    <label>{{systemFields.traits.label}}</label>
+    <div class="form-fields">
+      {{#if isPlay}}
+      <span class="tags-display">{{join system.traits ", "}}</span>
+      {{else}}
+      <tag-input name="system.traits" data-suggestions="{{json traitOptions}}">
+        {{#each systemSource.traits}}
+        <input type="hidden" name="system.traits" value="{{this}}">
+        {{/each}}
+      </tag-input>
+      {{/if}}
+    </div>
+  </div>
+
+  {{! Damage Modifications }}
+  <fieldset class="damage-modification">
+    <legend>{{systemFields.damage.label}}</legend>
+    <div class="form-group">
+      <label>{{systemFields.damage.fields.affinity.label}}</label>
+      <div class="form-fields">
+        {{#if isPlay}}
+        <span class="tags-display">{{join system.damage.affinity ", "}}</span>
+        {{else}}
+        <tag-input name="system.damage.affinity" data-suggestions="{{json damageTypeOptions}}">
+          {{#each systemSource.damage.affinity}}
+          <input type="hidden" name="system.damage.affinity" value="{{this}}">
+          {{/each}}
+        </tag-input>
+        {{/if}}
+      </div>
+    </div>
+    {{formGroup systemFields.damage.fields.resist value=systemSource.damage.resist disabled=isPlay}}
+    <div class="form-group">
+      <label>{{systemFields.damage.fields.immune.label}}</label>
+      <div class="form-fields">
+        {{#if isPlay}}
+        <span class="tags-display">{{join system.damage.immune ", "}}</span>
+        {{else}}
+        <tag-input name="system.damage.immune" data-suggestions="{{json damageTypeOptions}}">
+          {{#each systemSource.damage.immune}}
+          <input type="hidden" name="system.damage.immune" value="{{this}}">
+          {{/each}}
+        </tag-input>
+        {{/if}}
+      </div>
+    </div>
+    {{formGroup systemFields.damage.fields.vulnerable value=systemSource.damage.vulnerable disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.reduction value=systemSource.damage.reduction disabled=isPlay}}
+    {{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
+  </fieldset>
+
+  {{! Conditions — TODO: replace with approved conditions widget (mockup session pending) }}
+  <fieldset class="conditions">
+    <legend>Conditions</legend>
+    <!-- TODO: conditions widget -->
+  </fieldset>
+
+</section>

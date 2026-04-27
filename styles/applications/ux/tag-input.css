@@ -1,0 +1,101 @@
+tag-input {
+  display: block;
+  flex: 1;
+}
+
+.tag-input-container {
+  position: relative;
+}
+
+/* Contenteditable field owns the border/background — matches sheet input chrome */
+.tag-input-field {
+  display: block;
+  min-height: var(--input-height, 1.75rem);
+  padding: 2px 6px;
+  background-color: rgba(254, 235, 179, 0.25);
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+  cursor: text;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--mc-dark);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.tag-input-field:focus {
+  background-color: rgba(254, 235, 179, 0.4);
+  border-color: rgba(44, 37, 34, 0.5);
+  box-shadow: 0 0 3px rgba(41, 135, 140, 0.3);
+  outline: none;
+}
+
+/* Placeholder shown when the field has no chips and no typed text */
+.tag-input-field.is-empty::before {
+  content: attr(data-placeholder);
+  color: rgba(44, 37, 34, 0.4);
+  pointer-events: none;
+}
+
+/* Pill shape */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 7px;
+  background: var(--mc-primary, rgb(23, 67, 69));
+  color: white;
+  border-radius: 999px;
+  font-size: 0.8em;
+  line-height: 1.4;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.tag-chip-remove {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85em;
+  line-height: 1;
+  padding: 0;
+  margin-left: 1px;
+  opacity: 0.75;
+  min-height: unset;
+  height: auto;
+}
+.tag-chip-remove:hover {
+  opacity: 1;
+}
+
+.tag-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(254, 235, 179, 0.97);
+  border: 1px solid rgba(44, 37, 34, 0.35);
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tag-dropdown-item {
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 0.875em;
+  color: var(--mc-dark);
+}
+.tag-dropdown-item:hover,
+.tag-dropdown-item.highlighted {
+  background: var(--mc-teal, rgb(41, 135, 140));
+  color: white;
+}

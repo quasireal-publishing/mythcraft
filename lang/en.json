@@ -355,6 +355,18 @@
           "actions": {
             "label": "Action Text",
             "placeholder": "The {name} can take..."
+          },
+          "movement": {
+            "label": "Speed"
+          },
+          "senses": {
+            "label": "Senses"
+          },
+          "tags": {
+            "label": "Tags"
+          },
+          "traits": {
+            "label": "Traits"
           }
         },
         "MonsterTags": {
@@ -699,6 +711,16 @@
           },
           "isAttack": {
             "label": "Attack Spell"
+          },
+          "spcSpecial": {
+            "label": "Special Cost",
+            "hint": "When checked, this spell's SP cost is shown as \"Special\" rather than a number."
+          },
+          "castingTime": {
+            "label": "Casting Time"
+          },
+          "recharge": {
+            "label": "Recharge"
           }
         },
         "components": {
@@ -757,7 +779,8 @@
           "metacreativity": "Metacreativity",
           "telepathy": "Telepathy",
           "psychometabolics": "Psychometabolics",
-          "psychovillany": "Psychovillany"
+          "psychovillany": "Psychovillany",
+          "liturgy": "Liturgy"
         }
       },
       "talent": {

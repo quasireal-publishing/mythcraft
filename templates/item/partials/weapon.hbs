@@ -1,4 +1,17 @@
-{{formGroup systemFields.tags value=system.tags disabled=isPlay options=config.weapon.tagOptions localize=true}}
+<div class="form-group">
+  <label>{{systemFields.tags.label}}</label>
+  <div class="form-fields">
+    {{#if isPlay}}
+    <span class="tags-display">{{join system.tags ", "}}</span>
+    {{else}}
+    <tag-input name="system.tags" data-suggestions="{{json config.weapon.tagOptions}}">
+      {{#each system.tags}}
+      <input type="hidden" name="system.tags" value="{{this}}">
+      {{/each}}
+    </tag-input>
+    {{/if}}
+  </div>
+</div>
 {{formGroup systemFields.quantity value=system.quantity disabled=isPlay}}
 {{formGroup systemFields.cost value=system.cost disabled=isPlay}}
 {{formGroup systemFields.category value=system.category disabled=isPlay}}

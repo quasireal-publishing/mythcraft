@@ -54,6 +54,13 @@ Hooks.once("init", () => {
   // Register enrichers
   CONFIG.TextEditor.enrichers = [applications.ux.enrichers.roll];
 
+  // Register custom form elements (guard prevents duplicate-define error on hot reload)
+  if (!customElements.get("tag-input")) customElements.define("tag-input", applications.ux.TagInputElement);
+
+  // Handlebars helpers for TagInputElement
+  Handlebars.registerHelper("json", (value) => JSON.stringify(value));
+  Handlebars.registerHelper("join", (arr, sep) => Array.from(arr ?? []).join(sep));
+
   // Register system settings
   utils.SystemSettingsHandler.registerSettings();
 
