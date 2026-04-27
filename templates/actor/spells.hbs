@@ -57,8 +57,8 @@
           <div class="item-apc">{{item.system.apc}}</div>
           <div class="item-spc">{{item.system.spc}}</div>
           <input type="checkbox" class="spell-attack-toggle"
-                 data-action="toggleSpellAttack" data-item-id="{{item.id}}"
-                 {{#if item.system.isAttack}}checked{{/if}}
+            data-action="toggleSpellAttack" data-item-id="{{item.id}}"
+            {{#if item.system.isAttack}}checked{{/if}}
                  title="{{localize 'MYTHCRAFT.Item.spell.FIELDS.isAttack.label'}}">
           <div class="item-controls flexrow">
             <button type="button" class="roll-spell" data-action="rollSpell" data-item-id="{{item.id}}" title="Cast Spell">

@@ -20,15 +20,15 @@ export default class AttackRoll extends MythCraftRoll {
 
   /** @override */
   async toMessage(messageData = {}, options = {}) {
-    const template = 'systems/mythcraft/templates/chat/attack-card.hbs';
+    const template = "systems/mythcraft/templates/chat/attack-card.hbs";
     const templateData = {
       weaponName: this.weaponName,
-      attributeLabel: this.options.attribute ? game.i18n.localize(`MYTHCRAFT.Attributes.${this.options.attribute}.abbr`) : '',
+      attributeLabel: this.options.attribute ? game.i18n.localize(`MYTHCRAFT.Attributes.${this.options.attribute}.abbr`) : "",
       isCriticalHit: this.isCriticalHit,
       isCriticalFail: this.isCriticalFail,
       damageFormula: this.damageFormula,
       damageType: this.damageType,
-      rollHTML: await this.render()
+      rollHTML: await this.render(),
     };
     const content = await renderTemplate(template, templateData);
     messageData.content = content;
