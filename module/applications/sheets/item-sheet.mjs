@@ -310,7 +310,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       {
         label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEffect(target);
           await effect.sheet.render({ force: true });
         },
@@ -318,7 +318,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       {
         label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEffect(target);
           await ChatMessage.create({
             content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} inline]</div>`,
@@ -334,7 +334,7 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
         label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
         visible: () => this.isEditable,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEffect(target);
           await effect.deleteDialog();
         },

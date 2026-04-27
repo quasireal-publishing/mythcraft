@@ -174,7 +174,7 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
       {
         label: "MYTHCRAFT.SHEET.Edit",
         icon: '<i class="fa-solid fa-fw fa-edit"></i>',
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.sheet.render({ force: true });
         },
@@ -183,7 +183,7 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
         label: "MYTHCRAFT.SHEET.Delete",
         icon: '<i class="fa-solid fa-fw fa-trash"></i>',
         visible: () => this.isEditable,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.deleteDialog();
         },

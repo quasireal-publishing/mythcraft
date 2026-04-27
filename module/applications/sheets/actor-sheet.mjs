@@ -365,7 +365,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         label: "MYTHCRAFT.SHEET.View",
         icon: "<i class=\"fa-solid fa-fw fa-eye\"></i>",
         visible: () => this.isPlayMode,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
         },
@@ -374,7 +374,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
         visible: () => this.isEditMode,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
         },
@@ -382,7 +382,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       {
         label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${item.name}</h5><div>@Embed[${item.uuid} inline]</div>`,
@@ -398,7 +398,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
         visible: () => this.isEditable,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const item = this._getEmbeddedDocument(target);
           await item.deleteDialog();
         },
@@ -419,7 +419,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       {
         label: "MYTHCRAFT.SHEET.Edit",
         icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.sheet.render({ force: true });
         },
@@ -427,7 +427,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       {
         label: "MYTHCRAFT.SHEET.Share",
         icon: "<i class=\"fa-solid fa-fw fa-share-from-square\"></i>",
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await ChatMessage.create({
             content: `<h5>${effect.name}</h5><div>@Embed[${effect.uuid} inline]</div>`,
@@ -443,7 +443,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
         label: "MYTHCRAFT.SHEET.Delete",
         icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
         visible: () => this.isEditable,
-        onClick: async (target) => {
+        onClick: async (_event, target) => {
           const effect = this._getEmbeddedDocument(target);
           await effect.deleteDialog();
         },
