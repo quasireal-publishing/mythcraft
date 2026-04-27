@@ -241,10 +241,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
    * @param {ApplicationRenderOptions} options
    */
   async _prepareEquipmentTab(context, options) {
+    const currencyFields = this.document.system.schema.fields.currency.fields;
     context.currencies = Object.entries(mythcraft.CONFIG.currencies).map(([key, { label, tooltip }]) => ({
       label, tooltip,
       value: this.actor.system.currency[key],
       name: `system.currency.${key}`,
+      field: currencyFields[key],
     }));
 
     context.armor = [];
