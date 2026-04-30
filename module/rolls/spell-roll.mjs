@@ -1,6 +1,8 @@
 import MythCraftRoll from "./base-roll.mjs";
 
 export default class SpellRoll extends MythCraftRoll {
+  static APPLY_ROLL_MODES = true;
+
   constructor(formula, data, options = {}) {
     super(formula, data, options);
     const { spellName, source, isPrimary } = options;

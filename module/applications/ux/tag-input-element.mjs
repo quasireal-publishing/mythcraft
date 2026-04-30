@@ -447,6 +447,23 @@ export default class TagInputElement extends HTMLElement {
     }
 
     this.#dropdown.hidden = false;
+    this.#flipDropdownIfNeeded();
+  }
+
+  /**
+   * If the dropdown extends past the viewport bottom, flip it to open above
+   * the field instead. Toggles the `flipped` class which the stylesheet uses
+   * to swap top/bottom anchoring.
+   */
+  #flipDropdownIfNeeded() {
+    this.#dropdown.classList.remove("flipped");
+    const fieldRect = this.#field.getBoundingClientRect();
+    const dropHeight = this.#dropdown.offsetHeight;
+    const spaceBelow = window.innerHeight - fieldRect.bottom;
+    const spaceAbove = fieldRect.top;
+    if ((spaceBelow < dropHeight) && (spaceAbove > spaceBelow)) {
+      this.#dropdown.classList.add("flipped");
+    }
   }
 
   #moveHighlight(direction) {

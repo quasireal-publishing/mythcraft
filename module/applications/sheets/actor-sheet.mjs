@@ -7,6 +7,10 @@ import enrichHTML from "../../utils/enrich-html.mjs";
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
 const { ActorSheet } = foundry.applications.sheets;
+const { FormDataExtended } = foundry.applications.ux;
+
+/** Conditions that require a value parameter (formula). */
+const PARAMETERIZED_CONDITIONS = new Set(["bleeding", "burning"]);
 
 /**
  * A base actor sheet that can be extended for document-specific properties.
@@ -35,6 +39,8 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       toggleEffectEmbed: this.#toggleEffectEmbed,
       toggleSpellAttack: this.#toggleSpellAttack,
       openTab: this.#openTab,
+      addCondition: MythCraftActorSheet.#addCondition,
+      removeCondition: MythCraftActorSheet.#removeCondition,
     },
     position: {
       // distance running display
@@ -64,6 +70,22 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    */
   get expanded() {
     return this.#expanded;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Strip the synthetic `_conditions-*` keys produced by the conditions widget
+   * (it uses a sheet-stable name on its inner tag-input for focus retention,
+   * but the key is not part of actor schema and must not be sent to update).
+   * @inheritdoc
+   */
+  _processFormData(event, form, formData) {
+    const data = super._processFormData(event, form, formData);
+    for (const key of Object.keys(data)) {
+      if (key.startsWith("_conditions-")) delete data[key];
+    }
+    return data;
   }
 
   /* -------------------------------------------------- */
@@ -246,6 +268,46 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     };
 
     context.damageInfo = { absorbOptions: absorbOptions, descriptions: damageDescriptions };
+
+    this._prepareConditionsContext(context);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Add conditions widget context. Called by all actor type stats tab preparations.
+   * @param {object} context
+   */
+  _prepareConditionsContext(context) {
+    const activeMap = new Map();
+    context.activeConditions = this.actor.effects
+      .filter(e => e.statuses.size > 0)
+      .map(e => {
+        const id = [...e.statuses][0];
+        const config = mythcraft.CONFIG.conditions[id];
+        const label = game.i18n.localize(config?.name ?? id);
+        const value = e.flags?.mythcraft?.value ?? null;
+        activeMap.set(id, { label, value });
+        return {
+          id,
+          effectId: e.id,
+          label,
+          img: config?.img ?? "icons/svg/aura.svg",
+          value,
+        };
+      });
+
+    // Include ALL conditions in suggestions (not just inactive) so tag-input's
+    // chip-label lookup can find labels for active chips. Tag-input itself
+    // filters out already-active chips from the dropdown.
+    context.conditionOptions = Object.entries(mythcraft.CONFIG.conditions)
+      .map(([id, config]) => {
+        const baseLabel = game.i18n.localize(config.name);
+        const active = activeMap.get(id);
+        // For active parameterized conditions, surface "Label (value)" so the chip displays the value.
+        const label = (active?.value) ? `${baseLabel} (${active.value})` : baseLabel;
+        return { value: id, label, img: config.img ?? "icons/svg/aura.svg" };
+      });
   }
 
   /* -------------------------------------------------- */
@@ -869,6 +931,60 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     for (const { target, update } of sortUpdates) {
       await target.update(update);
     }
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Add a condition to the actor, prompting for a value when required.
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #addCondition(event, target) {
+    const conditionId = target.dataset.conditionId;
+    if (!conditionId) return;
+
+    let value = target.dataset.conditionValue ?? "";
+
+    if (PARAMETERIZED_CONDITIONS.has(conditionId) && !value) {
+      const result = await foundry.applications.api.DialogV2.prompt({
+        window: { title: game.i18n.format("MYTHCRAFT.Conditions.Widget.PromptTitle", { condition: conditionId }) },
+        content: "<input type='text' name='value' placeholder='e.g. 1d6' autofocus>",
+        // Defer focus past tag-input's requestAnimationFrame so the chip-input
+        // doesn't steal focus from the dialog's autofocus input.
+        render: (_event, dialog) => {
+          setTimeout(() => {
+            const input = dialog.element?.querySelector("input[name='value']");
+            input?.focus();
+            input?.select();
+          }, 50);
+        },
+        ok: {
+          label: game.i18n.localize("Confirm"),
+          callback: (_event, button) => new FormDataExtended(button.form).object.value,
+        },
+      });
+      if (!result) return;
+      value = result;
+    }
+
+    const mythcraftFlags = value ? { "flags.mythcraft.value": value } : undefined;
+    await this.actor.toggleStatusEffect(conditionId, { active: true, mythcraftFlags });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Remove a condition ActiveEffect from the actor.
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #removeCondition(event, target) {
+    const effectId = target.dataset.effectId;
+    if (!effectId) return;
+    await this.actor.deleteEmbeddedDocuments("ActiveEffect", [effectId]);
   }
 
   /* -------------------------------------------------- */

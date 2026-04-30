@@ -1,6 +1,8 @@
 import MythCraftRoll from "./base-roll.mjs";
 
 export default class AttackRoll extends MythCraftRoll {
+  static APPLY_ROLL_MODES = true;
+
   constructor(formula, data, options = {}) {
     super(formula, data, options);
     const { weaponName, attribute } = options;

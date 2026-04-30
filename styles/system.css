@@ -8,6 +8,7 @@
 /** Applications */
 @import url("./applications/api/roll-dialog.css");
 @import url("./applications/ux/tag-input.css");
+@import url("./applications/ux/condition-input.css");
 @import url("./applications/apps/attribute-skill-input.css");
 @import url("./applications/apps/chain-configuration-dialog.css");
 

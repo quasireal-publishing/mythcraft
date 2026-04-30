@@ -111,19 +111,6 @@
     </div>
     {{/each}}
   </div>
-  <fieldset class="conditions">
-    <legend>{{systemFields.conditions.label}}</legend>
-    {{formGroup
-    systemFields.conditions.fields.bleeding
-    value=(ifThen isPlay system.conditions.bleeding systemSource.conditions.bleeding)
-    disabled=isPlay
-    }}
-    {{formGroup
-    systemFields.conditions.fields.burning
-    value=(ifThen isPlay system.conditions.burning systemSource.conditions.burning)
-    disabled=isPlay
-    }}
-  </fieldset>
   <fieldset class="damage-modification">
     <legend>{{systemFields.damage.label}}</legend>
     {{#if isPlay}}
@@ -173,5 +160,13 @@
     </div>
     {{formGroup systemFields.damage.fields.threshold value=system.damage.threshold disabled=isPlay}}
     {{/if}}
+  </fieldset>
+
+  <fieldset class="conditions">
+    <legend>{{localize "MYTHCRAFT.Conditions.Widget.Label"}}</legend>
+    <condition-input
+      data-conditions="{{json activeConditions}}"
+      data-suggestions="{{json conditionOptions}}"
+    ></condition-input>
   </fieldset>
 </section>

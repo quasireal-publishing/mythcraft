@@ -128,10 +128,12 @@
     {{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
   </fieldset>
 
-  {{! Conditions — TODO: replace with approved conditions widget (mockup session pending) }}
   <fieldset class="conditions">
-    <legend>Conditions</legend>
-    <!-- TODO: conditions widget -->
+    <legend>{{localize "MYTHCRAFT.Conditions.Widget.Label"}}</legend>
+    <condition-input
+      data-conditions="{{json activeConditions}}"
+      data-suggestions="{{json conditionOptions}}"
+    ></condition-input>
   </fieldset>
 
 </section>

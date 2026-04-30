@@ -41,6 +41,9 @@ export const conditions = {
   concealed: {
     name: "MYTHCRAFT.Effect.Conditions.concealed",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.ta", mode: 2, value: 1 },
+    ],
   },
   partialCover: {
     name: "MYTHCRAFT.Effect.Conditions.partialCover",
@@ -78,10 +81,16 @@ export const conditions = {
   frightened: {
     name: "MYTHCRAFT.Effect.Conditions.frightened",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.td", mode: 2, value: 1 },
+    ],
   },
   grappled: {
     name: "MYTHCRAFT.Effect.Conditions.grappled",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.movement.walk", mode: 5, value: 0 },
+    ],
   },
   grounded: {
     name: "MYTHCRAFT.Effect.Conditions.grounded",
@@ -109,10 +118,18 @@ export const conditions = {
   prone: {
     name: "MYTHCRAFT.Effect.Conditions.prone",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.td", mode: 2, value: 1 },
+    ],
   },
   protected: {
     name: "MYTHCRAFT.Effect.Conditions.protected",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.bonuses.ar", mode: 2, value: 2 },
+      { key: "system.bonuses.ref", mode: 2, value: 2 },
+      { key: "system.bonuses.fort", mode: 2, value: 2 },
+    ],
   },
   rallied: {
     name: "MYTHCRAFT.Effect.Conditions.rallied",
@@ -126,10 +143,16 @@ export const conditions = {
   shaken: {
     name: "MYTHCRAFT.Effect.Conditions.shaken",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.bonus", mode: 2, value: -2 },
+    ],
   },
   sickened: {
     name: "MYTHCRAFT.Effect.Conditions.sickened",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.td", mode: 2, value: 1 },
+    ],
   },
   silenced: {
     name: "MYTHCRAFT.Effect.Conditions.silenced",
@@ -138,6 +161,9 @@ export const conditions = {
   slowed: {
     name: "MYTHCRAFT.Effect.Conditions.slowed",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.movement.walk", mode: 1, value: 0.5 },
+    ],
   },
   staggered: {
     name: "MYTHCRAFT.Effect.Conditions.staggered",
@@ -154,6 +180,9 @@ export const conditions = {
   suppressed: {
     name: "MYTHCRAFT.Effect.Conditions.suppressed",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.movement.walk", mode: 5, value: 0 },
+    ],
   },
   completeSurprise: {
     name: "MYTHCRAFT.Effect.Conditions.completeSurprise",
@@ -170,6 +199,9 @@ export const conditions = {
   unseen: {
     name: "MYTHCRAFT.Effect.Conditions.unseen",
     img: "icons/svg/aura.svg",
+    changes: [
+      { key: "system.rollModes.ta", mode: 2, value: 1 },
+    ],
   },
 };
 

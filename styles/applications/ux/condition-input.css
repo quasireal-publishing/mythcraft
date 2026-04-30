@@ -1,14 +1,14 @@
-tag-input {
+condition-input {
   display: block;
   flex: 1;
 }
 
-.tag-input-container {
+.condition-input-container {
   position: relative;
 }
 
-/* Contenteditable field owns the border/background — matches sheet input chrome */
-.tag-input-field {
+/* Single contenteditable field that holds inline chips and the typing area */
+.condition-input-field {
   display: block;
   min-height: var(--input-height, 1.75rem);
   padding: 2px 6px;
@@ -24,7 +24,7 @@ tag-input {
   word-break: break-word;
 }
 
-.tag-input-field:focus {
+.condition-input-field:focus {
   background-color: rgba(254, 235, 179, 0.4);
   border-color: rgba(44, 37, 34, 0.5);
   box-shadow: 0 0 3px rgba(41, 135, 140, 0.3);
@@ -32,18 +32,18 @@ tag-input {
 }
 
 /* Placeholder shown when the field has no chips and no typed text */
-.tag-input-field.is-empty::before {
+.condition-input-field.is-empty::before {
   content: attr(data-placeholder);
   color: rgba(44, 37, 34, 0.4);
   pointer-events: none;
 }
 
-/* Pill shape */
-.tag-chip {
+/* Inline chip — sits inside the contenteditable as a non-editable span */
+.condition-chip {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 1px 7px;
+  gap: 4px;
+  padding: 1px 6px 1px 3px;
   background: var(--mc-primary, rgb(23, 67, 69));
   color: white;
   border-radius: 999px;
@@ -52,9 +52,22 @@ tag-input {
   white-space: nowrap;
   vertical-align: middle;
   margin-right: 2px;
+  user-select: none;
 }
 
-.tag-chip-remove {
+.condition-chip-icon {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.condition-chip-label {
+  font-size: inherit;
+}
+
+.condition-chip-remove {
   background: none;
   border: none;
   color: white;
@@ -67,44 +80,42 @@ tag-input {
   min-height: unset;
   height: auto;
 }
-.tag-chip-remove:hover {
+.condition-chip-remove:hover {
   opacity: 1;
 }
 
-.tag-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 100;
+/* Dropdown is appended to <body> (escapes sheet's overflow:hidden).
+   Positioned via inline style by the element. z-index high enough to clear
+   ApplicationV2 windows (which use _maxZ values in the thousands). */
+.condition-dropdown {
+  z-index: 99999;
   margin: 0;
   padding: 0;
   list-style: none;
   background-color: rgba(254, 235, 179, 0.97);
   border: 1px solid rgba(44, 37, 34, 0.35);
-  border-top: none;
-  border-radius: 0 0 2px 2px;
+  border-radius: 2px;
   max-height: 200px;
   overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Flipped open above the field (no room below) */
-.tag-dropdown.flipped {
-  top: auto;
-  bottom: 100%;
-  border-top: 1px solid rgba(44, 37, 34, 0.35);
-  border-bottom: none;
-  border-radius: 2px 2px 0 0;
-}
-
-.tag-dropdown-item {
+.condition-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   padding: 3px 8px;
   cursor: pointer;
   font-size: 0.875em;
   color: var(--mc-dark);
 }
-.tag-dropdown-item:hover,
-.tag-dropdown-item.highlighted {
+.condition-suggestion:hover {
   background: var(--mc-teal, rgb(41, 135, 140));
   color: white;
+}
+
+.condition-suggestion img {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
 }

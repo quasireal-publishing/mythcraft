@@ -7,7 +7,6 @@ export default class NPCSheet extends MythCraftActorSheet {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     actions: {
-      toggleCondition: NPCSheet.#toggleCondition,
       rollFeature: NPCSheet.#rollFeature,
     },
   };
@@ -125,6 +124,8 @@ export default class NPCSheet extends MythCraftActorSheet {
     // Suggestion lists for <tag-input> elements in npc-stats.hbs.
     context.traitOptions = mythcraft.CONFIG.monster.traitOptions;
     context.damageTypeOptions = mythcraft.CONFIG.damage.options;
+
+    this._prepareConditionsContext(context);
   }
 
   /* -------------------------------------------------- */
@@ -171,20 +172,6 @@ export default class NPCSheet extends MythCraftActorSheet {
 
     const reactions = sortedFeatures.filter(f => f.system.category === "reaction");
     context.reactions = await Promise.all(reactions.map(buildContext));
-  }
-
-  /* -------------------------------------------------- */
-
-  /**
-   * Toggle a Foundry status condition on this NPC.
-   * Wired to `data-action="toggleCondition"` with `data-condition="{key}"`.
-   * @param {PointerEvent} event
-   * @param {HTMLElement} target
-   */
-  static async #toggleCondition(event, target) {
-    const conditionId = target.dataset.condition;
-    if (!conditionId) return;
-    await this.actor.toggleStatusEffect(conditionId);
   }
 
   /* -------------------------------------------------- */

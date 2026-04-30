@@ -56,6 +56,7 @@ Hooks.once("init", () => {
 
   // Register custom form elements (guard prevents duplicate-define error on hot reload)
   if (!customElements.get("tag-input")) customElements.define("tag-input", applications.ux.TagInputElement);
+  if (!customElements.get("condition-input")) customElements.define("condition-input", applications.ux.ConditionInputElement);
 
   // Handlebars helpers for TagInputElement
   Handlebars.registerHelper("json", (value) => JSON.stringify(value));
@@ -108,38 +109,77 @@ Hooks.once("ready", async () => {
         |___/
 `);
 
-  // Data migrations
-  const currentVersion = game.settings.get("mythcraft", "schemaVersion");
-  if (currentVersion < 1) {
-    // Migrate world actors
-    for (const actor of game.actors) {
-      if (actor.type !== "character") continue;
-      const oldCurrency = actor.system.currency;
-      if (!oldCurrency || typeof oldCurrency !== "object") continue;
-      const migrated = migrateCurrencyData(oldCurrency);
-      const update = {};
-      for (const [key, value] of Object.entries(migrated)) {
-        update[`system.currency.${key}`] = value;
-      }
-      if (Object.keys(update).length) await actor.update(update);
-    }
-    // Migrate unlinked token actors in scenes
-    for (const scene of game.scenes) {
-      for (const token of scene.tokens) {
-        if (token.actorLink || token.actor?.type !== "character") continue;
-        const oldCurrency = token.actor.system.currency;
+  if (game.user.isGM) {
+    // Data migrations
+    const currentVersion = game.settings.get("mythcraft", "schemaVersion");
+    if (currentVersion < 1) {
+      // Migrate world actors
+      for (const actor of game.actors) {
+        if (actor.type !== "character") continue;
+        const oldCurrency = actor.system.currency;
         if (!oldCurrency || typeof oldCurrency !== "object") continue;
         const migrated = migrateCurrencyData(oldCurrency);
         const update = {};
         for (const [key, value] of Object.entries(migrated)) {
           update[`system.currency.${key}`] = value;
         }
-        if (Object.keys(update).length) {
-          await token.actor.update(update);
+        if (Object.keys(update).length) await actor.update(update);
+      }
+      // Migrate unlinked token actors in scenes
+      for (const scene of game.scenes) {
+        for (const token of scene.tokens) {
+          if (token.actorLink || token.actor?.type !== "character") continue;
+          const oldCurrency = token.actor.system.currency;
+          if (!oldCurrency || typeof oldCurrency !== "object") continue;
+          const migrated = migrateCurrencyData(oldCurrency);
+          const update = {};
+          for (const [key, value] of Object.entries(migrated)) {
+            update[`system.currency.${key}`] = value;
+          }
+          if (Object.keys(update).length) {
+            await token.actor.update(update);
+          }
         }
       }
+      await game.settings.set("mythcraft", "schemaVersion", 1);
     }
-    await game.settings.set("mythcraft", "schemaVersion", 1);
+
+    if (currentVersion < 2) {
+      const migrateActor = async (actor) => {
+        const bleeding = actor._source.system.conditions?.bleeding;
+        const burning = actor._source.system.conditions?.burning;
+
+        for (const [statusId, value] of [["bleeding", bleeding], ["burning", burning]]) {
+          if (!value) continue;
+          if (actor.statuses.has(statusId)) continue; // already migrated
+          const ae = await actor.toggleStatusEffect(statusId, { active: true });
+          if (ae instanceof foundry.documents.ActiveEffect) {
+            await ae.update({ "flags.mythcraft.value": value });
+          }
+        }
+
+        // Clean up stale source data
+        if (actor._source.system.conditions !== undefined) {
+          await actor.update({ "system.-=conditions": null });
+        }
+      };
+
+      // World actors
+      for (const actor of game.actors) {
+        await migrateActor(actor);
+      }
+
+      // Unlinked token actors in all scenes
+      for (const scene of game.scenes) {
+        for (const token of scene.tokens) {
+          if (token.actorLink) continue; // linked tokens already handled via base actor
+          if (!token.actor) continue;
+          await migrateActor(token.actor);
+        }
+      }
+
+      await game.settings.set("mythcraft", "schemaVersion", 2);
+    }
   }
 
   Hooks.callAll("mc.ready");
