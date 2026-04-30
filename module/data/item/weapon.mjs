@@ -17,10 +17,16 @@ export default class WeaponModel extends EquipmentModel {
 
     const fields = foundry.data.fields;
 
-    schema.damage = new fields.SchemaField({
-      formula: new FormulaField(),
-      type: new fields.StringField({ required: true, initial: "sharp" }),
-    });
+    schema.damage = new fields.ArrayField(
+      new fields.SchemaField({
+        formula: new FormulaField(),
+        type: new fields.StringField({ required: true, initial: "sharp" }),
+      }),
+      { initial: [] },
+    );
+
+    schema.attackModifier = new FormulaField({ initial: "0", deterministic: true });
+    schema.defenseTarget = new fields.StringField({ required: true, initial: "ar" });
 
     schema.attr = new fields.StringField({ required: true, initial: "str" });
 
@@ -37,10 +43,31 @@ export default class WeaponModel extends EquipmentModel {
 
   /* -------------------------------------------------- */
 
+  /** @inheritdoc */
+  static migrateData(source) {
+    if (source.damage && !Array.isArray(source.damage)) {
+      const { formula, type } = source.damage;
+      source.damage = formula ? [{ formula, type: type ?? "sharp" }] : [];
+    }
+    return source;
+  }
+
+  /* -------------------------------------------------- */
+
   /**
    * The weapon's calculated APC cost.
    */
   get apc() {
     return mythcraft.utils.evaluateFormula(this.apcFormula || "0", this.parent.getRollData());
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Evaluated attack modifier value (item-level bonus on top of actor attribute).
+   * @type {number}
+   */
+  get attackModifierValue() {
+    return mythcraft.utils.evaluateFormula(this.attackModifier || "0", this.parent.getRollData());
   }
 }

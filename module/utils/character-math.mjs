@@ -1,7 +1,7 @@
 /**
  * Determine hit die size from Endurance attribute.
- * @param {number} end - Endurance value (-3 to 12)
- * @returns {number} Hit die size (4, 6, 8, 10, or 12)
+ * @param {number} end - Endurance value (-3 to 12).
+ * @returns {number} Hit die size (4, 6, 8, 10, or 12).
  */
 export function getHitDie(end) {
   if (end <= 2) return 4;
@@ -13,9 +13,9 @@ export function getHitDie(end) {
 
 /**
  * Calculate maximum HP.
- * @param {number} level - Character level
- * @param {number} end - Endurance attribute value
- * @param {number|null} override - Manual override (null = use formula)
+ * @param {number} level - Character level.
+ * @param {number} end - Endurance attribute value.
+ * @param {number|null} override - Manual override (null = use formula).
  * @returns {number}
  */
 export function calculateHpMax(level, end, override = null) {
@@ -25,20 +25,22 @@ export function calculateHpMax(level, end, override = null) {
 
 /**
  * Calculate max action points per round.
- * @param {number} cor - Corruption attribute value
- * @param {number|null} override - Manual override (null = use formula)
+ * @param {number} cor - Coordination attribute value.
+ * @param {number|null} override - Manual override (null = use formula).
  * @returns {number}
  */
 export function calculateApMax(cor, override = null) {
   if (override !== null) return override;
-  return 3 + Math.ceil(cor / 2);
+  if (cor <= -3) return 1;
+  if (cor <= -1) return 2;
+  return 3 + Math.floor(cor / 2);
 }
 
 /**
  * Calculate initiative total.
- * @param {number} awr - Awareness attribute value
- * @param {number} bonus - Initiative bonus
- * @param {number|null} override - Manual override (null = use formula)
+ * @param {number} awr - Awareness attribute value.
+ * @param {number} bonus - Initiative bonus.
+ * @param {number|null} override - Manual override (null = use formula).
  * @returns {number}
  */
 export function calculateInitiative(awr, bonus, override = null) {
@@ -48,9 +50,9 @@ export function calculateInitiative(awr, bonus, override = null) {
 
 /**
  * Calculate effective critical ranges.
- * @param {number} hit - Base critical hit threshold
- * @param {number} fail - Base critical fail threshold
- * @param {number} luck - Luck attribute value
+ * @param {number} hit - Base critical hit threshold.
+ * @param {number} fail - Base critical fail threshold.
+ * @param {number} luck - Luck attribute value.
  * @returns {{effectiveHit: number, effectiveFail: number}}
  */
 export function calculateCriticalRanges(hit, fail, luck) {

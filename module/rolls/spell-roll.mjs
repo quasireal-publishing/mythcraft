@@ -1,9 +1,11 @@
 import MythCraftRoll from "./base-roll.mjs";
 
 export default class SpellRoll extends MythCraftRoll {
+  static APPLY_ROLL_MODES = true;
+
   constructor(formula, data, options = {}) {
     super(formula, data, options);
-    const {spellName, source, isPrimary} = options;
+    const { spellName, source, isPrimary } = options;
     const sourceLabel = source ? game.i18n.localize(`MYTHCRAFT.Spells.Sources.${source}`) : "";
     this.options.flavor ??= `${spellName ?? game.i18n.localize("MYTHCRAFT.Roll.Spell")} (${sourceLabel})`;
   }
@@ -19,8 +21,8 @@ export default class SpellRoll extends MythCraftRoll {
 
   /** @override */
   async toMessage(messageData = {}, options = {}) {
-    const template = 'systems/mythcraft/templates/chat/spell-card.hbs';
-    const sourceLabel = this.source ? game.i18n.localize(`MYTHCRAFT.Spells.Sources.${this.source}`) : '';
+    const template = "systems/mythcraft/templates/chat/spell-card.hbs";
+    const sourceLabel = this.source ? game.i18n.localize(`MYTHCRAFT.Spells.Sources.${this.source}`) : "";
     const templateData = {
       spellName: this.spellName,
       source: this.source,
@@ -32,7 +34,7 @@ export default class SpellRoll extends MythCraftRoll {
       spc: this.spc,
       damageFormula: this.damageFormula,
       damageType: this.damageType,
-      rollHTML: await this.render()
+      rollHTML: await this.render(),
     };
     const content = await renderTemplate(template, templateData);
     messageData.content = content;

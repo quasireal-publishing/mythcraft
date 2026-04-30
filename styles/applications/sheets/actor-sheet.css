@@ -254,6 +254,7 @@
     }
     .exploration {
       align-items: stretch;
+      gap: 0.5rem;
     }
   }
 
@@ -317,6 +318,13 @@
 
   /* [data-application-part="spells"] {
   } */
+
+  /* NPC Features tab — spacing between Passive/Action/Reaction sections */
+  .tab.features .item-list + .item-header,
+  .tab.features .item-list + h4.tier-header,
+  .tab.features [class*="prosemirror"] + .item-header {
+    margin-top: 1rem;
+  }
 
   [data-application-part="equipment"] {
     padding-top: 0.5rem;
@@ -624,7 +632,7 @@
 /* Roll buttons */
 .mythcraft.sheet.actor button.roll-attack,
 .mythcraft.sheet.actor button.roll-spell {
-  background-color: var(--mc-teal);
+  background-color: var(--mc-primary);
   color: white;
   border: none;
   border-radius: 3px;
@@ -634,7 +642,7 @@
 
 .mythcraft.sheet.actor button.roll-attack:hover,
 .mythcraft.sheet.actor button.roll-spell:hover {
-  background-color: var(--mc-primary);
+  background-color: var(--mc-teal);
 }
 
 /* Spell source colors */
@@ -1016,3 +1024,164 @@
   color: #888;
   font-style: italic;
 }
+
+/* Play mode: disabled inputs are read-only displays — drop the input chrome
+   so they don't read as editable fields next to actually-editable inputs
+   like HP Current. (NEX-136) */
+.mythcraft.sheet.mc-play-mode :is(input, select, textarea):disabled {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  -webkit-text-fill-color: inherit;
+  opacity: 1;
+  cursor: default;
+  padding-inline: 0;
+}
+
+/* Attack card layout — shared by PC weapons and NPC features */
+/* Use .mythcraft.sheet.actor scope to beat the nth-child(odd) stripe rule (specificity 4) */
+.mythcraft.sheet.actor .item-list.attack-cards .attack-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-areas:
+    "icon main uses controls"
+    "embed embed embed embed";
+  align-items: center;
+  border: 1px solid var(--color-border-light-primary, #c9c0a4);
+  border-radius: 4px;
+  margin-bottom: 4px;
+  background: rgba(255, 255, 255, 0.88);
+  overflow: hidden;
+  cursor: default;
+  transition: background 0.1s;
+  padding: 6px 8px;
+}
+
+.attack-card .card-main {
+  grid-area: main;
+  min-width: 0;
+}
+
+.attack-card .item-uses {
+  grid-area: uses;
+  align-self: center;
+  padding: 0 4px;
+}
+
+.attack-card .item-controls {
+  grid-area: controls;
+  align-self: center;
+}
+
+.attack-card .item-embed {
+  grid-area: embed;
+  padding: 6px 10px;
+  border-top: 1px solid var(--color-border-light-tertiary);
+  font-size: var(--font-size-13);
+}
+
+.attack-card .card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.attack-card .card-row--top {
+  font-weight: 600;
+  font-size: var(--font-size-14);
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.attack-card .card-row--bottom {
+  font-size: var(--font-size-12);
+  padding-top: 3px;
+  gap: 4px;
+}
+
+.attack-card .card-meta {
+  display: flex;
+  align-items: center;
+  --_gap: 8px;
+  gap: var(--_gap);
+  flex-shrink: 0;
+}
+
+.attack-card .card-roll-btn {
+  font-size: var(--font-size-13);
+  padding: 1px 8px;
+  border: 1px solid var(--color-border-light-primary, #c9c0a4);
+  border-radius: 3px;
+  background: rgba(23, 67, 69, 0.08);
+  color: var(--mc-primary, #174345);
+  cursor: pointer;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.attack-card .card-roll-btn:hover {
+  background: rgba(41, 135, 140, 0.22);
+  color: var(--mc-teal, #29878c);
+}
+
+.attack-card .card-roll-btn .card-atk {
+  white-space: nowrap;
+}
+
+.attack-card .card-damage-btn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  justify-content: flex-end;
+  font-size: var(--font-size-12);
+  padding: 2px 8px;
+  border: 1px solid var(--color-border-light-primary, #c9c0a4);
+  border-radius: 3px;
+  background: rgba(192, 57, 43, 0.08);
+  color: #c0392b;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.attack-card .card-damage-btn:hover {
+  background: rgba(192, 57, 43, 0.2);
+}
+
+.attack-card .card-damage-btn .dmg-entry {
+  white-space: nowrap;
+}
+
+.attack-card .card-damage-btn .dmg-type {
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 0.85;
+}
+
+.attack-card .card-attr {
+  color: var(--color-text-hyperlink, #4a90d9);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.attack-card .card-defense {
+  color: var(--color-text-hyperlink, #4a90d9);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.attack-card .card-defense .vs-label {
+  font-weight: normal;
+  text-transform: lowercase;
+  opacity: 0.65;
+  font-size: 0.9em;
+  color: var(--color-text-primary, inherit);
+}
+
+.attack-card .card-apc {
+  color: #c0392b;
+  border-left: 1px solid var(--color-text-primary);
+  padding-left: var(--_gap);
+}
+

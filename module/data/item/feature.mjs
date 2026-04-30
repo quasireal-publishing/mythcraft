@@ -23,6 +23,21 @@ export default class FeatureModel extends AdvancementModel {
 
     schema.prerequisites = new fields.StringField({ required: true });
 
+    schema.hasAttack = new fields.BooleanField({ initial: false });
+    schema.attackBonus = new FormulaField({ initial: "0", deterministic: true });
+    schema.defenseTarget = new fields.StringField({ initial: "ar" });
+
+    schema.hasSave = new fields.BooleanField({ initial: false });
+    schema.saveDC = new FormulaField({ initial: "10", deterministic: true });
+    schema.saveAttribute = new fields.StringField({ initial: "end" });
+
+    schema.damage = new fields.ArrayField(
+      new fields.SchemaField({
+        formula: new FormulaField(),
+        type: new fields.StringField({ required: true, initial: "sharp" }),
+      }),
+    );
+
     schema.uses = new fields.SchemaField({
       spent: new fields.NumberField({ integer: true }),
       maxFormula: new FormulaField({ deterministic: true }),
@@ -32,6 +47,38 @@ export default class FeatureModel extends AdvancementModel {
     schema.tier = new fields.NumberField(requiredInteger({ min: 1, initial: 1 }));
 
     return schema;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Evaluated attack bonus value.
+   * @type {number|null}
+   */
+  get evaluatedAttackBonus() {
+    if (!this.hasAttack) return null;
+    return mythcraft.utils.evaluateFormula(this.attackBonus || "0", this.parent.getRollData());
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Evaluated save DC value.
+   * @type {number|null}
+   */
+  get evaluatedSaveDC() {
+    if (!this.hasSave) return null;
+    return mythcraft.utils.evaluateFormula(this.saveDC || "0", this.parent.getRollData());
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Whether this feature has any rollable data.
+   * @type {boolean}
+   */
+  get isRollable() {
+    return this.hasAttack || this.hasSave || (this.damage.length > 0);
   }
 
   /* -------------------------------------------------- */

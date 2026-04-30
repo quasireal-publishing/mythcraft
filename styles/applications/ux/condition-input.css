@@ -1,0 +1,121 @@
+condition-input {
+  display: block;
+  flex: 1;
+}
+
+.condition-input-container {
+  position: relative;
+}
+
+/* Single contenteditable field that holds inline chips and the typing area */
+.condition-input-field {
+  display: block;
+  min-height: var(--input-height, 1.75rem);
+  padding: 2px 6px;
+  background-color: rgba(254, 235, 179, 0.25);
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+  cursor: text;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--mc-dark);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.condition-input-field:focus {
+  background-color: rgba(254, 235, 179, 0.4);
+  border-color: rgba(44, 37, 34, 0.5);
+  box-shadow: 0 0 3px rgba(41, 135, 140, 0.3);
+  outline: none;
+}
+
+/* Placeholder shown when the field has no chips and no typed text */
+.condition-input-field.is-empty::before {
+  content: attr(data-placeholder);
+  color: rgba(44, 37, 34, 0.4);
+  pointer-events: none;
+}
+
+/* Inline chip — sits inside the contenteditable as a non-editable span */
+.condition-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 6px 1px 3px;
+  background: var(--mc-primary, rgb(23, 67, 69));
+  color: white;
+  border-radius: 999px;
+  font-size: 0.8em;
+  line-height: 1.4;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-right: 2px;
+  user-select: none;
+}
+
+.condition-chip-icon {
+  width: 1em;
+  height: 1em;
+  object-fit: contain;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.condition-chip-label {
+  font-size: inherit;
+}
+
+.condition-chip-remove {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85em;
+  line-height: 1;
+  padding: 0;
+  margin-left: 1px;
+  opacity: 0.75;
+  min-height: unset;
+  height: auto;
+}
+.condition-chip-remove:hover {
+  opacity: 1;
+}
+
+/* Dropdown is appended to <body> (escapes sheet's overflow:hidden).
+   Positioned via inline style by the element. z-index high enough to clear
+   ApplicationV2 windows (which use _maxZ values in the thousands). */
+.condition-dropdown {
+  z-index: 99999;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: rgba(254, 235, 179, 0.97);
+  border: 1px solid rgba(44, 37, 34, 0.35);
+  border-radius: 2px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.condition-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 0.875em;
+  color: var(--mc-dark);
+}
+.condition-suggestion:hover {
+  background: var(--mc-teal, rgb(41, 135, 140));
+  color: white;
+}
+
+.condition-suggestion img {
+  width: 1.2em;
+  height: 1.2em;
+  object-fit: contain;
+}

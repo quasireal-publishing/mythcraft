@@ -110,14 +110,18 @@ export default class CharacterSheet extends MythCraftActorSheet {
     const bonus = system.initiative.bonus ?? 0;
     const total = system.initiative.total ?? 0;
 
+    const formula = `1d20 + ${awr} + ${bonus}`;
     const fd = await InitiativeRollDialog.create({
-      context: { awr, bonus, total },
+      context: { awr, bonus, total, formula, rollModes: { ...system.rollModes } },
     });
     if (!fd) return;
 
-    const { rollMode } = fd;
-    const formula = `1d20 + ${awr} + ${bonus}`;
-    const roll = new mythcraft.rolls.InitiativeRoll(formula, this.actor.getRollData());
+    const { rollMode, situationalTA = 0, situationalTD = 0 } = fd;
+    const rollData = this.actor.getRollData();
+    rollData.rollModes = { ...rollData.rollModes };
+    rollData.rollModes.ta += situationalTA;
+    rollData.rollModes.td += situationalTD;
+    const roll = new mythcraft.rolls.InitiativeRoll(formula, rollData);
     await roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       rollMode,
@@ -161,6 +165,10 @@ export default class CharacterSheet extends MythCraftActorSheet {
     },
     equipment: {
       template: systemPath("templates/actor/equipment.hbs"),
+      templates: [
+        systemPath("templates/actor/partials/attack-card-list.hbs"),
+        systemPath("templates/actor/partials/attack-card.hbs"),
+      ],
       scrollable: [""],
     },
     talents: {
@@ -279,7 +287,12 @@ export default class CharacterSheet extends MythCraftActorSheet {
 
     for (const item of sortedWeapons) {
       const expanded = this.expanded.items.has(item.id);
-      const itemContext = { item, expanded };
+      const itemContext = {
+        item,
+        expanded,
+        atkDisplay: (this.actor.system.attributes[item.system.attr] ?? 0) + (item.system.attackModifierValue ?? 0),
+        hasAtk: true,
+      };
       if (expanded) itemContext.embed = await item.system.toEmbed({});
 
       context.weapons.push(itemContext);

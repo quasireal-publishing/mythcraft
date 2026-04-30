@@ -1,0 +1,72 @@
+<!-- eslint-disable @html-eslint/require-li-container -->
+{{!--
+Reusable attack card list item.
+Used by both PC weapons (equipment.hbs) and NPC features (features.hbs).
+Expected context: item, expanded, embed, atkDisplay, dcDisplay, hasAtk, hasDc
+Parameters (passed by caller):
+rollAction — name of the data-action handler to invoke when the Atk/DC pill is clicked
+(e.g. "rollAttack" for weapons, "rollFeature" for features)
+Branches on item.type for variant content (APC display + uses block).
+Uses hasAtk/hasDc flags rather than truthiness of atkDisplay/dcDisplay so a value
+of 0 (legitimate attack bonus) still renders the pill.
+--}}
+<li class="item attack-card draggable" data-item-id="{{item.id}}" data-document-class="Item">
+  <div class="card-main">
+    <div class="card-row card-row--top">
+      <span class="card-name">{{item.name}}</span>
+      {{#if hasAtk}}
+      <button type="button" class="card-roll-btn"
+        data-action="{{rollAction}}" data-item-id="{{item.id}}" title="Roll">
+        <span class="card-atk">Atk: {{#if (gte atkDisplay 0)}}+{{/if}}{{atkDisplay}}</span>
+      </button>
+      {{else if hasDc}}
+      <button type="button" class="card-roll-btn"
+        data-action="{{rollAction}}" data-item-id="{{item.id}}" title="Roll">
+        <span class="card-atk">DC {{dcDisplay}}</span>
+      </button>
+      {{/if}}
+    </div>
+    {{#if (or hasAtk hasDc item.system.damage)}}
+    <div class="card-row card-row--bottom">
+      <div class="card-meta">
+        {{#if (eq item.type "weapon")}}
+        <span class="card-attr">{{item.system.attr}}</span>
+        {{/if}}
+        {{#if item.system.defenseTarget}}
+        <span class="vs-label">vs</span>
+        <span class="card-defense"> {{item.system.defenseTarget}}</span>
+        {{/if}}
+        {{#if (eq item.type "weapon")}}
+        <span class="card-apc">{{item.system.apc}} AP</span>
+        {{/if}}
+      </div>
+      {{#if item.system.damage}}
+      <button type="button" class="card-damage-btn" data-action="rollDamage" title="Roll Damage">
+        {{#each item.system.damage}}
+        {{#if formula}}
+        <span class="dmg-entry">{{formula}} <span class="dmg-type">{{type}}</span></span>
+        {{/if}}
+        {{/each}}
+      </button>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+  {{#unless (eq item.type "weapon")}}
+  <div class="item-uses">
+    {{#if item.system.uses.max}}
+    <input type="number" class="item-input inline" data-name="system.uses.value"
+      {{disabled (not @root.editable)}} value="{{item.system.uses.value}}">
+    <span>/ {{item.system.uses.max}}</span>
+    {{/if}}
+  </div>
+  {{/unless}}
+  <div class="item-controls flexrow">
+    <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
+    <button type="button" data-action="toggleItemEmbed"
+      class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"></button>
+  </div>
+  {{#if expanded}}
+  <div class="item-embed">{{{embed.outerHTML}}}</div>
+  {{/if}}
+</li>

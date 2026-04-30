@@ -5,6 +5,9 @@
  * A document subclass adding system-specific behavior and registered in CONFIG.ActiveEffect.documentClass.
  */
 export default class MythCraftActiveEffect extends foundry.documents.ActiveEffect {
+  /** Statuses suppressed by the Rallied condition. */
+  static #RALLIED_SUPPRESSED = new Set(["shaken", "demoralized", "frightened"]);
+
   /**
    * Checks if a status condition applies to the actor.
    * @param {StatusEffectConfig} status An entry in CONFIG.statusEffects.
@@ -33,9 +36,14 @@ export default class MythCraftActiveEffect extends foundry.documents.ActiveEffec
    * @inheritdoc
    */
   get isSuppressed() {
+    // If actor has Rallied, suppress AEs for the conditions it counters.
+    if (this.parent?.statuses?.has("rallied")) {
+      for (const status of this.statuses) {
+        if (MythCraftActiveEffect.#RALLIED_SUPPRESSED.has(status)) return true;
+      }
+    }
     if (Number.isNumeric(this.duration.remaining)) return this.duration.remaining <= 0;
-    // Checks `system.isSuppressed`
-    else return super.isSuppressed;
+    return super.isSuppressed;
   }
 
   /* -------------------------------------------------- */
