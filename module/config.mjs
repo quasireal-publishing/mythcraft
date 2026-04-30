@@ -306,6 +306,14 @@ const defenseGroups = {
 export const defenses = {
   list: defenseList,
   groups: defenseGroups,
+  /** @type {FormSelectOption[]} */
+  get options() {
+    return Object.entries(defenseList).map(([value, { group }]) => ({
+      value,
+      label: `MYTHCRAFT.Defenses.${value}.label`,
+      group: game.i18n.localize(defenseGroups[group]?.label),
+    }));
+  },
 };
 
 /**

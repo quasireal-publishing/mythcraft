@@ -15,13 +15,31 @@
 {{formGroup systemFields.quantity value=system.quantity disabled=isPlay}}
 {{formGroup systemFields.cost value=system.cost disabled=isPlay}}
 {{formGroup systemFields.category value=system.category disabled=isPlay}}
+{{formGroup systemFields.attr value=system.attr disabled=isPlay options=config.attributes.options sort=true localize=true}}
+{{formGroup systemFields.defenseTarget value=system.defenseTarget disabled=isPlay options=config.defenses.options localize=true}}
+{{formGroup systemFields.attackModifier value=system.attackModifier disabled=isPlay}}
+{{formGroup systemFields.apcFormula value=system.apcFormula disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.damage.label}}</legend>
-  {{formGroup systemFields.damage.fields.formula value=system.damage.formula}}
-  {{formGroup systemFields.damage.fields.type value=system.damage.type options=config.damage.options sort=true localize=true}}
+  {{#each system.damage as |entry idx|}}
+  <div class="damage-entry flexrow" data-index="{{idx}}">
+    <input type="text" name="system.damage.{{idx}}.formula" value="{{entry.formula}}" placeholder="1d6">
+    <select name="system.damage.{{idx}}.type">
+      {{selectOptions ../config.damage.options selected=entry.type localize=true sort=true}}
+    </select>
+    {{#unless ../isPlay}}
+    <button type="button" data-action="removeDamage" data-index="{{idx}}" title="Remove">
+      <i class="fa-solid fa-minus"></i>
+    </button>
+    {{/unless}}
+  </div>
+  {{/each}}
+  {{#unless isPlay}}
+  <button type="button" data-action="addDamage" class="damage-add">
+    <i class="fa-solid fa-plus"></i> {{localize "MYTHCRAFT.Add"}}
+  </button>
+  {{/unless}}
 </fieldset>
-{{formGroup systemFields.attr value=system.attr disabled=isPlay options=config.attributes.options sort=true localize=true}}
-{{formGroup systemFields.apcFormula value=system.apcFormula disabled=isPlay}}
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.range.label}}</legend>
   {{formGroup systemFields.range.fields.type value=system.range.type localize=true sort=true}}

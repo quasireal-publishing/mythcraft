@@ -24,6 +24,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       addAbsorb: this.#addAbsorb,
       rollMagic: this.#rollMagic,
       rollAttack: this.#rollAttack,
+      rollDamage: this.#rollDamage,
       rollSpell: this.#rollSpell,
       removeAbsorb: this.#removeAbsorb,
       viewDoc: this.#viewDoc,
@@ -175,7 +176,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       const { group, defense, check } = attributeConfig.list[key];
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
       const attrInfo = { value, field, check };
-      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: systemData.defenses[defense] };
+      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: this.actor.system.defenses[defense] };
       attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillData = this.actor.system.skills[id];
@@ -712,6 +713,31 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
+  static async #rollDamage(event, target) {
+    event.stopPropagation();
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item) return;
+    const damages = (item.system.damage ?? []).filter(d => d.formula);
+    if (!damages.length) return;
+
+    const rollData = this.actor.getRollData();
+    const rolls = await Promise.all(damages.map(async d => {
+      const r = new mythcraft.rolls.DamageRoll(d.formula, rollData, { type: d.type });
+      await r.evaluate();
+      return r;
+    }));
+
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      rolls,
+      flavor: `${item.name} — ${game.i18n.localize("MYTHCRAFT.Roll.Damage")}`,
+      sound: CONFIG.sounds.dice,
+    });
+  }
+
+  /* -------------------------------------------------- */
+
   static async #rollAttack(event, target) {
     const itemId = target.closest("[data-item-id]")?.dataset.itemId;
     const item = this.actor.items.get(itemId);
@@ -721,15 +747,16 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
     const attrValue = this.actor.system.attributes[attr] ?? 0;
     const critHit = this.actor.system.critical?.effectiveHit ?? 20;
     const critFail = this.actor.system.critical?.effectiveFail ?? 1;
+    const modifier = item.system.attackModifierValue ?? 0;
 
-    const formula = `1d20 + ${attrValue}`;
+    const formula = `1d20 + ${attrValue + modifier}`;
     const roll = new mythcraft.rolls.AttackRoll(formula, this.actor.getRollData(), {
       weaponName: item.name,
       attribute: attr,
+      defenseTarget: item.system.defenseTarget,
       critHit,
       critFail,
-      damageFormula: item.system.damage?.formula,
-      damageType: item.system.damage?.type,
+      damage: item.system.damage,
     });
     await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }) });
   }

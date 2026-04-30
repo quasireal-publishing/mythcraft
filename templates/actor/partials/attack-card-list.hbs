@@ -1,0 +1,15 @@
+{{!--
+Reusable list of attack cards.
+Used by both PC weapons (equipment.hbs) and NPC features (features.hbs).
+Parameters:
+items      — array of card contexts ({ item, expanded, embed, atkDisplay, dcDisplay })
+cssClass   — CSS class fragment (e.g. "weapon", "passive", "action", "reaction")
+rollAction — name of the data-action handler to invoke when the Atk/DC pill is clicked
+(e.g. "rollAttack" for weapons, "rollFeature" for features). Forwarded to
+each card so each row dispatches to the right sheet handler.
+--}}
+<ul class="item-list {{cssClass}} attack-cards">
+  {{#each items}}
+  {{> "systems/mythcraft/templates/actor/partials/attack-card.hbs" rollAction=../rollAction}}
+  {{/each}}
+</ul>

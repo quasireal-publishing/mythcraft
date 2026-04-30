@@ -633,13 +633,38 @@
           },
           "tier": {
             "label": "Tier"
+          },
+          "hasAttack": {
+            "label": "Has Attack Roll"
+          },
+          "attackBonus": {
+            "label": "Attack Bonus",
+            "hint": "Flat number or formula, e.g. 3 or @STR + 2."
+          },
+          "defenseTarget": {
+            "label": "Defense Target"
+          },
+          "hasSave": {
+            "label": "Has Save"
+          },
+          "saveDC": {
+            "label": "Save DC",
+            "hint": "DC for the target's saving throw."
+          },
+          "saveAttribute": {
+            "label": "Save Attribute"
+          },
+          "damage": {
+            "label": "Damage"
           }
         },
         "category": {
           "passive": "Passive",
           "action": "Action",
           "reaction": "Reaction"
-        }
+        },
+        "Attack": "Attack",
+        "Save": "Save"
       },
       "gear": {
         "FIELDS": {}
@@ -919,6 +944,14 @@
           },
           "apcFormula": {
             "label": "APC"
+          },
+          "attackModifier": {
+            "label": "Attack Modifier",
+            "hint": "Bonus added to the attribute value on attack rolls (e.g. 2 for a +2 magical weapon)."
+          },
+          "defenseTarget": {
+            "label": "Defense Target",
+            "hint": "Which defense this weapon targets on attack."
           }
         },
         "Ranges": {
@@ -1220,11 +1253,39 @@
         }
       },
       "RollDamage": "Roll Damage",
+      "Save": "Save",
       "Damage": "Damage",
       "DamageRoll": {
         "Apply": {
           "NoToken": "You must have at least one token selected."
         }
+      }
+    },
+    "Add": "Add",
+    "Defenses": {
+      "ar": {
+        "label": "Armor Rating",
+        "abbr": "AR"
+      },
+      "ref": {
+        "label": "Reflexes",
+        "abbr": "REF"
+      },
+      "fort": {
+        "label": "Fortitude",
+        "abbr": "FORT"
+      },
+      "ant": {
+        "label": "Antithesis",
+        "abbr": "ANT"
+      },
+      "log": {
+        "label": "Logic",
+        "abbr": "LOG"
+      },
+      "will": {
+        "label": "Willpower",
+        "abbr": "WILL"
       }
     },
     "EDITOR": {

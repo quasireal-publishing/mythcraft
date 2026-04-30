@@ -320,10 +320,22 @@ export default class TagInputElement extends HTMLElement {
       }
     });
 
-    // Strip rich formatting on paste.
+    // Strip rich formatting on paste. If the pasted text contains a separator
+    // (comma, semicolon, newline, tab), split it and commit each piece as its
+    // own chip — supports copy/pasting tag lines from MythCraft rules
+    // (e.g. "Iron Will, Steel Mind, Regen 2").
     this.#field.addEventListener("paste", (e) => {
       e.preventDefault();
       const text = e.clipboardData?.getData("text/plain") ?? "";
+      if (!text) return;
+
+      const parts = text.split(/[,;\n\r\t]+/).map(s => s.trim()).filter(Boolean);
+
+      if (/[,;\n\r\t]/.test(text)) {
+        for (const part of parts) this.#addChip(part);
+        return;
+      }
+
       document.execCommand("insertText", false, text);
     });
 

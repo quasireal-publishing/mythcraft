@@ -33,6 +33,30 @@
         padding: 0 0.5em;
       }
     }
+    .damage-entry {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-bottom: 0.35em;
+
+      input[type="text"] {
+        flex: 1 1 80px;
+      }
+      select {
+        flex: 1 1 100px;
+      }
+      button[data-action="removeDamage"] {
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
+        padding: 0;
+        font-size: 0.85em;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
   [data-application-part="advancements"] {
     .section-header {

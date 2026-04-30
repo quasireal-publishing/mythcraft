@@ -8,6 +8,7 @@ export default class NPCSheet extends MythCraftActorSheet {
   static DEFAULT_OPTIONS = {
     actions: {
       toggleCondition: NPCSheet.#toggleCondition,
+      rollFeature: NPCSheet.#rollFeature,
     },
   };
 
@@ -40,6 +41,10 @@ export default class NPCSheet extends MythCraftActorSheet {
     },
     features: {
       template: systemPath("templates/actor/features.hbs"),
+      templates: [
+        systemPath("templates/actor/partials/attack-card-list.hbs"),
+        systemPath("templates/actor/partials/attack-card.hbs"),
+      ],
       scrollable: [""],
     },
     spells: {
@@ -101,7 +106,7 @@ export default class NPCSheet extends MythCraftActorSheet {
       const { group, defense, check } = attributeConfig.list[key];
       obj[group] ??= { label: attributeConfig.groups[group].label, list: [] };
       const attrInfo = { value, field, check };
-      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: systemData.defenses[defense] };
+      if (defense) attrInfo.defense = { label: systemSchema.getField(["defenses", defense]).label, value: this.actor.system.defenses[defense] };
       attrInfo.skills = Object.entries(mythcraft.CONFIG.skills.list).reduce((arr, [id, skillInfo]) => {
         if ((id in this.actor.system.skills) && (skillInfo.attribute === key)) {
           const skillData = this.actor.system.skills[id];
@@ -136,7 +141,16 @@ export default class NPCSheet extends MythCraftActorSheet {
 
     const buildContext = async (item) => {
       const expanded = this.expanded.items.has(item.id);
-      const itemContext = { item, expanded };
+      const itemContext = {
+        item,
+        expanded,
+        atkDisplay: item.system.hasAttack ? item.system.evaluatedAttackBonus : null,
+        hasAtk: !!item.system.hasAttack,
+        dcDisplay: item.system.hasSave ? item.system.evaluatedSaveDC : null,
+        hasDc: !!item.system.hasSave,
+        damageFirst: item.system.damage[0]?.formula ?? null,
+        isRollable: item.system.isRollable,
+      };
       if (expanded) itemContext.embed = await item.system.toEmbed({});
       return itemContext;
     };
@@ -171,5 +185,53 @@ export default class NPCSheet extends MythCraftActorSheet {
     const conditionId = target.dataset.condition;
     if (!conditionId) return;
     await this.actor.toggleStatusEffect(conditionId);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll or post a feature card to chat.
+   * @this NPCSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #rollFeature(event, target) {
+    const itemId = target.closest("[data-item-id]")?.dataset.itemId;
+    const item = this.actor.items.get(itemId);
+    if (!item || (item.type !== "feature")) return;
+
+    const sys = item.system;
+    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
+    const template = "systems/mythcraft/templates/chat/attack-card.hbs";
+
+    if (sys.hasAttack) {
+      const bonus = mythcraft.utils.evaluateFormula(sys.attackBonus || "0", item.getRollData());
+      const roll = new mythcraft.rolls.AttackRoll(`1d20 + ${bonus}`, this.actor.getRollData(), {
+        weaponName: item.name,
+        defenseTarget: sys.defenseTarget,
+        critHit: 20,
+        critFail: 1,
+        damage: sys.damage,
+        hasSave: sys.hasSave,
+        saveDC: sys.evaluatedSaveDC,
+        saveAttribute: sys.hasSave ? sys.saveAttribute : null,
+      });
+      await roll.toMessage({ speaker });
+      return;
+    }
+
+    const saveAttribute = sys.hasSave && sys.saveAttribute
+      ? game.i18n.localize(`MYTHCRAFT.Attributes.${sys.saveAttribute}.abbr`)
+      : "";
+    const templateData = {
+      weaponName: item.name,
+      hasSave: sys.hasSave,
+      saveDC: sys.evaluatedSaveDC,
+      saveAttribute,
+      damage: sys.damage,
+      rollHTML: null,
+    };
+    const content = await renderTemplate(template, templateData);
+    await ChatMessage.create({ content, speaker });
   }
 }
