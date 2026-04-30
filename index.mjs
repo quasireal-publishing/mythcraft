@@ -77,15 +77,28 @@ Hooks.once("init", () => {
 
 Hooks.once("i18nInit", () => {
   // Status Effect Transfer.
-  // Foundry v14's CONFIG.statusEffects is a Proxy whose `ownKeys` trap returns
-  // each entry's `id`; duplicate ids violate the proxy invariant and throw at
-  // runtime ("trap returned duplicate entries"). Filter out any core-default
-  // status effect whose id collides with one of our system conditions before
-  // pushing our overrides.
+  // Drop both: (a) Foundry defaults that share an id with one of ours (proxy
+  // duplicate-id invariant would throw), and (b) Foundry defaults that
+  // semantically alias one of ours (e.g. "fear" -> "frightened") so the token
+  // HUD doesn't offer two markers for the same thing.
   const systemConditionIds = new Set(Object.keys(SystemCONFIG.conditions));
-  CONFIG.statusEffects = CONFIG.statusEffects.filter(effect => !systemConditionIds.has(effect.id));
+  const aliasedFoundryIds = new Set(Object.keys(SystemCONFIG.foundryStatusAliases));
+  CONFIG.statusEffects = CONFIG.statusEffects.filter(
+    effect => !systemConditionIds.has(effect.id) && !aliasedFoundryIds.has(effect.id),
+  );
   for (const [id, value] of Object.entries(SystemCONFIG.conditions)) {
     CONFIG.statusEffects.push({ id, _id: id.padEnd(16, "0"), ...value });
+  }
+
+  // Redirect Foundry's mechanical specials (vision, combat tracker, movement)
+  // to our equivalent system condition ids so canvas behavior keeps working.
+  if (CONFIG.specialStatusEffects) {
+    if (SystemCONFIG.foundryStatusAliases.invisible) {
+      CONFIG.specialStatusEffects.INVISIBLE = SystemCONFIG.foundryStatusAliases.invisible;
+    }
+    if (SystemCONFIG.foundryStatusAliases.unconscious) {
+      CONFIG.specialStatusEffects.DEFEATED = SystemCONFIG.foundryStatusAliases.unconscious;
+    }
   }
 
   // Localize pseudo-documents. Base first, then loop through the types in use

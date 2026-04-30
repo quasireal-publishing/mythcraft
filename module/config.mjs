@@ -14,117 +14,117 @@ import { pseudoDocuments } from "./data/_module.mjs";
 export const conditions = {
   bleeding: {
     name: "MYTHCRAFT.Effect.Conditions.bleeding",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/blood.svg",
   },
   bloodied: {
     name: "MYTHCRAFT.Effect.Conditions.bloodied",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/blood.svg",
     hud: false,
   },
   burning: {
     name: "MYTHCRAFT.Effect.Conditions.burning",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/fire.svg",
   },
   broken: {
     name: "MYTHCRAFT.Effect.Conditions.broken",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/terror.svg",
     related: ["frightened", "shaken"],
   },
   charmed: {
     name: "MYTHCRAFT.Effect.Conditions.charmed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/angel.svg",
   },
   chilled: {
     name: "MYTHCRAFT.Effect.Conditions.chilled",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/frozen.svg",
   },
   concealed: {
     name: "MYTHCRAFT.Effect.Conditions.concealed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/invisible.svg",
     changes: [
       { key: "system.rollModes.ta", mode: 2, value: 1 },
     ],
   },
   partialCover: {
     name: "MYTHCRAFT.Effect.Conditions.partialCover",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/shield.svg",
   },
   totalCover: {
     name: "MYTHCRAFT.Effect.Conditions.totalCover",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/shield.svg",
   },
   dazed: {
     name: "MYTHCRAFT.Effect.Conditions.dazed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/daze.svg",
   },
   deafened: {
     name: "MYTHCRAFT.Effect.Conditions.deafened",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/deaf.svg",
   },
   demoralized: {
     name: "MYTHCRAFT.Effect.Conditions.demoralized",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/terror.svg",
   },
   engaged: {
     name: "MYTHCRAFT.Effect.Conditions.engaged",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/sword.svg",
   },
   enthralled: {
     name: "MYTHCRAFT.Effect.Conditions.enthralled",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/eye.svg",
     related: ["charmed"],
   },
   fatigued: {
     name: "MYTHCRAFT.Effect.Conditions.fatigued",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/sleep.svg",
   },
   frightened: {
     name: "MYTHCRAFT.Effect.Conditions.frightened",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/terror.svg",
     changes: [
       { key: "system.rollModes.td", mode: 2, value: 1 },
     ],
   },
   grappled: {
     name: "MYTHCRAFT.Effect.Conditions.grappled",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/net.svg",
     changes: [
       { key: "system.movement.walk", mode: 5, value: 0 },
     ],
   },
   grounded: {
     name: "MYTHCRAFT.Effect.Conditions.grounded",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/falling.svg",
   },
   helpless: {
     name: "MYTHCRAFT.Effect.Conditions.helpless",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/unconscious.svg",
   },
   paralyzed: {
     name: "MYTHCRAFT.Effect.Conditions.paralyzed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/paralysis.svg",
     related: ["helpless"],
   },
   petrified: {
     name: "MYTHCRAFT.Effect.Conditions.petrified",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/stoned.svg",
     related: ["paralyzed", "helpless"],
   },
   pinned: {
     name: "MYTHCRAFT.Effect.Conditions.pinned",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/net.svg",
     related: ["prone", "grappled"],
   },
   prone: {
     name: "MYTHCRAFT.Effect.Conditions.prone",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/falling.svg",
     changes: [
       { key: "system.rollModes.td", mode: 2, value: 1 },
     ],
   },
   protected: {
     name: "MYTHCRAFT.Effect.Conditions.protected",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/holy-shield.svg",
     changes: [
       { key: "system.bonuses.ar", mode: 2, value: 2 },
       { key: "system.bonuses.ref", mode: 2, value: 2 },
@@ -133,76 +133,97 @@ export const conditions = {
   },
   rallied: {
     name: "MYTHCRAFT.Effect.Conditions.rallied",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/heal.svg",
   },
   restrained: {
     name: "MYTHCRAFT.Effect.Conditions.restrained",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/net.svg",
     related: ["grappled"],
   },
   shaken: {
     name: "MYTHCRAFT.Effect.Conditions.shaken",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/daze.svg",
     changes: [
       { key: "system.rollModes.bonus", mode: 2, value: -2 },
     ],
   },
   sickened: {
     name: "MYTHCRAFT.Effect.Conditions.sickened",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/poison.svg",
     changes: [
       { key: "system.rollModes.td", mode: 2, value: 1 },
     ],
   },
   silenced: {
     name: "MYTHCRAFT.Effect.Conditions.silenced",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/silenced.svg",
   },
   slowed: {
     name: "MYTHCRAFT.Effect.Conditions.slowed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/walk.svg",
     changes: [
       { key: "system.movement.walk", mode: 1, value: 0.5 },
     ],
   },
   staggered: {
     name: "MYTHCRAFT.Effect.Conditions.staggered",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/daze.svg",
   },
   stunned: {
     name: "MYTHCRAFT.Effect.Conditions.stunned",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/daze.svg",
   },
   suffocating: {
     name: "MYTHCRAFT.Effect.Conditions.suffocating",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/sound-off.svg",
   },
   suppressed: {
     name: "MYTHCRAFT.Effect.Conditions.suppressed",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/sound-off.svg",
     changes: [
       { key: "system.movement.walk", mode: 5, value: 0 },
     ],
   },
   completeSurprise: {
     name: "MYTHCRAFT.Effect.Conditions.completeSurprise",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/explosion.svg",
   },
   partialSurprise: {
     name: "MYTHCRAFT.Effect.Conditions.partialSurprise",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/explosion.svg",
   },
   unconscious: {
     name: "MYTHCRAFT.Effect.Conditions.unconscious",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/unconscious.svg",
   },
   unseen: {
     name: "MYTHCRAFT.Effect.Conditions.unseen",
-    img: "icons/svg/aura.svg",
+    img: "icons/svg/invisible.svg",
     changes: [
       { key: "system.rollModes.ta", mode: 2, value: 1 },
     ],
   },
+};
+
+/**
+ * Map of Foundry's default status effect IDs to our system condition IDs.
+ * Used in i18nInit to suppress Foundry defaults that semantically overlap
+ * with ours, and to redirect `CONFIG.specialStatusEffects` (e.g. INVISIBLE,
+ * BLIND) to the right system condition.
+ * @type {Record<string, string>}
+ */
+export const foundryStatusAliases = {
+  bleeding: "bleeding",
+  burning: "burning",
+  prone: "prone",
+  stun: "stunned",
+  fear: "frightened",
+  deaf: "deafened",
+  silence: "silenced",
+  paralysis: "paralyzed",
+  restrain: "restrained",
+  invisible: "unseen",
+  unconscious: "unconscious",
 };
 
 /**
