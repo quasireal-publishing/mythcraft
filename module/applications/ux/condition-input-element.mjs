@@ -66,14 +66,18 @@ export default class ConditionInputElement extends HTMLElement {
     const removed = [...this.#lastChipValues].filter(v => !currentValues.has(v));
 
     // Validate added against suggestions; resolve partial typed text to full
-    // condition IDs (e.g. "fatig" → "fatigued") via prefix match on value or label.
+    // condition IDs (e.g. "fatig" → "fatigued") via prefix match on value or
+    // label. Also handles parameterized syntax like "bleeding 1d6".
     let suggestions = [];
     try { suggestions = JSON.parse(this.dataset.suggestions ?? "[]"); } catch { suggestions = []; }
     const validIds = new Set(suggestions.map(s => s.value));
 
-    for (const value of added) {
-      const resolved = validIds.has(value) ? value : this.#resolvePartial(value, suggestions);
-      if (resolved) this.#fireAction("addCondition", { conditionId: resolved });
+    for (const typed of added) {
+      const resolved = validIds.has(typed) ? { id: typed } : this.#resolvePartial(typed, suggestions);
+      if (!resolved) continue;
+      const data = { conditionId: resolved.id };
+      if (resolved.value) data.conditionValue = resolved.value;
+      this.#fireAction("addCondition", data);
     }
 
     for (const value of removed) {
@@ -87,22 +91,41 @@ export default class ConditionInputElement extends HTMLElement {
   }
 
   /**
-   * Resolve a partially-typed string (e.g. "fatig") to a unique condition id
-   * by prefix match against suggestion value or label (case-insensitive).
-   * Returns the matched id or null if no unique match.
+   * Resolve a typed string to a condition id and optional parameterized value.
+   * Tries: exact match → unique prefix match → "head trailing" split where the
+   * head matches a condition (e.g. "bleeding 1d6" → {id: "bleeding", value: "1d6"}).
+   * Returns null if nothing matches.
    * @param {string} typed
    * @param {Array<{value: string, label: string}>} suggestions
+   * @returns {{id: string, value?: string} | null}
    */
   #resolvePartial(typed, suggestions) {
     if (!typed) return null;
     const lower = typed.toLowerCase();
-    const matches = suggestions.filter(
+
+    const exact = suggestions.find(
+      s => (s.value.toLowerCase() === lower) || (s.label.toLowerCase() === lower),
+    );
+    if (exact) return { id: exact.value };
+
+    const prefix = suggestions.filter(
       s => s.value.toLowerCase().startsWith(lower) || s.label.toLowerCase().startsWith(lower),
     );
-    if (matches.length === 1) return matches[0].value;
-    // Prefer an exact case-insensitive match if multiple prefix matches.
-    const exact = matches.find(s => (s.value.toLowerCase() === lower) || (s.label.toLowerCase() === lower));
-    return exact?.value ?? null;
+    if (prefix.length === 1) return { id: prefix[0].value };
+
+    // "bleeding 1d6" → split head + trailing; if head matches a condition, the
+    // trailing string becomes the parameterized value (flags.mythcraft.value).
+    const tokens = typed.split(/\s+/);
+    if (tokens.length >= 2) {
+      const head = tokens[0].toLowerCase();
+      const trailing = tokens.slice(1).join(" ");
+      const headMatch = suggestions.find(
+        s => (s.value.toLowerCase() === head) || (s.label.toLowerCase() === head),
+      );
+      if (headMatch) return { id: headMatch.value, value: trailing };
+    }
+
+    return null;
   }
 
   /**
