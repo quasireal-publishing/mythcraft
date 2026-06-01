@@ -68,10 +68,19 @@ export default class BaseMessageModel extends foundry.abstract.TypeDataModel {
     const rollDamageButtons = html.querySelectorAll(".roll-damage");
     for (const btn of rollDamageButtons) {
       btn.addEventListener("click", async (event) => {
-        const { damageFormula, damageType } = event.currentTarget.dataset;
-        const roll = new DamageRoll(damageFormula, {}, { type: damageType });
-        await roll.evaluate();
-        await roll.toMessage({ speaker: ChatMessage.getSpeaker() });
+        const damageData = JSON.parse(event.currentTarget.dataset.damage || "[]");
+        const damages = damageData.filter(d => d.formula);
+        if (!damages.length) return;
+        const rolls = await Promise.all(damages.map(async d => {
+          const r = new DamageRoll(d.formula, {}, { type: d.type });
+          await r.evaluate();
+          return r;
+        }));
+        await ChatMessage.create({
+          speaker: ChatMessage.getSpeaker(),
+          rolls,
+          sound: CONFIG.sounds.dice,
+        });
       });
     }
   }

@@ -78,9 +78,18 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         }),
         threshold: new fields.NumberField({ integer: true, min: 0, nullable: false }),
       }),
-      conditions: new fields.SchemaField({
-        bleeding: new FormulaField(),
-        burning: new FormulaField(),
+      rollModes: new fields.SchemaField({
+        ta: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        td: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        bonus: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+      }),
+      bonuses: new fields.SchemaField({
+        ar: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        ref: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        fort: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        ant: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        log: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
+        will: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
       }),
     };
   }
@@ -108,14 +117,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
 
   /** @inheritdoc */
   prepareDerivedData() {
-    /** @type {Set<string>} */
-    const statuses = this.parent.statuses;
-
-    if (statuses.has("rallied")) {
-      statuses.delete("demoralized");
-      statuses.delete("frightened");
-      statuses.delete("shaken");
-    }
     this.hp.bloodied = Math.floor(this.hp.max / 2);
 
     for (const [key, data] of Object.entries(this.skills)) {
@@ -126,7 +127,8 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     }
 
     for (const [key, formula] of Object.entries(this.defenses)) {
-      this.defenses[key] = mythcraft.utils.evaluateFormula(formula, this.parent.getRollData(), { contextName: `${key} in ${this.parent.uuid}` });
+      const base = mythcraft.utils.evaluateFormula(formula, this.parent.getRollData(), { contextName: `${key} in ${this.parent.uuid}` });
+      this.defenses[key] = base + (this.bonuses[key] ?? 0);
     }
   }
 
@@ -155,10 +157,19 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     super._onUpdate(changed, options, userId);
 
     if (options.mythcraft?.previousHp && changed.system?.hp) {
-      const hpDiff = options.mythcraft.previousHp.value - (changed.system.hp.value || options.mythcraft.previousHp.value);
-      const shieldDiff = options.mythcraft.previousHp.shield - (changed.system.hp.temporary || options.mythcraft.previousHp.shield);
+      const hpDiff = options.mythcraft.previousHp.value - (changed.system.hp.value ?? options.mythcraft.previousHp.value);
+      const shieldDiff = options.mythcraft.previousHp.shield - (changed.system.hp.shield ?? options.mythcraft.previousHp.shield);
       const diff = hpDiff + shieldDiff;
       this.displayStaminaChange(diff, options.mythcraft.damageType);
+
+      // Bloodied auto-apply/remove — only the initiating user runs this.
+      if (game.userId === userId) {
+        const isBloodied = (this.hp.value > 0) && (this.hp.max > 0) && (this.hp.value <= this.hp.bloodied);
+        const hasBloodied = this.parent.statuses.has("bloodied");
+        if (isBloodied !== hasBloodied) {
+          this.parent.toggleStatusEffect("bloodied", { active: isBloodied });
+        }
+      }
     }
   }
 
@@ -225,11 +236,14 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
    */
   async rollAttribute(attribute) {
     const formula = `1d20 + @attributes.${attribute} + @situationalBonus`;
-    const fd = await AttributeRollDialog.create({ context: { attribute, formula } });
+    const fd = await AttributeRollDialog.create({ context: { attribute, formula, rollModes: { ...this.rollModes } } });
     if (!fd) throw new Error("Roll Dialog Cancelled");
-    const { situationalBonus, rollMode } = fd;
+    const { situationalBonus, rollMode, situationalTA = 0, situationalTD = 0 } = fd;
     const rollData = this.parent.getRollData();
     rollData.situationalBonus = AttributeRoll.replaceFormulaData(situationalBonus, rollData) || 0;
+    rollData.rollModes = { ...rollData.rollModes };
+    rollData.rollModes.ta += situationalTA;
+    rollData.rollModes.td += situationalTD;
     const roll = new AttributeRoll(formula, rollData, { attribute });
     return roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.parent }) }, { rollMode });
   }
@@ -245,14 +259,17 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     let formula = `1d20 + @skills.${skill}.bonus + @situationalBonus`;
     const attribute = mythcraft.CONFIG.skills.list[skill].attribute;
     const specialization = this.skills[skill]?.specialization ?? "";
-    const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula, specialization } });
+    const fd = await AttributeRollDialog.create({ context: { attribute, skill, formula, specialization, rollModes: { ...this.rollModes } } });
     if (!fd) throw new Error("Roll Dialog Cancelled");
     if (fd.attribute !== attribute) {
       formula += ` -@attributes.${attribute} + @attributes.${fd.attribute}`;
     }
-    const { situationalBonus, rollMode, specializationMultiplier } = fd;
+    const { situationalBonus, rollMode, specializationMultiplier, situationalTA = 0, situationalTD = 0 } = fd;
     const rollData = this.parent.getRollData();
     rollData.situationalBonus = AttributeRoll.replaceFormulaData(situationalBonus, rollData) || 0;
+    rollData.rollModes = { ...rollData.rollModes };
+    rollData.rollModes.ta += situationalTA;
+    rollData.rollModes.td += situationalTD;
     const roll = new AttributeRoll(formula, rollData, { attribute: fd.attribute, skill });
     if (Number.isNumeric(specializationMultiplier)) {
       roll.terms[2].number = Math.ceil(roll.terms[2].number * specializationMultiplier);

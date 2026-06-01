@@ -98,6 +98,15 @@ export default base => {
     /* -------------------------------------------------- */
 
     /** @inheritdoc */
+    async _onRender(context, options) {
+      await super._onRender(context, options);
+      this.element?.classList.toggle("mc-play-mode", this.isPlayMode);
+      this.element?.classList.toggle("mc-edit-mode", !this.isPlayMode);
+    }
+
+    /* -------------------------------------------------- */
+
+    /** @inheritdoc */
     async _renderFrame(options) {
       const frame = await super._renderFrame(options);
       const buttons = [constructHTMLButton({ label: "", classes: ["header-control", "icon", "fa-solid", "fa-user-lock"], dataset: { action: "toggleMode", tooltip: "MYTHCRAFT.SHEET.ToggleMode" } })];

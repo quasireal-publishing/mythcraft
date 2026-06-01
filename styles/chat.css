@@ -35,8 +35,30 @@
   padding: 4px 8px;
   cursor: pointer;
   margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .mythcraft.chat-card button.roll-damage:hover {
   background-color: var(--mc-primary);
+}
+
+.mythcraft.chat-card button.roll-damage .damage-entries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-left: auto;
+  font-size: 0.9em;
+}
+
+.mythcraft.chat-card button.roll-damage .dmg-entry {
+  white-space: nowrap;
+}
+
+.mythcraft.chat-card button.roll-damage .dmg-type {
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 0.85;
 }

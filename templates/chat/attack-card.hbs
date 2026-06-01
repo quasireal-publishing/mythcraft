@@ -1,15 +1,33 @@
 <div class="mythcraft chat-card attack-card">
   <div class="card-header">
     <h3>{{weaponName}}</h3>
-    <span class="attack-type">{{attributeLabel}}</span>
+    <div class="card-header-tags">
+      {{#if attributeLabel}}<span class="attack-attr">{{attributeLabel}}</span>{{/if}}
+      {{#if defenseTargetLabel}}<span class="attack-defense">vs {{defenseTargetLabel}}</span>{{/if}}
+    </div>
   </div>
   <div class="card-body">
+    {{#if rollHTML}}
     <div class="roll-result {{#if isCriticalHit}}critical-hit{{/if}} {{#if isCriticalFail}}critical-fail{{/if}}">
       {{{rollHTML}}}
     </div>
-    {{#if damageFormula}}
-    <button type="button" class="roll-damage" data-damage-formula="{{damageFormula}}" data-damage-type="{{damageType}}">
+    {{/if}}
+    {{#if hasSave}}
+    <div class="save-prompt">
+      <i class="fas fa-shield-halved"></i>
+      DC {{saveDC}} {{saveAttribute}} {{localize "MYTHCRAFT.Roll.Save"}}
+    </div>
+    {{/if}}
+    {{#if damage.length}}
+    <button type="button" class="roll-damage" data-damage="{{json damage}}">
       <i class="fas fa-burst"></i> {{localize "MYTHCRAFT.Roll.RollDamage"}}
+      <span class="damage-entries">
+        {{#each damage}}
+        {{#if formula}}
+        <span class="dmg-entry">{{formula}} <span class="dmg-type">{{type}}</span></span>
+        {{/if}}
+        {{/each}}
+      </span>
     </button>
     {{/if}}
   </div>

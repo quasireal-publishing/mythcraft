@@ -1,6 +1,8 @@
 import MythCraftRoll from "./base-roll.mjs";
 
 export default class AttributeRoll extends MythCraftRoll {
+  static APPLY_ROLL_MODES = true;
+
   constructor(formula = "1d20", data = {}, options = {}) {
     if (!options.flavor && options.attribute) {
       const abbr = game.i18n.localize(`MYTHCRAFT.Actor.base.FIELDS.attributes.${options.attribute}.label`);

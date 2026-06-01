@@ -54,6 +54,14 @@ Hooks.once("init", () => {
   // Register enrichers
   CONFIG.TextEditor.enrichers = [applications.ux.enrichers.roll];
 
+  // Register custom form elements (guard prevents duplicate-define error on hot reload)
+  if (!customElements.get("tag-input")) customElements.define("tag-input", applications.ux.TagInputElement);
+  if (!customElements.get("condition-input")) customElements.define("condition-input", applications.ux.ConditionInputElement);
+
+  // Handlebars helpers for TagInputElement
+  Handlebars.registerHelper("json", (value) => JSON.stringify(value));
+  Handlebars.registerHelper("join", (arr, sep) => Array.from(arr ?? []).join(sep));
+
   // Register system settings
   utils.SystemSettingsHandler.registerSettings();
 
@@ -69,15 +77,28 @@ Hooks.once("init", () => {
 
 Hooks.once("i18nInit", () => {
   // Status Effect Transfer.
-  // Foundry v14's CONFIG.statusEffects is a Proxy whose `ownKeys` trap returns
-  // each entry's `id`; duplicate ids violate the proxy invariant and throw at
-  // runtime ("trap returned duplicate entries"). Filter out any core-default
-  // status effect whose id collides with one of our system conditions before
-  // pushing our overrides.
+  // Drop both: (a) Foundry defaults that share an id with one of ours (proxy
+  // duplicate-id invariant would throw), and (b) Foundry defaults that
+  // semantically alias one of ours (e.g. "fear" -> "frightened") so the token
+  // HUD doesn't offer two markers for the same thing.
   const systemConditionIds = new Set(Object.keys(SystemCONFIG.conditions));
-  CONFIG.statusEffects = CONFIG.statusEffects.filter(effect => !systemConditionIds.has(effect.id));
+  const aliasedFoundryIds = new Set(Object.keys(SystemCONFIG.foundryStatusAliases));
+  CONFIG.statusEffects = CONFIG.statusEffects.filter(
+    effect => !systemConditionIds.has(effect.id) && !aliasedFoundryIds.has(effect.id),
+  );
   for (const [id, value] of Object.entries(SystemCONFIG.conditions)) {
     CONFIG.statusEffects.push({ id, _id: id.padEnd(16, "0"), ...value });
+  }
+
+  // Redirect Foundry's mechanical specials (vision, combat tracker, movement)
+  // to our equivalent system condition ids so canvas behavior keeps working.
+  if (CONFIG.specialStatusEffects) {
+    if (SystemCONFIG.foundryStatusAliases.invisible) {
+      CONFIG.specialStatusEffects.INVISIBLE = SystemCONFIG.foundryStatusAliases.invisible;
+    }
+    if (SystemCONFIG.foundryStatusAliases.unconscious) {
+      CONFIG.specialStatusEffects.DEFEATED = SystemCONFIG.foundryStatusAliases.unconscious;
+    }
   }
 
   // Localize pseudo-documents. Base first, then loop through the types in use
@@ -101,38 +122,77 @@ Hooks.once("ready", async () => {
         |___/
 `);
 
-  // Data migrations
-  const currentVersion = game.settings.get("mythcraft", "schemaVersion");
-  if (currentVersion < 1) {
-    // Migrate world actors
-    for (const actor of game.actors) {
-      if (actor.type !== "character") continue;
-      const oldCurrency = actor.system.currency;
-      if (!oldCurrency || typeof oldCurrency !== "object") continue;
-      const migrated = migrateCurrencyData(oldCurrency);
-      const update = {};
-      for (const [key, value] of Object.entries(migrated)) {
-        update[`system.currency.${key}`] = value;
-      }
-      if (Object.keys(update).length) await actor.update(update);
-    }
-    // Migrate unlinked token actors in scenes
-    for (const scene of game.scenes) {
-      for (const token of scene.tokens) {
-        if (token.actorLink || token.actor?.type !== "character") continue;
-        const oldCurrency = token.actor.system.currency;
+  if (game.user.isGM) {
+    // Data migrations
+    const currentVersion = game.settings.get("mythcraft", "schemaVersion");
+    if (currentVersion < 1) {
+      // Migrate world actors
+      for (const actor of game.actors) {
+        if (actor.type !== "character") continue;
+        const oldCurrency = actor.system.currency;
         if (!oldCurrency || typeof oldCurrency !== "object") continue;
         const migrated = migrateCurrencyData(oldCurrency);
         const update = {};
         for (const [key, value] of Object.entries(migrated)) {
           update[`system.currency.${key}`] = value;
         }
-        if (Object.keys(update).length) {
-          await token.actor.update(update);
+        if (Object.keys(update).length) await actor.update(update);
+      }
+      // Migrate unlinked token actors in scenes
+      for (const scene of game.scenes) {
+        for (const token of scene.tokens) {
+          if (token.actorLink || token.actor?.type !== "character") continue;
+          const oldCurrency = token.actor.system.currency;
+          if (!oldCurrency || typeof oldCurrency !== "object") continue;
+          const migrated = migrateCurrencyData(oldCurrency);
+          const update = {};
+          for (const [key, value] of Object.entries(migrated)) {
+            update[`system.currency.${key}`] = value;
+          }
+          if (Object.keys(update).length) {
+            await token.actor.update(update);
+          }
         }
       }
+      await game.settings.set("mythcraft", "schemaVersion", 1);
     }
-    await game.settings.set("mythcraft", "schemaVersion", 1);
+
+    if (currentVersion < 2) {
+      const migrateActor = async (actor) => {
+        const bleeding = actor._source.system.conditions?.bleeding;
+        const burning = actor._source.system.conditions?.burning;
+
+        for (const [statusId, value] of [["bleeding", bleeding], ["burning", burning]]) {
+          if (!value) continue;
+          if (actor.statuses.has(statusId)) continue; // already migrated
+          const ae = await actor.toggleStatusEffect(statusId, { active: true });
+          if (ae instanceof foundry.documents.ActiveEffect) {
+            await ae.update({ "flags.mythcraft.value": value });
+          }
+        }
+
+        // Clean up stale source data
+        if (actor._source.system.conditions !== undefined) {
+          await actor.update({ "system.-=conditions": null });
+        }
+      };
+
+      // World actors
+      for (const actor of game.actors) {
+        await migrateActor(actor);
+      }
+
+      // Unlinked token actors in all scenes
+      for (const scene of game.scenes) {
+        for (const token of scene.tokens) {
+          if (token.actorLink) continue; // linked tokens already handled via base actor
+          if (!token.actor) continue;
+          await migrateActor(token.actor);
+        }
+      }
+
+      await game.settings.set("mythcraft", "schemaVersion", 2);
+    }
   }
 
   Hooks.callAll("mc.ready");

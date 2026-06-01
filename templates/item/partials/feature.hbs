@@ -1,5 +1,51 @@
 {{formGroup systemFields.category value=system.category disabled=isPlay localize=true}}
 {{formGroup systemFields.prerequisites value=system.prerequisites disabled=isPlay}}
+
+{{! Attack Roll Section }}
+{{formGroup systemFields.hasAttack value=system.hasAttack disabled=isPlay}}
+{{#if system.hasAttack}}
+<fieldset {{disabled isPlay}}>
+  <legend>{{localize "MYTHCRAFT.Item.feature.Attack"}}</legend>
+  {{formGroup systemFields.attackBonus value=system.attackBonus disabled=isPlay}}
+  {{formGroup systemFields.defenseTarget value=system.defenseTarget disabled=isPlay options=config.defenses.options localize=true}}
+</fieldset>
+{{/if}}
+
+{{! Save Section }}
+{{formGroup systemFields.hasSave value=system.hasSave disabled=isPlay}}
+{{#if system.hasSave}}
+<fieldset {{disabled isPlay}}>
+  <legend>{{localize "MYTHCRAFT.Item.feature.Save"}}</legend>
+  {{formGroup systemFields.saveDC value=system.saveDC disabled=isPlay}}
+  {{formGroup systemFields.saveAttribute value=system.saveAttribute disabled=isPlay options=config.attributes.options localize=true}}
+</fieldset>
+{{/if}}
+
+{{! Damage Section }}
+{{#if (or system.hasAttack system.hasSave)}}
+<fieldset {{disabled isPlay}}>
+  <legend>{{systemFields.damage.label}}</legend>
+  {{#each system.damage as |entry idx|}}
+  <div class="damage-entry flexrow" data-index="{{idx}}">
+    <input type="text" name="system.damage.{{idx}}.formula" value="{{entry.formula}}" placeholder="1d6">
+    <select name="system.damage.{{idx}}.type">
+      {{selectOptions ../config.damage.options selected=entry.type localize=true sort=true}}
+    </select>
+    {{#unless ../isPlay}}
+    <button type="button" data-action="removeDamage" data-index="{{idx}}" title="Remove">
+      <i class="fa-solid fa-minus"></i>
+    </button>
+    {{/unless}}
+  </div>
+  {{/each}}
+  {{#unless isPlay}}
+  <button type="button" data-action="addDamage" class="damage-add">
+    <i class="fa-solid fa-plus"></i> {{localize "MYTHCRAFT.Add"}}
+  </button>
+  {{/unless}}
+</fieldset>
+{{/if}}
+
 <fieldset {{disabled isPlay}}>
   <legend>{{systemFields.uses.label}}</legend>
   {{formGroup systemFields.uses.fields.spent value=system.uses.spent}}

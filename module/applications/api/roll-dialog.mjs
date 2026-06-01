@@ -1,6 +1,8 @@
 import MythCraftApplication from "./application.mjs";
 import { systemPath } from "../../constants.mjs";
 
+const { FormDataExtended } = foundry.applications.ux;
+
 /**
  * Provides basic framework for roll dialogs.
  * @abstract
@@ -34,6 +36,9 @@ export default class RollDialog extends MythCraftApplication {
   _initializeApplicationOptions(options) {
     options.context ??= {};
     options.context.rollMode = game.settings.get("core", "rollMode");
+    options.context.situationalTA ??= 0;
+    options.context.situationalTD ??= 0;
+    options.context.rollModes ??= { ta: 0, td: 0, bonus: 0 };
     return super._initializeApplicationOptions(options);
   }
 
@@ -41,7 +46,13 @@ export default class RollDialog extends MythCraftApplication {
 
   /** @inheritdoc */
   async _prepareContext(options) {
-    return { ...this.options.context };
+    const context = { ...this.options.context };
+    const baseFormula = context.formula ?? "1d20";
+    const ta = (context.rollModes?.ta ?? 0) + Number(context.situationalTA ?? 0);
+    const td = (context.rollModes?.td ?? 0) + Number(context.situationalTD ?? 0);
+    const bonus = context.rollModes?.bonus ?? 0;
+    context.displayFormula = mythcraft.rolls.MythCraftRoll.applyRollModes(baseFormula, { ta, td, bonus });
+    return context;
   }
 
   /* -------------------------------------------------- */
@@ -68,11 +79,27 @@ export default class RollDialog extends MythCraftApplication {
     this.render({ parts: ["footer"] });
   }
 
+  /**
+   * Re-render dialog when situational TA/TD or other inputs change so the displayed
+   * formula reflects the current state. Subclasses may override but should call super.
+   * @inheritdoc
+   */
+  _onChangeForm(formConfig, event) {
+    super._onChangeForm(formConfig, event);
+    const formData = foundry.utils.expandObject(new FormDataExtended(this.element).object);
+    foundry.utils.mergeObject(this.options.context, formData);
+    this.render({ window: { title: this.title } });
+  }
+
+  /* -------------------------------------------------- */
+
   /** @inheritdoc */
   _processFormData(event, form, formData) {
     formData = super._processFormData(event, form, formData);
 
     formData.rollMode = this.options.context.rollMode;
+    formData.situationalTA = Number(formData.situationalTA ?? 0);
+    formData.situationalTD = Number(formData.situationalTD ?? 0);
 
     return formData;
   }

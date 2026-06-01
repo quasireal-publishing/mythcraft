@@ -27,6 +27,8 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
       reconfigureAdvancement: this.#reconfigureAdvancement,
       toggleEffect: this.#toggleEffect,
       toggleEffectEmbed: this.#toggleEffectEmbed,
+      addDamage: MythCraftItemSheet.#addDamage,
+      removeDamage: MythCraftItemSheet.#removeDamage,
     },
   };
 
@@ -712,5 +714,30 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
   _getEffect(target) {
     const li = target.closest(".effect");
     return this.item.effects.get(li?.dataset?.effectId);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Add a new empty damage entry to the item's damage array.
+   * @this MythCraftItemSheet
+   */
+  static async #addDamage() {
+    const damage = [...(this.item.system.damage ?? []), { formula: "", type: "sharp" }];
+    await this.item.update({ "system.damage": damage });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Remove a damage entry at the given index.
+   * @this MythCraftItemSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #removeDamage(event, target) {
+    const idx = Number(target.dataset.index);
+    const damage = this.item.system.damage.filter((_, i) => i !== idx);
+    await this.item.update({ "system.damage": damage });
   }
 }

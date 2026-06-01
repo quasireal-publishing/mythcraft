@@ -55,8 +55,6 @@
   </ul>
   <div class="item-header flexrow weapon">
     <div class="item-name">{{localize "TYPES.Item.weapon"}}</div>
-    <div class="item-apc">{{localize "MYTHCRAFT.Item.weapon.FIELDS.apcFormula.label"}}</div>
-    <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>
     <div class="item-controls flexrow">
       {{#if @root.editable}}
       <button type="button" class="item-create" data-action="createDoc" data-document-class="Item" data-type="weapon">
@@ -66,32 +64,7 @@
       {{/if}}
     </div>
   </div>
-  <ul class="item-list weapon">
-    {{#each weapons}}
-    <li class="item draggable" data-item-id="{{item.id}}" data-document-class="Item">
-      <div class="item-row flexrow">
-        <img src="{{item.img}}" alt="{{item.name}}">
-        <div class="item-name">{{item.name}}</div>
-        <div class="item-apc">{{item.system.apc}}</div>
-        <div class="item-quantity">{{item.system.quantity}}</div>
-        <div class="item-controls flexrow">
-          <button type="button" class="roll-attack" data-action="rollAttack" data-item-id="{{item.id}}" title="Roll Attack">
-            <i class="fas fa-dice-d20"></i>
-          </button>
-          <button type="button" class="icon fa-solid fa-ellipsis-vertical"></button>
-          <button
-            type="button"
-            data-action="toggleItemEmbed"
-            class="icon fa-solid fa-angle-{{ifThen expanded 'down' 'right'}}"
-          ></button>
-        </div>
-      </div>
-      <div class="item-embed">
-        {{#if expanded}}{{{embed.outerHTML}}}{{/if}}
-      </div>
-    </li>
-    {{/each}}
-  </ul>
+  {{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=weapons cssClass="weapon" rollAction="rollAttack"}}
   <div class="item-header flexrow gear">
     <div class="item-name">{{localize "TYPES.Item.gear"}}</div>
     <div class="item-quantity">{{localize "MYTHCRAFT.Item.equipment.FIELDS.quantity.label"}}</div>

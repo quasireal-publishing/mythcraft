@@ -1,184 +1,187 @@
 <div class="actor-header">
-<header class="sheet-header img-name flexrow">
-  {{!-- Left column: Logo + Mode toggle --}}
-  <div class="logo-mode-wrapper">
-    <img class="system-logo" src="systems/mythcraft/assets/Mythcraft-Logo-Badge-Textured-Black.png" alt="MythCraft">
-    <button type="button" class="mode-badge {{#if isPlay}}mode-play{{else}}mode-edit{{/if}}" data-action="toggleMode"
-            data-tooltip="{{localize 'MYTHCRAFT.SHEET.ToggleMode'}}">
-      {{#if isPlay}}
-      <i class="fa-solid fa-eye"></i> Play
-      {{else}}
-      <i class="fa-solid fa-pen"></i> Edit
-      {{/if}}
-    </button>
-  </div>
+  <header class="sheet-header img-name flexrow">
+    {{!-- Left column: Logo + Mode toggle --}}
+    <div class="logo-mode-wrapper">
+      <img class="system-logo" src="systems/mythcraft/assets/Mythcraft-Logo-Badge-Textured-Black.png" alt="MythCraft">
+      <button type="button" class="mode-badge {{#if isPlay}}mode-play{{else}}mode-edit{{/if}}" data-action="toggleMode"
+        data-tooltip="{{localize 'MYTHCRAFT.SHEET.ToggleMode'}}">
+        {{#if isPlay}}
+        <i class="fa-solid fa-eye"></i> Play
+        {{else}}
+        <i class="fa-solid fa-pen"></i> Edit
+        {{/if}}
+      </button>
+    </div>
 
-  {{!-- Center column: Identity + Appearance --}}
-  <div class="header-center">
-    {{!-- Row 1: Name + Lineage --}}
-    <div class="header-row">
-      <div class="header-field field-name">
-        <label>{{localize "DOCUMENT.FIELDS.name.label"}}</label>
-        {{formInput
+    {{!-- Center column: Identity + Appearance --}}
+    <div class="header-center">
+      {{!-- Row 1: Name + Lineage --}}
+      <div class="header-row">
+        <div class="header-field field-name">
+          <label>{{localize "DOCUMENT.FIELDS.name.label"}}</label>
+          {{formInput
           fields.name
           value=source.name
           placeholder=(localize "DOCUMENT.FIELDS.name.label")
           aria=(object label=(localize "DOCUMENT.FIELDS.name.label"))
           disabled=isPlay}}
-      </div>
-      {{#if (eq document.type "character")}}
-      {{#with (lookup @root.origins 0)}}
-      <div class="header-field field-lineage">
-        <label>{{label}}</label>
-        {{#if item}}
-        <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
-          {{item.name}}
-        </button>
-        {{else}}
-        <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="lineage">
-          <i class="fa-solid fa-plus"></i> {{label}}
-        </button>
+        </div>
+        {{#if (eq document.type "character")}}
+        {{#with (lookup @root.origins 0)}}
+        <div class="header-field field-lineage">
+          <label>{{label}}</label>
+          {{#if item}}
+          <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
+            {{item.name}}
+          </button>
+          {{else}}
+          <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="lineage">
+            <i class="fa-solid fa-plus"></i> {{label}}
+          </button>
+          {{/if}}
+        </div>
+        {{/with}}
         {{/if}}
       </div>
-      {{/with}}
-      {{/if}}
-    </div>
 
-    {{!-- Row 2: Level + Size + Height + Weight + Age --}}
-    <div class="header-row">
-      <div class="header-field field-level">
-        <label>{{localize "MYTHCRAFT.Actor.base.FIELDS.level.label"}}</label>
-        {{formInput systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay}}
+      {{!-- Row 2: Level + Size + Height + Weight + Age --}}
+      <div class="header-row">
+        <div class="header-field field-level">
+          <label>{{localize "MYTHCRAFT.Actor.base.FIELDS.level.label"}}</label>
+          {{formInput systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay}}
+        </div>
+        <div class="header-field field-size">
+          <label>{{localize "MYTHCRAFT.Actor.base.FIELDS.size.label"}}</label>
+          {{formInput systemFields.size options=sizeOptions value=(ifThen isPlay system.size systemSource.size) disabled=isPlay localize=true}}
+        </div>
+        {{#if (eq document.type "character")}}
+        <div class="header-field field-height">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.height.label"}}</label>
+          <input type="text" name="system.appearance.height" value="{{system.appearance.height}}" {{#unless @root.editable}}disabled{{/unless}}>
+        </div>
+        <div class="header-field field-weight">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.weight.label"}}</label>
+          <input type="text" name="system.appearance.weight" value="{{system.appearance.weight}}" {{#unless @root.editable}}disabled{{/unless}}>
+        </div>
+        <div class="header-field field-age">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.age.label"}}</label>
+          <input type="text" name="system.appearance.age" value="{{system.appearance.age}}" {{#unless @root.editable}}disabled{{/unless}}>
+        </div>
+        {{/if}}
       </div>
-      <div class="header-field field-size">
-        <label>{{localize "MYTHCRAFT.Actor.base.FIELDS.size.label"}}</label>
-        {{formInput systemFields.size options=sizeOptions value=(ifThen isPlay system.size systemSource.size) disabled=isPlay localize=true}}
-      </div>
+
+      {{!-- Row 3: Appearance (character only) --}}
       {{#if (eq document.type "character")}}
-      <div class="header-field field-height">
-        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.height.label"}}</label>
-        <input type="text" name="system.appearance.height" value="{{system.appearance.height}}" {{#unless @root.editable}}disabled{{/unless}}>
+      <div class="header-row">
+        <div class="header-field field-appearance">
+          <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.description.label"}}</label>
+          <textarea name="system.appearance.description" {{#unless @root.editable}}disabled{{/unless}}>{{system.appearance.description}}</textarea>
+        </div>
       </div>
-      <div class="header-field field-weight">
-        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.weight.label"}}</label>
-        <input type="text" name="system.appearance.weight" value="{{system.appearance.weight}}" {{#unless @root.editable}}disabled{{/unless}}>
-      </div>
-      <div class="header-field field-age">
-        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.age.label"}}</label>
-        <input type="text" name="system.appearance.age" value="{{system.appearance.age}}" {{#unless @root.editable}}disabled{{/unless}}>
+      {{/if}}
+
+      {{!-- NPC tags row --}}
+      {{#if (eq document.type "npc")}}
+      <div class="header-row">
+        {{#if isPlay}}
+        <div>{{tagList}}</div>
+        {{else}}
+        <tag-input name="system.tags" data-suggestions="{{json tagOptions}}">
+          {{#each systemSource.tags}}
+          <input type="hidden" name="system.tags" value="{{this}}">
+          {{/each}}
+        </tag-input>
+        {{/if}}
       </div>
       {{/if}}
     </div>
 
-    {{!-- Row 3: Appearance (character only) --}}
-    {{#if (eq document.type "character")}}
-    <div class="header-row">
-      <div class="header-field field-appearance">
-        <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.appearance.description.label"}}</label>
-        <textarea name="system.appearance.description" {{#unless @root.editable}}disabled{{/unless}}>{{system.appearance.description}}</textarea>
+    {{!-- Right column: AP, Classes, Initiative, Crit --}}
+    <div class="header-right standard-form">
+      {{#if (eq document.type "character")}}
+      <div class="form-group action-points">
+        {{formGroup systemFields.ap.fields.value value=system.ap.value dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.value.tooltip") classes="slim"}}
+        <span class="max-ap">/ {{system.ap.max}}</span>
+        {{formGroup systemFields.ap.fields.special value=system.ap.special dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.special.tooltip") classes="slim"}}
       </div>
-    </div>
-    {{/if}}
-
-    {{!-- NPC tags row --}}
-    {{#if (eq document.type "npc")}}
-    <div class="header-row">
-      {{#if isPlay}}
-      <div>{{tagList}}</div>
-      {{else}}
-      {{formInput systemFields.tags options=tagOptions value=systemSource.tags disabled=isPlay localize=true}}
-      {{/if}}
-    </div>
-    {{/if}}
-  </div>
-
-  {{!-- Right column: AP, Classes, Initiative, Crit --}}
-  <div class="header-right standard-form">
-    {{#if (eq document.type "character")}}
-    <div class="form-group action-points">
-      {{formGroup systemFields.ap.fields.value value=system.ap.value dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.value.tooltip") classes="slim"}}
-      <span class="max-ap">/ {{system.ap.max}}</span>
-      {{formGroup systemFields.ap.fields.special value=system.ap.special dataset=(object tooltip="MYTHCRAFT.Actor.character.FIELDS.ap.special.tooltip") classes="slim"}}
-    </div>
-    <div class="classes-row">
-      <span class="classes-text">{{system.classes}}</span>
-      <button type="button" class="tab-shortcut" data-action="openTab" data-tab="talents"
-              data-tooltip="{{localize 'MYTHCRAFT.SHEET.Tabs.talents'}}">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      <div class="classes-row">
+        <span class="classes-text">{{system.classes}}</span>
+        <button type="button" class="tab-shortcut" data-action="openTab" data-tab="talents"
+          data-tooltip="{{localize 'MYTHCRAFT.SHEET.Tabs.talents'}}">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </button>
+      </div>
+      {{#if system.initiative}}
+      <button type="button" class="initiative-btn" data-action="rollInitiative"
+        data-tooltip="{{localize 'MYTHCRAFT.Actor.character.FIELDS.initiative.label'}}">
+        {{localize "MYTHCRAFT.Actor.character.FIELDS.initiative.label"}}
+        <i class="fa-solid fa-dice-d20"></i>
+        {{numberFormat system.initiative.total sign=true}}
       </button>
-    </div>
-    {{#if system.initiative}}
-    <button type="button" class="initiative-btn" data-action="rollInitiative"
-            data-tooltip="{{localize 'MYTHCRAFT.Actor.character.FIELDS.initiative.label'}}">
-      {{localize "MYTHCRAFT.Actor.character.FIELDS.initiative.label"}}
-      <i class="fa-solid fa-dice-d20"></i>
-      {{numberFormat system.initiative.total sign=true}}
-    </button>
-    {{/if}}
-    {{#if system.critical}}
-    <div class="critical-display">
-      <div class="crit-hit">
-        <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.hit.short"}}</span>
-        {{system.critical.effectiveHit}}+
+      {{/if}}
+      {{#if system.critical}}
+      <div class="critical-display">
+        <div class="crit-hit">
+          <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.hit.short"}}</span>
+          {{system.critical.effectiveHit}}+
+        </div>
+        <div class="crit-fail">
+          <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.fail.short"}}</span>
+          {{system.critical.effectiveFail}}&minus;
+        </div>
       </div>
-      <div class="crit-fail">
-        <span class="crit-label">{{localize "MYTHCRAFT.Actor.character.FIELDS.critical.fail.short"}}</span>
-        {{system.critical.effectiveFail}}&minus;
+      {{/if}}
+      {{else if (eq document.type "npc")}}
+      <div class="actor-source">
+        {{document.system.source.label}}
       </div>
+      {{/if}}
     </div>
-    {{/if}}
-    {{else if (eq document.type "npc")}}
-    <div class="actor-source">
-      {{document.system.source.label}}
-    </div>
-    {{formGroup systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay classes="slim"}}
-    {{/if}}
-  </div>
-</header>
+  </header>
 
-{{!-- Row 2: Personality & Origins (character only) --}}
-{{#if (eq document.type "character")}}
-<div class="header-extra">
-  <div class="header-field field-values">
-    <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.values.label"}}</label>
-    <input type="text" name="system.personality.values" value="{{system.personality.values}}" {{#unless @root.editable}}disabled{{/unless}}>
+  {{!-- Row 2: Personality & Origins (character only) --}}
+  {{#if (eq document.type "character")}}
+  <div class="header-extra">
+    <div class="header-field field-values">
+      <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.values.label"}}</label>
+      <input type="text" name="system.personality.values" value="{{system.personality.values}}" {{#unless @root.editable}}disabled{{/unless}}>
+    </div>
+    <div class="header-field field-drive">
+      <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.drive.label"}}</label>
+      <input type="text" name="system.personality.drive" value="{{system.personality.drive}}" {{#unless @root.editable}}disabled{{/unless}}>
+    </div>
+    {{#with (lookup @root.origins 1)}}
+    <div class="header-field field-background">
+      <label>{{label}}</label>
+      {{#if item}}
+      <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
+        {{item.name}}
+      </button>
+      {{else}}
+      <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="background">
+        <i class="fa-solid fa-plus"></i> {{label}}
+      </button>
+      {{/if}}
+    </div>
+    {{/with}}
+    {{#with (lookup @root.origins 2)}}
+    <div class="header-field field-profession">
+      <label>{{label}}</label>
+      {{#if item}}
+      <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
+        {{item.name}}
+      </button>
+      {{else}}
+      <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="profession">
+        <i class="fa-solid fa-plus"></i> {{label}}
+      </button>
+      {{/if}}
+    </div>
+    {{/with}}
+    <div class="header-field field-quirk">
+      <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.quirk.label"}}</label>
+      <textarea name="system.personality.quirk" {{#unless @root.editable}}disabled{{/unless}}>{{system.personality.quirk}}</textarea>
+    </div>
   </div>
-  <div class="header-field field-drive">
-    <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.drive.label"}}</label>
-    <input type="text" name="system.personality.drive" value="{{system.personality.drive}}" {{#unless @root.editable}}disabled{{/unless}}>
-  </div>
-  {{#with (lookup @root.origins 1)}}
-  <div class="header-field field-background">
-    <label>{{label}}</label>
-    {{#if item}}
-    <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
-      {{item.name}}
-    </button>
-    {{else}}
-    <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="background">
-      <i class="fa-solid fa-plus"></i> {{label}}
-    </button>
-    {{/if}}
-  </div>
-  {{/with}}
-  {{#with (lookup @root.origins 2)}}
-  <div class="header-field field-profession">
-    <label>{{label}}</label>
-    {{#if item}}
-    <button type="button" class="origin-btn" data-action="viewDoc" data-document-class="Item" data-item-id="{{item.id}}">
-      {{item.name}}
-    </button>
-    {{else}}
-    <button type="button" class="origin-btn origin-empty" data-action="createDoc" data-document-class="Item" data-type="profession">
-      <i class="fa-solid fa-plus"></i> {{label}}
-    </button>
-    {{/if}}
-  </div>
-  {{/with}}
-  <div class="header-field field-quirk">
-    <label>{{localize "MYTHCRAFT.Actor.character.FIELDS.personality.quirk.label"}}</label>
-    <textarea name="system.personality.quirk" {{#unless @root.editable}}disabled{{/unless}}>{{system.personality.quirk}}</textarea>
-  </div>
-</div>
-{{/if}}
+  {{/if}}
 </div>
