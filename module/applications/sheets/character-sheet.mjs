@@ -161,6 +161,9 @@ export default class CharacterSheet extends MythCraftActorSheet {
     },
     spells: {
       template: systemPath("templates/actor/spells.hbs"),
+      templates: [
+        systemPath("templates/actor/partials/spells-body.hbs"),
+      ],
       scrollable: [""],
     },
     equipment: {

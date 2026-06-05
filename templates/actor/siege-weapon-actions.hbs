@@ -1,0 +1,23 @@
+{{! Siege Actions — flat (non-tiered) attack-card list backed by `feature` items. }}
+<fieldset class="siege-actions">
+  <legend>{{localize "MYTHCRAFT.SHEET.Actions"}}</legend>
+  <div class="item-header flexrow">
+    <div class="item-name">{{localize "DOCUMENT.FIELDS.name.label"}}</div>
+    <div class="item-controls flexrow">
+      {{#unless isPlay}}
+      <button
+        type="button"
+        class="item-create"
+        data-action="createDoc"
+        data-document-class="Item"
+        data-type="feature"
+        data-system.category="action"
+      >
+        <i class="fa-solid fa-plus"></i>
+        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+      </button>
+      {{/unless}}
+    </div>
+  </div>
+  {{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=actions cssClass="action" rollAction="rollFeature"}}
+</fieldset>

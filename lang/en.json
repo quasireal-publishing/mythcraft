@@ -24,6 +24,7 @@
         "talents": "Talents",
         "effects": "Effects",
         "stats": "Stats",
+        "statblock": "Stat Block",
         "journal": "Journal"
       },
       "ToggleMode": "Toggle Sheet Mode",
@@ -36,6 +37,13 @@
       "AddSense": "Add Sense",
       "AddAbsorb": "Add Absorption",
       "Reactions": "Reactions",
+      "Actions": "Actions",
+      "Features": "Features",
+      "Skills": "Skills",
+      "Core": "Core",
+      "AttributesSection": "Attributes & Defenses",
+      "Exploration": "Speed & Senses",
+      "DamageModifications": "Damage Modifications",
       "Favorite": "Toggle Favorite",
       "NoCreateAdvancement": "{name} could not be created as part of the folder drop because it has advancements.",
       "SiegeWeapon": "MythCraft Siege Weapon Sheet"
@@ -326,6 +334,7 @@
           "reload": { "label": "Reload" },
           "aoe": { "label": "Area of Effect" },
           "speed": { "label": "Speed" },
+          "heft": { "label": "Heft", "hint": "Abstract force needed to move the engine. GM-adjudicated; not automated." },
           "hp": { "label": "Hit Points", "value": { "label": "Current" }, "max": { "label": "Maximum" } },
           "ar": { "label": "Armor Rating" },
           "defenses": { "label": "Defenses", "ref": { "label": "Reflexes" }, "fort": { "label": "Fortitude" } },
@@ -336,6 +345,8 @@
         }
       },
       "npc": {
+        "MonsterLevel": "Monster Level",
+        "SkillOverrideHint": "Override the calculated bonus. Leave blank to use the calculated value.",
         "FIELDS": {
           "actions": {
             "label": "Action Text",

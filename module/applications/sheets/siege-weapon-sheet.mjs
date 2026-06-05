@@ -1,6 +1,8 @@
 import MCDocumentSheetMixin from "../api/document-sheet-mixin.mjs";
 import { systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
+import MythCraftItemSheet from "./item-sheet.mjs";
+import rollFeature from "./_roll-feature.mjs";
 
 const { ActorSheet } = foundry.applications.sheets;
 
@@ -15,11 +17,27 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
       toggleEffect: this.#toggleEffect,
       toggleEffectEmbed: this.#toggleEffectEmbed,
       createDoc: this.#createDoc,
+      rollFeature: this.#rollFeature,
+      rollDamage: this.#rollDamage,
+      toggleItemEmbed: this.#toggleItemEmbed,
+      viewDoc: this.#viewDoc,
+      deleteDoc: this.#deleteDoc,
     },
     position: {
       width: 520,
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * The d20 value at/under which a siege feature attack is a critical fail.
+   * Siege attacks crit-fail on 1–2 (vs. 1 for NPC/PC).
+   * @type {number}
+   */
+  get featureCritFail() {
+    return 2;
+  }
 
   /* -------------------------------------------------- */
 
@@ -47,6 +65,11 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
     },
     stats: {
       template: systemPath("templates/actor/siege-weapon.hbs"),
+      templates: [
+        systemPath("templates/actor/siege-weapon-actions.hbs"),
+        systemPath("templates/actor/partials/attack-card-list.hbs"),
+        systemPath("templates/actor/partials/attack-card.hbs"),
+      ],
       scrollable: [""],
     },
     effects: {
@@ -60,6 +83,8 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
   #expanded = {
     /** @type {Set<string>} */
     effects: new Set(),
+    /** @type {Set<string>} */
+    items: new Set(),
   };
 
   /**
@@ -105,6 +130,24 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
   async _prepareStatsTab(context, options) {
     context.enrichedDescription = await enrichHTML(this.actor.system.description.value, { relativeTo: this.actor });
     context.enrichedGMNotes = await enrichHTML(this.actor.system.description.gm, { relativeTo: this.actor });
+
+    // Flat (non-tiered) Actions list backed by embedded `feature` items.
+    const sortedActions = this.actor.itemTypes.feature.toSorted((a, b) => a.sort - b.sort);
+    context.actions = await Promise.all(sortedActions.map(async (item) => {
+      const expanded = this.#expanded.items.has(item.id);
+      const ctx = {
+        item,
+        expanded,
+        atkDisplay: item.system.hasAttack ? item.system.evaluatedAttackBonus : null,
+        hasAtk: !!item.system.hasAttack,
+        dcDisplay: item.system.hasSave ? item.system.evaluatedSaveDC : null,
+        hasDc: !!item.system.hasSave,
+        damageFirst: item.system.damage[0]?.formula ?? null,
+        isRollable: item.system.isRollable,
+      };
+      if (expanded) ctx.embed = await item.system.toEmbed({});
+      return ctx;
+    }));
   }
 
   /* -------------------------------------------------- */
@@ -154,12 +197,58 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
   async _onFirstRender(context, options) {
     await super._onFirstRender(context, options);
 
+    this._createContextMenu(this._getItemListContextOptions, "[data-document-class][data-item-id] .item-controls .fa-ellipsis-vertical", {
+      eventName: "click",
+      hookName: "getItemListContextOptions",
+      parentClassHooks: false,
+      fixed: true,
+    });
+
     this._createContextMenu(this._getEffectListContextOptions, "[data-document-class][data-effect-id] .effect-controls .fa-ellipsis-vertical", {
       eventName: "click",
       hookName: "getActiveEffectListContextOptions",
       parentClassHooks: false,
       fixed: true,
     });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Get context menu entries for the Actions (feature item) list.
+   * @returns {ContextMenuEntry[]}
+   * @protected
+   */
+  _getItemListContextOptions() {
+    return [
+      {
+        label: "MYTHCRAFT.SHEET.View",
+        icon: "<i class=\"fa-solid fa-fw fa-eye\"></i>",
+        visible: () => this.isPlayMode,
+        onClick: async (_event, target) => {
+          const item = this._getEmbeddedDocument(target);
+          await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.PLAY });
+        },
+      },
+      {
+        label: "MYTHCRAFT.SHEET.Edit",
+        icon: "<i class=\"fa-solid fa-fw fa-edit\"></i>",
+        visible: () => this.isEditMode,
+        onClick: async (_event, target) => {
+          const item = this._getEmbeddedDocument(target);
+          await item.sheet.render({ force: true, mode: MythCraftItemSheet.MODES.EDIT });
+        },
+      },
+      {
+        label: "MYTHCRAFT.SHEET.Delete",
+        icon: "<i class=\"fa-solid fa-fw fa-trash\"></i>",
+        visible: () => this.isEditable,
+        onClick: async (_event, target) => {
+          const item = this._getEmbeddedDocument(target);
+          await item.deleteDialog();
+        },
+      },
+    ];
   }
 
   /* -------------------------------------------------- */
@@ -194,14 +283,16 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
   /* -------------------------------------------------- */
 
   /**
-   * Fetches the embedded document representing the containing HTML element.
+   * Fetches the embedded document (Item or ActiveEffect) for the containing HTML element.
    * @param {HTMLElement} target
-   * @returns {ActiveEffect}
+   * @returns {Item|ActiveEffect}
    */
   _getEmbeddedDocument(target) {
     const docRow = target.closest("[data-document-class]");
-    const { effectId } = docRow.dataset;
-    return this.actor.effects.get(effectId);
+    const { effectId, itemId } = docRow.dataset;
+    const item = this.actor.items.get(itemId);
+    const effects = itemId ? item?.effects : this.actor.effects;
+    return effectId ? effects?.get(effectId) : item;
   }
 
   /* -------------------------------------------- */
@@ -261,5 +352,95 @@ export default class SiegeWeaponSheet extends MCDocumentSheetMixin(ActorSheet) {
       foundry.utils.setProperty(docData, dataKey, value);
     }
     docCls.create(docData, { parent: this.actor, renderSheet: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll or post a siege feature/action card to chat (crit-fail on 1–2).
+   *
+   * @this SiegeWeaponSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #rollFeature(event, target) {
+    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
+    await rollFeature(this.actor, item, this.featureCritFail);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll a feature item's damage array to chat.
+   *
+   * @this SiegeWeaponSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #rollDamage(event, target) {
+    event.stopPropagation();
+    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
+    if (!item) return;
+    const damages = (item.system.damage ?? []).filter(d => d.formula);
+    if (!damages.length) return;
+
+    const rollData = this.actor.getRollData();
+    const rolls = await Promise.all(damages.map(async d => {
+      const r = new mythcraft.rolls.DamageRoll(d.formula, rollData, { type: d.type });
+      await r.evaluate();
+      return r;
+    }));
+
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      rolls,
+      flavor: `${item.name} — ${game.i18n.localize("MYTHCRAFT.Roll.Damage")}`,
+      sound: CONFIG.sounds.dice,
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle an action item's inline embed.
+   *
+   * @this SiegeWeaponSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #toggleItemEmbed(event, target) {
+    const { itemId } = target.closest(".item").dataset;
+
+    if (this.#expanded.items.has(itemId)) this.#expanded.items.delete(itemId);
+    else this.#expanded.items.add(itemId);
+
+    const part = target.closest("[data-application-part]").dataset.applicationPart;
+    this.render({ parts: [part] });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Render an embedded document's sheet.
+   *
+   * @this SiegeWeaponSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #viewDoc(event, target) {
+    this._getEmbeddedDocument(target)?.sheet.render({ force: true });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Delete an embedded document.
+   *
+   * @this SiegeWeaponSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #deleteDoc(event, target) {
+    this._getEmbeddedDocument(target)?.delete();
   }
 }

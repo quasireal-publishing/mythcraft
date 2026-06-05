@@ -1,0 +1,22 @@
+{{!--
+Reusable collapsible stat-block section.
+
+Params:
+sectionId - stable id used by the toggleSection action + collapse Set (e.g. "skills")
+label     - already-localized heading text
+collapsed - boolean; when true the body is hidden and the chevron points right
+
+Body is supplied via the block-partial form, e.g.
+{{#> ".../collapsible-section.hbs" sectionId="skills" label=(localize "X") collapsed=@root.collapsed.skills}} body {{/...}}
+
+Collapse state is persisted on the sheet so it survives Foundry's re-render-on-change.
+--}}
+<fieldset class="mc-section {{#if collapsed}}collapsed{{/if}}" data-section="{{sectionId}}">
+  <legend class="mc-section-toggle" data-action="toggleSection">
+    <i class="fa-solid fa-chevron-{{#if collapsed}}right{{else}}down{{/if}}"></i>
+    {{label}}
+  </legend>
+  <div class="mc-section-body" {{#if collapsed}}hidden{{/if}}>
+    {{> @partial-block }}
+  </div>
+</fieldset>

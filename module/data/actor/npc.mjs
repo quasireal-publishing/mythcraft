@@ -37,6 +37,13 @@ export default class NpcModel extends BaseActorModel {
       threshold: new fields.NumberField({ integer: true, min: 0, nullable: false }),
     });
 
+    // NPC-only: GM may override the computed skill bonus. null = use calculated.
+    schema.skills = new fields.TypedObjectField(new fields.SchemaField({
+      value: new fields.NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+      specialization: new fields.StringField({ required: true }),
+      override: new fields.NumberField({ integer: true, nullable: true, initial: null }),
+    }));
+
     // NPC stat block fields
     schema.source = new fields.EmbeddedDataField(SourceModel);
     schema.actions = new fields.HTMLField();
@@ -48,6 +55,11 @@ export default class NpcModel extends BaseActorModel {
   prepareDerivedData() {
     super.prepareDerivedData();
     this.source.prepareData(this.parent._stats?.compendiumSource ?? this.parent.uuid);
+
+    // Apply GM skill overrides on top of the base-computed bonus.
+    for (const data of Object.values(this.skills)) {
+      if ((data.override ?? null) !== null) data.bonus = data.override;
+    }
   }
 
   /**

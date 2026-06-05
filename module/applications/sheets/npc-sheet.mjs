@@ -1,13 +1,24 @@
 import MythCraftActorSheet from "./actor-sheet.mjs";
 import { systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
+import rollFeature from "./_roll-feature.mjs";
 
 export default class NPCSheet extends MythCraftActorSheet {
+
+  /**
+   * The d20 value at/under which a feature attack is a critical fail.
+   * NPC = 1; the siege sheet overrides to 2.
+   * @type {number}
+   */
+  get featureCritFail() {
+    return 1;
+  }
 
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     actions: {
       rollFeature: NPCSheet.#rollFeature,
+      toggleSection: NPCSheet.#toggleSection,
     },
   };
 
@@ -15,16 +26,32 @@ export default class NPCSheet extends MythCraftActorSheet {
   static TABS = {
     primary: {
       tabs: [
-        { id: "stats" },
-        { id: "features" },
-        { id: "spells" },
+        { id: "statblock" },
         { id: "effects" },
         { id: "biography" },
       ],
-      initial: "stats",
+      initial: "statblock",
       labelPrefix: "MYTHCRAFT.SHEET.Tabs",
     },
   };
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Section ids currently collapsed in the consolidated stat-block view.
+   * Seeded with the reference-only sections (combat-critical sections start open).
+   * @type {Set<string>}
+   */
+  #collapsedSections = new Set(["skills", "exploration", "damageMods", "features", "spells"]);
+
+  /**
+   * Per-section collapsed booleans for the stat-block templates (`@root.collapsed.<id>`).
+   * @returns {Record<string, boolean>}
+   */
+  get collapsedContext() {
+    const ids = ["core", "attributes", "skills", "exploration", "damageMods", "features", "actions", "reactions", "spells"];
+    return ids.reduce((obj, id) => { obj[id] = this.#collapsedSections.has(id); return obj; }, {});
+  }
 
   /** @inheritdoc */
   static PARTS = {
@@ -36,11 +63,15 @@ export default class NPCSheet extends MythCraftActorSheet {
     },
     stats: {
       template: systemPath("templates/actor/npc-stats.hbs"),
+      templates: [
+        systemPath("templates/actor/partials/collapsible-section.hbs"),
+      ],
       scrollable: [""],
     },
     features: {
       template: systemPath("templates/actor/features.hbs"),
       templates: [
+        systemPath("templates/actor/partials/collapsible-section.hbs"),
         systemPath("templates/actor/partials/attack-card-list.hbs"),
         systemPath("templates/actor/partials/attack-card.hbs"),
       ],
@@ -48,6 +79,10 @@ export default class NPCSheet extends MythCraftActorSheet {
     },
     spells: {
       template: systemPath("templates/actor/spells.hbs"),
+      templates: [
+        systemPath("templates/actor/partials/collapsible-section.hbs"),
+        systemPath("templates/actor/partials/spells-body.hbs"),
+      ],
       scrollable: [""],
     },
     effects: {
@@ -64,8 +99,14 @@ export default class NPCSheet extends MythCraftActorSheet {
 
   /** @inheritdoc */
   _restrictLimited(record) {
-    super._restrictLimited(record);
+    // The consolidated stat block (stats + features + spells) is hidden from
+    // limited viewers; only biography remains. Remove the shared tab and the
+    // three parts that render into it.
+    delete record.statblock;
+    delete record.stats;
     delete record.features;
+    delete record.spells;
+    delete record.effects;
   }
 
   /* -------------------------------------------------- */
@@ -74,17 +115,46 @@ export default class NPCSheet extends MythCraftActorSheet {
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
 
+    // The stats, features, and spells parts all render into the single
+    // "statblock" tab as stacked collapsible sections.
     switch (partId) {
+      case "stats":
+        context.tab = context.tabs.statblock;
+        context.collapsed = this.collapsedContext;
+        break;
       case "features":
         await this._prepareFeaturesTab(context, options);
-        context.tab = context.tabs[partId];
+        context.tab = context.tabs.statblock;
+        context.collapsed = this.collapsedContext;
         break;
-      case "stats":
-        context.tab = context.tabs[partId];
+      case "spells":
+        await this._prepareSpellsTab(context, options);
+        context.tab = context.tabs.statblock;
+        context.collapsed = this.collapsedContext;
+        context.statblockTab = true;
         break;
     }
 
     return context;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Toggle a collapsible stat-block section open/closed. The collapse state is
+   * sheet-scoped so it survives Foundry's re-render-on-change (e.g. HP edits).
+   *
+   * @this NPCSheet
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #toggleSection(event, target) {
+    const id = target.closest("[data-section]")?.dataset.section;
+    if (!id) return;
+    if (this.#collapsedSections.has(id)) this.#collapsedSections.delete(id);
+    else this.#collapsedSections.add(id);
+    const part = target.closest("[data-application-part]").dataset.applicationPart;
+    this.render({ parts: [part] });
   }
 
   /* -------------------------------------------------- */
@@ -120,6 +190,20 @@ export default class NPCSheet extends MythCraftActorSheet {
       obj[group].list.push(attrInfo);
       return obj;
     }, {});
+
+    // Flat skill list for the dedicated Skills section. `override` reads from
+    // _source so the input value reflects the stored override (null → empty),
+    // independent of the derived `bonus`; `calculated` drives the placeholder.
+    context.skillList = Object.entries(this.actor.system.skills).map(([id, data]) => ({
+      id,
+      label: game.i18n.format(
+        mythcraft.CONFIG.skills.list[id]?.specialized ?? mythcraft.CONFIG.skills.list[id]?.label ?? id,
+        data,
+      ),
+      bonus: data.bonus,
+      calculated: data.calculated,
+      override: this.actor.system._source.skills[id]?.override ?? null,
+    })).sort((a, b) => a.label.localeCompare(b.label));
 
     // Suggestion lists for <tag-input> elements in npc-stats.hbs.
     context.traitOptions = mythcraft.CONFIG.monster.traitOptions;
@@ -185,40 +269,6 @@ export default class NPCSheet extends MythCraftActorSheet {
   static async #rollFeature(event, target) {
     const itemId = target.closest("[data-item-id]")?.dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if (!item || (item.type !== "feature")) return;
-
-    const sys = item.system;
-    const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-    const template = "systems/mythcraft/templates/chat/attack-card.hbs";
-
-    if (sys.hasAttack) {
-      const bonus = mythcraft.utils.evaluateFormula(sys.attackBonus || "0", item.getRollData());
-      const roll = new mythcraft.rolls.AttackRoll(`1d20 + ${bonus}`, this.actor.getRollData(), {
-        weaponName: item.name,
-        defenseTarget: sys.defenseTarget,
-        critHit: 20,
-        critFail: 1,
-        damage: sys.damage,
-        hasSave: sys.hasSave,
-        saveDC: sys.evaluatedSaveDC,
-        saveAttribute: sys.hasSave ? sys.saveAttribute : null,
-      });
-      await roll.toMessage({ speaker });
-      return;
-    }
-
-    const saveAttribute = sys.hasSave && sys.saveAttribute
-      ? game.i18n.localize(`MYTHCRAFT.Attributes.${sys.saveAttribute}.abbr`)
-      : "";
-    const templateData = {
-      weaponName: item.name,
-      hasSave: sys.hasSave,
-      saveDC: sys.evaluatedSaveDC,
-      saveAttribute,
-      damage: sys.damage,
-      rollHTML: null,
-    };
-    const content = await renderTemplate(template, templateData);
-    await ChatMessage.create({ content, speaker });
+    await rollFeature(this.actor, item, this.featureCritFail);
   }
 }

@@ -1,6 +1,7 @@
-<section class="tab {{tab.cssClass}} standard-form npc-stats" data-group="primary" data-tab="stats">
+<section class="tab {{tab.cssClass}} standard-form npc-stats" data-group="primary" data-tab="statblock">
 
-  {{! HP, AR, Death }}
+  {{! ===== Core: HP / AR / Death / Conditions ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="core" label=(localize "MYTHCRAFT.SHEET.Core") collapsed=@root.collapsed.core}}
   <div class="core-stats flexrow">
     <fieldset class="hit-points">
       <legend>{{systemFields.hp.label}}</legend>
@@ -34,7 +35,17 @@
     {{/if}}
   </div>
 
-  {{! Attributes }}
+  <fieldset class="conditions">
+    <legend>{{localize "MYTHCRAFT.Conditions.Widget.Label"}}</legend>
+    <condition-input
+      data-conditions="{{json activeConditions}}"
+      data-suggestions="{{json conditionOptions}}"
+    ></condition-input>
+  </fieldset>
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
+
+  {{! ===== Attributes & Defenses ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="attributes" label=(localize "MYTHCRAFT.SHEET.AttributesSection") collapsed=@root.collapsed.attributes}}
   <div class="attributes">
     {{#each attributeInfo as |group|}}
     <div class="attribute-group flexrow">
@@ -48,34 +59,57 @@
         </legend>
         <a class="edit-attribute-btn icon fa-solid fa-gear" data-action="editAttribute"
           data-tooltip="{{localize 'MYTHCRAFT.SHEET.EditAttribute'}}"></a>
+        {{#if defense}}
         <dl class="skills">
-          {{#if defense}}
           <dt>{{defense.label}}</dt>
           <dd>{{defense.value}}</dd>
-          {{/if}}
-          {{#each skills}}
-          <dt>{{label}}</dt>
-          <dd>
-            <a data-skill="{{skillId}}" data-action="rollSkill">
-              <i class="fa-solid fa-dice-d20"></i>
-              {{numberFormat bonus sign=true}}
-            </a>
-          </dd>
-          {{/each}}
         </dl>
+        {{/if}}
       </fieldset>
       {{/each}}
     </div>
     {{/each}}
   </div>
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
-  {{! Speed & Senses }}
+  {{! ===== Skills ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="skills" label=(localize "MYTHCRAFT.SHEET.Skills") collapsed=@root.collapsed.skills}}
+  <div class="npc-skill-grid">
+    {{#each skillList}}
+    <div class="npc-skill-row" data-skill="{{id}}">
+      <a class="npc-skill-roll" data-skill="{{id}}" data-action="rollSkill">
+        <i class="fa-solid fa-dice-d20"></i> {{label}}
+      </a>
+      {{#if @root.isPlay}}
+      {{! Play mode: show the effective bonus as plain text so calculated and overridden values look identical. }}
+      <span class="npc-skill-bonus">{{numberFormat bonus sign=true}}</span>
+      {{else}}
+      <input
+        type="number"
+        class="npc-skill-override"
+        name="system.skills.{{id}}.override"
+        value="{{override}}"
+        placeholder="{{calculated}}"
+        data-tooltip="{{localize 'MYTHCRAFT.Actor.npc.SkillOverrideHint'}}"
+      >
+      {{/if}}
+    </div>
+    {{else}}
+    <p class="hint">{{localize 'MYTHCRAFT.SHEET.EditAttribute'}}</p>
+    {{/each}}
+  </div>
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
+
+  {{! ===== Speed & Senses ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="exploration" label=(localize "MYTHCRAFT.SHEET.Exploration") collapsed=@root.collapsed.exploration}}
   <div class="flexrow exploration">
     {{formGroup systemFields.movement value=systemSource.movement disabled=isPlay}}
     {{formGroup systemFields.senses value=systemSource.senses disabled=isPlay}}
   </div>
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
-  {{! Traits }}
+  {{! ===== Traits & Damage Modifications ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="damageMods" label=(localize "MYTHCRAFT.SHEET.DamageModifications") collapsed=@root.collapsed.damageMods}}
   <div class="form-group">
     <label>{{systemFields.traits.label}}</label>
     <div class="form-fields">
@@ -91,7 +125,6 @@
     </div>
   </div>
 
-  {{! Damage Modifications }}
   <fieldset class="damage-modification">
     <legend>{{systemFields.damage.label}}</legend>
     <div class="form-group">
@@ -127,13 +160,6 @@
     {{formGroup systemFields.damage.fields.reduction value=systemSource.damage.reduction disabled=isPlay}}
     {{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
   </fieldset>
-
-  <fieldset class="conditions">
-    <legend>{{localize "MYTHCRAFT.Conditions.Widget.Label"}}</legend>
-    <condition-input
-      data-conditions="{{json activeConditions}}"
-      data-suggestions="{{json conditionOptions}}"
-    ></condition-input>
-  </fieldset>
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
 </section>
