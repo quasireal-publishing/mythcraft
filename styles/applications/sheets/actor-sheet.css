@@ -1244,9 +1244,11 @@
    rendered content when not being edited; full height returns on click.
    Foundry sizes prose-mirror via `min-height: var(--min-height)`, so zero the
    variable rather than fighting the layered core rule. */
+/* Keep a small minimum height so an empty/condensed field still has a
+   hover/click target (a 0-height box can't be opened for editing). */
 .mythcraft.actor prose-mirror.inactive {
-  --min-height: 0;
-  min-height: 0;
+  --min-height: 1.6rem;
+  min-height: 1.6rem;
 }
 
 /* When inactive, Foundry absolutely-positions .editor-content (it overlays the
@@ -1256,4 +1258,10 @@
   position: static;
   min-height: 0;
   overflow: visible;
+}
+
+/* Show the edit toggle persistently (Foundry reveals it only on hover), so a
+   condensed or empty field always has a visible, clickable edit affordance. */
+.mythcraft.actor prose-mirror.inactive button.toggle:enabled {
+  display: block;
 }
