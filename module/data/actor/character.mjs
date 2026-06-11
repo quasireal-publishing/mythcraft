@@ -96,6 +96,24 @@ export default class CharacterModel extends BaseActorModel {
   /* -------------------------------------------------- */
 
   /**
+   * Characters carry the two meta attributes (LUCK + COR) on top of the six
+   * shared by all actors. NPCs/siege do not use them.
+   * @inheritdoc
+   */
+  static defineAttributes() {
+    const attributes = super.defineAttributes();
+
+    const attributeOptions = () => requiredInteger({ min: -3, max: 12, initial: 0 });
+
+    return Object.assign(attributes, {
+      luck: new fields.NumberField(attributeOptions()),
+      cor: new fields.NumberField(attributeOptions()),
+    });
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * A human readable list of this character's class levels.
    * @type {string}
    */
@@ -156,6 +174,15 @@ export default class CharacterModel extends BaseActorModel {
     const crit = calculateCriticalRanges(this.critical.hit, this.critical.fail, this.attributes.luck);
     this.critical.effectiveHit = crit.effectiveHit;
     this.critical.effectiveFail = crit.effectiveFail;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  modifyRollData(rollData) {
+    super.modifyRollData(rollData);
+    rollData.LUCK = this.attributes.luck;
+    rollData.COR = this.attributes.cor;
   }
 
   /* -------------------------------------------------- */

@@ -110,8 +110,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       awr: new fields.NumberField(attributeOptions()),
       int: new fields.NumberField(attributeOptions()),
       cha: new fields.NumberField(attributeOptions()),
-      luck: new fields.NumberField(attributeOptions()),
-      cor: new fields.NumberField(attributeOptions()),
     };
   }
 
@@ -230,8 +228,6 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     rollData.AWR = this.attributes.awr;
     rollData.INT = this.attributes.int;
     rollData.CHA = this.attributes.cha;
-    rollData.LUCK = this.attributes.luck;
-    rollData.COR = this.attributes.cor;
   }
 
   /* -------------------------------------------------- */
