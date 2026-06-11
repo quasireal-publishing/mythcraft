@@ -110,6 +110,8 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       awr: new fields.NumberField(attributeOptions()),
       int: new fields.NumberField(attributeOptions()),
       cha: new fields.NumberField(attributeOptions()),
+      luck: new fields.NumberField(attributeOptions()),
+      cor: new fields.NumberField(attributeOptions()),
     };
   }
 
@@ -123,7 +125,10 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       const skillInfo = mythcraft.CONFIG.skills.list[key];
       data.value ??= 0;
       data.advancement ??= 0;
-      if (skillInfo) data.bonus = this.attributes[skillInfo.attribute] + data.value + data.advancement;
+      if (skillInfo) {
+        data.calculated = this.attributes[skillInfo.attribute] + data.value + data.advancement;
+        data.bonus = data.calculated;
+      }
     }
 
     for (const [key, formula] of Object.entries(this.defenses)) {
@@ -225,6 +230,8 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
     rollData.AWR = this.attributes.awr;
     rollData.INT = this.attributes.int;
     rollData.CHA = this.attributes.cha;
+    rollData.LUCK = this.attributes.luck;
+    rollData.COR = this.attributes.cor;
   }
 
   /* -------------------------------------------------- */

@@ -47,7 +47,7 @@
       {{!-- Row 2: Level + Size + Height + Weight + Age --}}
       <div class="header-row">
         <div class="header-field field-level">
-          <label>{{localize "MYTHCRAFT.Actor.base.FIELDS.level.label"}}</label>
+          <label>{{#if (eq document.type "npc")}}{{localize "MYTHCRAFT.Actor.npc.MonsterLevel"}}{{else}}{{localize "MYTHCRAFT.Actor.base.FIELDS.level.label"}}{{/if}}</label>
           {{formInput systemFields.level value=(ifThen isPlay system.level systemSource.level) disabled=isPlay}}
         </div>
         <div class="header-field field-size">

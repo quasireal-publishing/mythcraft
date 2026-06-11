@@ -33,6 +33,11 @@
       <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.speed.label"}}</legend>
       {{formGroup systemFields.speed value=system.speed disabled=isPlay classes="slim"}}
     </fieldset>
+
+    <fieldset>
+      <legend>{{localize "MYTHCRAFT.Actor.siege.FIELDS.heft.label"}}</legend>
+      {{formGroup systemFields.heft value=system.heft disabled=isPlay classes="slim"}}
+    </fieldset>
   </div>
 
   {{! Durability }}
@@ -86,6 +91,9 @@
       {{formGroup systemFields.threshold.fields.value value=system.threshold.value disabled=isPlay classes="slim"}}
     </fieldset>
   </div>
+
+  {{! Actions }}
+  {{> "systems/mythcraft/templates/actor/siege-weapon-actions.hbs"}}
 
   {{! Description }}
   <fieldset>

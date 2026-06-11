@@ -193,7 +193,7 @@
       }
     }
   }
-  [data-application-part="stats"] {
+  [data-application-part="stats"], [data-application-part="statblock"] {
     padding-top: 0.5rem;
     .core-stats {
       gap: 0.5rem;
@@ -301,11 +301,7 @@
     }
   }
 
-  [data-application-part="features"] {
-    padding-top: 0.5rem;
-    prose-mirror {
-      min-height: 130px;
-    }
+  [data-application-part="features"], [data-application-part="statblock"] {
     .action .item-row {
       .item-uses {
         padding-left: 2.5rem;
@@ -316,13 +312,10 @@
     }
   }
 
-  /* [data-application-part="spells"] {
-  } */
-
-  /* NPC Features tab — spacing between Passive/Action/Reaction sections */
-  .tab.features .item-list + .item-header,
-  .tab.features .item-list + h4.tier-header,
-  .tab.features [class*="prosemirror"] + .item-header {
+  /* NPC stat block — spacing between item lists and following headers */
+  .npc-stats .item-list + .item-header,
+  .npc-stats .item-list + h4.tier-header,
+  .npc-stats [class*="prosemirror"] + .item-header {
     margin-top: 1rem;
   }
 
@@ -1185,3 +1178,90 @@
   padding-left: var(--_gap);
 }
 
+
+/* ===== Consolidated stat-block: collapsible sections ===== */
+.mythcraft.actor .mc-section {
+  margin-block: 0.25rem;
+}
+
+.mythcraft.actor .mc-section > legend.mc-section-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mythcraft.actor .mc-section > legend.mc-section-toggle i {
+  font-size: var(--font-size-11);
+  opacity: 0.7;
+  width: 0.9em;
+  text-align: center;
+}
+
+.mythcraft.actor .mc-section.collapsed {
+  padding-bottom: 0;
+}
+
+/* ===== Compact NPC skills grid ===== */
+.mythcraft.actor .npc-skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 2px 12px;
+}
+
+.mythcraft.actor .npc-skill-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.mythcraft.actor .npc-skill-row .npc-skill-roll {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mythcraft.actor .npc-skill-row .npc-skill-override {
+  flex: 0 0 3.5em;
+  width: 3.5em;
+  text-align: center;
+}
+
+.mythcraft.actor .npc-skill-row .npc-skill-bonus {
+  flex: 0 0 3.5em;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ===== Siege Actions block (reuses .attack-card styles) ===== */
+.mythcraft.actor .siege-actions .item-header {
+  font-size: var(--font-size-14);
+}
+
+/* Toggled HTML editors (e.g. the action-economy text) condense to their
+   rendered content when not being edited; full height returns on click.
+   Foundry sizes prose-mirror via `min-height: var(--min-height)`, so zero the
+   variable rather than fighting the layered core rule. */
+/* Keep a small minimum height so an empty/condensed field still has a
+   hover/click target (a 0-height box can't be opened for editing). */
+.mythcraft.actor prose-mirror.inactive {
+  --min-height: 1.6rem;
+  min-height: 1.6rem;
+}
+
+/* When inactive, Foundry absolutely-positions .editor-content (it overlays the
+   editor surface), which leaves the rendered preamble out of flow and the
+   prose-mirror at its min-height. Put it back in flow so the box hugs the text. */
+.mythcraft.actor prose-mirror.inactive .editor-content {
+  position: static;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Show the edit toggle persistently (Foundry reveals it only on hover), so a
+   condensed or empty field always has a visible, clickable edit affordance. */
+.mythcraft.actor prose-mirror.inactive button.toggle:enabled {
+  display: block;
+}

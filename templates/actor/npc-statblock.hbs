@@ -1,0 +1,11 @@
+{{! Single consolidated stat-block part — one scroll container holding stats,
+features/actions/reactions, and spells as stacked collapsible sections. }}
+<section class="tab {{tab.cssClass}} standard-form npc-stats" data-group="primary" data-tab="statblock">
+  {{> "systems/mythcraft/templates/actor/npc-stats.hbs"}}
+  {{> "systems/mythcraft/templates/actor/features.hbs"}}
+
+  {{! ===== Spells ===== }}
+  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="spells" label=(localize "MYTHCRAFT.SHEET.Tabs.spells") collapsed=@root.collapsed.spells}}
+  {{> "systems/mythcraft/templates/actor/partials/spells-body.hbs"}}
+  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
+</section>
