@@ -61,26 +61,14 @@ export default class NPCSheet extends MythCraftActorSheet {
     tabs: {
       template: "templates/generic/tab-navigation.hbs",
     },
-    stats: {
-      template: systemPath("templates/actor/npc-stats.hbs"),
+    statblock: {
+      template: systemPath("templates/actor/npc-statblock.hbs"),
       templates: [
-        systemPath("templates/actor/partials/collapsible-section.hbs"),
-      ],
-      scrollable: [""],
-    },
-    features: {
-      template: systemPath("templates/actor/features.hbs"),
-      templates: [
+        systemPath("templates/actor/npc-stats.hbs"),
+        systemPath("templates/actor/features.hbs"),
         systemPath("templates/actor/partials/collapsible-section.hbs"),
         systemPath("templates/actor/partials/attack-card-list.hbs"),
         systemPath("templates/actor/partials/attack-card.hbs"),
-      ],
-      scrollable: [""],
-    },
-    spells: {
-      template: systemPath("templates/actor/spells.hbs"),
-      templates: [
-        systemPath("templates/actor/partials/collapsible-section.hbs"),
         systemPath("templates/actor/partials/spells-body.hbs"),
       ],
       scrollable: [""],
@@ -99,13 +87,9 @@ export default class NPCSheet extends MythCraftActorSheet {
 
   /** @inheritdoc */
   _restrictLimited(record) {
-    // The consolidated stat block (stats + features + spells) is hidden from
-    // limited viewers; only biography remains. Remove the shared tab and the
-    // three parts that render into it.
+    // The consolidated stat block is hidden from limited viewers; only
+    // biography remains.
     delete record.statblock;
-    delete record.stats;
-    delete record.features;
-    delete record.spells;
     delete record.effects;
   }
 
@@ -115,24 +99,14 @@ export default class NPCSheet extends MythCraftActorSheet {
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
 
-    // The stats, features, and spells parts all render into the single
-    // "statblock" tab as stacked collapsible sections.
-    switch (partId) {
-      case "stats":
-        context.tab = context.tabs.statblock;
-        context.collapsed = this.collapsedContext;
-        break;
-      case "features":
-        await this._prepareFeaturesTab(context, options);
-        context.tab = context.tabs.statblock;
-        context.collapsed = this.collapsedContext;
-        break;
-      case "spells":
-        await this._prepareSpellsTab(context, options);
-        context.tab = context.tabs.statblock;
-        context.collapsed = this.collapsedContext;
-        context.statblockTab = true;
-        break;
+    // Stats, features, and spells all render into the single "statblock" part
+    // (one scroll container) as stacked collapsible sections.
+    if (partId === "statblock") {
+      await this._prepareStatsTab(context, options);
+      await this._prepareFeaturesTab(context, options);
+      await this._prepareSpellsTab(context, options);
+      context.tab = context.tabs.statblock;
+      context.collapsed = this.collapsedContext;
     }
 
     return context;

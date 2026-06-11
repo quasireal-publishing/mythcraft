@@ -1,89 +1,87 @@
-{{! Features / Actions / Reactions — stacked sections of the consolidated stat block }}
-<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="statblock">
-
-  {{! ===== Features (category = passive) ===== }}
-  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="features" label=(localize "MYTHCRAFT.SHEET.Features") collapsed=@root.collapsed.features}}
-  <div class="item-header flexrow">
-    <div class="item-name">{{localize "MYTHCRAFT.SHEET.Features"}}</div>
-    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
-    <div class="item-controls flexrow">
-      {{#unless @root.isPlay}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="feature"
-        data-system.category="passive"
-      >
-        <i class="fa-solid fa-plus"></i>
-        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
-      </button>
-      {{/unless}}
-    </div>
+{{! Features / Actions / Reactions — body fragment included by npc-statblock.hbs. }}
+{{! ===== Features (category = passive) ===== }}
+{{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="features" label=(localize "MYTHCRAFT.SHEET.Features") collapsed=@root.collapsed.features}}
+<div class="item-header flexrow">
+  <div class="item-name">{{localize "MYTHCRAFT.SHEET.Features"}}</div>
+  <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+  <div class="item-controls flexrow">
+    {{#unless @root.isPlay}}
+    <button
+      type="button"
+      class="item-create"
+      data-action="createDoc"
+      data-document-class="Item"
+      data-type="feature"
+      data-system.category="passive"
+    >
+      <i class="fa-solid fa-plus"></i>
+      {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+    </button>
+    {{/unless}}
   </div>
-  {{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=passives cssClass="passive" rollAction="rollFeature"}}
-  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
+</div>
+{{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=passives cssClass="passive" rollAction="rollFeature"}}
+{{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
-  {{! ===== Actions (category = action, tiered) ===== }}
-  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="actions" label=(localize "MYTHCRAFT.SHEET.Actions") collapsed=@root.collapsed.actions}}
-  {{#if @root.isPlay}}
-  {{{@root.enrichedActions}}}
-  {{else}}
-  {{formInput
-  @root.systemFields.actions
-  enriched=@root.enrichedActions
-  value=@root.system.actions
-  }}
-  {{/if}}
-  <div class="item-header flexrow">
-    <div class="item-name">{{localize "MYTHCRAFT.Item.feature.category.action"}}</div>
-    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
-    <div class="item-tier">{{localize "MYTHCRAFT.Item.feature.FIELDS.tier.label"}}</div>
-    <div class="item-controls flexrow">
-      {{#unless @root.isPlay}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="feature"
-        data-system.category="action"
-      >
-        <i class="fa-solid fa-plus"></i>
-        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
-      </button>
-      {{/unless}}
-    </div>
+{{! ===== Actions (category = action, tiered) ===== }}
+{{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="actions" label=(localize "MYTHCRAFT.SHEET.Actions") collapsed=@root.collapsed.actions}}
+{{#if @root.isPlay}}
+{{{@root.enrichedActions}}}
+{{else}}
+{{! toggled: render as enriched display when saved; reveal the editor only on click. }}
+{{formInput
+@root.systemFields.actions
+enriched=@root.enrichedActions
+value=@root.system.actions
+toggled="true"
+}}
+{{/if}}
+<div class="item-header flexrow">
+  <div class="item-name">{{localize "MYTHCRAFT.Item.feature.category.action"}}</div>
+  <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+  <div class="item-tier">{{localize "MYTHCRAFT.Item.feature.FIELDS.tier.label"}}</div>
+  <div class="item-controls flexrow">
+    {{#unless @root.isPlay}}
+    <button
+      type="button"
+      class="item-create"
+      data-action="createDoc"
+      data-document-class="Item"
+      data-type="feature"
+      data-system.category="action"
+    >
+      <i class="fa-solid fa-plus"></i>
+      {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+    </button>
+    {{/unless}}
   </div>
-  {{#each tieredActions}}
-  <h4 class="tier-header">Tier {{@key}}</h4>
-  {{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=this cssClass="action" rollAction="rollFeature"}}
-  {{/each}}
-  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
+</div>
+{{#each tieredActions}}
+<h4 class="tier-header">Tier {{@key}}</h4>
+{{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=this cssClass="action" rollAction="rollFeature"}}
+{{/each}}
+{{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
-  {{! ===== Reactions (category = reaction) ===== }}
-  {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="reactions" label=(localize "MYTHCRAFT.SHEET.Reactions") collapsed=@root.collapsed.reactions}}
-  <div class="item-header flexrow">
-    <div class="item-name">{{localize "MYTHCRAFT.SHEET.Reactions"}}</div>
-    <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
-    <div class="item-controls flexrow">
-      {{#unless @root.isPlay}}
-      <button
-        type="button"
-        class="item-create"
-        data-action="createDoc"
-        data-document-class="Item"
-        data-type="feature"
-        data-system.category="reaction"
-      >
-        <i class="fa-solid fa-plus"></i>
-        {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
-      </button>
-      {{/unless}}
-    </div>
+{{! ===== Reactions (category = reaction) ===== }}
+{{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="reactions" label=(localize "MYTHCRAFT.SHEET.Reactions") collapsed=@root.collapsed.reactions}}
+<div class="item-header flexrow">
+  <div class="item-name">{{localize "MYTHCRAFT.SHEET.Reactions"}}</div>
+  <div class="item-uses">{{localize "MYTHCRAFT.Item.feature.FIELDS.uses.label"}}</div>
+  <div class="item-controls flexrow">
+    {{#unless @root.isPlay}}
+    <button
+      type="button"
+      class="item-create"
+      data-action="createDoc"
+      data-document-class="Item"
+      data-type="feature"
+      data-system.category="reaction"
+    >
+      <i class="fa-solid fa-plus"></i>
+      {{localize "DOCUMENT.Create" type=(localize "TYPES.Item.feature")}}
+    </button>
+    {{/unless}}
   </div>
-  {{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=reactions cssClass="reaction" rollAction="rollFeature"}}
-  {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
-
-</section>
+</div>
+{{> "systems/mythcraft/templates/actor/partials/attack-card-list.hbs" items=reactions cssClass="reaction" rollAction="rollFeature"}}
+{{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
