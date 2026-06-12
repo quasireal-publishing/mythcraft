@@ -26,13 +26,13 @@ of 0 (legitimate attack bonus) still renders the pill.
       </button>
       {{/if}}
     </div>
-    {{#if (or hasAtk hasDc item.system.damage)}}
+    {{#if (or hasAtk hasDc item.system.damage.length)}}
     <div class="card-row card-row--bottom">
       <div class="card-meta">
         {{#if (eq item.type "weapon")}}
         <span class="card-attr">{{item.system.attr}}</span>
         {{/if}}
-        {{#if item.system.defenseTarget}}
+        {{#if hasAtk}}
         <span class="vs-label">vs</span>
         <span class="card-defense"> {{item.system.defenseTarget}}</span>
         {{/if}}
@@ -40,7 +40,7 @@ of 0 (legitimate attack bonus) still renders the pill.
         <span class="card-apc">{{item.system.apc}} AP</span>
         {{/if}}
       </div>
-      {{#if item.system.damage}}
+      {{#if item.system.damage.length}}
       <button type="button" class="card-damage-btn" data-action="rollDamage" title="Roll Damage">
         {{#each item.system.damage}}
         {{#if formula}}
