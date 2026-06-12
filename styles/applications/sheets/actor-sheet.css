@@ -458,6 +458,11 @@
 /* Background — parchment texture over cream base */
 .mythcraft.sheet .window-content {
   color: var(--mc-dark);
+  /* Foundry colours headings/emphatic text with --color-text-emphatic, which
+     stays light in dark mode and is unreadable on the light parchment. Force it
+     dark here (scoped to content, so the window-title on the dark frame keeps
+     its light emphatic colour). */
+  --color-text-emphatic: var(--mc-dark);
   background: var(--mc-secondary) url("../../../assets/MythCraft-PaperTexture.jpg") center / cover no-repeat;
   background-blend-mode: multiply;
 }
@@ -1201,6 +1206,18 @@
 
 .mythcraft.actor .mc-section.collapsed {
   padding-bottom: 0;
+}
+
+/* ===== NPC attributes: all six on one row (no group labels) ===== */
+.mythcraft.sheet.actor [data-application-part="statblock"] .attributes .attribute-group {
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+}
+
+.mythcraft.sheet.actor [data-application-part="statblock"] .attributes .attribute-circle {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 4px 2px;
 }
 
 /* ===== Compact NPC skills grid ===== */

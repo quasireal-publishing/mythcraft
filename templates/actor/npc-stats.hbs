@@ -46,9 +46,9 @@
 {{! ===== Attributes & Defenses ===== }}
 {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="attributes" label=(localize "MYTHCRAFT.SHEET.AttributesSection") collapsed=@root.collapsed.attributes}}
 <div class="attributes">
-  {{#each attributeInfo as |group|}}
+  {{! All attributes on a single row — no physical/mental group labels. }}
   <div class="attribute-group flexrow">
-    <span class="attribute-group-label">{{localize group.label}}</span>
+    {{#each attributeInfo as |group|}}
     {{#each group.list}}
     <fieldset class="attribute attribute-circle" data-attribute="{{field.name}}">
       <legend {{#if check}}data-action="rollAttribute"{{/if}}>
@@ -66,8 +66,8 @@
       {{/if}}
     </fieldset>
     {{/each}}
+    {{/each}}
   </div>
-  {{/each}}
 </div>
 {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
 
@@ -109,6 +109,8 @@
 
 {{! ===== Traits & Damage Modifications ===== }}
 {{#> "systems/mythcraft/templates/actor/partials/collapsible-section.hbs" sectionId="damageMods" label=(localize "MYTHCRAFT.SHEET.DamageModifications") collapsed=@root.collapsed.damageMods}}
+{{! In play mode, only rows with data render (declutters simple stat blocks). }}
+{{#if (or (not isPlay) system.traits.size)}}
 <div class="form-group">
   <label>{{systemFields.traits.label}}</label>
   <div class="form-fields">
@@ -123,9 +125,11 @@
     {{/if}}
   </div>
 </div>
+{{/if}}
 
 <fieldset class="damage-modification">
   <legend>{{systemFields.damage.label}}</legend>
+  {{#if (or (not isPlay) system.damage.affinity.size)}}
   <div class="form-group">
     <label>{{systemFields.damage.fields.affinity.label}}</label>
     <div class="form-fields">
@@ -140,7 +144,11 @@
       {{/if}}
     </div>
   </div>
+  {{/if}}
+  {{#if (or (not isPlay) system.damage.resist)}}
   {{formGroup systemFields.damage.fields.resist value=systemSource.damage.resist disabled=isPlay}}
+  {{/if}}
+  {{#if (or (not isPlay) system.damage.immune.size)}}
   <div class="form-group">
     <label>{{systemFields.damage.fields.immune.label}}</label>
     <div class="form-fields">
@@ -155,8 +163,15 @@
       {{/if}}
     </div>
   </div>
+  {{/if}}
+  {{#if (or (not isPlay) system.damage.vulnerable)}}
   {{formGroup systemFields.damage.fields.vulnerable value=systemSource.damage.vulnerable disabled=isPlay}}
+  {{/if}}
+  {{#if (or (not isPlay) system.damage.reduction)}}
   {{formGroup systemFields.damage.fields.reduction value=systemSource.damage.reduction disabled=isPlay}}
+  {{/if}}
+  {{#if (or (not isPlay) system.damage.threshold)}}
   {{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
+  {{/if}}
 </fieldset>
 {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}
