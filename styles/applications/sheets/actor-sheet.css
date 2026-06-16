@@ -1208,6 +1208,18 @@
   padding-bottom: 0;
 }
 
+/* Damage Modifications: stack the trait/affinity/resist/... rows with the
+   sheet's standard row gap, and tighten the label column so the value sits
+   near its label instead of spanning a third of the row. */
+.mythcraft.actor [data-section="damageMods"] .mc-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mythcraft.actor [data-section="damageMods"] .form-group > label {
+  flex: 0 0 5rem;
+}
+
 /* ===== NPC attributes: all six on one row (no group labels) ===== */
 .mythcraft.sheet.actor [data-application-part="statblock"] .attributes .attribute-group {
   flex-wrap: nowrap;
@@ -1281,4 +1293,71 @@
    condensed or empty field always has a visible, clickable edit affordance. */
 .mythcraft.actor prose-mirror.inactive button.toggle:enabled {
   display: block;
+}
+
+/* Spell Points "current / max" — one enclosing box (mirrors the sheet input
+   chrome) with both fields and the "/" separator inside it, so the pair reads
+   as a single control rather than two adjacent inputs. */
+.sp-pair {
+  display: inline-grid;
+  grid-template-columns: repeat(3, auto);
+  align-items: center;
+  flex: 0 0 auto;
+  background-color: rgba(254, 235, 179, 0.25);
+  border: 1px solid rgba(44, 37, 34, 0.25);
+  border-radius: 2px;
+}
+.sp-pair .sp-sep { opacity: 0.7; }
+.sp-pair:focus-within {
+  background-color: rgba(254, 235, 179, 0.4);
+  border-color: rgba(44, 37, 34, 0.5);
+  box-shadow: 0 0 3px rgba(41, 135, 140, 0.3);
+}
+/* Inner fields shed their own chrome so the wrapper is the only visible box.
+   .mythcraft.sheet .sp-pair input (0,3,1) outranks the base .mythcraft.sheet
+   input rule (0,2,1), so no !important is needed. */
+.mythcraft.sheet .sp-pair input {
+  width: 3.5em;
+  text-align: center;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+}
+.mythcraft.sheet .sp-pair input:focus {
+  box-shadow: none;
+}
+
+/* ----- Dark-mode-on-parchment pass -----
+   The MythCraft sheet is always parchment-themed regardless of Foundry's client
+   color scheme. Under theme-dark, core sets the --table-* and --checkbox-* design
+   tokens to dark/indigo values; they inherit into our parchment sheet and make
+   enriched-text tables and form checkboxes look dark/wrong. Re-assert parchment-
+   friendly tokens scoped to .mythcraft.sheet so the fix is independent of the
+   client theme. Scoped to .sheet (not bare .mythcraft) so chat-embedded rich text,
+   which sits on its own dark background, is left alone. */
+.mythcraft.sheet {
+  --table-background-color: transparent;
+  --table-row-color-odd: transparent;
+  --table-row-color-even: rgba(44, 37, 34, 0.06);
+  --table-header-bg-color: rgba(44, 37, 34, 0.1);
+  --table-header-text-color: var(--mc-dark, rgb(44, 37, 34));
+  --table-header-border-color: rgba(44, 37, 34, 0.35);
+}
+
+/* Enriched/ProseMirror tables: dark text + subtle borders on parchment. */
+.mythcraft.sheet table {
+  color: var(--mc-dark, rgb(44, 37, 34));
+}
+.mythcraft.sheet table :is(td, th) {
+  border-color: rgba(44, 37, 34, 0.35);
+}
+
+/* Checkboxes: core sets --checkbox-* directly on the input under theme-dark
+   (an indigo fill), so the tokens must be re-asserted on the element itself —
+   setting them on an ancestor is shadowed by the element-level declaration.
+   Recolor to a faint-teal box (checked = solid teal) so checkboxes read on
+   parchment regardless of the client theme. */
+.mythcraft.sheet input[type="checkbox"] {
+  --checkbox-background-color: rgba(23, 67, 69, 0.22);
+  --checkbox-checked-color: var(--mc-primary, rgb(23, 67, 69));
 }

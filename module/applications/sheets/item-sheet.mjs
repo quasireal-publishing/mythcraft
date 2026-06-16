@@ -64,7 +64,10 @@ export default class MythCraftItemSheet extends MCDocumentSheetMixin(ItemSheet) 
     },
     details: {
       template: systemPath("templates/item/details.hbs"),
-      templates: ["armor", "background", "feature", "gear", "lineage", "profession", "spell", "talent", "weapon"].map(type => systemPath(`templates/item/partials/${type}.hbs`)),
+      templates: [
+        ...["armor", "background", "feature", "gear", "lineage", "profession", "spell", "talent", "weapon"].map(type => systemPath(`templates/item/partials/${type}.hbs`)),
+        systemPath("templates/actor/partials/tag-display.hbs"),
+      ],
       scrollable: [""],
     },
     advancements: {

@@ -181,3 +181,13 @@
     }
   }
 }
+
+/* Special Cost checkbox: keep it a small square aligned on the SPC row
+   (the flex row was stretching it taller than wide). Theme color/border come
+   from the .mythcraft.sheet checkbox pass in actor-sheet.css. */
+.mythcraft.item input[name="system.spcSpecial"] {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  align-self: center;
+}

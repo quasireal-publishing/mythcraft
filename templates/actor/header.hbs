@@ -84,7 +84,7 @@
       {{#if (eq document.type "npc")}}
       <div class="header-row">
         {{#if isPlay}}
-        <div>{{tagList}}</div>
+        <div>{{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags systemSource.tags tagOptions)}}</div>
         {{else}}
         <tag-input name="system.tags" data-suggestions="{{json tagOptions}}">
           {{#each systemSource.tags}}
@@ -132,6 +132,14 @@
       </div>
       {{/if}}
       {{else if (eq document.type "npc")}}
+      {{#if system.initiative}}
+      <button type="button" class="initiative-btn" data-action="rollInitiative"
+        data-tooltip="{{localize 'MYTHCRAFT.Actor.character.FIELDS.initiative.label'}}">
+        {{localize "MYTHCRAFT.Actor.character.FIELDS.initiative.label"}}
+        <i class="fa-solid fa-dice-d20"></i>
+        {{numberFormat system.initiative.total sign=true}}
+      </button>
+      {{/if}}
       <div class="actor-source">
         {{document.system.source.label}}
       </div>

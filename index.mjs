@@ -62,6 +62,17 @@ Hooks.once("init", () => {
   Handlebars.registerHelper("json", (value) => JSON.stringify(value));
   Handlebars.registerHelper("join", (arr, sep) => Array.from(arr ?? []).join(sep));
 
+  // Resolve an array/Set of stored keys to localized {value, label} pairs using
+  // the same {value, label} options array that feeds the matching <tag-input>'s
+  // data-suggestions. Falls back to the raw value for custom/free-text entries.
+  Handlebars.registerHelper("resolveTags", (values, options) => {
+    const opts = Array.isArray(options) ? options : [];
+    return Array.from(values ?? []).map((value) => {
+      const match = opts.find((o) => o.value === value);
+      return { value, label: match ? game.i18n.localize(match.label) : value };
+    });
+  });
+
   // Register system settings
   utils.SystemSettingsHandler.registerSettings();
 
@@ -73,6 +84,15 @@ Hooks.once("init", () => {
     type: Number,
     default: 0,
   });
+
+  // Globally register shared partials that are rendered outside a sheet's PARTS
+  // (e.g. item embeds via renderTemplate, and the header part which has no
+  // templates[] of its own). Sheet parts also list this in their templates[],
+  // but loadTemplates is idempotent. Kept last in init so any API mismatch here
+  // can't abort the document/sheet/settings registration above.
+  foundry.applications.handlebars.loadTemplates([
+    "systems/mythcraft/templates/actor/partials/tag-display.hbs",
+  ]);
 });
 
 Hooks.once("i18nInit", () => {

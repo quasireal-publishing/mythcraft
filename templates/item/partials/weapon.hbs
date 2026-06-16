@@ -2,7 +2,7 @@
   <label>{{systemFields.tags.label}}</label>
   <div class="form-fields">
     {{#if isPlay}}
-    <span class="tags-display">{{join system.tags ", "}}</span>
+    {{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.tags config.weapon.tagOptions)}}
     {{else}}
     <tag-input name="system.tags" data-suggestions="{{json config.weapon.tagOptions}}">
       {{#each system.tags}}

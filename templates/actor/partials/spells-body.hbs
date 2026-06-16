@@ -2,8 +2,9 @@
 <div class="form-group">
   <div class="form-group slim">
     <label>{{systemFields.sp.label}}</label>
-    <div class="form-fields">
+    <div class="sp-pair">
       {{formInput systemFields.sp.fields.value value=system.sp.value disabled=(not editable)}}
+      <span class="sp-sep">/</span>
       {{formInput systemFields.sp.fields.max value=system.sp.max disabled=isPlay}}
     </div>
   </div>

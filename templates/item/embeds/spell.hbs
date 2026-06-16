@@ -1,4 +1,4 @@
-<p><em>{{system.tagList}}</em></p>
+<p>{{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.tags system.tagOptions)}}</p>
 <dl>
   {{#unless config.actorSheet}}
   <dt>{{systemFields.apc.label}}</dt>
@@ -14,7 +14,7 @@
   <dt>{{systemFields.range.label}}</dt>
   <dd>{{system.rangeLabel}}</dd>
   <dt>{{systemFields.requirements.label}}</dt>
-  <dd>{{system.requirementsList}}</dd>
+  <dd>{{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.requirements system.requirementOptions)}}</dd>
   <dt>{{systemFields.duration.label}}</dt>
   <dd>{{system.durationLabel}}</dd>
   {{#if system.castingTime}}

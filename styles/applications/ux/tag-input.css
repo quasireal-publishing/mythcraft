@@ -108,3 +108,11 @@ tag-input {
   background: var(--mc-teal, rgb(41, 135, 140));
   color: white;
 }
+
+/* Read-only chip display (play mode + embeds). Reuses .tag-chip. */
+.tag-display {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+}
