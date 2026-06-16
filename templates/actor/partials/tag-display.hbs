@@ -1,0 +1,6 @@
+{{! Read-only tag chips. Mirrors the tag-input chip look (.tag-chip) without the remove control. Params: tags = array of {value, label} (use the resolveTags helper). }}
+<span class="tag-display">
+  {{#each tags}}
+  <span class="tag-chip" data-value="{{value}}">{{label}}</span>
+  {{/each}}
+</span>

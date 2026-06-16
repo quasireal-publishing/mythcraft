@@ -70,6 +70,7 @@ export default class NPCSheet extends MythCraftActorSheet {
         systemPath("templates/actor/partials/attack-card-list.hbs"),
         systemPath("templates/actor/partials/attack-card.hbs"),
         systemPath("templates/actor/partials/spells-body.hbs"),
+        systemPath("templates/actor/partials/tag-display.hbs"),
       ],
       scrollable: [""],
     },

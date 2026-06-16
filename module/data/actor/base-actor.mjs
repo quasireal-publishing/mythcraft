@@ -2,6 +2,7 @@ import FormulaField from "../fields/formula-field.mjs";
 import { requiredInteger, setOptions } from "../fields/helpers.mjs";
 import AttributeRollDialog from "../../applications/apps/attribute-roll.mjs";
 import AttributeRoll from "../../rolls/attribute-roll.mjs";
+import { calculateInitiative } from "../../utils/character-math.mjs";
 
 /**
  * @import ChatMessage from "@client/documents/chat-message.mjs";
@@ -42,6 +43,10 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
         value: new fields.NumberField({ integer: true, min: 0 }),
         max: new fields.NumberField({ integer: true, min: 0 }),
         attribute: new fields.StringField({ required: true, blank: false, initial: "int" }),
+      }),
+      initiative: new fields.SchemaField({
+        bonus: new fields.NumberField({ integer: true, initial: 0 }),
+        override: new fields.NumberField({ nullable: true, initial: null }),
       }),
       attributes: new fields.SchemaField(this.defineAttributes()),
       defenses: new fields.SchemaField({
@@ -133,6 +138,8 @@ export default class BaseActorModel extends foundry.abstract.TypeDataModel {
       const base = mythcraft.utils.evaluateFormula(formula, this.parent.getRollData(), { contextName: `${key} in ${this.parent.uuid}` });
       this.defenses[key] = base + (this.bonuses[key] ?? 0);
     }
+
+    this.initiative.total = calculateInitiative(this.attributes.awr, this.initiative.bonus, this.initiative.override);
   }
 
   /* -------------------------------------------------- */

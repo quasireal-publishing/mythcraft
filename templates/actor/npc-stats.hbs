@@ -115,7 +115,7 @@
   <label>{{systemFields.traits.label}}</label>
   <div class="form-fields">
     {{#if isPlay}}
-    <span class="tags-display">{{join system.traits ", "}}</span>
+    {{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.traits traitOptions)}}
     {{else}}
     <tag-input name="system.traits" data-suggestions="{{json traitOptions}}">
       {{#each systemSource.traits}}
@@ -127,51 +127,48 @@
 </div>
 {{/if}}
 
-<fieldset class="damage-modification">
-  <legend>{{systemFields.damage.label}}</legend>
-  {{#if (or (not isPlay) system.damage.affinity.size)}}
-  <div class="form-group">
-    <label>{{systemFields.damage.fields.affinity.label}}</label>
-    <div class="form-fields">
-      {{#if isPlay}}
-      <span class="tags-display">{{join system.damage.affinity ", "}}</span>
-      {{else}}
-      <tag-input name="system.damage.affinity" data-suggestions="{{json damageTypeOptions}}">
-        {{#each systemSource.damage.affinity}}
-        <input type="hidden" name="system.damage.affinity" value="{{this}}">
-        {{/each}}
-      </tag-input>
-      {{/if}}
-    </div>
+{{#if (or (not isPlay) system.damage.affinity.size)}}
+<div class="form-group">
+  <label>{{systemFields.damage.fields.affinity.label}}</label>
+  <div class="form-fields">
+    {{#if isPlay}}
+    {{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.damage.affinity damageTypeOptions)}}
+    {{else}}
+    <tag-input name="system.damage.affinity" data-suggestions="{{json damageTypeOptions}}">
+      {{#each systemSource.damage.affinity}}
+      <input type="hidden" name="system.damage.affinity" value="{{this}}">
+      {{/each}}
+    </tag-input>
+    {{/if}}
   </div>
-  {{/if}}
-  {{#if (or (not isPlay) system.damage.resist)}}
-  {{formGroup systemFields.damage.fields.resist value=systemSource.damage.resist disabled=isPlay}}
-  {{/if}}
-  {{#if (or (not isPlay) system.damage.immune.size)}}
-  <div class="form-group">
-    <label>{{systemFields.damage.fields.immune.label}}</label>
-    <div class="form-fields">
-      {{#if isPlay}}
-      <span class="tags-display">{{join system.damage.immune ", "}}</span>
-      {{else}}
-      <tag-input name="system.damage.immune" data-suggestions="{{json damageTypeOptions}}">
-        {{#each systemSource.damage.immune}}
-        <input type="hidden" name="system.damage.immune" value="{{this}}">
-        {{/each}}
-      </tag-input>
-      {{/if}}
-    </div>
+</div>
+{{/if}}
+{{#if (or (not isPlay) system.damage.resist)}}
+{{formGroup systemFields.damage.fields.resist value=systemSource.damage.resist disabled=isPlay}}
+{{/if}}
+{{#if (or (not isPlay) system.damage.immune.size)}}
+<div class="form-group">
+  <label>{{systemFields.damage.fields.immune.label}}</label>
+  <div class="form-fields">
+    {{#if isPlay}}
+    {{> "systems/mythcraft/templates/actor/partials/tag-display.hbs" tags=(resolveTags system.damage.immune damageTypeOptions)}}
+    {{else}}
+    <tag-input name="system.damage.immune" data-suggestions="{{json damageTypeOptions}}">
+      {{#each systemSource.damage.immune}}
+      <input type="hidden" name="system.damage.immune" value="{{this}}">
+      {{/each}}
+    </tag-input>
+    {{/if}}
   </div>
-  {{/if}}
-  {{#if (or (not isPlay) system.damage.vulnerable)}}
-  {{formGroup systemFields.damage.fields.vulnerable value=systemSource.damage.vulnerable disabled=isPlay}}
-  {{/if}}
-  {{#if (or (not isPlay) system.damage.reduction)}}
-  {{formGroup systemFields.damage.fields.reduction value=systemSource.damage.reduction disabled=isPlay}}
-  {{/if}}
-  {{#if (or (not isPlay) system.damage.threshold)}}
-  {{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
-  {{/if}}
-</fieldset>
+</div>
+{{/if}}
+{{#if (or (not isPlay) system.damage.vulnerable)}}
+{{formGroup systemFields.damage.fields.vulnerable value=systemSource.damage.vulnerable disabled=isPlay}}
+{{/if}}
+{{#if (or (not isPlay) system.damage.reduction)}}
+{{formGroup systemFields.damage.fields.reduction value=systemSource.damage.reduction disabled=isPlay}}
+{{/if}}
+{{#if (or (not isPlay) system.damage.threshold)}}
+{{formGroup systemFields.damage.fields.threshold value=systemSource.damage.threshold disabled=isPlay}}
+{{/if}}
 {{/"systems/mythcraft/templates/actor/partials/collapsible-section.hbs"}}

@@ -2,7 +2,7 @@ import { requiredInteger } from "../fields/helpers.mjs";
 import AdvancementModel from "../item/advancement.mjs";
 import BaseActorModel from "./base-actor.mjs";
 import { systemId } from "../../constants.mjs";
-import { calculateHpMax, calculateApMax, calculateInitiative, calculateCriticalRanges } from "../../utils/character-math.mjs";
+import { calculateHpMax, calculateApMax, calculateCriticalRanges } from "../../utils/character-math.mjs";
 
 /**
  * @import {MythCraftActor, MythCraftItem} from "../../documents/_module.mjs";
@@ -55,11 +55,6 @@ export default class CharacterModel extends BaseActorModel {
     });
 
     schema.hpOverride = new fields.NumberField({ nullable: true, initial: null });
-
-    schema.initiative = new fields.SchemaField({
-      bonus: new fields.NumberField({ integer: true, initial: 0 }),
-      override: new fields.NumberField({ nullable: true, initial: null }),
-    });
 
     schema.critical = new fields.SchemaField({
       hit: new fields.NumberField({ integer: true, initial: 20, min: 1, max: 20 }),
@@ -165,10 +160,6 @@ export default class CharacterModel extends BaseActorModel {
 
     // AP per round from Corruption
     this.ap.max = calculateApMax(this.attributes.cor, this.ap.override);
-
-    // Initiative
-    const init = calculateInitiative(this.attributes.awr, this.initiative.bonus, this.initiative.override);
-    this.initiative.total = init;
 
     // Critical ranges modified by luck
     const crit = calculateCriticalRanges(this.critical.hit, this.critical.fail, this.attributes.luck);

@@ -1271,6 +1271,11 @@
         "PromptTitle": "Enter {condition} value"
       }
     },
+    "Initiative": {
+      "NoEncounter": "No active encounter — initiative roll posted to chat.",
+      "NotInEncounter": "This actor isn't in the active encounter — roll posted to chat.",
+      "SelectToken": "Multiple combatants for this actor — select a token to choose which one to set."
+    },
     "Defenses": {
       "ar": {
         "label": "Armor Rating",

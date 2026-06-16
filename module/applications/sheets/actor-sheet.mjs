@@ -3,6 +3,7 @@ import { systemId, systemPath } from "../../constants.mjs";
 import MythCraftItemSheet from "./item-sheet.mjs";
 import AttributeSkillInput from "../apps/attribute-skill-input.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
+import InitiativeRollDialog from "../apps/initiative-roll-dialog.mjs";
 
 /** @import { ApplicationRenderOptions } from "@client/applications/_types.mjs" */
 
@@ -25,6 +26,7 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
       editAttribute: this.#editAttribute,
       rollAttribute: this.#rollAttribute,
       rollSkill: this.#rollSkill,
+      rollInitiative: this.#rollInitiative,
       addAbsorb: this.#addAbsorb,
       rollMagic: this.#rollMagic,
       rollAttack: this.#rollAttack,
@@ -603,6 +605,59 @@ export default class MythCraftActorSheet extends MCDocumentSheetMixin(ActorSheet
   static async #rollSkill(event, target) {
     const skill = target.dataset.skill;
     this.actor.system.rollSkill(skill);
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
+   * Roll initiative from the header button: open the dialog, post to chat, and
+   * write the result into the active encounter's combatant(s) for this actor.
+   * Shared by PC and NPC sheets.
+   *
+   * @this MythCraftActorSheet
+   * @param {PointerEvent} event   The originating click event.
+   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
+   */
+  static async #rollInitiative(event, target) {
+    const system = this.actor.system;
+    const awr = system.attributes.awr ?? 0;
+    const bonus = system.initiative.bonus ?? 0;
+    const total = system.initiative.total ?? 0;
+
+    const formula = `1d20 + ${awr} + ${bonus}`;
+    const fd = await InitiativeRollDialog.create({
+      context: { awr, bonus, total, formula, rollModes: { ...system.rollModes } },
+    });
+    if (!fd) return;
+
+    const { rollMode, situationalTA = 0, situationalTD = 0 } = fd;
+    const rollData = this.actor.getRollData();
+    rollData.rollModes = { ...rollData.rollModes };
+    rollData.rollModes.ta += situationalTA;
+    rollData.rollModes.td += situationalTD;
+    const roll = new mythcraft.rolls.InitiativeRoll(formula, rollData);
+    await roll.evaluate();
+    await roll.toMessage({ speaker: ChatMessage.getSpeaker({ actor: this.actor }), rollMode });
+
+    // Write the result into the active encounter, if any.
+    const combat = game.combat;
+    if (!combat) {
+      ui.notifications.info(game.i18n.localize("MYTHCRAFT.Initiative.NoEncounter"));
+      return;
+    }
+    const combatants = combat.combatants.filter((c) => c.actorId === this.actor.id);
+    if (!combatants.length) {
+      ui.notifications.info(game.i18n.localize("MYTHCRAFT.Initiative.NotInEncounter"));
+      return;
+    }
+    const controlled = new Set((canvas.tokens?.controlled ?? []).map((t) => t.id));
+    let targets = combatants.filter((c) => controlled.has(c.tokenId));
+    if (!targets.length && (combatants.length === 1)) targets = combatants;
+    if (!targets.length) {
+      ui.notifications.warn(game.i18n.localize("MYTHCRAFT.Initiative.SelectToken"));
+      return;
+    }
+    for (const c of targets) await combat.setInitiative(c.id, roll.total);
   }
 
   /* -------------------------------------------------- */

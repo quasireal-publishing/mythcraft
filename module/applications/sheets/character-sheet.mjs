@@ -2,7 +2,6 @@ import MythCraftActorSheet from "./actor-sheet.mjs";
 import AdvancementModel from "../../data/item/advancement.mjs";
 import { systemPath } from "../../constants.mjs";
 import enrichHTML from "../../utils/enrich-html.mjs";
-import InitiativeRollDialog from "../apps/initiative-roll-dialog.mjs";
 
 /**
  * An actor sheet for character type actors.
@@ -28,7 +27,6 @@ export default class CharacterSheet extends MythCraftActorSheet {
       removeContact: this.#removeContact,
       addResource: this.#addResource,
       removeResource: this.#removeResource,
-      rollInitiative: this.#rollInitiative,
     },
   };
 
@@ -95,37 +93,6 @@ export default class CharacterSheet extends MythCraftActorSheet {
   static async #removeResource(event, target) {
     const entryId = target.dataset.entryId;
     await this.actor.update({ [`system.resources.-=${entryId}`]: null });
-  }
-
-  /**
-   * Open the initiative roll dialog from the header button.
-   *
-   * @this CharacterSheet
-   * @param {PointerEvent} event   The originating click event.
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
-   */
-  static async #rollInitiative(event, target) {
-    const system = this.actor.system;
-    const awr = system.attributes.awr ?? 0;
-    const bonus = system.initiative.bonus ?? 0;
-    const total = system.initiative.total ?? 0;
-
-    const formula = `1d20 + ${awr} + ${bonus}`;
-    const fd = await InitiativeRollDialog.create({
-      context: { awr, bonus, total, formula, rollModes: { ...system.rollModes } },
-    });
-    if (!fd) return;
-
-    const { rollMode, situationalTA = 0, situationalTD = 0 } = fd;
-    const rollData = this.actor.getRollData();
-    rollData.rollModes = { ...rollData.rollModes };
-    rollData.rollModes.ta += situationalTA;
-    rollData.rollModes.td += situationalTD;
-    const roll = new mythcraft.rolls.InitiativeRoll(formula, rollData);
-    await roll.toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      rollMode,
-    });
   }
 
   /** @inheritdoc */
