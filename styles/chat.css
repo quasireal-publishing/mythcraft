@@ -6,6 +6,12 @@
   font-family: var(--mc-font-heading);
 }
 
+/* Foundry's default chat-card h3 color is dark and blends into the
+   dark header background — force the title to match the light header text. */
+.mythcraft.chat-card .card-header h3 {
+  color: var(--mc-secondary);
+}
+
 .mythcraft.chat-card .card-body {
   font-family: var(--mc-font-body);
   padding: 6px 8px;
