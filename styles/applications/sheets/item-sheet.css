@@ -3,6 +3,17 @@
 
   .window-content {
     padding-top: 0;
+
+    /* Item description headings render light because Foundry colours headings
+       with --color-text-emphatic, which stays light in dark mode and is too
+       low-contrast on the parchment background (client feedback). Pin it dark
+       the same way the actor sheet does, and force heading text dark as a
+       belt-and-braces fallback for any heading that sets colour directly. */
+    --color-text-emphatic: var(--mc-dark);
+
+    :is(h1, h2, h3, h4) {
+      color: var(--mc-dark);
+    }
   }
 
   [data-application-part="header"] {
